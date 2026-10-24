@@ -621,8 +621,7 @@ const [accountSummary, setAccountSummary] = useState({});
 
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden  ">  
         <main className="flex-1 overflow-y-auto bg-gray-50 p-3  ">
-          <DashboardAdPlacement location={activeAdLocation} />
-          {activeTab === "AI Chatbot" && <Chatbot />}
+            {activeTab === "AI Chatbot" && <Chatbot />}
           {activeTab === "Dashboard" && (
               <Dashboard setMainTab={setActiveTab} />
           )}
@@ -750,7 +749,7 @@ const fetchDashboard = async () => {
 
     console.log("Dashboard Response", res.data);
 
-    setDashboard(res.data.data);
+    setDashboard(res?.data?.data || {});
   } catch (err) {
     console.log(err);
   }
@@ -853,11 +852,11 @@ useEffect(() => {
         { id: 5, title: 'Avg. Shipment Value (INR)', value:  dashboardMetrics.averageShipmentValue ? `₹${(dashboardMetrics.averageShipmentValue / 100000).toFixed(2)} L` : '₹0.00 L', growth: '', isPositive: true, color: '#F59E0B', bgColor: '#FFFBEB', icon: 'avgVal' },
     ];
   const operationalInsightPills=[
-        { title: 'In Transit', value: dashboard.inTransit || 0, growth: '', color: '#0D9488', bgColor: '#F0FDFA', icon: 'ontime' },
-        { title: 'Delivered', value: dashboard.delivered || 0 , growth: '', color: '#EF4444', bgColor: '#FEF2F2', icon: 'accuracy' },
-        { title: 'Delayed', value: dashboard.delayed || 0, growth: '', color: '#2563EB', bgColor: '#EFF6FF', icon: 'compliance' },
-        { title: 'Exception', value: dashboard.exception || 0, growth: '', color: '#059669', bgColor: '#ECFDF5', icon: 'repeat' },
-        { title: 'Pending', value: dashboard.pending || 0, growth: '', color: '#F43F5E', bgColor: '#FFF1F2', icon: 'satisfaction' },
+        { title: 'In Transit', value: dashboard?.inTransit || 0, growth: '', color: '#0D9488', bgColor: '#F0FDFA', icon: 'ontime' },
+        { title: 'Delivered', value: dashboard?.delivered || 0 , growth: '', color: '#EF4444', bgColor: '#FEF2F2', icon: 'accuracy' },
+        { title: 'Delayed', value: dashboard?.delayed || 0, growth: '', color: '#2563EB', bgColor: '#EFF6FF', icon: 'compliance' },
+        { title: 'Exception', value: dashboard?.exception || 0, growth: '', color: '#059669', bgColor: '#ECFDF5', icon: 'repeat' },
+        { title: 'Pending', value: dashboard?.pending || 0, growth: '', color: '#F43F5E', bgColor: '#FFF1F2', icon: 'satisfaction' },
     ];
     const geoUrl =
   "https://raw.githubusercontent.com/deldersveld/topojson/master/world-countries.json";
@@ -1002,6 +1001,8 @@ const regionMarkers = {
               );
             })}
           </div>
+
+            <DashboardAdPlacement location="B2B Dashboard - Dashboard" />
            
             {/* --- INSIGHT PILLS --- */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-6">

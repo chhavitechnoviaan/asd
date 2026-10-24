@@ -63,6 +63,7 @@ import {
 } from "react-icons/fi";
 import { FaShip, FaAnchor } from "react-icons/fa";
 import PlanSummary from "../../components/userComponent/PlanSummary";
+import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 
 export default function Saved({ onClose, setSavePlan }) {
 
@@ -70,6 +71,7 @@ export default function Saved({ onClose, setSavePlan }) {
     <div>
         
         <PlanSummary  onClose={() => setSavePlan(false)}/>
+        <div className="mt-6"><DashboardAdPlacement location="User Dashboard - Saved" /></div>
     
     </div>
 

@@ -885,7 +885,6 @@ export default function UserDashboard() {
       </aside>
 
       <main className=" w-full overflow-auto ">
-        <DashboardAdPlacement location={activeAdLocation} />
         {activeTab === "AI Chatbot" && <Chatbot />}
         {activeTab === "AI CargoMate Assistant" && <AiCargoMateAssistant />}
 

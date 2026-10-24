@@ -3200,13 +3200,13 @@ export default function CargoMateChat() {
               <Plus size={16} />
               New Chat
             </button>
-            <div className="flex items-center gap-2 px-3 py-2.5 rounded-lg border border-gray-200 text-sm text-gray-500">
+            {/* <div className="flex items-center gap-2 px-3 py-2.5 rounded-lg border border-gray-200 text-sm text-gray-500">
               <Search size={16} />
               <input
                 placeholder="Search chats..."
                 className="bg-transparent outline-none w-full text-gray-700 placeholder-gray-400"
               />
-            </div>
+            </div> */}
           </div>
 
           <nav className="flex-1 overflow-y-auto p-3 space-y-1 light-scrollbar">
@@ -3239,12 +3239,12 @@ export default function CargoMateChat() {
           <div className="mt-auto max-h-[42%] overflow-y-auto light-scrollbar">
             {featuredAds.length > 0 && (
               <section className="border-t border-gray-100 p-3" aria-label="Featured services">
-                <div className="mb-2 flex items-center justify-between gap-2">
+                {/* <div className="mb-2 flex items-center justify-between gap-2">
                   <p className="text-[10px] font-semibold text-slate-500 tracking-wide">
                     FEATURED SERVICES
                   </p>
                   <span className="text-[9px] text-slate-400">Offers for you</span>
-                </div>
+                </div> */}
                 <div className="grid grid-cols-1 gap-2">
                   {featuredAds.map((ad, index) => {
                     const imageUrl = resolveAdImageUrl(ad.image || ad.imageUrl || ad.banner);

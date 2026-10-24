@@ -9,6 +9,8 @@ import { BookOpen, Phone, MessageSquareMore  } from 'lucide-react';
 
 import Swal from 'sweetalert2';
 
+import DashboardAdPlacement from "../../components/DashboardAdPlacement";
+
 export default function HelpSupportDashboard() {
   const [searchQuery, setSearchQuery] = useState('');
   const [tickets, setTickets] = useState([
@@ -317,6 +319,7 @@ export default function HelpSupportDashboard() {
             </button>
           </div>
 
+          <DashboardAdPlacement location="User Dashboard - Help & Support" />
           <div className="lg:col-span-3 bg-white border border-slate-100 rounded-xl p-5 shadow-[0_2px_8px_rgba(0,0,0,0.02)] flex flex-col justify-between">
             <div>
               <h2 className="text-base font-bold text-slate-900 mb-3">Popular Help Articles</h2>

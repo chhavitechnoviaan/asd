@@ -7,6 +7,7 @@ import {
   FiShare2, FiExternalLink, FiBell
 } from "react-icons/fi";
 import poster from "../../assets/Images/webp/poster4.webp"
+import DashboardAdPlacement from "../../components/DashboardAdPlacement"
 
 import { BsAirplane } from "react-icons/bs";
 import { MdOutlineRocketLaunch } from "react-icons/md";
@@ -819,7 +820,7 @@ useEffect(() => {
         
       </div> 
         <div className="min-w-0  mt-4"> 
-                      <img src={poster}  className='w-full max-h-60 ' />
+                      <DashboardAdPlacement location="User Dashboard - Shipment Planning" />
                   </div>
        </div>)}
       

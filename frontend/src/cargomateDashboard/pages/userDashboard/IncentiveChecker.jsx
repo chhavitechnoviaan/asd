@@ -31,6 +31,7 @@
   import { BsGraphUpArrow } from "react-icons/bs";
   import Shipment from "../../components/ShipmentForm";
   import poster2 from "../../assets/Images/webp/poster2.webp";
+  import DashboardAdPlacement from "../../components/DashboardAdPlacement";
   import { estimateIncentives, calculateMeis } from "../../api/CargoMateApi";
 
   const breakdownRows = [
@@ -1233,12 +1234,13 @@
                     </p>
                   )}
                 </div>
+         
+              <DashboardAdPlacement location="User Dashboard - Incentive Checker" />
+
               </div>
             </div>
 
-            <div className="min-w-0 mx-6">
-              <img src={poster2} className="w-full max-h-60 mb-4" />
-            </div>
+       
           </div>
         )}
 

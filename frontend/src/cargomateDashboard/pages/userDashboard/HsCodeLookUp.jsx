@@ -24,6 +24,7 @@
 // import NeedHelp from "../../components/core/NeedHelp";
 // import Shipment from "../../components/ShipmentForm";
 // import poster2 from "../../assets/Images/webp/poster2.webp";
+import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 // import { lookupHsCode } from "../../api/CargoMateApi";
 // const getAuditUserScope = () => {
 //   for (const key of ["userId", "user_id", "email", "userEmail"]) {
@@ -1003,8 +1004,6 @@
 //   );
 // }
 
-
-
 import { useEffect, useState } from "react";
 import {
   FiArrowLeft,
@@ -1227,16 +1226,16 @@ export default function HSCodeLookup() {
     const searchedAt = new Date().toISOString();
     const queryId = `HSQ-${Date.now().toString(36).toUpperCase()}`;
     // const payload = { product_description: query.trim(), country_of_export: exportCountry, country_of_import: importCountry, quantity: Number(quantity), unit };
- 
-const payload = {
-  product: query.trim(),
-  export_country: exportCountry,
-  import_country: importCountry,
-  quantity: Number(quantity),
-  unit,
-  shipment_type: "general_export",
-  include_tariff: true,
-};
+
+    const payload = {
+      product: query.trim(),
+      export_country: exportCountry,
+      import_country: importCountry,
+      quantity: Number(quantity),
+      unit,
+      shipment_type: "general_export",
+      include_tariff: true,
+    };
 
     // try {
     //   const res = await lookupHsCode(payload);
@@ -1273,37 +1272,38 @@ const payload = {
     // } finally {
     //   setLookupLoading(false);
     // }
-    
-try {
-  const res = await lookupHsCode(payload);
 
-  console.log("HS Lookup Request:", res.config.url);
-  console.log("HS Lookup Parameters:", res.config.params);
-  console.log("HS Lookup Status:", res.status);
-  console.log("HS Lookup API Response:", res.data);
+    try {
+      const res = await lookupHsCode(payload);
 
-  const data = res.data;
-  setLookupResult(data);
+      console.log("HS Lookup Request:", res.config.url);
+      console.log("HS Lookup Parameters:", res.config.params);
+      console.log("HS Lookup Status:", res.status);
+      console.log("HS Lookup API Response:", res.data);
 
-  // Keep your existing Query Summary and Audit Log updates here.
-} catch (err) {
-  console.error(
-    "HS Lookup API Error:",
-    err.response?.status,
-    err.response?.data || err.message
-  );
+      const data = res.data;
+      setLookupResult(data);
 
-  const detail = err.response?.data?.detail;
+      // Keep your existing Query Summary and Audit Log updates here.
+    } catch (err) {
+      console.error(
+        "HS Lookup API Error:",
+        err.response?.status,
+        err.response?.data || err.message,
+      );
 
-  setLookupError(
-    typeof detail === "string"
-      ? detail
-      : Array.isArray(detail)
-        ? detail.map((item) => item.msg).join(", ")
-        : err.response?.data?.message || err.message || "HS code lookup failed."
-  );
-}
+      const detail = err.response?.data?.detail;
 
+      setLookupError(
+        typeof detail === "string"
+          ? detail
+          : Array.isArray(detail)
+            ? detail.map((item) => item.msg).join(", ")
+            : err.response?.data?.message ||
+              err.message ||
+              "HS code lookup failed.",
+      );
+    }
   };
   const bestMatch =
     lookupResult?.best_match ||
@@ -1568,9 +1568,7 @@ try {
                         <div className="flex items-center gap-1 text-emerald-500">
                           <MdOutlineVerified size={16} />
                           <span className="text-sm font-semibold">
-                            {resultConfidence == null
-                              ? "HIGH"
-                              : "HIGH"}
+                            {resultConfidence == null ? "HIGH" : "HIGH"}
                           </span>
                         </div>
                       </div>
@@ -1833,8 +1831,12 @@ try {
                       <FiDatabase size={19} />
                     </span>
                     <div>
-                      <h3 className="text-sm font-semibold text-slate-900">Data Sources Used</h3>
-                      <p className="mt-0.5 text-xs text-slate-500">Connected trade information sources</p>
+                      <h3 className="text-sm font-semibold text-slate-900">
+                        Data Sources Used
+                      </h3>
+                      <p className="mt-0.5 text-xs text-slate-500">
+                        Connected trade information sources
+                      </p>
                     </div>
                   </div>
 
@@ -1851,7 +1853,10 @@ try {
                         key={source}
                         className="flex min-w-0 items-center gap-2 rounded-lg border border-slate-100 bg-slate-50 px-3 py-2.5 text-xs font-medium text-slate-700"
                       >
-                        <FiDatabase className="shrink-0 text-teal-600" size={14} />
+                        <FiDatabase
+                          className="shrink-0 text-teal-600"
+                          size={14}
+                        />
                         <span className="min-w-0 leading-4">{source}</span>
                       </div>
                     ))}
@@ -1865,13 +1870,18 @@ try {
                       <FiWifi size={19} />
                     </span>
                     <div>
-                      <h3 className="text-sm font-semibold text-slate-900">Connected To Live Data</h3>
-                      <p className="mt-0.5 text-xs text-slate-500">Trade intelligence connection</p>
+                      <h3 className="text-sm font-semibold text-slate-900">
+                        Connected To Live Data
+                      </h3>
+                      <p className="mt-0.5 text-xs text-slate-500">
+                        Trade intelligence connection
+                      </p>
                     </div>
                   </div>
 
                   <p className="text-sm leading-6 text-slate-600">
-                    Trade information can be retrieved from connected services to support your shipment research.
+                    Trade information can be retrieved from connected services
+                    to support your shipment research.
                   </p>
 
                   <div className="mt-5 flex items-center justify-between gap-3 rounded-xl border border-emerald-100 bg-emerald-50 px-3.5 py-3">
@@ -1880,7 +1890,9 @@ try {
                         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-50" />
                         <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
                       </span>
-                      <span className="text-sm font-semibold text-emerald-800">Connected</span>
+                      <span className="text-sm font-semibold text-emerald-800">
+                        Connected
+                      </span>
                     </div>
                     <span className="text-xs text-emerald-700">Status</span>
                   </div>
@@ -1893,8 +1905,12 @@ try {
                       <FiPhone size={18} />
                     </span>
                     <div>
-                      <h3 className="text-sm font-semibold text-slate-900">Need Help?</h3>
-                      <p className="mt-0.5 text-xs text-slate-500">Our trade experts are here to help you.</p>
+                      <h3 className="text-sm font-semibold text-slate-900">
+                        Need Help?
+                      </h3>
+                      <p className="mt-0.5 text-xs text-slate-500">
+                        Our trade experts are here to help you.
+                      </p>
                     </div>
                   </div>
                   <div className="min-w-0">
@@ -1908,7 +1924,7 @@ try {
               </div>
             </div>
 
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-1">
               <div className="bg-white border border-gray-200 rounded-xl p-4">
                 <p className="text-sm font-semibold text-gray-800 mb-3">
                   Query Summary
@@ -1953,6 +1969,8 @@ try {
                   </div>
                 ))}
               </div>
+
+              <DashboardAdPlacement location="User Dashboard - HS Code Lookup" />
 
               <div className="bg-white border border-gray-200 rounded-xl p-4">
                 <p className="text-sm font-semibold text-gray-800 mb-3">
