@@ -18,7 +18,8 @@ import {
   assessRisk,
   getRiskHistory,
   getTopRiskHSCodes,
-} from "../../api/CargoMateAPI";
+} from "../../api/CargoMateApi";
+
 import ReactCountryFlag from "react-country-flag";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
