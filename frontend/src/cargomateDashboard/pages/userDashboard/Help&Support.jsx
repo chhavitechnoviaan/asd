@@ -1,3 +1,5 @@
+
+
 import React, { useState } from 'react';
 import { 
   PhoneCall, Mail, MessageSquare, Clock, 
@@ -5,7 +7,7 @@ import {
   HelpCircle, ShieldCheck, FileText, Compass,
   Layers, Package, FileCode2, CircleDollarSign
 } from 'lucide-react';
-import { BookOpen, Phone, MessageSquareMore  } from 'lucide-react';
+import { BookOpen, Phone } from 'lucide-react';
 
 import Swal from 'sweetalert2';
 
@@ -88,11 +90,7 @@ export default function HelpSupportDashboard() {
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-800  p-6 pt-20">
       
-      <div className="text-xs text-slate-400 mb-3 flex items-center gap-1.5 tracking-wide">
-        <span>Dashboard</span>
-        <span className="text-slate-300 font-normal">&gt;</span>
-        <span className="text-slate-600 font-medium">Help & Support</span>
-      </div>
+     
 
       <div className="max-w-10xl mx-auto space-y-6">
         
@@ -147,7 +145,8 @@ export default function HelpSupportDashboard() {
           <div className="bg-white border border-slate-100 rounded-xl p-5 shadow-[0_2px_8px_rgba(0,0,0,0.02)] flex items-center justify-between group">
             <div className="flex items-center gap-4">
               <div className="p-3.5 bg-orange-50 rounded-full text-orange-500">
-                <MessageSquareMore  ageSquare className="w-6 h-6 stroke-[1.75]" />
+                {/* <MessageSquareMore  ageSquare className="w-6 h-6 stroke-[1.75]" /> */}
+                <MessageSquare className="w-6 h-6 stroke-[1.75]" />
               </div>
               <div>
                 <span className="text-sm font-semibold text-slate-500 block">Live Support</span>
@@ -268,7 +267,7 @@ export default function HelpSupportDashboard() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-7 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-7 gap-6 items-stretch">
           
           <div className="lg:col-span-4 bg-white border border-slate-100 rounded-xl p-5 shadow-[0_2px_8px_rgba(0,0,0,0.02)] flex flex-col justify-between">
             <div>
@@ -319,7 +318,6 @@ export default function HelpSupportDashboard() {
             </button>
           </div>
 
-          <DashboardAdPlacement location="User Dashboard - Help & Support" />
           <div className="lg:col-span-3 bg-white border border-slate-100 rounded-xl p-5 shadow-[0_2px_8px_rgba(0,0,0,0.02)] flex flex-col justify-between">
             <div>
               <h2 className="text-base font-bold text-slate-900 mb-3">Popular Help Articles</h2>
@@ -349,6 +347,16 @@ export default function HelpSupportDashboard() {
           </div>
 
         </div>
+
+        {/* Full-width horizontal advertisement banner */}
+        <section className="w-full min-w-0 mt-6 overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-[0_8px_28px_rgba(15,23,42,0.06)]">
+          <DashboardAdPlacement
+            location="User Dashboard - Help & Support"
+            layout="banner"
+            slot="banner"
+            intervalMs={5000}
+          />
+        </section>
 
         <div className="bg-[#f1f5f9]/50 rounded-xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left border border-slate-200/50">
           <div className="flex items-center gap-2">

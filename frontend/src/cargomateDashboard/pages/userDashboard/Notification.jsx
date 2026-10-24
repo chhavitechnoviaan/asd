@@ -501,11 +501,12 @@ export default function NotificationDashboard() {
         </div>
       </div>
       <DashboardAdPlacement
-        location="User Dashboard - Notification"
+        location="User Dashboard - Notifications"
         layout="banner"
         slot="banner"
         intervalMs={5000}
       />
+   
     </div>
   );
 }

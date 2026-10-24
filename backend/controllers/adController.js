@@ -31,7 +31,7 @@ exports.createAd = async (req, res) => {
       return res.status(400).json({ status: 0, message: "Target Start Date is invalid." });
     }
 
-    const image = `/uploads/ads/${req.file.filename}`;
+    const image = req.file.cloudinaryUrl || req.file.path;
     const text = String(postText).trim();
     const ad = await Ad.create({
       title: text.slice(0, 100) || "Dashboard Ad",
