@@ -1,3 +1,6 @@
+
+
+
 import React, { useState,useMemo,useEffect } from "react";
 import {
   getRiskDashboard,
@@ -7,10 +10,15 @@ import {
   getRiskCategories,
   getRecentRiskAlerts,
   getRiskTrend,
-  getTopRiskHSCodes,
   getShipmentsAtRisk,
-  getRiskFilterOptions
-} from '../../api/RiskAnalysisApi';
+  getRiskFilterOptions,
+} from "../../api/RiskAnalysisApi";
+
+import {
+  assessRisk,
+  getRiskHistory,
+  getTopRiskHSCodes,
+} from "../../api/CargoMateAPI";
 import ReactCountryFlag from "react-country-flag";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -270,7 +278,25 @@ export default function RiskAnalysis() {
    const [shipmentStartDate, setShipmentStartDate] = useState(null);
     const [shipmentEndDate, setShipmentEndDate] = useState(null);
      const [dateRange, setDateRange] = useState(false)
-     const [exportReport, setExportReport] = useState(false)
+     const [exportReport, setExportReport] = useState(false);
+  const [riskModalOpen, setRiskModalOpen] = useState(false);
+  const [riskSubmitting, setRiskSubmitting] = useState(false);
+  const [riskError, setRiskError] = useState("");
+  const [riskForm, setRiskForm] = useState({
+    hs_code: "09011111",
+    product: "Coffee",
+    country: "India",
+    trade_type: "export",
+    countries: "UAE"
+  });
+  const [assessmentResult, setAssessmentResult] = useState(null);
+  const [riskHistory, setRiskHistory] = useState([]);
+  const [riskHistoryMeta, setRiskHistoryMeta] = useState({ count: 0, average_risk_score: 0, trend: [] });
+  const [riskHistoryPage, setRiskHistoryPage] = useState(1);
+  const [historyLoading, setHistoryLoading] = useState(false);
+  const [allHsModalOpen, setAllHsModalOpen] = useState(false);
+  const [allHsPage, setAllHsPage] = useState(1);
+  const [topHsApiData, setTopHsApiData] = useState([]);
 
   const fetchRiskDashboard = async () => {
     try {
@@ -338,7 +364,20 @@ export default function RiskAnalysis() {
   const fetchTopRiskHSCodes = async () => {
     try {
       const res = await getTopRiskHSCodes();
-      setTopRiskHSCodes(res.data?.data || []);
+      const payload = res.data?.data ?? res.data ?? {};
+      const rows = Array.isArray(payload)
+        ? payload
+        : Array.isArray(payload.records)
+          ? payload.records
+          : Array.isArray(payload.items)
+            ? payload.items
+            : Array.isArray(payload.results)
+              ? payload.results
+              : Array.isArray(payload.data)
+                ? payload.data
+                : [];
+      setTopHsApiData(rows);
+      setTopRiskHSCodes(rows);
     } catch (error) {
       console.error("Top Risk HS Codes fetch error:", error);
     }
@@ -391,6 +430,135 @@ export default function RiskAnalysis() {
   });
   };
 
+  const fetchRiskHistory = async (formValues = riskForm) => {
+    if (!formValues.hs_code.trim() || !formValues.country.trim()) return;
+    setHistoryLoading(true);
+    try {
+      const res = await getRiskHistory({
+        hs_code: formValues.hs_code.trim(),
+        country: formValues.country.trim(),
+        limit: 100
+      });
+      const payload = res.data?.data ?? res.data ?? {};
+      const rows = Array.isArray(payload.records)
+        ? payload.records
+        : Array.isArray(payload.data)
+          ? payload.data
+          : Array.isArray(payload.items)
+            ? payload.items
+            : Array.isArray(payload.results)
+              ? payload.results
+              : Array.isArray(payload)
+                ? payload
+                : [];
+      setRiskHistory(rows);
+      // Use /risk/history records as the source for the existing Shipments at Risk table.
+      // Map API fields to the table's current row shape so the dashboard UI stays unchanged.
+      setShipmentsAtRisk(rows.map((record) => ({
+        _id: record.id || record.assessment_id,
+        country: record.country || "",
+        riskCategory: record.top_alert || "",
+        shipment: {
+          sbNumber: record.assessment_id || record.id || "-",
+          shipmentDate: record.created_at || "",
+          route: {
+            originCountry: record.country || "-",
+            destinationCountry: record.country || "-",
+          },
+          cargo: { productName: record.commodity || "-" },
+        },
+        hsCode: {
+          hsCode: record.hs_code || "-",
+          productName: record.commodity || "-",
+        },
+        riskLevel: record.risk_level || "Low",
+        riskScore: Number(record.overall_risk_score ?? 0),
+        riskFactors: record.top_alert ? [record.top_alert] : [],
+        estimatedImpact: 0,
+        status: "Recorded",
+      })));
+      const trendRows = Array.isArray(payload.trend) ? payload.trend : [];
+      setRiskHistoryMeta({
+        count: Number(payload.count ?? rows.length),
+        average_risk_score: Number(payload.average_risk_score ?? 0),
+        trend: trendRows
+      });
+      if (trendRows.length) {
+        setRiskTrend(trendRows.map((item) => ({
+          _id: item.date ? new Date(item.date).toLocaleDateString() : item._id || "Latest",
+          avgRisk: Number(item.score ?? item.avgRisk ?? 0),
+          score: Number(item.score ?? item.avgRisk ?? 0),
+          assessment_id: item.assessment_id
+        })));
+      }
+      setRiskHistoryPage(1);
+    } catch (error) {
+      console.error("Risk history fetch error:", error);
+      setRiskError(error?.response?.data?.detail || error?.response?.data?.message || "Could not load risk history.");
+    } finally {
+      setHistoryLoading(false);
+    }
+  };
+
+  const handleAssessRisk = async (event) => {
+    event.preventDefault();
+    setRiskError("");
+    setRiskSubmitting(true);
+    setAssessmentResult(null);
+    try {
+      const payload = {
+        hs_code: riskForm.hs_code.trim(),
+        country: riskForm.country.trim(),
+        commodity: riskForm.product.trim(),
+        trade_type: riskForm.trade_type,
+        countries: riskForm.countries.trim(),
+        record: true
+      };
+      const res = await assessRisk(payload);
+      const result = res.data?.data ?? res.data ?? {};
+      setAssessmentResult(result);
+      setRiskModalOpen(false);
+      await fetchRiskHistory(riskForm);
+      await fetchTopRiskHSCodes();
+    } catch (error) {
+      console.error("Risk assessment error:", error);
+      setRiskError(
+        error?.response?.data?.detail ||
+        error?.response?.data?.message ||
+        "Risk assessment failed. Please check the fields and try again."
+      );
+    } finally {
+      setRiskSubmitting(false);
+    }
+  };
+
+  const getAssessmentRows = (result) => Array.isArray(result?.by_category) ? result.by_category : [];
+  const riskHistoryPageSize = 10;
+  const riskHistoryPageCount = Math.max(1, Math.ceil(riskHistory.length / riskHistoryPageSize));
+  const visibleRiskHistory = riskHistory.slice(
+    (riskHistoryPage - 1) * riskHistoryPageSize,
+    riskHistoryPage * riskHistoryPageSize
+  );
+  const topHsPageSize = 10;
+  const dashboardHsRows = useMemo(() => {
+    // Do not show previously recorded/default HS-code data before Check Risk is run.
+    if (!assessmentResult) return [];
+    const latest = {
+      hs_code: assessmentResult.query?.hs_code || riskForm.hs_code,
+      commodity: assessmentResult.query?.commodity || riskForm.product,
+      overall_risk_score: assessmentResult.overall_risk_score ?? assessmentResult.summary?.overall_risk_score ?? 0,
+      risk_level: assessmentResult.risk_level || assessmentResult.summary?.risk_level || "Medium",
+      assessment_id: assessmentResult.assessment_id,
+    };
+    return [latest, ...topHsApiData.filter((item) => String(item.hs_code || item.hsCode || item._id || item.code || "") !== String(latest.hs_code))].slice(0, 50);
+  }, [assessmentResult, riskForm, topHsApiData]);
+  const allHsPageCount = Math.max(1, Math.ceil(dashboardHsRows.length / topHsPageSize));
+  const visibleAllHsCodes = dashboardHsRows.slice(
+    (allHsPage - 1) * topHsPageSize,
+    allHsPage * topHsPageSize
+  );
+  const visibleTopHsCodes = dashboardHsRows.slice(0, 5);
+
   useEffect(() => {
     fetchRiskDashboard();
     fetchRiskMap();
@@ -400,7 +568,7 @@ export default function RiskAnalysis() {
     fetchRecentRiskAlerts();
     fetchRiskTrend();
     fetchTopRiskHSCodes();
-    fetchShipmentsAtRisk();
+    fetchRiskHistory(riskForm);
     fetchRiskFilterOptions();
   }, []);
   const getRiskColor = (riskLevel) => {
@@ -454,21 +622,29 @@ export default function RiskAnalysis() {
   });
 }, [shipmentsAtRisk, appliedRiskFilters]);
 const filteredRiskDistribution = useMemo(() => {
-  const distribution = {};
-
-  filteredShipmentsAtRisk.forEach((item) => {
-    const level = item.riskLevel || "Unknown";
-
-    distribution[level] = (distribution[level] || 0) + 1;
-  });
-
-  return Object.entries(distribution).map(([riskLevel, count]) => ({
+  const levels = ["Very High", "High", "Medium", "Low"];
+  if (!assessmentResult) {
+    return levels.map((riskLevel) => ({ _id: riskLevel, count: 0 }));
+  }
+  const distribution = assessmentResult.distribution || {};
+  return levels.map((riskLevel) => ({
     _id: riskLevel,
-    count
+    count: Number(distribution[riskLevel] ?? 0),
   }));
-}, [filteredShipmentsAtRisk]);
+}, [assessmentResult]);
 
 const filteredRiskTopCountries = useMemo(() => {
+  if (!assessmentResult) return [];
+  if (Array.isArray(assessmentResult?.top_risky_countries) && assessmentResult.top_risky_countries.length) {
+    return assessmentResult.top_risky_countries.map((item) => ({
+      _id: item.country,
+      riskScore: Number(item.score || 0),
+      riskLevel: item.level || "Medium",
+      alerts: 0,
+      iso2: item.iso2,
+    }));
+  }
+
   const countries = {};
 
   filteredShipmentsAtRisk.forEach((item) => {
@@ -505,18 +681,20 @@ const filteredRiskTopCountries = useMemo(() => {
     }))
     .sort((a, b) => b.riskScore - a.riskScore)
     .slice(0, 10);
-}, [filteredShipmentsAtRisk]);
+}, [filteredShipmentsAtRisk, assessmentResult]);
 
-  const riskLegend = [...new Set(riskMap.map((item) => item.riskLevel).filter(Boolean)),].map((level) => ({ label: level, color: getRiskColor(level),}));
+  const riskLegend = assessmentResult
+    ? [...new Set(filteredRiskTopCountries.map((item) => item.riskLevel).filter(Boolean))].map((level) => ({ label: level, color: getRiskColor(level) }))
+    : [];
   //const totalCountries = RISK_DISTRIBUTION.reduce((a, b) => a + b.value, 0);
 
   const KPI_STATS = [
-  { title: "Overall Risk Score", value: `${Number(riskDashboard?.overallRisk || 0).toFixed(0)} / 100`, change: Number(riskDashboard?.overallRisk || 0) >= 70 ? "High Risk" : Number(riskDashboard?.overallRisk || 0) >= 40 ? "Moderate Risk" : "Low Risk", icon: Gauge, bg: "bg-amber-50", color: "text-amber-500", tag: true },
-  { title: "High Risk Alerts", value: riskDashboard?.highRisk || 0, change: "", icon: AlertTriangle, bg: "bg-rose-50", color: "text-rose-500" },
-  { title: "Medium Risk Alerts", value: riskDashboard?.mediumRisk || 0, change: "", icon: AlertTriangle, bg: "bg-amber-50", color: "text-amber-500" },
-  { title: "Low Risk Alerts", value: riskDashboard?.lowRisk || 0, change: "", icon: ShieldCheck, bg: "bg-emerald-50", color: "text-emerald-500" },
-  { title: "Countries at High Risk", value: riskDashboard?.countriesAtRisk || 0, change: "", icon: Target, bg: "bg-blue-50", color: "text-blue-500" },
-  { title: "Shipments Affected", value: riskDashboard?.shipmentsAffected || 0, change: "", icon: PackageSearch, bg: "bg-orange-50", color: "text-orange-500", plain: true },
+  { title: "Overall Risk Score", value: `${Number(assessmentResult?.overall_risk_score ?? assessmentResult?.summary?.overall_risk_score ?? 0).toFixed(0)} / 100`, change: assessmentResult?.risk_level || "No Assessment", icon: Gauge, bg: "bg-amber-50", color: "text-amber-500", tag: true },
+  { title: "High Risk Alerts", value: assessmentResult?.summary?.high_risk_alerts ?? 0, change: "", icon: AlertTriangle, bg: "bg-rose-50", color: "text-rose-500" },
+  { title: "Medium Risk Alerts", value: assessmentResult?.summary?.medium_risk_alerts ?? 0, change: "", icon: AlertTriangle, bg: "bg-amber-50", color: "text-amber-500" },
+  { title: "Low Risk Alerts", value: assessmentResult?.summary?.low_risk_alerts ?? 0, change: "", icon: ShieldCheck, bg: "bg-emerald-50", color: "text-emerald-500" },
+  { title: "Countries at High Risk", value: assessmentResult?.summary?.countries_at_high_risk ?? 0, change: "", icon: Target, bg: "bg-blue-50", color: "text-blue-500" },
+  { title: "Shipments Affected", value: assessmentResult ? (riskDashboard?.shipmentsAffected ?? 0) : 0, change: "", icon: PackageSearch, bg: "bg-orange-50", color: "text-orange-500", plain: true },
 ];
 
   return (
@@ -550,6 +728,10 @@ const filteredRiskTopCountries = useMemo(() => {
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
                       />
                     </div>
+                    <button onClick={() => setRiskModalOpen(true)} className={`flex-1 md:flex-none flex items-center justify-center gap-2 bg-blue-600 border border-blue-600 text-white text-[11px] sm:text-xs font-semibold px-3 sm:px-4 py-2 rounded-xl shadow-xs hover:bg-blue-700 transition whitespace-nowrap`}>
+                      <ShieldCheck size={14} />
+                      Check Risk
+                    </button>
                     <button onClick={() => setExportReport(true)} className={`flex-1 md:flex-none flex items-center justify-center gap-2 bg-white border border-slate-200 text-[11px] sm:text-xs font-semibold px-3 sm:px-4 py-2 rounded-xl shadow-xs hover:bg-slate-50 transition whitespace-nowrap ${HEADING}`}>
                       <Download size={14} className="text-slate-400" />
                       Export Report
@@ -614,7 +796,7 @@ const filteredRiskTopCountries = useMemo(() => {
               <label className="text-[10px] text-slate-400 font-bold block mb-1.5 uppercase">Product / HS Code</label>
               <div className="relative">
                 <select value={selectedHSCode} onChange={(e) => setSelectedHSCode(e.target.value)} className="w-full bg-slate-50/70 border border-slate-200 rounded-xl py-2 pl-3 pr-8 text-xs appearance-none focus:outline-none">
-                  <option>All Products</option>
+                  <option value="">All Products</option>
                   {riskFilters.hsCodes.map((item) => (
                     <option key={item._id} value={item._id}>{item.hsCode} - {item.productName}</option>
                   ))}
@@ -626,7 +808,7 @@ const filteredRiskTopCountries = useMemo(() => {
               <label className="text-[10px] text-slate-400 font-bold block mb-1.5 uppercase">Risk Level</label>
               <div className="relative">
                 <select value={selectedRiskLevel} onChange={(e) => setSelectedRiskLevel(e.target.value)} className="w-full bg-slate-50/70 border border-slate-200 rounded-xl py-2 pl-3 pr-8 text-xs appearance-none focus:outline-none">
-                  <option>All Risk Levels</option>
+                  <option value="">All Risk Levels</option>
                   {riskFilters.riskLevels.map((item) => (
                     <option key={item} value={item}>{item}</option>
                   ))}
@@ -658,7 +840,7 @@ const filteredRiskTopCountries = useMemo(() => {
                 className="absolute inset-0 w-full h-full object-cover"
                 style={{ filter: "grayscale(1) brightness(0) invert(0.85)" }}
               />
-              {riskMap.map((country, i) => {
+              {(assessmentResult ? filteredRiskTopCountries : []).map((country, i) => {
                 const position = COUNTRY_POSITIONS[country._id];
                  if (!position) return null;
                 const riskColor = getRiskColor(country.riskLevel);
@@ -765,7 +947,7 @@ const filteredRiskTopCountries = useMemo(() => {
                   ))}
                   {filteredRiskTopCountries.length === 0 && (
                     <tr>
-                      <td colSpan="3" className="py-6 text-center text-slate-400 text-xs">No risk data available</td>
+                      <td colSpan="4" className="py-6 text-center text-slate-400 text-xs">0 countries at risk — run Check Risk to load results</td>
                     </tr>
                   )}
                 </tbody>
@@ -778,12 +960,17 @@ const filteredRiskTopCountries = useMemo(() => {
           <SectionCard>
             <h3 className={`font-bold text-sm mb-3 ${HEADING}`}>Risk by Category</h3>
             <div className="space-y-3">
-              {riskCategories.map((c, i) => (
+              {(assessmentResult?.by_category?.length
+                ? assessmentResult.by_category.map((item) => ({ _id: item.category, Count: item.score, avgRisk: item.score, level: item.level }))
+                : assessmentResult
+                  ? []
+                  : ["Economic", "Regulatory", "Political", "Operational", "Financial"].map((name) => ({ _id: name, Count: 0, avgRisk: 0, level: "Very Low" }))
+              ).map((c, i) => (
                 <div key={i} className="flex items-center justify-between text-[11px]">
                   <span className="font-semibold text-slate-700">{c._id}</span>
                   <div className="flex items-center gap-2">
-                    <span className={`font-bold ${HEADING}`}>{c.Count}</span>
-                    <RiskBadge level={c.avgRisk >= 80 ? "Very High" : c.avgRisk >= 60 ? "High" : c.avgRisk >= 40 ? "Medium" : c.avgRisk >= 20 ? "Low" : "Very Low"}/>
+                    <span className={`font-bold ${HEADING}`}>{c.Count ?? c.score ?? 0}</span>
+                    <RiskBadge level={c.level || (c.avgRisk >= 80 ? "Very High" : c.avgRisk >= 60 ? "High" : c.avgRisk >= 40 ? "Medium" : c.avgRisk >= 20 ? "Low" : "Very Low")}/>
                   </div>
                 </div>
               ))}
@@ -793,18 +980,21 @@ const filteredRiskTopCountries = useMemo(() => {
           <SectionCard>
             <ViewAllHeader title="Recent High Risk Alerts" />
             <div className="space-y-2.5">
-              {recentRiskAlerts.map((a, i) => (
-                <div key={a._id || i} className="flex items-start justify-between gap-2 border border-slate-100 rounded-xl p-2.5">
+              {(assessmentResult?.alerts || []).slice(0, 4).map((a, i) => (
+                <div key={a._id || a.title || i} className="flex items-start justify-between gap-2 border border-slate-100 rounded-xl p-2.5">
                   <div className="flex items-start gap-2">
                     <AlertTriangle size={13} className="text-rose-500 shrink-0 mt-0.5" />
                     <div>
-                      <p className="text-[11px] text-slate-700 font-semibold leading-snug">{a.riskCategory || "Risk"} risk detected for{" "}{a.country || "Unknown Country"}</p>
-                      <p className="text-[10px] text-slate-400 font-medium mt-0.5">{a.hsCode?.productName || a.hsCode?.hsCode || "Risk Alert"}{" "} • {" "}{a.createdAt ? new Date(a.createdAt).toLocaleDateString() : "-"}</p>
+                      <p className="text-[11px] text-slate-700 font-semibold leading-snug">{a.title || `${a.category || a.category || "Risk"} risk detected for ${a.country || assessmentResult?.query?.country || "Unknown Country"}`}</p>
+                      <p className="text-[10px] text-slate-400 font-medium mt-0.5">{a.detail || a.hsCode?.productName || a.hsCode?.hsCode || a.category || "Risk Alert"}{" "} • {" "}{a.createdAt ? new Date(a.createdAt).toLocaleDateString() : assessmentResult?.generated_on ? new Date(assessmentResult.generated_on).toLocaleDateString() : "-"}</p>
                     </div>
                   </div>
-                  <RiskBadge level={a.riskLevel} />
+                  <RiskBadge level={a.level || a.riskLevel || "Medium"} />
                 </div>
               ))}
+              {(!assessmentResult || !(assessmentResult.alerts || []).length) && (
+                <p className="py-5 text-center text-xs text-slate-400">0 alerts — run Check Risk to view assessment alerts</p>
+              )}
             </div>
           </SectionCard>
 
@@ -817,7 +1007,7 @@ const filteredRiskTopCountries = useMemo(() => {
             </div>
             <div className="h-[150px] w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={riskTrend} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
+                <LineChart data={assessmentResult ? riskTrend : []} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
                   <CartesianGrid stroke="#F1F5F9" vertical={false} />
                   <XAxis dataKey="_id" tick={{ fill: "#94a3b8", fontSize: 8 }} tickLine={false} axisLine={false} />
                   <YAxis tick={{ fill: "#94a3b8", fontSize: 9 }} tickLine={false} axisLine={false} width={30} domain={[0, 100]} />
@@ -829,14 +1019,17 @@ const filteredRiskTopCountries = useMemo(() => {
             <div className="bg-rose-50 border border-rose-100 rounded-xl p-2.5 mt-2">
               <span className="text-[10px] text-slate-500 font-semibold block">Average Risk Score</span>
               <div className="flex items-center gap-2">
-                <span className={`text-base font-black ${HEADING}`}>{riskTrend.length > 0 ? (riskTrend.reduce((total, item) => total + Number(item.avgRisk || 0), 0) / riskTrend.length).toFixed(1) : "0.0"}{" "}/ 100</span>
+                <span className={`text-base font-black ${HEADING}`}>{assessmentResult ? Number(assessmentResult.overall_risk_score ?? assessmentResult.summary?.average_risk_score ?? 0).toFixed(1) : "0.0"}{" "}/ 100</span>
                 <span className="text-[10px] text-rose-500 font-bold">Updated</span>
               </div>
             </div>
           </SectionCard>
 
           <SectionCard>
-            <ViewAllHeader title="Top Risky HS Codes" />
+            <div className="flex justify-between items-center mb-3">
+              <h3 className={`font-bold text-sm ${HEADING}`}>Top Risky HS Codes</h3>
+              <button onClick={() => { setAllHsPage(1); setAllHsModalOpen(true); }} className="text-blue-600 text-[11px] font-bold shrink-0">View All</button>
+            </div>
             <div className="overflow-x-auto">
               <table className="w-full text-[11px] min-w-[260px]">
                 <thead>
@@ -848,14 +1041,17 @@ const filteredRiskTopCountries = useMemo(() => {
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-50">
-                  {topRiskHSCodes.map((h, i) => (
+                  {visibleTopHsCodes.map((h, i) => (
                     <tr key={i}>
-                      <td className={`py-2 font-semibold whitespace-nowrap ${HEADING}`}>{h._id}</td>
-                      <td className="py-2 text-slate-600">{h.product}</td>
-                      <td className="py-2 text-right font-bold text-slate-700">{Number(h.avgRisk || 0).toFixed(1)}</td>
-                      <td className="py-2 pl-2"><RiskBadge level={h.avgRisk >= 80 ? "Very High" : h.avgRisk >= 60 ? "High" : h.avgRisk >= 40 ? "Medium" : h.avgRisk >= 20 ? "Low" : "Very Low"} /></td>
+                      <td className={`py-2 font-semibold whitespace-nowrap ${HEADING}`}>{h.hs_code || h.hsCode || h._id || h.code || "-"}</td>
+                      <td className="py-2 text-slate-600">{h.commodity || h.product || h.description || h.productName || "-"}</td>
+                      <td className="py-2 text-right font-bold text-slate-700">{Number(h.overall_risk_score ?? h.risk_score ?? h.avgRisk ?? h.score ?? 0).toFixed(1)}</td>
+                      <td className="py-2 pl-2"><RiskBadge level={h.risk_level || h.level || ((Number(h.overall_risk_score ?? h.risk_score ?? h.avgRisk ?? h.score ?? 0) >= 80) ? "Very High" : (Number(h.overall_risk_score ?? h.risk_score ?? h.avgRisk ?? h.score ?? 0) >= 60) ? "High" : (Number(h.overall_risk_score ?? h.risk_score ?? h.avgRisk ?? h.score ?? 0) >= 40) ? "Medium" : (Number(h.overall_risk_score ?? h.risk_score ?? h.avgRisk ?? h.score ?? 0) >= 20) ? "Low" : "Very Low")} /></td>
                     </tr>
                   ))}
+                  {visibleTopHsCodes.length === 0 && (
+                    <tr><td colSpan="4" className="py-5 text-center text-slate-400">0 records — run Check Risk to load HS-code results</td></tr>
+                  )}
                 </tbody>
               </table>
             </div>
@@ -926,9 +1122,90 @@ const filteredRiskTopCountries = useMemo(() => {
         </div>
       </div>
 
-       {exportReport && (
-                        <ExportReport onClose={() => setExportReport(false)} />
-                      )}
+      {riskModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-slate-950/50 p-3 sm:p-6" role="dialog" aria-modal="true" aria-label="Check trade risk">
+          <div className="my-4 w-full max-w-4xl rounded-2xl bg-white shadow-2xl">
+            <div className="flex items-start justify-between border-b border-slate-100 px-5 py-4">
+              <div>
+                <h2 className={`text-lg font-bold ${HEADING}`}>Check Trade Risk</h2>
+                <p className="mt-1 text-xs text-slate-500">Assess risk for an HS code and primary country.</p>
+              </div>
+              <button type="button" onClick={() => setRiskModalOpen(false)} className="rounded-lg px-3 py-1.5 text-sm font-semibold text-slate-500 hover:bg-slate-100">Close ✕</button>
+            </div>
+
+            <form onSubmit={handleAssessRisk} className="grid grid-cols-1 gap-4 p-5 sm:grid-cols-2">
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold text-slate-600">HS Code *</label>
+                <input required value={riskForm.hs_code} onChange={(e) => setRiskForm((v) => ({ ...v, hs_code: e.target.value }))} placeholder="e.g. 09011111" className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-blue-500" />
+              </div>
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold text-slate-600">Product / Commodity</label>
+                <input value={riskForm.product} onChange={(e) => setRiskForm((v) => ({ ...v, product: e.target.value }))} placeholder="e.g. Coffee" className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-blue-500" />
+              </div>
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold text-slate-600">Primary Country *</label>
+                <input required value={riskForm.country} onChange={(e) => setRiskForm((v) => ({ ...v, country: e.target.value }))} placeholder="e.g. India" className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-blue-500" />
+              </div>
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold text-slate-600">Trade Type *</label>
+                <select required value={riskForm.trade_type} onChange={(e) => setRiskForm((v) => ({ ...v, trade_type: e.target.value }))} className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-blue-500">
+                  <option value="export">Export</option>
+                  <option value="import">Import</option>
+                </select>
+              </div>
+              <div className="sm:col-span-2">
+                <label className="mb-1.5 block text-xs font-semibold text-slate-600">Extra Countries (comma-separated)</label>
+                <input value={riskForm.countries} onChange={(e) => setRiskForm((v) => ({ ...v, countries: e.target.value }))} placeholder="e.g. China, UAE" className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm outline-none focus:border-blue-500" />
+                <p className="mt-1 text-[11px] text-slate-400">Assessment history recording is enabled automatically.</p>
+              </div>
+              {riskError && <p className="sm:col-span-2 rounded-lg bg-rose-50 px-3 py-2 text-sm text-rose-600">{riskError}</p>}
+              <div className="sm:col-span-2 flex justify-end gap-2">
+                <button type="button" onClick={() => { setAssessmentResult(null); setRiskError(""); }} className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50">Clear Result</button>
+                <button disabled={riskSubmitting} type="submit" className="rounded-xl bg-blue-600 px-5 py-2 text-sm font-semibold text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60">{riskSubmitting ? "Assessing..." : "Assess Risk"}</button>
+              </div>
+            </form>
+
+
+          </div>
+        </div>
+      )}
+
+      {allHsModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-start justify-center overflow-y-auto bg-slate-950/50 p-3 sm:p-6" role="dialog" aria-modal="true" aria-label="All top risky HS codes">
+          <div className="my-4 w-full max-w-4xl rounded-2xl bg-white shadow-2xl">
+            <div className="flex items-start justify-between border-b border-slate-100 px-5 py-4">
+              <div><h2 className={`text-lg font-bold ${HEADING}`}>All Top Risky HS Codes</h2><p className="mt-1 text-xs text-slate-500">Latest recorded risk scores · up to 50 records</p></div>
+              <button type="button" onClick={() => setAllHsModalOpen(false)} className="rounded-lg px-3 py-1.5 text-sm font-semibold text-slate-500 hover:bg-slate-100">Close ✕</button>
+            </div>
+            <div className="p-5">
+              <div className="overflow-x-auto rounded-xl border border-slate-100">
+                <table className="w-full min-w-[600px] text-left text-xs">
+                  <thead className="bg-slate-50 text-[10px] uppercase text-slate-400"><tr><th className="px-3 py-3">HS Code</th><th className="px-3 py-3">Product / Description</th><th className="px-3 py-3">Score</th><th className="px-3 py-3">Risk Level</th><th className="px-3 py-3">Assessment ID</th></tr></thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {visibleAllHsCodes.map((h, i) => {
+                      const score = Number(h.overall_risk_score ?? h.risk_score ?? h.avgRisk ?? h.score ?? 0);
+                      return <tr key={h.id || h.assessment_id || h._id || i}><td className="px-3 py-3 font-bold text-slate-700">{h.hs_code || h.hsCode || h._id || h.code || "—"}</td><td className="px-3 py-3">{h.commodity || h.product || h.description || h.productName || "—"}</td><td className="px-3 py-3 font-semibold">{score}</td><td className="px-3 py-3"><RiskBadge level={h.risk_level || h.level || (score >= 80 ? "Very High" : score >= 60 ? "High" : score >= 40 ? "Medium" : score >= 20 ? "Low" : "Very Low")} /></td><td className="px-3 py-3">{h.assessment_id || "—"}</td></tr>;
+                    })}
+                    {visibleAllHsCodes.length === 0 && <tr><td colSpan="5" className="px-3 py-8 text-center text-slate-400">No HS-code risk records found.</td></tr>}
+                  </tbody>
+                </table>
+              </div>
+              <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+                <span className="text-[11px] text-slate-500">Showing {dashboardHsRows.length ? (allHsPage - 1) * topHsPageSize + 1 : 0}–{Math.min(allHsPage * topHsPageSize, dashboardHsRows.length)} of {dashboardHsRows.length} records · 10 per page</span>
+                <div className="flex gap-2">
+                  <button type="button" disabled={allHsPage <= 1} onClick={() => setAllHsPage((p) => Math.max(1, p - 1))} className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs disabled:opacity-40">Previous</button>
+                  <span className="self-center text-xs text-slate-500">Page {allHsPage} / {allHsPageCount}</span>
+                  <button type="button" disabled={allHsPage >= allHsPageCount} onClick={() => setAllHsPage((p) => Math.min(allHsPageCount, p + 1))} className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs disabled:opacity-40">Next</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {exportReport && (
+        <ExportReport onClose={() => setExportReport(false)} />
+      )}
     </div>
   );
 }
