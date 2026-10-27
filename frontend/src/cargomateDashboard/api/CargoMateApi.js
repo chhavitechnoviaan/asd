@@ -7,7 +7,7 @@
 // // // const baseURL = (
 // // //   import.meta.env.VITE_AI_API_BASE_URL ||
 // // //   import.meta.env.VITE_CARGOMATE_API_URL ||
-// // //   "http://187.127.140.51:8034/api"
+// // //   "https://ai-service-nb69.onrender.com/api/api"
 // // // ).replace(/\/+$/, "");
 
 // // // const CargoMateAPI = axios.create({
@@ -80,7 +80,7 @@
 // // const baseURL = (
 // //   import.meta.env.VITE_AI_API_BASE_URL ||
 // //   import.meta.env.VITE_CARGOMATE_API_URL ||
-// //   "http://187.127.140.51:8034/api"
+// //   "https://ai-service-nb69.onrender.com/api/api"
 // // ).replace(/\/+$/, "");
 
 // // const CargoMateAPI = axios.create({
@@ -166,7 +166,7 @@
 // const baseURL = (
 //   import.meta.env.VITE_AI_API_BASE_URL ||
 //   import.meta.env.VITE_CARGOMATE_API_URL ||
-//   "http://187.127.140.51:8034/api"
+//   "https://ai-service-nb69.onrender.com/api/api"
 // ).replace(/\/+$/, "");
 
 // const CargoMateAPI = axios.create({
@@ -309,7 +309,7 @@ import axios from "axios";
 const baseURL = (
   import.meta.env.VITE_AI_API_BASE_URL ||
   import.meta.env.VITE_CARGOMATE_API_URL ||
-  "http://187.127.140.51:8034/api"
+  "https://ai-service-nb69.onrender.com/api"
 ).replace(/\/+$/, "");
 
 const CargoMateAPI = axios.create({
@@ -324,7 +324,7 @@ const CargoMateAPI = axios.create({
 // Separate Risk API base URL so existing APIs remain unaffected
 const riskBaseURL = (
   import.meta.env.VITE_RISK_API_BASE_URL ||
-  "https://ai-service-nb69.onrender.com"
+  "https://ai-service-nb69.onrender.com/api"
 ).replace(/\/+$/, "");
 
 export const RiskAssessmentAPI = axios.create({

@@ -308,7 +308,7 @@
 // const assistantApiBaseURL = (
 //   import.meta.env.VITE_AI_API_BASE_URL ||
 //   import.meta.env.VITE_CARGOMATE_API_URL ||
-//   "http://187.127.140.51:8034/api"
+//   "https://ai-service-nb69.onrender.com/api/api"
 // ).replace(/\/+$/, "");
 
 // const formatINR = (value, currency = "INR") => {
@@ -1589,7 +1589,7 @@ const tabContent = {
 const assistantApiBaseURL = (
   import.meta.env.VITE_AI_API_BASE_URL ||
   import.meta.env.VITE_CARGOMATE_API_URL ||
-  "http://187.127.140.51:8034/api"
+  "https://ai-service-nb69.onrender.com/api/api"
 ).replace(/\/+$/, "");
 
 const formatINR = (value, currency = "INR") => {

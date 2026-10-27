@@ -1,4 +1,4 @@
-const API_BASE_URL = (import.meta.env.VITE_AI_API_BASE_URL || "http://187.127.140.51:8034/api").replace(/\/$/, "");
+const API_BASE_URL = (import.meta.env.VITE_AI_API_BASE_URL || "https://ai-service-nb69.onrender.com/api/api").replace(/\/$/, "");
 
 function getAuthHeaders() {
   const token = localStorage.getItem("token") || localStorage.getItem("accessToken") || localStorage.getItem("authToken");
@@ -26,7 +26,7 @@ async function request(path, { method = "POST", body, signal } = {}) {
 }
 
 export const aiApi = {
-  baseUrl: API_BASE_URL,
+  baseUrl: VITE_AI_API_BASE_URL,
   chat: (payload, options) => request("/chat", { ...options, body: payload }),
   lookup: (payload, options) => request("/lookup", { ...options, body: payload }),
   estimateIncentive: (payload, options) => request("/incentive/estimate", { ...options, body: payload }),
