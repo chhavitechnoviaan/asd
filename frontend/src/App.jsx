@@ -41,7 +41,8 @@ function AppContent() {
   const navigate = useNavigate();
   const normalizedPath = location.pathname.replace(/\/+$/, "").toLowerCase() || "/";
 
-  if (normalizedPath === "/login" || normalizedPath === "/admin-login" || normalizedPath === "/signup") return <DemoLoginPage />;\n  if (normalizedPath === "/b2b-dashboard") return <B2BDashboard />;
+  if (normalizedPath === "/login" || normalizedPath === "/admin-login" || normalizedPath === "/signup") return <DemoLoginPage />;
+   if (normalizedPath === "/b2b-dashboard") return <B2BDashboard />;
   if (normalizedPath === "/user-dashboard") return <UserDashboard />;
   if (normalizedPath === "/admin-dashboard") return <AdminDashboard />;
 
