@@ -504,6 +504,26 @@ export const getRiskHistory = (payload = {}) =>
     },
   });
 
+  // HS Code Intelligence API
+// ========================================
+// HS CODE INTELLIGENCE API
+// GET /hs-code-intelligence
+// ========================================
+
+export const getHsCodeIntelligence = (payload = {}) => {
+  return CargoMateAPI.get("/hs-code-intelligence", {
+    params: {
+      hs_code: String(payload.hs_code ?? "").trim(),
+      flow: payload.flow ?? "both",
+      year: payload.year ?? "2025-2026",
+      values_in: "crore",
+      top_n: 50,
+      include_trend: true,
+    },
+  });
+};
+
+
 // 3. GET /risk/top-hs-codes
 // Request maximum 50 records.
 export const getTopRiskHSCodes = () =>

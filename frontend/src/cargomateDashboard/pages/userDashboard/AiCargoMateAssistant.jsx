@@ -2688,75 +2688,7 @@ const AiCargoMateAssistant = () => {
                   </div>
                 )}
                              
-                {liveView && (
-                  <div className="mt-4 bg-white rounded-xl border border-gray-200 p-4">
-                                     
-                    <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-                                         
-                      <p className="text-sm font-bold text-gray-900">
-                        Report Sources & Metadata
-                      </p>
-                                         
-                      {liveView.isEstimate !== undefined && (
-                        <span
-                          className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${liveView.isEstimate ? "bg-amber-50 text-amber-700" : "bg-emerald-50 text-emerald-700"}`}
-                        >
-                                                 
-                          {liveView.isEstimate
-                            ? "AI estimate included"
-                            : "Grounded result"}
-                                               
-                        </span>
-                      )}
-                                       
-                    </div>
-                                     
-                    {liveView.queryId && (
-                      <div className="flex justify-between gap-4 py-1.5 text-xs">
-                        <span className="text-gray-500">Query ID</span>
-                        <span className="text-right text-gray-800 break-all">
-                          {liveView.queryId}
-                        </span>
-                      </div>
-                    )}
-                                     
-                    {liveView.dataSources?.length > 0 && (
-                      <div className="py-1.5 text-xs">
-                        <p className="text-gray-500 mb-1">Data Sources</p>
-                        <div className="flex flex-wrap gap-1.5">
-                          {liveView.dataSources.map((source, index) => (
-                            <span
-                              key={`${source}-${index}`}
-                              className="rounded-md bg-gray-100 px-2 py-1 text-gray-700"
-                            >
-                              {String(source).replaceAll("_", " ")}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                                     
-                    {liveView.responseAssumptions?.length > 0 && (
-                      <div className="mt-2 text-xs">
-                        <p className="text-gray-500 mb-1">
-                          Overall Assumptions
-                        </p>
-                        <ul className="list-disc pl-4 space-y-1 text-gray-700">
-                          {liveView.responseAssumptions.map((item, index) => (
-                            <li key={index}>{readableValue(item)}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                                     
-                    {liveView.responseDisclaimer && (
-                      <p className="mt-3 border-t border-gray-100 pt-3 text-xs leading-relaxed text-orange-800">
-                        {liveView.responseDisclaimer}
-                      </p>
-                    )}
-                                   
-                  </div>
-                )}
+              
                            
               </div>
                          

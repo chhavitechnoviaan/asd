@@ -1,3 +1,5 @@
+
+
 // import { useEffect, useState } from "react";
 // import {
 //   FiArrowLeft,
@@ -24,8 +26,9 @@
 // import NeedHelp from "../../components/core/NeedHelp";
 // import Shipment from "../../components/ShipmentForm";
 // import poster2 from "../../assets/Images/webp/poster2.webp";
-import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 // import { lookupHsCode } from "../../api/CargoMateApi";
+// import DashboardAdPlacement from "../../components/DashboardAdPlacement";
+
 // const getAuditUserScope = () => {
 //   for (const key of ["userId", "user_id", "email", "userEmail"]) {
 //     const value = localStorage.getItem(key);
@@ -175,7 +178,9 @@ import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 //       return null;
 //     }
 //   });
-//   const [showAllAudit, setShowAllAudit] = useState(false);
+//   const [showAuditModal, setShowAuditModal] = useState(false);
+//   const [auditPage, setAuditPage] = useState(1);
+//   const AUDIT_PAGE_SIZE = 15;
 //   const [auditEntries, setAuditEntries] = useState(() => {
 //     try {
 //       return JSON.parse(
@@ -188,6 +193,13 @@ import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 //     }
 //   });
 //   const [shipment, setShipment] = useState("");
+
+//   const auditPageCount = Math.max(1, Math.ceil(auditEntries.length / AUDIT_PAGE_SIZE));
+//   const visibleAuditEntries = auditEntries.slice(0, 5);
+//   const paginatedAuditEntries = auditEntries.slice(
+//     (auditPage - 1) * AUDIT_PAGE_SIZE,
+//     auditPage * AUDIT_PAGE_SIZE,
+//   );
 
 //   const [showDetails, setShowDetails] = useState(false);
 //   const [lookupResult, setLookupResult] = useState(null);
@@ -221,27 +233,80 @@ import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 //     const searchedAt = new Date().toISOString();
 //     const queryId = `HSQ-${Date.now().toString(36).toUpperCase()}`;
 //     // const payload = { product_description: query.trim(), country_of_export: exportCountry, country_of_import: importCountry, quantity: Number(quantity), unit };
+
 //     const payload = {
 //       product: query.trim(),
-//       product_description: query.trim(),
-//       country_of_export: exportCountry,
-//       country_of_import: importCountry,
+//       export_country: exportCountry,
+//       import_country: importCountry,
 //       quantity: Number(quantity),
 //       unit,
+//       shipment_type: "general_export",
+//       include_tariff: true,
 //     };
+
+//     // try {
+//     //   const res = await lookupHsCode(payload);
+//     //   const data = res?.data ?? res;
+//     //   setLookupResult(data);
+//     //   setQueryMeta({
+//     //     ...payload,
+//     //     searchedAt,
+//     //     queryId,
+//     //     searchedBy:
+//     //       localStorage.getItem("userName") ||
+//     //       localStorage.getItem("name") ||
+//     //       "Current user",
+//     //   });
+//     //   const entry = {
+//     //     id: queryId,
+//     //     text: `HS Code lookup submitted for “${query.trim()}”`,
+//     //     time: new Date(searchedAt).toLocaleTimeString([], {
+//     //       hour: "2-digit",
+//     //       minute: "2-digit",
+//     //     }),
+//     //     searchedAt,
+//     //     product: query.trim(),
+//     //     result: data,
+//     //   };
+//     //   setAuditEntries((prev) => [entry, ...prev].slice(0, 50));
+//     // } catch (err) {
+//     //   setLookupError(
+//     //     err?.response?.data?.detail ||
+//     //       err?.response?.data?.message ||
+//     //       err.message ||
+//     //       "HS code lookup failed.",
+//     //   );
+//     // } finally {
+//     //   setLookupLoading(false);
+//     // }
+
 //     try {
 //       const res = await lookupHsCode(payload);
-//       const data = res?.data ?? res;
+
+//       console.log("HS Lookup Request:", res.config.url);
+//       console.log("HS Lookup Parameters:", res.config.params);
+//       console.log("HS Lookup Status:", res.status);
+//       console.log("HS Lookup API Response:", res.data);
+
+//       const data = res.data;
 //       setLookupResult(data);
+
+//       const searchedBy =
+//         localStorage.getItem("userName") ||
+//         localStorage.getItem("name") ||
+//         "Current user";
+
 //       setQueryMeta({
-//         ...payload,
+//         product_description: query.trim(),
+//         country_of_export: exportCountry,
+//         country_of_import: importCountry,
+//         quantity: Number(quantity),
+//         unit,
 //         searchedAt,
 //         queryId,
-//         searchedBy:
-//           localStorage.getItem("userName") ||
-//           localStorage.getItem("name") ||
-//           "Current user",
+//         searchedBy,
 //       });
+
 //       const entry = {
 //         id: queryId,
 //         text: `HS Code lookup submitted for “${query.trim()}”`,
@@ -253,13 +318,26 @@ import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 //         product: query.trim(),
 //         result: data,
 //       };
+
 //       setAuditEntries((prev) => [entry, ...prev].slice(0, 50));
+//       setAuditPage(1);
 //     } catch (err) {
+//       console.error(
+//         "HS Lookup API Error:",
+//         err.response?.status,
+//         err.response?.data || err.message,
+//       );
+
+//       const detail = err.response?.data?.detail;
+
 //       setLookupError(
-//         err?.response?.data?.detail ||
-//           err?.response?.data?.message ||
-//           err.message ||
-//           "HS code lookup failed.",
+//         typeof detail === "string"
+//           ? detail
+//           : Array.isArray(detail)
+//             ? detail.map((item) => item.msg).join(", ")
+//             : err.response?.data?.message ||
+//               err.message ||
+//               "HS code lookup failed.",
 //       );
 //     } finally {
 //       setLookupLoading(false);
@@ -279,7 +357,7 @@ import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 //     bestMatch?.description ||
 //     bestMatch?.product_description ||
 //     bestMatch?.label ||
-//     "API did not return a description";
+//     "";
 //   const resultConfidence =
 //     bestMatch?.confidence ??
 //     bestMatch?.confidence_score ??
@@ -528,9 +606,7 @@ import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 //                         <div className="flex items-center gap-1 text-emerald-500">
 //                           <MdOutlineVerified size={16} />
 //                           <span className="text-sm font-semibold">
-//                             {resultConfidence == null
-//                               ? "API result"
-//                               : "Returned by API"}
+//                             {resultConfidence == null ? "HIGH" : "HIGH"}
 //                           </span>
 //                         </div>
 //                       </div>
@@ -685,11 +761,11 @@ import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 //                   ) : (
 //                     <p className="text-xs text-gray-400 py-3">
 //                       {lookupResult
-//                         ? "The API did not return alternative matches for this query."
+//                         ? "No Other Possible Matches Found."
 //                         : "Alternative matches will appear after a successful search."}
 //                     </p>
 //                   ))}
-//                 {lookupResult && (
+//                 {/* {lookupResult && (
 //                   <div className="flex flex-col sm:flex-row sm:justify-between mt-3 gap-1">
 //                     <p className="text-[10px] text-gray-400 flex items-center gap-1">
 //                       <FiInfo size={11} /> Classification is a reference; verify
@@ -699,7 +775,7 @@ import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 //                       Source: live lookup API
 //                     </p>
 //                   </div>
-//                 )}
+//                 )} */}
 //               </div>
 
 //               {showDetails && (
@@ -785,76 +861,108 @@ import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 //                   </div>
 //                 </div>
 //               )}
-//               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-3 ">
-//                 <div className="bg-white  flex flex-col justify-center gap-10 rounded-xl border border-gray-200  px-3 py-4 ">
-//                   <div className=" flex flex-row items-center justify-between">
-//                     <h3 className="text-xs  font-bold text-gray-900 ">
-//                       Data Sources Used
-//                     </h3>
-//                   </div>
-
-//                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs">
-//                     <div className="flex items-center gap-2  text-gray-700">
-//                       <FiDatabase size={14} />
-//                       DGFT (India)
-//                     </div>
-
-//                     <div className="flex items-center gap-2 text-gray-700">
-//                       <FiDatabase size={14} />
-//                       ICEGATE
-//                     </div>
-
-//                     <div className="flex items-center gap-2 text-gray-700">
-//                       <FiDatabase size={14} />
-//                       Shipping Lines
-//                     </div>
-
-//                     <div className="flex items-center gap-2 text-gray-700">
-//                       <FiDatabase size={14} />
-//                       Customs (UAE)
-//                     </div>
-
-//                     <div className="flex items-center gap-2 text-gray-700">
-//                       <FiDatabase size={14} />
-//                       Trade APIs
-//                     </div>
-
-//                     <div className="flex items-center gap-2 text-gray-700">
-//                       <FiDatabase size={14} />
-//                       Market Data
+//               <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4 items-stretch">
+//                 {/* Data sources */}
+//                 <section className="min-w-0 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+//                   <div className="mb-4 flex items-center gap-3">
+//                     <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 text-teal-700">
+//                       <FiDatabase size={19} />
+//                     </span>
+//                     <div>
+//                       <h3 className="text-sm font-semibold text-slate-900">
+//                         Data Sources Used
+//                       </h3>
+//                       <p className="mt-0.5 text-xs text-slate-500">
+//                         Connected trade information sources
+//                       </p>
 //                     </div>
 //                   </div>
-//                 </div>
 
-//                 <div className="bg-white rounded-xl border border-gray-200 p-4">
-//                   <h3 className="text-xs  font-bold text-gray-900 mb-4">
-//                     Connected To Live Data
-//                   </h3>
+//                   <div className="grid grid-cols-2 gap-2.5">
+//                     {[
+//                       "DGFT (India)",
+//                       "ICEGATE",
+//                       "Shipping Lines",
+//                       "Customs (UAE)",
+//                       "Trade APIs",
+//                       "Market Data",
+//                     ].map((source) => (
+//                       <div
+//                         key={source}
+//                         className="flex min-w-0 items-center gap-2 rounded-lg border border-slate-100 bg-slate-50 px-3 py-2.5 text-xs font-medium text-slate-700"
+//                       >
+//                         <FiDatabase
+//                           className="shrink-0 text-teal-600"
+//                           size={14}
+//                         />
+//                         <span className="min-w-0 leading-4">{source}</span>
+//                       </div>
+//                     ))}
+//                   </div>
+//                 </section>
 
-//                   <p className="text-xs  text-[#64748B] leading-relaxed mb-4">
-//                     All modules are connected to backend systems and databases
-//                     for real-time, accurate information.
+//                 {/* Live connection status */}
+//                 <section className="min-w-0 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+//                   <div className="mb-4 flex items-center gap-3">
+//                     <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-50 text-blue-700">
+//                       <FiWifi size={19} />
+//                     </span>
+//                     <div>
+//                       <h3 className="text-sm font-semibold text-slate-900">
+//                         Connected To Live Data
+//                       </h3>
+//                       <p className="mt-0.5 text-xs text-slate-500">
+//                         Trade intelligence connection
+//                       </p>
+//                     </div>
+//                   </div>
+
+//                   <p className="text-sm leading-6 text-slate-600">
+//                     Trade information can be retrieved from connected services
+//                     to support your shipment research.
 //                   </p>
 
-//                   <div className="inline-flex items-center gap-2 px-3 py-1.5    b0">
-//                     <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-//                     <span className="text-xs sm:text-sm font-medium text-emerald-700">
-//                       Connected
-//                     </span>
+//                   <div className="mt-5 flex items-center justify-between gap-3 rounded-xl border border-emerald-100 bg-emerald-50 px-3.5 py-3">
+//                     <div className="flex min-w-0 items-center gap-2">
+//                       <span className="relative flex h-2.5 w-2.5 shrink-0">
+//                         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-50" />
+//                         <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+//                       </span>
+//                       <span className="text-sm font-semibold text-emerald-800">
+//                         Connected
+//                       </span>
+//                     </div>
+//                     <span className="text-xs text-emerald-700">Status</span>
 //                   </div>
-//                 </div>
+//                 </section>
 
-//                 <div className="bg-white flex rounded-xl border border-gray-200 pl-4">
-//                   <NeedHelp
-//                     mobile={"+91 22 1234 5678"}
-//                     para={" Our trade experts are here to help you."}
-//                     heading={"Need help ?"}
-//                   />
-//                 </div>
+//                 {/* Help card gets full row width to avoid squeezed text */}
+//                 <section className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-sm md:col-span-2">
+//                   <div className="mb-2 flex items-center gap-3">
+//                     <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-700">
+//                       <FiPhone size={18} />
+//                     </span>
+//                     <div>
+//                       <h3 className="text-sm font-semibold text-slate-900">
+//                         Need Help?
+//                       </h3>
+//                       <p className="mt-0.5 text-xs text-slate-500">
+//                         Our trade experts are here to help you.
+//                       </p>
+//                     </div>
+//                   </div>
+//                   <div className="min-w-0">
+//                     <NeedHelp
+//                       mobile={"+91 22 1234 5678"}
+//                       para={"Our trade experts are here to help you."}
+//                       heading={"Need help?"}
+//                     />
+//                   </div>
+//                 </section>
 //               </div>
 //             </div>
 
-//             <div className="flex flex-col gap-4">
+//             <div className="flex flex-col gap-1">
 //               <div className="bg-white border border-gray-200 rounded-xl p-4">
 //                 <p className="text-sm font-semibold text-gray-800 mb-3">
 //                   Query Summary
@@ -900,6 +1008,8 @@ import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 //                 ))}
 //               </div>
 
+//               <DashboardAdPlacement location="User Dashboard - HS Code Lookup" />
+
 //               <div className="bg-white border border-gray-200 rounded-xl p-4">
 //                 <p className="text-sm font-semibold text-gray-800 mb-3">
 //                   Duty & Tax
@@ -920,7 +1030,7 @@ import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 //                   ))
 //                 ) : (
 //                   <p className="text-xs text-gray-400">
-//                     Duty and tax details were not returned by the lookup API.
+//                     Duty and tax details were not found.
 //                   </p>
 //                 )}
 //               </div>
@@ -945,46 +1055,149 @@ import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 //                   ))
 //                 ) : (
 //                   <p className="text-xs text-gray-400">
-//                     No trade restrictions or preferences were returned by the
-//                     lookup API.
+//                     No trade restrictions or preferences were found.
 //                   </p>
 //                 )}
 //               </div>
 
 //               <div className="bg-white rounded-xl border border-gray-200 p-4">
 //                 <div className="flex items-center justify-between mb-3">
-//                   <p className="text-sm font-semibold text-gray-800">
-//                     Audit Log
-//                   </p>
+//                   <div>
+//                     <p className="text-sm font-semibold text-gray-800">Audit Log</p>
+//                     <p className="text-[11px] text-gray-400 mt-0.5">
+//                       {auditEntries.length} {auditEntries.length === 1 ? "log" : "logs"} recorded
+//                     </p>
+//                   </div>
 //                   <button
-//                     onClick={() => setShowAllAudit((value) => !value)}
-//                     className="text-teal-500 text-xs font-medium hover:underline"
+//                     type="button"
+//                     onClick={() => {
+//                       setAuditPage(1);
+//                       setShowAuditModal(true);
+//                     }}
+//                     className="text-teal-600 text-xs font-semibold hover:underline"
 //                   >
-//                     {showAllAudit ? "Show Less" : "View All"}
+//                     View All
 //                   </button>
 //                 </div>
 //                 {auditEntries.length ? (
-//                   auditEntries
-//                     .slice(0, showAllAudit ? auditEntries.length : 8)
-//                     .map((entry) => (
-//                       <div
-//                         key={entry.id}
-//                         className="flex gap-2 py-1.5 border-b border-gray-100 last:border-0"
-//                       >
-//                         <span className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0 mt-1" />
-//                         <span className="flex-1 text-xs font-medium text-gray-600">
-//                           {entry.text}
-//                         </span>
-//                         <span className="text-xs text-left text-gray-400 whitespace-nowrap">
-//                           {entry.time}
-//                         </span>
-//                       </div>
-//                     ))
+//                   visibleAuditEntries.map((entry, index) => (
+//                     <div
+//                       key={entry.id || `${entry.searchedAt || entry.time || "audit"}-${index}`}
+//                       className="flex gap-2 py-2 border-b border-gray-100 last:border-0"
+//                     >
+//                       <span className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0 mt-1" />
+//                       <span className="flex-1 text-xs font-medium text-gray-600 break-words">
+//                         {entry.text}
+//                       </span>
+//                       <span className="text-xs text-gray-400 whitespace-nowrap">
+//                         {entry.time || (entry.searchedAt ? new Date(entry.searchedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "—")}
+//                       </span>
+//                     </div>
+//                   ))
 //                 ) : (
-//                   <p className="text-xs text-gray-400">
+//                   <p className="text-xs text-gray-400 py-2">
 //                     Your successful searches will appear here.
 //                   </p>
 //                 )}
+//                 {auditEntries.length > 5 && (
+//                   <button
+//                     type="button"
+//                     onClick={() => {
+//                       setAuditPage(1);
+//                       setShowAuditModal(true);
+//                     }}
+//                     className="mt-3 w-full rounded-lg border border-gray-200 py-2 text-xs font-semibold text-gray-600 hover:bg-gray-50"
+//                   >
+//                     View all {auditEntries.length} logs
+//                   </button>
+//                 )}
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+
+//       {showAuditModal && (
+//         <div
+//           className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/50 p-3 sm:p-6"
+//           role="dialog"
+//           aria-modal="true"
+//           aria-labelledby="hs-audit-modal-title"
+//           onMouseDown={(event) => {
+//             if (event.target === event.currentTarget) setShowAuditModal(false);
+//           }}
+//         >
+//           <div className="flex max-h-[88vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
+//             <div className="flex items-center justify-between gap-4 border-b border-gray-100 px-5 py-4 sm:px-6">
+//               <div>
+//                 <h2 id="hs-audit-modal-title" className="text-base font-bold text-gray-900">
+//                   HS Code Lookup Audit Log
+//                 </h2>
+//                 <p className="mt-1 text-xs text-gray-500">
+//                   {auditEntries.length} {auditEntries.length === 1 ? "record" : "records"} · 15 records per page
+//                 </p>
+//               </div>
+//               <button
+//                 type="button"
+//                 onClick={() => setShowAuditModal(false)}
+//                 aria-label="Close audit log"
+//                 className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+//               >
+//                 <FiX size={18} />
+//               </button>
+//             </div>
+
+//             <div className="flex-1 overflow-y-auto px-5 py-2 sm:px-6">
+//               {auditEntries.length ? (
+//                 paginatedAuditEntries.map((entry, index) => (
+//                   <div
+//                     key={entry.id || `${entry.searchedAt || entry.time || "audit-modal"}-${index}`}
+//                     className="flex gap-3 border-b border-gray-100 py-3 last:border-0"
+//                   >
+//                     <span className="mt-1.5 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-teal-500" />
+//                     <div className="min-w-0 flex-1">
+//                       <p className="break-words text-sm font-medium text-gray-700">{entry.text || "HS Code lookup activity"}</p>
+//                       {entry.product && (
+//                         <p className="mt-1 text-xs text-gray-500">Product: {entry.product}</p>
+//                       )}
+//                       {entry.searchedAt && (
+//                         <p className="mt-1 text-[11px] text-gray-400">{new Date(entry.searchedAt).toLocaleString()}</p>
+//                       )}
+//                     </div>
+//                     <span className="whitespace-nowrap text-xs text-gray-400">
+//                       {entry.time || (entry.searchedAt ? new Date(entry.searchedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "—")}
+//                     </span>
+//                   </div>
+//                 ))
+//               ) : (
+//                 <div className="py-12 text-center text-sm text-gray-400">No audit logs available yet.</div>
+//               )}
+//             </div>
+
+//             <div className="flex flex-col gap-3 border-t border-gray-100 bg-gray-50 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+//               <p className="text-xs text-gray-500">
+//                 {auditEntries.length ? `Showing ${(auditPage - 1) * AUDIT_PAGE_SIZE + 1}–${Math.min(auditPage * AUDIT_PAGE_SIZE, auditEntries.length)} of ${auditEntries.length} logs` : "Showing 0 logs"}
+//               </p>
+//               <div className="flex items-center justify-between gap-2 sm:justify-end">
+//                 <button
+//                   type="button"
+//                   onClick={() => setAuditPage((page) => Math.max(1, page - 1))}
+//                   disabled={auditPage === 1 || auditEntries.length === 0}
+//                   className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40"
+//                 >
+//                   Previous
+//                 </button>
+//                 <span className="whitespace-nowrap text-xs font-medium text-gray-600">
+//                   Page {auditPage} of {auditPageCount}
+//                 </span>
+//                 <button
+//                   type="button"
+//                   onClick={() => setAuditPage((page) => Math.min(auditPageCount, page + 1))}
+//                   disabled={auditPage >= auditPageCount || auditEntries.length === 0}
+//                   className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40"
+//                 >
+//                   Next
+//                 </button>
 //               </div>
 //             </div>
 //           </div>
@@ -1003,6 +1216,9 @@ import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 //     </div>
 //   );
 // }
+
+
+
 
 import { useEffect, useState } from "react";
 import {
@@ -1031,6 +1247,8 @@ import NeedHelp from "../../components/core/NeedHelp";
 import Shipment from "../../components/ShipmentForm";
 import poster2 from "../../assets/Images/webp/poster2.webp";
 import { lookupHsCode } from "../../api/CargoMateApi";
+import DashboardAdPlacement from "../../components/DashboardAdPlacement";
+
 const getAuditUserScope = () => {
   for (const key of ["userId", "user_id", "email", "userEmail"]) {
     const value = localStorage.getItem(key);
@@ -1180,7 +1398,9 @@ export default function HSCodeLookup() {
       return null;
     }
   });
-  const [showAllAudit, setShowAllAudit] = useState(false);
+  const [showAuditModal, setShowAuditModal] = useState(false);
+  const [auditPage, setAuditPage] = useState(1);
+  const AUDIT_PAGE_SIZE = 15;
   const [auditEntries, setAuditEntries] = useState(() => {
     try {
       return JSON.parse(
@@ -1193,6 +1413,13 @@ export default function HSCodeLookup() {
     }
   });
   const [shipment, setShipment] = useState("");
+
+  const auditPageCount = Math.max(1, Math.ceil(auditEntries.length / AUDIT_PAGE_SIZE));
+  const visibleAuditEntries = auditEntries.slice(0, 5);
+  const paginatedAuditEntries = auditEntries.slice(
+    (auditPage - 1) * AUDIT_PAGE_SIZE,
+    auditPage * AUDIT_PAGE_SIZE,
+  );
 
   const [showDetails, setShowDetails] = useState(false);
   const [lookupResult, setLookupResult] = useState(null);
@@ -1284,7 +1511,36 @@ export default function HSCodeLookup() {
       const data = res.data;
       setLookupResult(data);
 
-      // Keep your existing Query Summary and Audit Log updates here.
+      const searchedBy =
+        localStorage.getItem("userName") ||
+        localStorage.getItem("name") ||
+        "Current user";
+
+      setQueryMeta({
+        product_description: query.trim(),
+        country_of_export: exportCountry,
+        country_of_import: importCountry,
+        quantity: Number(quantity),
+        unit,
+        searchedAt,
+        queryId,
+        searchedBy,
+      });
+
+      const entry = {
+        id: queryId,
+        text: `HS Code lookup submitted for “${query.trim()}”`,
+        time: new Date(searchedAt).toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+        searchedAt,
+        product: query.trim(),
+        result: data,
+      };
+
+      setAuditEntries((prev) => [entry, ...prev].slice(0, 50));
+      setAuditPage(1);
     } catch (err) {
       console.error(
         "HS Lookup API Error:",
@@ -1303,6 +1559,8 @@ export default function HSCodeLookup() {
               err.message ||
               "HS code lookup failed.",
       );
+    } finally {
+      setLookupLoading(false);
     }
   };
   const bestMatch =
@@ -1588,9 +1846,12 @@ export default function HSCodeLookup() {
                 </p>
                 {lookupResult &&
                   (Array.isArray(
-                    lookupResult?.alternatives ||
+                    lookupResult?.other_matches ||
+                      lookupResult?.alternatives ||
                       lookupResult?.matches ||
-                      lookupResult?.result?.matches,
+                      lookupResult?.result?.other_matches ||
+                      lookupResult?.result?.matches ||
+                      lookupResult?.data?.other_matches,
                   ) ? (
                     <div className="overflow-x-auto">
                       <table className="w-full min-w-[540px]">
@@ -1615,9 +1876,12 @@ export default function HSCodeLookup() {
                         </thead>
                         <tbody>
                           {(
+                            lookupResult?.other_matches ||
                             lookupResult?.alternatives ||
                             lookupResult?.matches ||
+                            lookupResult?.result?.other_matches ||
                             lookupResult?.result?.matches ||
+                            lookupResult?.data?.other_matches ||
                             []
                           ).map((row, i) => (
                             <tr key={i} className="border-t border-gray-100">
@@ -1633,11 +1897,13 @@ export default function HSCodeLookup() {
                               <td className="px-3 py-3">
                                 <div className="flex items-center gap-2">
                                   <span className="text-xs text-gray-700">
-                                    {row.score ??
+                                    {row.match_pct ??
+                                      row.score ??
                                       row.confidence ??
                                       row.confidence_score ??
                                       "—"}
-                                    {(row.score ??
+                                    {(row.match_pct ??
+                                      row.score ??
                                       row.confidence ??
                                       row.confidence_score) != null
                                       ? "%"
@@ -1649,19 +1915,22 @@ export default function HSCodeLookup() {
                                       Math.min(
                                         100,
                                         Number(
-                                          row.score ??
+                                          row.match_pct ??
+                                            row.score ??
                                             row.confidence ??
                                             row.confidence_score ??
                                             0,
                                         ) <= 1
                                           ? Number(
-                                              row.score ??
+                                              row.match_pct ??
+                                                row.score ??
                                                 row.confidence ??
                                                 row.confidence_score ??
                                                 0,
                                             ) * 100
                                           : Number(
-                                              row.score ??
+                                              row.match_pct ??
+                                                row.score ??
                                                 row.confidence ??
                                                 row.confidence_score ??
                                                 0,
@@ -1677,7 +1946,8 @@ export default function HSCodeLookup() {
                                       ) > 70
                                         ? "bg-emerald-500"
                                         : Number(
-                                              row.score ??
+                                              row.match_pct ??
+                                                row.score ??
                                                 row.confidence ??
                                                 row.confidence_score ??
                                                 0,
@@ -1692,10 +1962,12 @@ export default function HSCodeLookup() {
                                 {row.type || row.hs_code_type || "—"}
                               </td>
                               <td className="px-3 py-3 text-xs text-gray-600">
-                                {row.duty ||
-                                  row.applicable_duty ||
-                                  row.duty_rate ||
-                                  "—"}
+                                {(row.applicable_duty_pct != null
+                                    ? `${row.applicable_duty_pct}%`
+                                    : row.duty ||
+                                      row.applicable_duty ||
+                                      row.duty_rate ||
+                                      "—")}
                               </td>
                               <td className="px-3 py-3">
                                 <button
@@ -1840,26 +2112,37 @@ export default function HSCodeLookup() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2.5">
-                    {[
-                      "DGFT (India)",
-                      "ICEGATE",
-                      "Shipping Lines",
-                      "Customs (UAE)",
-                      "Trade APIs",
-                      "Market Data",
-                    ].map((source) => (
-                      <div
-                        key={source}
-                        className="flex min-w-0 items-center gap-2 rounded-lg border border-slate-100 bg-slate-50 px-3 py-2.5 text-xs font-medium text-slate-700"
-                      >
-                        <FiDatabase
-                          className="shrink-0 text-teal-600"
-                          size={14}
-                        />
-                        <span className="min-w-0 leading-4">{source}</span>
-                      </div>
-                    ))}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                    {(() => {
+                      const sources =
+                        lookupResult?.sources ||
+                        lookupResult?.result?.hs_details?.sources ||
+                        lookupResult?.data?.hs_details?.sources ||
+                        lookupResult?.sources ||
+                        lookupResult?.result?.sources ||
+                        lookupResult?.data?.sources ||
+                        [];
+                      return Array.isArray(sources) && sources.length > 0 ? (
+                        sources.map((source, index) => (
+                          <div
+                            key={`${source}-${index}`}
+                            className="flex min-w-0 items-center gap-2 rounded-lg border border-slate-100 bg-slate-50 px-3 py-2.5 text-xs font-medium text-slate-700"
+                          >
+                            <FiDatabase
+                              className="shrink-0 text-teal-600"
+                              size={14}
+                            />
+                            <span className="min-w-0 break-words leading-4">
+                              {String(source).replaceAll("_", " ")}
+                            </span>
+                          </div>
+                        ))
+                      ) : (
+                        <p className="col-span-full text-xs text-slate-400">
+                          Data sources will appear after a successful lookup.
+                        </p>
+                      );
+                    })()}
                   </div>
                 </section>
 
@@ -2024,38 +2307,142 @@ export default function HSCodeLookup() {
 
               <div className="bg-white rounded-xl border border-gray-200 p-4">
                 <div className="flex items-center justify-between mb-3">
-                  <p className="text-sm font-semibold text-gray-800">
-                    Audit Log
-                  </p>
+                  <div>
+                    <p className="text-sm font-semibold text-gray-800">Audit Log</p>
+                    <p className="text-[11px] text-gray-400 mt-0.5">
+                      {auditEntries.length} {auditEntries.length === 1 ? "log" : "logs"} recorded
+                    </p>
+                  </div>
                   <button
-                    onClick={() => setShowAllAudit((value) => !value)}
-                    className="text-teal-500 text-xs font-medium hover:underline"
+                    type="button"
+                    onClick={() => {
+                      setAuditPage(1);
+                      setShowAuditModal(true);
+                    }}
+                    className="text-teal-600 text-xs font-semibold hover:underline"
                   >
-                    {showAllAudit ? "Show Less" : "View All"}
+                    View All
                   </button>
                 </div>
                 {auditEntries.length ? (
-                  auditEntries
-                    .slice(0, showAllAudit ? auditEntries.length : 8)
-                    .map((entry) => (
-                      <div
-                        key={entry.id}
-                        className="flex gap-2 py-1.5 border-b border-gray-100 last:border-0"
-                      >
-                        <span className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0 mt-1" />
-                        <span className="flex-1 text-xs font-medium text-gray-600">
-                          {entry.text}
-                        </span>
-                        <span className="text-xs text-left text-gray-400 whitespace-nowrap">
-                          {entry.time}
-                        </span>
-                      </div>
-                    ))
+                  visibleAuditEntries.map((entry, index) => (
+                    <div
+                      key={entry.id || `${entry.searchedAt || entry.time || "audit"}-${index}`}
+                      className="flex gap-2 py-2 border-b border-gray-100 last:border-0"
+                    >
+                      <span className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0 mt-1" />
+                      <span className="flex-1 text-xs font-medium text-gray-600 break-words">
+                        {entry.text}
+                      </span>
+                      <span className="text-xs text-gray-400 whitespace-nowrap">
+                        {entry.time || (entry.searchedAt ? new Date(entry.searchedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "—")}
+                      </span>
+                    </div>
+                  ))
                 ) : (
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-gray-400 py-2">
                     Your successful searches will appear here.
                   </p>
                 )}
+                {auditEntries.length > 5 && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setAuditPage(1);
+                      setShowAuditModal(true);
+                    }}
+                    className="mt-3 w-full rounded-lg border border-gray-200 py-2 text-xs font-semibold text-gray-600 hover:bg-gray-50"
+                  >
+                    View all {auditEntries.length} logs
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showAuditModal && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/50 p-3 sm:p-6"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="hs-audit-modal-title"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setShowAuditModal(false);
+          }}
+        >
+          <div className="flex max-h-[88vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl">
+            <div className="flex items-center justify-between gap-4 border-b border-gray-100 px-5 py-4 sm:px-6">
+              <div>
+                <h2 id="hs-audit-modal-title" className="text-base font-bold text-gray-900">
+                  HS Code Lookup Audit Log
+                </h2>
+                <p className="mt-1 text-xs text-gray-500">
+                  {auditEntries.length} {auditEntries.length === 1 ? "record" : "records"} · 15 records per page
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowAuditModal(false)}
+                aria-label="Close audit log"
+                className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-800"
+              >
+                <FiX size={18} />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto px-5 py-2 sm:px-6">
+              {auditEntries.length ? (
+                paginatedAuditEntries.map((entry, index) => (
+                  <div
+                    key={entry.id || `${entry.searchedAt || entry.time || "audit-modal"}-${index}`}
+                    className="flex gap-3 border-b border-gray-100 py-3 last:border-0"
+                  >
+                    <span className="mt-1.5 h-2.5 w-2.5 flex-shrink-0 rounded-full bg-teal-500" />
+                    <div className="min-w-0 flex-1">
+                      <p className="break-words text-sm font-medium text-gray-700">{entry.text || "HS Code lookup activity"}</p>
+                      {entry.product && (
+                        <p className="mt-1 text-xs text-gray-500">Product: {entry.product}</p>
+                      )}
+                      {entry.searchedAt && (
+                        <p className="mt-1 text-[11px] text-gray-400">{new Date(entry.searchedAt).toLocaleString()}</p>
+                      )}
+                    </div>
+                    <span className="whitespace-nowrap text-xs text-gray-400">
+                      {entry.time || (entry.searchedAt ? new Date(entry.searchedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "—")}
+                    </span>
+                  </div>
+                ))
+              ) : (
+                <div className="py-12 text-center text-sm text-gray-400">No audit logs available yet.</div>
+              )}
+            </div>
+
+            <div className="flex flex-col gap-3 border-t border-gray-100 bg-gray-50 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+              <p className="text-xs text-gray-500">
+                {auditEntries.length ? `Showing ${(auditPage - 1) * AUDIT_PAGE_SIZE + 1}–${Math.min(auditPage * AUDIT_PAGE_SIZE, auditEntries.length)} of ${auditEntries.length} logs` : "Showing 0 logs"}
+              </p>
+              <div className="flex items-center justify-between gap-2 sm:justify-end">
+                <button
+                  type="button"
+                  onClick={() => setAuditPage((page) => Math.max(1, page - 1))}
+                  disabled={auditPage === 1 || auditEntries.length === 0}
+                  className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  Previous
+                </button>
+                <span className="whitespace-nowrap text-xs font-medium text-gray-600">
+                  Page {auditPage} of {auditPageCount}
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setAuditPage((page) => Math.min(auditPageCount, page + 1))}
+                  disabled={auditPage >= auditPageCount || auditEntries.length === 0}
+                  className="rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  Next
+                </button>
               </div>
             </div>
           </div>

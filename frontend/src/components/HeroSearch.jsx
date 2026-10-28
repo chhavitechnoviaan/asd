@@ -20,14 +20,14 @@ export default function HeroSearch() {
           <div className="mb-5 flex flex-wrap gap-3">
             <button
               type="button"
-              onClick={() => goTo("/b2b-dashboard")}
+              onClick={() => goTo("/login")}
               className="rounded-lg bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-slate-300"
             >
               B2B Dashboard
             </button>
             <button
               type="button"
-              onClick={() => goTo("/user-dashboard")}
+              onClick={() => goTo("/login")}
               className="rounded-lg bg-slate-900 px-5 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-slate-300"
             >
               User Dashboard
@@ -46,7 +46,7 @@ export default function HeroSearch() {
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <button
               type="button"
-              onClick={() => goTo("/admin-dashboard")}
+              onClick={() => goTo("/login")}
               className="group inline-flex items-center gap-2 rounded-lg bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-slate-300"
             >
               Get Started <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

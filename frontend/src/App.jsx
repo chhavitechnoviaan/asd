@@ -13,6 +13,7 @@ import ResourcesPage from "./pages/ResourcesPage";
 import ContactPage from "./pages/ContactPage";
 import HelpCenterPage from "./pages/HelpCenterPage";
 import ComingSoonPage from "./pages/ComingSoonPage";
+import DemoLoginPage from "./pages/DemoLoginPage";
 
 // Original dashboard implementations from the supplied asd-frontend 2 project.
 import B2BDashboard from "./cargomateDashboard/pages/b2bDashboard/B2BDashboard.jsx";
@@ -40,7 +41,7 @@ function AppContent() {
   const navigate = useNavigate();
   const normalizedPath = location.pathname.replace(/\/+$/, "").toLowerCase() || "/";
 
-  if (normalizedPath === "/b2b-dashboard") return <B2BDashboard />;
+  if (normalizedPath === "/login" || normalizedPath === "/admin-login" || normalizedPath === "/signup") return <DemoLoginPage />;\n  if (normalizedPath === "/b2b-dashboard") return <B2BDashboard />;
   if (normalizedPath === "/user-dashboard") return <UserDashboard />;
   if (normalizedPath === "/admin-dashboard") return <AdminDashboard />;
 
@@ -49,8 +50,8 @@ function AppContent() {
     if (location.pathname !== "/") navigate("/");
   };
 
-  const handleLoginClick = () => navigate("/admin-login");
-  const handleSignupClick = () => navigate("/signup");
+  const handleLoginClick = () => navigate("/login");
+  const handleSignupClick = () => navigate("/login");
 
   const PageComponent = builtPages[activePage];
 
