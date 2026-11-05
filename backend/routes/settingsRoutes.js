@@ -1,53 +1,11 @@
-// const express = require("express");
-// const { protect } = require("../middleware/authMiddleware");
-// const upload = require("../middleware/upload");
-// const router = express.Router();
 
-// const {
-
-// getSettings,
-// updateGeneral,
-// updatePreferences,
-// updateNotifications,
-// updateSecurity,
-// updateBilling,
-// updateTheme,
-// changePassword,
-// getActivity,
-// getAccountSummary,
-// uploadKYCDocuments,
-// submitKYC
-// } = require("../controllers/settingsController");
-// router.get("/", protect, getSettings);
-// router.put("/general", protect, updateGeneral);
-// router.put("/preferences", protect, updatePreferences);
-// router.put("/notifications", protect, updateNotifications);
-// router.put("/security", protect, updateSecurity);
-// router.put("/billing", protect, updateBilling);
-// router.put("/theme", protect, updateTheme);
-// router.put("/change-password", protect, changePassword);
-// router.get("/activity", protect, getActivity);
-// router.get("/account-summary", protect, getAccountSummary);
-// router.post(
-//   "/kyc-documents",
-//   protect,
-//   upload.array("documents", 20),
-//   uploadKYCDocuments
-// );
-// router.post(
-//   "/kyc-submit",
-//   protect,
-//   submitKYC
-// );
-
-// module.exports = router;
-
-
-// mahima code //
 
 
 const express = require("express");
-const { protect } = require("../middleware/authMiddleware");
+const {
+  protect,
+  adminOnly
+} = require("../middleware/authMiddleware");
 const upload = require("../middleware/upload");
 
 const router = express.Router();
@@ -129,23 +87,26 @@ router.post(
 // ==========================================
 
 // Get Shipment Form Settings
+// GET - Admin, B2B and User
 router.get(
   "/shipment-form",
   protect,
   getShipmentFormSettings
 );
 
-// Update Shipment Form Settings
+// UPDATE - Admin only
 router.put(
   "/shipment-form",
   protect,
+  adminOnly,
   updateShipmentFormSettings
 );
 
-// Reset Shipment Form Settings
+// RESET - Admin only
 router.post(
   "/shipment-form/reset",
   protect,
+  adminOnly,
   resetShipmentFormSettings
 );
 

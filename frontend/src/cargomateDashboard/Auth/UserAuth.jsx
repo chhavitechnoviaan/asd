@@ -29,8 +29,10 @@ const submitHandler = async (e) => {
       type: "user"
     });
 
+    const authenticatedUser = { ...res.data.user, accountType: "user" };
     localStorage.setItem("token", res.data.token);
-    localStorage.setItem("user", JSON.stringify(res.data.user));
+    localStorage.setItem("user", JSON.stringify(authenticatedUser));
+    localStorage.setItem("accountType", "user");
 
     toast.success("Login Successful ✅");
 
@@ -127,6 +129,7 @@ function SignupForm() {
         email: form.email,
         password: form.password,
         confirmPassword: form.confirmPassword,
+        accountType: "user",
         captchaToken: "dummy",
       });
 

@@ -12,6 +12,7 @@ import React, { useState, useRef, useEffect } from "react";
 import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 import logo from "../../assets/Images/logo.png";
 import axios from "axios";
+import { getMyShipments } from "../../services/shipmentApi";
 // import { FiAlertCircle } from "react-icons/fi";
 
 import { FaRupeeSign } from "react-icons/fa";
@@ -70,6 +71,7 @@ import {
   FiSearch,
   FiMail,
   FiSun,
+  FiRefreshCw,
 } from "react-icons/fi";
 import Shipment from "../../components/ShipmentForm";
 import calculator from "../../assets/Images/webp/calculator.webp";
@@ -408,6 +410,12 @@ const sidebarSections = [
   //     // { icon: FiBarChart2, label: "Analytics & Trends" },
   //   ],
   // },
+  {
+    title: "Shipments",
+    items: [
+      { icon: MdLocalShipping, label: "Submitted Shipments" },
+    ],
+  },
   {
     title: "Account & Support",
     items: [
@@ -784,6 +792,170 @@ const shipments = [
   },
 ];
 
+const formatShipmentDate = (date) => {
+  if (!date) return "—";
+
+  const parsedDate = new Date(date);
+
+  if (Number.isNaN(parsedDate.getTime())) return "—";
+
+  return parsedDate.toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+};
+
+
+function SubmittedShipmentsTable({ shipments, loading, error, onRefresh }) {
+  const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
+
+  const getValue = (...values) =>
+    values.find((value) => value !== undefined && value !== null && String(value).trim() !== "") ?? "-";
+
+  const getRoute = (item = {}) => {
+    const route = item.route && typeof item.route === "object" ? item.route : {};
+    const origin = [
+      route.originCity || item.originCity,
+      route.originCountry || item.originCountry,
+    ].filter(Boolean).join(", ");
+    const destination = [
+      route.destinationCity || item.destinationCity,
+      route.destinationCountry || item.destinationCountry,
+    ].filter(Boolean).join(", ");
+    return `${origin || "-"} → ${destination || "-"}`;
+  };
+
+  const formatDate = (value) => {
+    if (!value) return "-";
+    const date = new Date(value);
+    return Number.isNaN(date.getTime())
+      ? "-"
+      : date.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+  };
+
+  const getStatus = (item) => getValue(item.shipmentStatus, item.status, "Submitted");
+  const getReference = (item) => getValue(item.referenceNumber, item.sbNumber, item.shipmentNumber, item.bookingNo, item._id);
+  const getMode = (item) => getValue(item.shipmentMode, item.route?.mode, item.transportMode);
+  const getCommodity = (item) => getValue(item.cargo?.commodity, item.cargo?.productName, item.commodity, item.goodsDescription, item.cargo?.description);
+  const getValueLabel = (item) => {
+    const amount = item.cargo?.value ?? item.cargoValue ?? item.shipmentValue ?? item.value;
+    if (amount === undefined || amount === null || amount === "") return "-";
+    const currency = item.cargo?.currency || item.currency || "INR";
+    return `${currency} ${Number(amount).toLocaleString("en-IN")}`;
+  };
+
+  const statuses = ["All", ...new Set(shipments.map((item) => String(getStatus(item))))];
+  const filtered = shipments.filter((item) => {
+    const query = search.toLowerCase();
+    const matchesSearch = [
+      getReference(item),
+      getRoute(item),
+      getCommodity(item),
+      getMode(item),
+      getStatus(item),
+    ].join(" ").toLowerCase().includes(query);
+    const matchesStatus = statusFilter === "All" || getStatus(item) === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
+
+  const statusClass = (status) => {
+    const normalized = String(status).toLowerCase();
+    if (["approved", "delivered", "completed"].includes(normalized)) return "bg-emerald-50 text-emerald-700";
+    if (["rejected", "delayed", "exception"].includes(normalized)) return "bg-red-50 text-red-700";
+    if (["in transit", "transit", "under review", "pending review", "submitted", "pending"].includes(normalized)) return "bg-amber-50 text-amber-700";
+    return "bg-slate-100 text-slate-700";
+  };
+
+  return (
+    <div className="p-4 sm:p-6">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
+        <div>
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900">Submitted Shipments</h2>
+          <p className="text-xs sm:text-sm text-gray-500 mt-1">Track the status of shipments submitted to the admin.</p>
+        </div>
+        <button type="button" onClick={onRefresh} className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-xs font-semibold text-gray-700 hover:bg-gray-50">
+          <FiRefreshCw size={14} /> Refresh
+        </button>
+      </div>
+
+      <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-3 p-4 border-b border-gray-100">
+          <div>
+            <h3 className="text-sm font-bold text-slate-800">All Shipments</h3>
+            <p className="text-[11px] text-slate-500 mt-0.5">{filtered.length} shipment(s) found</p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-2">
+            <div className="relative">
+              <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={14} />
+              <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search shipment..." className="w-full sm:w-56 rounded-lg border border-slate-200 pl-9 pr-3 py-2 text-xs outline-none focus:ring-2 focus:ring-teal-500" />
+            </div>
+            <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-600 outline-none focus:ring-2 focus:ring-teal-500">
+              {statuses.map((status) => <option key={status} value={status}>{status === "All" ? "All Statuses" : status}</option>)}
+            </select>
+          </div>
+        </div>
+
+        {loading ? (
+          <div className="p-10 text-center text-sm text-slate-500">Loading submitted shipments...</div>
+        ) : error ? (
+          <div className="p-8 text-center">
+            <p className="text-sm text-red-600">{error}</p>
+            <button onClick={onRefresh} className="mt-3 text-xs font-semibold text-teal-700">Try again</button>
+          </div>
+        ) : filtered.length === 0 ? (
+          <div className="p-10 text-center">
+            <MdLocalShipping className="mx-auto text-slate-300" size={32} />
+            <p className="mt-2 text-sm font-semibold text-slate-700">No submitted shipments found</p>
+            <p className="mt-1 text-xs text-slate-500">Your submitted shipments will appear here.</p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="min-w-[1050px] w-full text-left">
+              <thead className="bg-slate-50 border-b border-slate-100">
+                <tr className="text-[10px] uppercase tracking-wide text-slate-500">
+                  <th className="px-4 py-3 font-bold">Shipment / B.L No.</th>
+                  <th className="px-4 py-3 font-bold">Origin → Destination</th>
+                  <th className="px-4 py-3 font-bold">Status</th>
+                  <th className="px-4 py-3 font-bold">ETD / ATD</th>
+                  <th className="px-4 py-3 font-bold">ETA</th>
+                  <th className="px-4 py-3 font-bold">Mode</th>
+                  <th className="px-4 py-3 font-bold">Commodity</th>
+                  <th className="px-4 py-3 font-bold text-right">Value</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {filtered.map((item) => {
+                  const status = getStatus(item);
+                  return (
+                    <tr key={item._id || getReference(item)} className="hover:bg-slate-50/70 transition-colors">
+                      <td className="px-4 py-3">
+                        <span className="text-xs font-bold text-slate-800 whitespace-nowrap">{getReference(item)}</span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className="text-xs font-medium text-slate-700 whitespace-nowrap">{getRoute(item)}</span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className={`inline-flex rounded-full px-2.5 py-1 text-[10px] font-semibold whitespace-nowrap ${statusClass(status)}`}>{status}</span>
+                      </td>
+                      <td className="px-4 py-3 text-xs text-slate-600 whitespace-nowrap">{formatShipmentDate(item.etd)}</td>
+                      <td className="px-4 py-3 text-xs text-slate-600 whitespace-nowrap">{formatShipmentDate(item.eta)}</td>
+                      <td className="px-4 py-3 text-xs text-slate-600">{getMode(item)}</td>
+                      <td className="px-4 py-3 text-xs text-slate-600 max-w-[180px] truncate">{getCommodity(item)}</td>
+                      <td className="px-4 py-3 text-xs text-slate-700 text-right whitespace-nowrap">{getValueLabel(item)}</td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function UserDashboard({ profileMode = false }) {
   const siteBranding = usePublicConfig();
   const quotaData = useSubscriptionQuotas();
@@ -800,6 +972,71 @@ export default function UserDashboard({ profileMode = false }) {
   const [activeNav, setActiveNav] = useState(0);
   const [shipment, setShipment] = useState("");
   const [auditLogs, setAuditLogs] = useState(false);
+  const [submittedShipments, setSubmittedShipments] = useState([]);
+  const [shipmentsLoading, setShipmentsLoading] = useState(false);
+  const [shipmentsError, setShipmentsError] = useState("");
+
+  const fetchSubmittedShipments = async () => {
+    setShipmentsLoading(true);
+    setShipmentsError("");
+  
+    try {
+      const response = await getMyShipments();
+  
+      const payload =
+        response?.data?.data ??
+        response?.data?.shipments ??
+        response?.data ??
+        [];
+  
+      const records = Array.isArray(payload)
+        ? payload
+        : Array.isArray(payload?.data)
+          ? payload.data
+          : Array.isArray(payload?.shipments)
+            ? payload.shipments
+            : [];
+  
+      const submitted = records.filter((item) => {
+        const status = String(
+          item.shipmentStatus ||
+          item.status ||
+          item.workflowStatus ||
+          ""
+        ).toLowerCase().trim().replace(/_/g, " ");
+  
+        return [
+          "submitted",
+          "submitted to admin",
+          "pending",
+          "pending review",
+          "under review",
+          "admin review",
+          "in review",
+          "approved",
+          "rejected",
+          "on hold",
+        ].includes(status);
+      });
+  
+      setSubmittedShipments(submitted);
+    } catch (error) {
+      console.error("Error fetching submitted shipments:", error);
+  
+      setShipmentsError(
+        error?.response?.data?.message ||
+        "Unable to load submitted shipments. Please try again."
+      );
+    } finally {
+      setShipmentsLoading(false);
+    }
+  };
+
+  
+
+  useEffect(() => {
+    if (activeTab === "Submitted Shipments") fetchSubmittedShipments();
+  }, [activeTab]);
 
   const userAdLocationByTab = {
     "AI Chatbot": "User Dashboard - AI Chatbot",
@@ -951,6 +1188,14 @@ export default function UserDashboard({ profileMode = false }) {
             <AccountProfile embedded />
           ) : (
             <>
+              {activeTab === "Submitted Shipments" && (
+                <SubmittedShipmentsTable
+                  shipments={submittedShipments}
+                  loading={shipmentsLoading}
+                  error={shipmentsError}
+                  onRefresh={fetchSubmittedShipments}
+                />
+              )}
               {activeTab === "AI Chatbot" && (
                 <FeatureQuotaGate
                   feature="aiChatbot"
@@ -995,7 +1240,21 @@ export default function UserDashboard({ profileMode = false }) {
                   <ShipmentPlanning
                     setActiveTab={setActiveTab}
                     activeTab={activeTab}
+                    setShipment={setShipment}
                   />
+                  {shipment === "shipment" && (
+                    <div className="mt-4">
+                      <Shipment
+                        setActiveTab={setActiveTab}
+                        setShipment={setShipment}
+                        currentTab={"Shipment Planning"}
+                        onSaved={() => {
+                          setShipment("");
+                          fetchSubmittedShipments();
+                        }}
+                      />
+                    </div>
+                  )}
                 </FeatureQuotaGate>
               )}
               {activeTab === "Freight Calculator" && <FreightCalculator />}
@@ -1023,16 +1282,6 @@ export default function UserDashboard({ profileMode = false }) {
           )}
           {showMessages && (
             <MessagesModal onClose={() => setShowMessages(false)} />
-          )}
-
-          {shipment === "shipment" && (
-            <div>
-              <Shipment
-                setActiveTab={setActiveTab}
-                setShipment={setShipment}
-                currentTab={"Dashboard"}
-              />
-            </div>
           )}
 
           {auditLogs && (

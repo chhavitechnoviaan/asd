@@ -124,7 +124,6 @@ const quotationSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model(
-  "Quotation",
-  quotationSchema
-);
+module.exports =
+  mongoose.models.Quotation ||
+  mongoose.model("Quotation", quotationSchema);

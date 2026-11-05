@@ -595,6 +595,7 @@ const allowedOrigins = [...new Set([
   "https://asd-f9ko.vercel.app",
   "http://localhost:5173",
   "http://localhost:3000",
+  "http://localhost:5176",
   ...(process.env.ALLOWED_ORIGINS || "").split(",")
 ].map(origin => origin.trim().replace(/\/$/, "")).filter(Boolean))];
 
@@ -629,6 +630,9 @@ app.use(express.json({ limit: "4mb" }));
 
 // UPLOADS
 const uploadsPath = path.join(__dirname, "uploads");
+
+console.log("UPLOADS DIRECTORY:", uploadsPath);
+
 app.use("/uploads", express.static(uploadsPath));
 app.use("/api/uploads", express.static(uploadsPath));
 

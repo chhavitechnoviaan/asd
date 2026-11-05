@@ -9,12 +9,10 @@ const fs = require("fs");
 
 console.log("upload 4");
 
-const uploadPath = "uploads/documents";
-
-console.log("upload 5");
+const uploadPath = path.join(__dirname, "../uploads/documents");
 
 if (!fs.existsSync(uploadPath)) {
-    fs.mkdirSync(uploadPath, { recursive: true });
+  fs.mkdirSync(uploadPath, { recursive: true });
 }
 
 console.log("upload 6");
