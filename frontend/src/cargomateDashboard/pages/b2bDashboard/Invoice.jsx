@@ -878,8 +878,8 @@
 
 // mahima code //
 import React, { useState, useEffect, useMemo, useRef, useCallback } from "react";
-import ViewInvoiceModal from "../../components/b2bComponent/ViewInvoice";
-import ViewInvoice from "../../components/b2bComponent/ViewInvoice";
+import ViewInvoiceModal from "../../../cargomateDashboard/components/b2bComponent/viewInvoice";
+
 import {
   getDashboard, getInvoices, getStatusSummary, getRecentInvoices,
   getTopParties, getOverdueInvoices, getInsights, getFilterOptions,
