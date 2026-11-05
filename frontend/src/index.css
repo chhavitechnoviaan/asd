@@ -12,3 +12,16 @@ html { scroll-behavior: smooth; }
 body { color: #0f172a; }
 button { -webkit-tap-highlight-color: transparent; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Shared ASD CargoMate dashboard design system — User and B2B */
+.cm-module-theme { --cm-navy:#142D60; --cm-teal:#0D9488; --cm-border:#DCE7EF; background-color:#F5F8FC; color:#263B55; }
+.cm-module-theme h1 { color:var(--cm-navy); font-weight:800; letter-spacing:-.025em; }
+.cm-module-theme h2 { color:var(--cm-navy); }
+.cm-module-theme button { transition:background-color .16s ease, box-shadow .16s ease; }
+.cm-module-theme input:focus,.cm-module-theme select:focus,.cm-module-theme textarea:focus { outline-color:var(--cm-teal); }
+.cm-module-theme button:focus-visible { outline:2px solid var(--cm-teal); outline-offset:2px; }
+.cm-module-theme table thead { background-color:#E9F5F4; color:#123561; }
+.cm-module-theme table tbody tr:hover { background-color:#F0FAF8; }
+.cm-module-theme .cm-dashboard-hero { background:linear-gradient(105deg,#142D60 0%,#1B4BA2 58%,#2168E2 100%); border-radius:20px; color:white; box-shadow:0 12px 25px rgba(20,45,96,.15); }
+.cm-module-theme .cm-dashboard-hero h1 { color:white; }
+@media print { .cm-module-theme { background:white; } }

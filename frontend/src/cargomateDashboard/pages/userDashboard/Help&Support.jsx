@@ -202,7 +202,7 @@ export default function HelpSupportDashboard({ role = "user" }) {
   const displayedTickets = showAllTickets ? filteredTickets : filteredTickets.slice(0, 5);
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-800 p-6 pt-20">
+    <div className="cm-module-theme min-h-screen bg-[#f8fafc] text-slate-800 p-6 pt-20">
       <div className="max-w-7xl mx-auto space-y-6">
         
         {/* Top Header */}

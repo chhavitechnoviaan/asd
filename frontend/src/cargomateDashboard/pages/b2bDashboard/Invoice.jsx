@@ -1104,7 +1104,7 @@ export default function InvoicesDashboard() {
   };
 
   return (
-    <div className="min-h-screen mt-10 bg-[#F8FAFC] text-slate-700 antialiased"
+    <div className="cm-module-theme min-h-screen mt-10 bg-[#F8FAFC] text-slate-700 antialiased"
       style={{ fontFamily: "'Poppins', sans-serif" }}>
       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 

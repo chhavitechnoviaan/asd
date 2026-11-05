@@ -217,7 +217,7 @@ export default function NotificationDashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800  p-6 pt-20">
+    <div className="cm-module-theme min-h-screen bg-slate-50 text-slate-800  p-6 pt-20">
       {/* <div className="text-sm text-slate-500 mb-4 flex items-center gap-2">
         <span>Dashboard</span>
         <span>&gt;</span>

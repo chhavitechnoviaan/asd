@@ -1570,7 +1570,7 @@ const res = await exportReport(query);
   // ==========================================
 
   return (
-    <div className="min-h-screen bg-[#f4f7fc] px-3 pb-8 pt-14 font-sans text-slate-700 sm:px-5 lg:px-7">
+    <div className="cm-module-theme min-h-screen bg-[#f4f7fc] px-3 pb-8 pt-14 font-sans text-slate-700 sm:px-5 lg:px-7">
 
       {/* ================================== */}
       {/* PREMIUM HEADER */}

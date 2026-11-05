@@ -324,7 +324,7 @@ export default function SettingsDashboard({initialTab="General",showAccountProfi
 
   return (
 
-    <div className="min-h-screen overflow-y-auto bg-slate-50 text-slate-800  p-6">
+    <div className="cm-module-theme min-h-screen overflow-y-auto bg-slate-50 text-slate-800  p-6">
 
 
       {/* =====================================

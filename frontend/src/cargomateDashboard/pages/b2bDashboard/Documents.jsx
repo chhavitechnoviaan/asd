@@ -2485,7 +2485,7 @@ export default function DocumentsDashboard() {
   // -------------------------------------
 
   return (
-    <div className="min-h-screen w-full bg-[#F8FAFC] text-slate-600 font-sans antialiased py-5">
+    <div className="cm-module-theme min-h-screen w-full bg-[#F8FAFC] text-slate-600 font-sans antialiased py-5">
       <div className="max-w-[1500px] mx-auto p-3 sm:p-4 md:p-6">
 
         {/* Header */}
