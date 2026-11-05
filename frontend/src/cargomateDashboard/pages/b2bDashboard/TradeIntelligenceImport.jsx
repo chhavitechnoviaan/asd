@@ -1,6 +1,3 @@
-
-
-
 // // import React, { useState, useMemo, useEffect } from "react";
 // // import {
 // //   getDashboard,
@@ -977,7 +974,6 @@
 // //   );
 // // }
 
-
 // import React, { useState, useEffect, useMemo, useRef } from "react";
 // import {
 //   getDashboard,
@@ -1526,7 +1522,7 @@
 //     if (ship?.shipmentId && /^SHP-\d+$/i.test(ship.shipmentId)) {
 //       return ship.shipmentId.toUpperCase();
 //     }
-  
+
 //     // Fallback: readable ID
 //     return `SHP-${String(index + 1).padStart(5, "0")}`;
 //   };
@@ -2287,7 +2283,6 @@
 //   );
 // }
 
-
 import ReportActions from "../../components/ReportActions";
 
 import React, { useState, useEffect, useMemo, useRef } from "react";
@@ -2358,14 +2353,12 @@ const PIE_COLORS = [
 const formatCr = (value) =>
   `₹${((Number(value) || 0) / 10000000).toFixed(2)} Cr`;
 
-const formatNumber = (value) =>
-  (Number(value) || 0).toLocaleString("en-IN");
+const formatNumber = (value) => (Number(value) || 0).toLocaleString("en-IN");
 
 const formatLakh = (value) =>
   `₹${((Number(value) || 0) / 100000).toFixed(2)} L`;
 
-const getResponseData = (response) =>
-  response?.data?.data ?? [];
+const getResponseData = (response) => response?.data?.data ?? [];
 
 const makeOptions = (items, defaultLabel) => [
   { label: defaultLabel, value: defaultLabel },
@@ -2380,10 +2373,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 
   return (
     <div className="rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-xl">
-
-      <p className="mb-1 text-xs font-semibold text-slate-500">
-        {label}
-      </p>
+      <p className="mb-1 text-xs font-semibold text-slate-500">{label}</p>
       <p className="text-sm font-bold text-slate-800">
         ₹{Number(payload[0].value).toFixed(2)} Cr
       </p>
@@ -2414,7 +2404,7 @@ const SelectFilter = ({
 
   const filteredOptions = useMemo(() => {
     return options.filter((item) =>
-      String(item.label).toLowerCase().includes(search.toLowerCase())
+      String(item.label).toLowerCase().includes(search.toLowerCase()),
     );
   }, [options, search]);
 
@@ -2429,7 +2419,7 @@ const SelectFilter = ({
 
     const maxHeight = Math.max(
       120,
-      Math.min(250, openAbove ? spaceAbove - 12 : spaceBelow - 12)
+      Math.min(250, openAbove ? spaceAbove - 12 : spaceBelow - 12),
     );
 
     setPosition({
@@ -2621,9 +2611,7 @@ const SectionHeader = ({ icon: Icon, title, subtitle, right }) => (
           {title}
         </h3>
         {subtitle && (
-          <p className="mt-0.5 text-[11px] text-slate-400">
-            {subtitle}
-          </p>
+          <p className="mt-0.5 text-[11px] text-slate-400">{subtitle}</p>
         )}
       </div>
     </div>
@@ -2726,8 +2714,7 @@ export default function ImportIntelligence() {
     } catch (err) {
       console.error("Import dashboard error:", err);
       setError(
-        err?.response?.data?.message ||
-          "Unable to load import dashboard data."
+        err?.response?.data?.message || "Unable to load import dashboard data.",
       );
     } finally {
       setLoading(false);
@@ -2839,7 +2826,7 @@ export default function ImportIntelligence() {
     if (ship?.shipmentId && /^SHP-\d+$/i.test(ship.shipmentId)) {
       return ship.shipmentId.toUpperCase();
     }
-  
+
     // Fallback: readable ID
     return `SHP-${String(index + 1).padStart(5, "0")}`;
   };
@@ -2849,7 +2836,7 @@ export default function ImportIntelligence() {
 
   const maxProductValue = Math.max(
     1,
-    ...topProducts.map((item) => Number(item.value) || 0)
+    ...topProducts.map((item) => Number(item.value) || 0),
   );
 
   const products = topProducts.map((item) => ({
@@ -2857,13 +2844,8 @@ export default function ImportIntelligence() {
     desc: item._id?.product || "-",
     shipments: item.shipments || 0,
     value: Number(item.value) || 0,
-    share: (
-      ((Number(item.value) || 0) / maxProductValue) *
-      100
-    ).toFixed(0),
-    barWidth: `${
-      ((Number(item.value) || 0) / maxProductValue) * 100
-    }%`,
+    share: (((Number(item.value) || 0) / maxProductValue) * 100).toFixed(0),
+    barWidth: `${((Number(item.value) || 0) / maxProductValue) * 100}%`,
   }));
 
   const lineData = importTrend.map((item) => {
@@ -2884,7 +2866,7 @@ export default function ImportIntelligence() {
 
   const totalImportValue = importTrend.reduce(
     (sum, item) => sum + (Number(item.totalValue) || 0),
-    0
+    0,
   );
 
   const dynamicPieData = countryDistribution.map((item, index) => ({
@@ -2896,7 +2878,7 @@ export default function ImportIntelligence() {
 
   const totalPieValue = dynamicPieData.reduce(
     (sum, item) => sum + item.value,
-    0
+    0,
   );
 
   // ==========================================
@@ -2906,23 +2888,20 @@ export default function ImportIntelligence() {
   const hsCodeOptions = makeOptions(filterOptions.hsCodes || [], "All");
   const countryOptions = makeOptions(
     filterOptions.countries || [],
-    "All Countries"
+    "All Countries",
   );
   const supplierOptions = makeOptions(
     filterOptions.suppliers || [],
-    "All Suppliers"
+    "All Suppliers",
   );
   const importerOptions = makeOptions(
     filterOptions.importers || [],
-    "All Importers"
+    "All Importers",
   );
-  const monthOptions = makeOptions(
-    filterOptions.months || [],
-    "All Months"
-  );
+  const monthOptions = makeOptions(filterOptions.months || [], "All Months");
   const yearOptions = makeOptions(
     (filterOptions.years || []).map(String),
-    "All Years"
+    "All Years",
   );
 
   // ==========================================
@@ -2959,10 +2938,8 @@ export default function ImportIntelligence() {
     const csvContent = [headers, ...rows]
       .map((row) =>
         row
-          .map((value) =>
-            `"${String(value ?? "").replace(/"/g, '""')}"`
-          )
-          .join(",")
+          .map((value) => `"${String(value ?? "").replace(/"/g, '""')}"`)
+          .join(","),
       )
       .join("\n");
 
@@ -2985,9 +2962,7 @@ export default function ImportIntelligence() {
   // ==========================================
 
   return (
-    <div className="min-h-screen bg-[#f5f7fb] px-3 pb-8 pt-16 font-sans text-slate-700 sm:px-5 lg:px-7">      <ReportActions module="Import Intelligence" result={(!loading && !error) ? ({dashboard,importTrend,countryDistribution,topProducts,topSuppliers,topImporters,recentShipments,appliedFilters}) : null} query={searchQuery} />
-
-
+    <div className="min-h-screen bg-[#f5f7fb] px-1 pb-8 pt-16 font-sans text-slate-700 sm:px-1 lg:px-1">
       {/* HEADER */}
       <div className="relative mb-6 overflow-hidden rounded-2xl bg-gradient-to-r from-[#102d5c] via-[#17458a] to-[#2563eb] p-5 shadow-lg sm:p-7">
         <div className="absolute -right-12 -top-24 h-64 w-64 rounded-full border-[35px] border-white/5" />
@@ -3032,7 +3007,7 @@ export default function ImportIntelligence() {
           </div>
         </div>
       </div>
-
+ <ReportActions module="Import Intelligence" result={(!loading && !error) ? ({dashboard,importTrend,countryDistribution,topProducts,topSuppliers,topImporters,recentShipments,appliedFilters}) : null} query={searchQuery} />
       {/* ERROR */}
       {error && (
         <div className="mb-5 flex items-center justify-between gap-3 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-xs font-medium text-red-600">
@@ -3225,11 +3200,11 @@ export default function ImportIntelligence() {
                     key={ship.shipmentId || index}
                     className="transition hover:bg-blue-50/40"
                   >
-                   <td className="whitespace-nowrap px-4 py-3.5">
-  <span className="inline-flex items-center rounded-lg border border-blue-100 bg-blue-50 px-2.5 py-1 text-[11px] font-extrabold tracking-wide text-blue-700">
-    {formatShipmentId(ship, index)}
-  </span>
-</td>
+                    <td className="whitespace-nowrap px-4 py-3.5">
+                      <span className="inline-flex items-center rounded-lg border border-blue-100 bg-blue-50 px-2.5 py-1 text-[11px] font-extrabold tracking-wide text-blue-700">
+                        {formatShipmentId(ship, index)}
+                      </span>
+                    </td>
                     <td className="whitespace-nowrap px-4 py-3.5 text-xs font-bold text-slate-500">
                       {ship.hsCode || "-"}
                     </td>
@@ -3294,7 +3269,6 @@ export default function ImportIntelligence() {
 
       {/* ANALYTICS */}
       <div className="mb-6 grid grid-cols-1 gap-5 xl:grid-cols-3">
-
         {/* TOP PRODUCTS */}
         <div className="rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm sm:p-5">
           <SectionHeader
@@ -3493,7 +3467,6 @@ export default function ImportIntelligence() {
 
       {/* SUPPLIERS & IMPORTERS */}
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
-
         {/* TOP SUPPLIERS */}
         <div className="rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm sm:p-5">
           <SectionHeader

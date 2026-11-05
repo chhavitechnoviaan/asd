@@ -329,16 +329,16 @@ export default function ReportsDashboard() {
   const shipmentAreaPath = shipmentLinePath !== "" ? `${shipmentLinePath} L100,100 L0,100 Z` : "";
 
   return (
-    <div className="cm-module-theme overflow-y-auto bg-slate-50 text-slate-800  p-6 selection:bg-blue-100">
+    <div className="cm-module-theme overflow-y-auto bg-slate-50 text-slate-800  p-1 selection:bg-blue-100">
       
       {/* HEADER SECTION */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6 mt-10">
-        <div>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-end gap-2 mb-1 mt-1">
+        {/* <div>
           <h1 className="text-2xl font-bold text-blue-900">Reports</h1>
           <p className="text-xs text-slate-500 mt-1">Explore key insights and generate customized reports to drive your trade decisions.</p>
-        </div>
+        </div> */}
         
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-1">
           <div className="flex items-center gap-2 bg-white px-3 py-1.5 border border-slate-200 rounded-md text-xs shadow-sm text-slate-600">
             <Calendar size={14} className="text-slate-400" />
             <span>01 Apr 2025 - 24 Apr 2025</span>
@@ -356,7 +356,7 @@ export default function ReportsDashboard() {
 
       
       {/* Unified saved reports (B2B) */}
-      <div className="mt-8"><SavedReportsLibrary /></div>
+      <div className="mt-2"><SavedReportsLibrary /></div>
 
       {/* 3. SYNC FOOTER */}
       <div className="mt-8 pt-4 border-t border-slate-200/60 flex flex-col sm:flex-row items-center justify-between text-[10px] text-slate-400 gap-2">

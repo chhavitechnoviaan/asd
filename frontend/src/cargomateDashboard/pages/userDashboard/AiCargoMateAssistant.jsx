@@ -2183,62 +2183,62 @@
 //   }, []);
 //   return (
 //     <div className="flex-1 flex flex-col min-w-0 overflow-hidden pt-14">
-//            
+//
 //       {activeTab === "AI CargoMate Assistant" && (
 //         <div>
-//                  
+//
 //           <main className="flex-1 overflow-y-auto bg-gray-50 p-3 sm:p-4 lg:p-5">
-//                      
+//
 //             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
-//                          
+//
 //               <div>
-//                              
+//
 //                 <div className="flex items-center gap-2 flex-wrap">
-//                                  
+//
 //                   <h1 className="text-sm sm:text-lg font-bold text-gray-900">
-//                                       AI CargoMate Assistant                
+//                                       AI CargoMate Assistant
 //                   </h1>
-//                                  
+//
 //                   <span className="flex items-center gap-1 bg-[#EEF2FF] text-[#4338CA] text-[10px] font-semibold px-2 py-0.5 rounded-full border border-[#EEF2FF]">
-//                                      
+//
 //                     <FiStar size={10} className="text-[#4338CA]" /> Core Module
-//                                    
+//
 //                   </span>
-//                                
+//
 //                 </div>
-//                              
+//
 //                 <p className="text-xs font-normal  text-gray-500 mt-0.5">
 //                                   Your AI trade assistant for smarter decisions
-//                                
+//
 //                 </p>
-//                            
+//
 //               </div>
-//                          
+//
 //               <div className="flex flex-wrap gap-2">
-//                              
+//
 //                 <button
 //                   onClick={() => setShowProductDetails(true)}
 //                   className="flex items-center gap-1.5 border border-gray-200 bg-white text-gray-700 text-xs  font-bold  px-2 py-1.5 rounded-lg hover:bg-gray-50"
 //                 >
-//                                   <FiArrowLeft size={13} /> New Query          
-//                      
+//                                   <FiArrowLeft size={13} /> New Query
+//
 //                 </button>
-//                              
+//
 //                 <button
 //                   onClick={saveCurrentReport}
 //                   className="flex items-center gap-1.5 border border-gray-200 bg-white text-gray-700 text-xs  font-bold  px-3 py-1.5 rounded-lg hover:bg-gray-50"
 //                 >
-//                                   <FiSave size={13} /> Save Report              
+//                                   <FiSave size={13} /> Save Report
 //                 </button>
-//                              
+//
 //                 <button
 //                   onClick={() => setDownloadReport(true)}
 //                   className="flex items-center gap-1.5 border border-gray-200 bg-white text-gray-700 text-xs  font-bold  px-3 py-1.5 rounded-lg hover:bg-gray-50"
 //                 >
 //                                   <FiDownload size={13} /> Download Report (PDF)
-//                                
+//
 //                 </button>
-//                              
+//
 //                 <button
 //                   onClick={() => {
 //                     setShipment("shipment");
@@ -2247,30 +2247,30 @@
 //                   }}
 //                   className="flex items-center gap-1.5 bg-[#0D9488] text-white text-xs font-bold px-3 py-1.5 rounded-lg"
 //                 >
-//                                   <FiPlus size={13} /> Create Shipment          
-//                      
+//                                   <FiPlus size={13} /> Create Shipment
+//
 //                 </button>
-//                            
+//
 //               </div>
-//                        
+//
 //             </div>
-//                                
+//
 //             <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-4">
-//                          
+//
 //               <div className="flex flex-col gap-4">
-//                              
+//
 //                 <div className="bg-white rounded-xl border border-gray-200 p-4">
-//                                  
+//
 //                   <form onSubmit={runAssistantAnalysis} className="space-y-3">
-//                                      
+//
 //                     <div>
-//                                          
+//
 //                       <p className="text-sm font-bold text-gray-900">
 //                         Analyze a Shipment
 //                       </p>
-//                                                            
+//
 //                     </div>
-//                                      
+//
 //                     <textarea
 //                       value={queryText}
 //                       onChange={(event) => setQueryText(event.target.value)}
@@ -2278,12 +2278,12 @@
 //                       className="w-full rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800 outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
 //                       placeholder="Describe product, weight, origin, destination and trade details..."
 //                     />
-//                                      
+//
 //                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-//                                          
+//
 //                       <label className="text-xs font-medium text-gray-600">
-//                                               Product Value                    
-//                          
+//                                               Product Value
+//
 //                         <input
 //                           type="number"
 //                           min="0"
@@ -2294,28 +2294,28 @@
 //                           className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800"
 //                           placeholder="5000"
 //                         />
-//                                            
+//
 //                       </label>
-//                                          
+//
 //                       <label className="text-xs font-medium text-gray-600">
-//                                               Currency                      
+//                                               Currency
 //                         <select
 //                           value={currency}
 //                           onChange={(event) => setCurrency(event.target.value)}
 //                           className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800"
 //                         >
-//                                                  
-//                           <option value="INR">INR (₹)</option>                 
-//                                 <option value="USD">USD ($)</option>           
-//                                       <option value="AED">AED</option>         
-//                                         <option value="EUR">EUR (€)</option>   
-//                                            
+//
+//                           <option value="INR">INR (₹)</option>
+//                                 <option value="USD">USD ($)</option>
+//                                       <option value="AED">AED</option>
+//                                         <option value="EUR">EUR (€)</option>
+//
 //                         </select>
-//                                            
+//
 //                       </label>
-//                                        
+//
 //                     </div>
-//                                      
+//
 //                     {analysisError && (
 //                       <p
 //                         role="alert"
@@ -2324,101 +2324,101 @@
 //                         {analysisError}
 //                       </p>
 //                     )}
-//                                      
+//
 //                     <div className="flex flex-wrap items-center gap-3">
-//                                          
+//
 //                       <button
 //                         type="submit"
 //                         disabled={analysisLoading}
 //                         className="rounded-lg bg-[#0D9488] px-4 py-2 text-xs font-semibold text-white disabled:opacity-60"
 //                       >
-//                                              
+//
 //                         {analysisLoading
 //                           ? "Analyzing shipment..."
 //                           : "Analyze Shipment"}
-//                                            
+//
 //                       </button>
-//                                          
+//
 //                       {assistantResult?.query_id && (
 //                         <span className="text-xs text-gray-500">
 //                           Query ID: {assistantResult.query_id}
 //                         </span>
 //                       )}
-//                                          
+//
 //                       {assistantResult?.is_estimate && (
 //                         <span className="text-xs text-amber-700">
 //                           Includes AI estimates — verify before booking.
 //                         </span>
 //                       )}
-//                                        
+//
 //                     </div>
-//                                    
+//
 //                   </form>
-//                                
+//
 //                 </div>
-//                              
+//
 //                 <div className="bg-white rounded-xl border border-gray-200 p-4">
-//                                  
+//
 //                   <p className="text-xs font-bold text-gray-900 mb-3 flex items-center gap-2">
-//                                       Your Query                
+//                                       Your Query
 //                   </p>
-//                                  
+//
 //                   <div className="bg-gray-50 border border-gray-200 rounded-lg p-3">
-//                                      
+//
 //                     <div className="flex items-start gap-3">
-//                                          
+//
 //                       <div className="w-9 h-9 bg-blue-50 rounded-full hidden sm:flex items-center justify-center flex-shrink-0">
-//                                              
-//                         <FiMap className="text-blue-500 text-base" />           
-//                                
+//
+//                         <FiMap className="text-blue-500 text-base" />
+//
 //                       </div>
-//                                          
+//
 //                       <div className="flex-1 min-w-0">
-//                                              
+//
 //                         <p className="text-xs font-medium text-gray-800 leading-relaxed">
-//                                                  
-//                           {assistantResult?.query?.raw || queryText}           
-//                                    
+//
+//                           {assistantResult?.query?.raw || queryText}
+//
 //                         </p>
-//                                              
+//
 //                         <div className="flex flex-wrap gap-x-3 gap-y-1 mt-2 text-xs font-medium  text-gray-400">
-//                                                  
+//
 //                           <span className="">
-//                                                       Query ID:                
-//                                      
+//                                                       Query ID:
+//
 //                             <span className="t">
-//                                                                                
-//                                     AIQ-2025-04-24-000123                      
-//                                  
+//
+//                                     AIQ-2025-04-24-000123
+//
 //                             </span>
-//                                                    
+//
 //                           </span>
-//                                                  
-//                           <span>• 24 Apr 2025, 09:25 AM</span>                 
-//                                 <span>• User: Arjun Soni</span>                 
-//                              
+//
+//                           <span>• 24 Apr 2025, 09:25 AM</span>
+//                                 <span>• User: Arjun Soni</span>
+//
 //                         </div>
-//                                            
+//
 //                       </div>
-//                                                            
+//
 //                     </div>
-//                                    
+//
 //                   </div>
-//                                
+//
 //                 </div>
-//                              
+//
 //                 <div className="bg-white rounded-xl border border-gray-200 p-4">
-//                                  
+//
 //                   <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
-//                                      
+//
 //                     <p className="text-xs sm:text-sm  font-bold text-gray-900 flex items-center gap-2">
-//                                          
+//
 //                       <FiStar className="text-teal-500 text-base" /> AI
-//                       Recommended Summary                  
+//                       Recommended Summary
 //                     </p>
-//                                      
+//
 //                     <div className="flex gap-3">
-//                                          
+//
 //                       <button
 //                         type="button"
 //                         onClick={() => setDataSource(true)}
@@ -2430,95 +2430,95 @@
 //                         {Array.isArray(liveView?.dataSources)
 //                           ? liveView.dataSources.length
 //                           : 0}
-//                         )                    
+//                         )
 //                       </button>
-//                                        
+//
 //                       <button className="flex items-center gap-1 text-xs font-medium text-gray-400">
 //                                               <FiAlertCircle size={12} />
-//                         Disclaimer                    
+//                         Disclaimer
 //                       </button>
-//                                        
+//
 //                     </div>
-//                                    
+//
 //                   </div>
-//                                  
+//
 //                   <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
-//                                      
+//
 //                     {displayedCards.map((card, i) => (
 //                       <div
 //                         key={i}
 //                         className="bg-gray-50 border border-gray-200 rounded-xl p-3 flex flex-col"
 //                       >
-//                                              
+//
 //                         <p className="text-xs text-[#222222] font-medium mb-1">
-//                                                   {card.label}                 
-//                              
+//                                                   {card.label}
+//
 //                         </p>
-//                                              
+//
 //                         {card.route ? (
 //                           <>
-//                                                      
+//
 //                             <p className="text-[11px] font-bold text-gray-800 mb-0.5">
-//                                                           Route                
-//                                        
+//                                                           Route
+//
 //                             </p>
-//                                                      
+//
 //                             <p className="text-sm font-bold text-gray-900 mb-2">
-//                                                           {card.route}         
-//                                              
+//                                                           {card.route}
+//
 //                             </p>
-//                                                    
+//
 //                           </>
 //                         ) : (
 //                           <>
-//                                                      
+//
 //                             <p
 //                               className={`text-base font-bold mb-1 ${
 //                                 card.mainColor || "text-gray-900"
 //                               }`}
 //                             >
-//                                                           {card.main}           
-//                                            
+//                                                           {card.main}
+//
 //                             </p>
-//                                                      
+//
 //                             <p className="text-xs font-medium  text-gray-500 mb-2 leading-tight">
-//                                                           {card.sub}           
-//                                            
+//                                                           {card.sub}
+//
 //                             </p>
-//                                                    
+//
 //                           </>
 //                         )}
-//                                              
+//
 //                         <div className="flex flex-col gap-1 flex-1">
-//                                                  
+//
 //                           {card.rows.map(([k, v], j) => (
 //                             <div
 //                               key={j}
 //                               className="flex justify-between text-xs"
 //                             >
-//                                                          
+//
 //                               <span className="text-gray-500 text-xs font-medium">
-//                                                               {k}               
-//                                            
+//                                                               {k}
+//
 //                               </span>
-//                                                          
+//
 //                               <span className="text-gray-800   text-xs font-medium">
-//                                                               {v}               
-//                                            
+//                                                               {v}
+//
 //                               </span>
-//                                                        
+//
 //                             </div>
 //                           ))}
-//                                                  
+//
 //                           {card.freightCost && (
 //                             <p className="text-base font-bold text-gray-900 mt-1">
-//                                                           {card.freightCost}   
-//                                                    
+//                                                           {card.freightCost}
+//
 //                             </p>
 //                           )}
-//                                                
+//
 //                         </div>
-//                                              
+//
 //                         <button
 //                           type="button"
 //                           onClick={() => {
@@ -2550,10 +2550,10 @@
 //                           }}
 //                           className="text-teal-500 text-xs font-medium text-left mt-2 hover:underline"
 //                         >
-//                                                   {card.link}                   
-//                            
+//                                                   {card.link}
+//
 //                         </button>
-//                                              
+//
 //                         <button
 //                           onClick={() => {
 //                             setShipment("shipment");
@@ -2562,31 +2562,31 @@
 //                           }}
 //                           className="mt-2 w-full border border-teal-500 text-teal-500 text-xs    font-semibold py-1.5 rounded-lg hover:bg-teal-50"
 //                         >
-//                                                   Create Shipment              
-//                                  
+//                                                   Create Shipment
+//
 //                         </button>
-//                                            
+//
 //                       </div>
 //                     ))}
-//                                    
+//
 //                   </div>
-//                                
+//
 //                 </div>
-//                              
+//
 //                 {showDetailedAnalysis && (
 //                   <div
 //                     id="sectionId"
 //                     className="bg-white rounded-xl border border-gray-200 p-4"
 //                   >
-//                                    
+//
 //                     <p className="text-sm  font-bold text-gray-900 mb-3 flex items-center gap-2">
-//                                        
+//
 //                       <FiClipboard className="text-teal-500 text-base" />
-//                       Detailed AI Analysis                
+//                       Detailed AI Analysis
 //                     </p>
-//                                    
+//
 //                     <div className="flex flex-wrap gap-1 border-b border-gray-200 mb-5 sm:mb-8 pb-0">
-//                                        
+//
 //                       {analysisTabs.map((tab) => (
 //                         <button
 //                           key={tab}
@@ -2599,27 +2599,27 @@
 //                               : "border-transparent text-gray-500 hover:text-gray-700"
 //                           }`}
 //                         >
-//                                                 {tab}                   
+//                                                 {tab}
 //                         </button>
 //                       ))}
-//                                      
+//
 //                     </div>
-//                                    
+//
 //                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
-//                                        
+//
 //                       <div>
-//                                            
+//
 //                         {displayedTabContent.left.map(([k, v], i) => (
 //                           <div
 //                             key={i}
 //                             className="flex justify-between space-y-2 py-2 border-b border-gray-100 last:border-0 text-xs"
 //                           >
-//                                                    
+//
 //                             <span className="text-gray-500  font-medium text-xs">
-//                                                         {k}                     
-//                                
+//                                                         {k}
+//
 //                             </span>
-//                                                    
+//
 //                             <span
 //                               className={`font-medium text-xs text-right max-w-[55%] ${
 //                                 k === "Total Landed Cost" ||
@@ -2628,83 +2628,83 @@
 //                                   : "text-gray-800"
 //                               }`}
 //                             >
-//                                                         {v}                     
-//                                
+//                                                         {v}
+//
 //                             </span>
-//                                                  
+//
 //                           </div>
 //                         ))}
-//                                          
+//
 //                       </div>
-//                                        
+//
 //                       <div className="space-y-5">
-//                                            
+//
 //                         <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-3">
-//                                                
+//
 //                           <p className="flex items-center gap-1.5 text-sm font-bold text-emerald-800 mb-2">
-//                                                    
-//                             <FiStar size={12} className="text-emerald-500" />   
-//                                                 AI Insight                      
+//
+//                             <FiStar size={12} className="text-emerald-500" />
+//                                                 AI Insight
 //                           </p>
-//                                                
+//
 //                           <p className="text-xs font-normal text-emerald-900 leading-relaxed">
 //                                                    {displayedTabContent.insight}
-//                                                  
+//
 //                           </p>
-//                                              
+//
 //                         </div>
-//                                            
+//
 //                         <div className="bg-[#DBDBDB] border border-gray-200 rounded-lg p-3">
-//                                                
+//
 //                           <p className="flex items-center gap-1.5 t text-sm font-bold text-gray-700 mb-2">
-//                                                     <FiClipboard size={12} />   
-//                                                 Assumptions                    
-//                              
+//                                                     <FiClipboard size={12} />
+//                                                 Assumptions
+//
 //                           </p>
-//                                                
+//
 //                           <p className="text-xs font-normal text-gray-600 leading-relaxed">
-//                                                    
-//                             {displayedTabContent.assumption}                   
-//                              
+//
+//                             {displayedTabContent.assumption}
+//
 //                           </p>
-//                                              
+//
 //                         </div>
-//                                            
+//
 //                         <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
-//                                                
+//
 //                           <p className="flex items-center gap-1.5 text-sm font-bold text-orange-700 mb-2">
-//                                                     <FiAlertCircle size={12} /> 
-//                                                   Disclaimer                    
-//                              
+//                                                     <FiAlertCircle size={12} />
+//                                                   Disclaimer
+//
 //                           </p>
-//                                                
+//
 //                           <p className="text-xs font-normal text-orange-800 leading-relaxed">
-//                                                    
-//                             {displayedTabContent.disclaimer}                   
-//                              
+//
+//                             {displayedTabContent.disclaimer}
+//
 //                           </p>
-//                                              
+//
 //                         </div>
-//                                          
+//
 //                       </div>
-//                                      
+//
 //                     </div>
-//                                  
+//
 //                   </div>
 //                 )}
-//                              
-              
-//                            
+//
+
+//
 //               </div>
-//                          
+//
 //               <div className="flex flex-col gap-4">
-//                              
+//
 //                 <div className="bg-white rounded-xl border border-gray-200 p-4">
-//                                  
+//
 //                   <p className="text-sm sm:text-base font-bold text-gray-900 mb-3">
-//                                       Result Summary                
+//                                       Result Summary
 //                   </p>
-//                                  
+//
 //                   {displayedSummary.map(
 //                     (
 //                       {
@@ -2727,27 +2727,27 @@
 //                         key={i}
 //                         className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0 text-xs font-medium"
 //                       >
-//                                              
+//
 //                         <div
 //                           className={`flex items-center text-xs font-medium gap-2 text-gray-500`}
 //                         >
-//                                                  
-//                           <Icon size={14} className={iconColor} /> {label}     
-//                                          
+//
+//                           <Icon size={14} className={iconColor} /> {label}
+//
 //                         </div>
-//                                              
+//
 //                         <span
 //                           className={`font-medium text-right max-w-[50%] ${
 //                             valueColor || "text-gray-900"
 //                           } ${small ? "text-xs font-medium " : "text-xs font-medium"}`}
 //                         >
-//                                                   {value}                     
+//                                                   {value}
 //                         </span>
-//                                            
+//
 //                       </div>
 //                     ),
 //                   )}
-//                                  
+//
 //                   <button
 //                     onClick={() => {
 //                       setShipment("shipment");
@@ -2756,19 +2756,19 @@
 //                     }}
 //                     className="mt-3 w-full bg-[#0D9488] text-white text-sm   font-semibold py-2.5 rounded-xl"
 //                   >
-//                                       Create Shipment                
+//                                       Create Shipment
 //                   </button>
-//                          
+//
 //                 </div>
-//                              
+//
 //                 <DashboardAdPlacement location="User Dashboard - AI CargoMate Assistant" />
-//                                        
+//
 //                 <div className="bg-white rounded-xl border border-gray-200 p-4">
-//                                  
+//
 //                   <p className="text-sm  font-bold   text-gray-900 mb-3">
-//                                       Report Information                
+//                                       Report Information
 //                   </p>
-//                                  
+//
 //                   {[
 //                     ["Report ID", "AIR-2025-04-24-000123"],
 
@@ -2784,54 +2784,54 @@
 //                       key={k}
 //                       className="flex justify-between py-1.5 text-[11px]"
 //                     >
-//                                          
+//
 //                       <span className="text-gray-500 text-xs  font-medium">
-//                                               {k}                   
+//                                               {k}
 //                       </span>
-//                                          
+//
 //                       <span className="text-gray-800  text-xs font-medium">
-//                                               {v}                   
+//                                               {v}
 //                       </span>
-//                                        
+//
 //                     </div>
 //                   ))}
-//                                                
+//
 //                 </div>{" "}
-//                        
+//
 //               </div>
-//                        
+//
 //             </div>
-//                                
+//
 //             {/* <div className="w-full min-w-0 mt-4 mb-2"> */}
-//                        
+//
 //             <DashboardAdPlacement
 //               location="User Dashboard - AI CargoMate Assistant"
 //               layout="banner"
 //               slot="banner"
 //               intervalMs={5000}
 //             />
-//                      {/* </div> */}                     
+//                      {/* </div> */}
 //             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 mt-3">
-//                          
+//
 //               <div className="bg-white  flex flex-col justify-center gap-10 rounded-xl border border-gray-200  px-3 py-4">
-//                              
+//
 //                 <div className=" flex flex-row items-center justify-between">
-//                                  
+//
 //                   <h3 className="text-xs  font-bold text-gray-900 ">
-//                                       Data Sources Used                
+//                                       Data Sources Used
 //                   </h3>
-//                                  
+//
 //                   <button
 //                     onClick={() => setDataSource(true)}
 //                     className=" text-teal-500 text-xs  font-medium hover:underline"
 //                   >
-//                                       View All Sources                
+//                                       View All Sources
 //                   </button>
-//                                
+//
 //                 </div>
-//                              
+//
 //                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3 text-xs">
-//                                  
+//
 //                   {Array.isArray(liveView?.dataSources) &&
 //                   liveView.dataSources.length > 0 ? (
 //                     liveView.dataSources.map((source, index) => {
@@ -2848,106 +2848,106 @@
 //                           className="flex min-w-0 items-start gap-2 text-gray-700"
 //                           title={sourceLabel}
 //                         >
-//                                                  
-//                           <FiDatabase size={14} className="mt-0.5 shrink-0" /> 
-//                                                
-//                           <span className="break-words">{sourceLabel}</span>   
-//                                            
+//
+//                           <FiDatabase size={14} className="mt-0.5 shrink-0" />
+//
+//                           <span className="break-words">{sourceLabel}</span>
+//
 //                         </div>
 //                       ) : null;
 //                     })
 //                   ) : (
 //                     <p className="col-span-full text-gray-500">
 //                                           Run shipment analysis to see the data
-//                       sources returned by the API.                  
+//                       sources returned by the API.
 //                     </p>
 //                   )}
-//                                
+//
 //                 </div>
-//                            
+//
 //               </div>
-//                          
+//
 //               <div className="bg-white rounded-xl border border-gray-200 p-4">
-//                              
+//
 //                 <h3 className="text-xs  font-bold text-gray-900 mb-4">
-//                                   Connected To Live Data              
+//                                   Connected To Live Data
 //                 </h3>
-//                              
+//
 //                 <p className="text-xs  text-[#64748B] leading-relaxed mb-4">
 //                                   All modules are connected to backend systems
 //                   and databases for                 real-time, accurate
-//                   information.              
+//                   information.
 //                 </p>
-//                              
+//
 //                 <div className="inline-flex items-center gap-2 px-3 py-1.5    b0">
-//                                  
-//                   <span className="w-2 h-2 rounded-full bg-emerald-500"></span> 
-//                                
+//
+//                   <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+//
 //                   <span className="text-xs sm:text-sm font-medium text-emerald-700">
-//                                       Connected                
+//                                       Connected
 //                   </span>
-//                                
+//
 //                 </div>
-//                            
+//
 //               </div>
-//                          
+//
 //               <div className="bg-white flex rounded-xl border border-gray-200 px-4">
-//                              
+//
 //                 <NeedHelp
 //                   mobile={"+91 22 1234 5678"}
 //                   para={" Our trade experts are here to help you."}
 //                   heading={"Need help ?"}
 //                 />
-//                            
+//
 //               </div>
-//                        
+//
 //             </div>
-//                    
+//
 //           </main>
 //         </div>
 //       )}
-//            
+//
 //       <div className="fixed right-5 bottom-5">
-//                 <img src={chat} />     
+//                 <img src={chat} />
 //       </div>
-//            
+//
 //       {shipment === "shipment" && (
 //         <div>
-//                    
+//
 //           <Shipment
 //             setActiveTab={setActiveTab}
 //             setShipment={setShipment}
 //             currentTab={"AI CargoMate Assistant"}
 //             prefill={assistantResult}
 //           />
-//                  
+//
 //         </div>
 //       )}
-//            
+//
 //       {downloadReport && (
 //         <DownloadReportModal onClose={() => setDownloadReport(false)} />
 //       )}
-//                  
+//
 //       {showProductDetails && (
 //         <ProductDetails onClose={() => setShowProductDetails(false)} />
 //       )}
-//            
+//
 //       {saveReportPopup && (
 //         <SaveReportPopup onClose={() => setSaveReportPopup(false)} />
 //       )}
-//            
-//       {saveReport && <SaveReportModal onClose={() => setSaveReport(false)} />} 
-//          
+//
+//       {saveReport && <SaveReportModal onClose={() => setSaveReport(false)} />}
+//
 //       {shareReport && (
 //         <ShareReportModal onClose={() => setShareReport(false)} />
 //       )}
-//            
+//
 //       {dataSource && (
 //         <div
 //           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/50 p-4"
 //           onClick={() => setDataSource(false)}
 //         >
-//                    
+//
 //           <div
 //             role="dialog"
 //             aria-modal="true"
@@ -2955,37 +2955,37 @@
 //             className="w-full max-w-lg rounded-xl bg-white p-5 shadow-2xl"
 //             onClick={(event) => event.stopPropagation()}
 //           >
-//                        
+//
 //             <div className="mb-4 flex items-center justify-between gap-3">
-//                            
+//
 //               <div>
-//                                
+//
 //                 <h2
 //                   id="data-sources-modal-title"
 //                   className="text-base font-bold text-gray-900"
 //                 >
 //                   All Data Sources Used
 //                 </h2>
-//                                
+//
 //                 <p className="mt-1 text-xs text-gray-500">
 //                   Sources returned by the shipment analysis API.
 //                 </p>
-//                              
+//
 //               </div>
-//                            
+//
 //               <button
 //                 type="button"
 //                 onClick={() => setDataSource(false)}
 //                 aria-label="Close data sources"
 //                 className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 hover:text-gray-800"
 //               >
-//                                 <FiX size={18} />             
+//                                 <FiX size={18} />
 //               </button>
-//                          
+//
 //             </div>
-//                        
+//
 //             <div className="max-h-[60vh] space-y-2 overflow-y-auto">
-//                            
+//
 //               {Array.isArray(liveView?.dataSources) &&
 //               liveView.dataSources.length > 0 ? (
 //                 liveView.dataSources.map((source, index) => {
@@ -3001,14 +3001,14 @@
 //                       key={`${sourceLabel}-${index}`}
 //                       className="flex items-start gap-3 rounded-lg border border-gray-200 p-3 text-sm text-gray-700"
 //                     >
-//                                            
+//
 //                       <FiDatabase
 //                         size={16}
 //                         className="mt-0.5 shrink-0 text-teal-600"
 //                       />
-//                                            
-//                       <span className="break-words">{sourceLabel}</span>       
-//                                  
+//
+//                       <span className="break-words">{sourceLabel}</span>
+//
 //                     </div>
 //                   ) : null;
 //                 })
@@ -3017,11 +3017,11 @@
 //                   No data sources returned yet. Run shipment analysis first.
 //                 </p>
 //               )}
-//                          
+//
 //             </div>
-//                        
+//
 //             <div className="mt-5 flex justify-end">
-//                            
+//
 //               <button
 //                 type="button"
 //                 onClick={() => setDataSource(false)}
@@ -3029,14 +3029,14 @@
 //               >
 //                 Close
 //               </button>
-//                          
+//
 //             </div>
-//                      
+//
 //           </div>
-//                  
+//
 //         </div>
 //       )}
-//          
+//
 //     </div>
 //   );
 // };
@@ -3045,8 +3045,8 @@
 
 import ReportActions from "../../components/ReportActions";
 import { getSession } from "../../../lib/auth";
-import {reportRequest} from "../../../lib/accountApi";
-import {successAlert,errorAlert} from "../../../lib/alerts";
+import { reportRequest } from "../../../lib/accountApi";
+import { successAlert, errorAlert } from "../../../lib/alerts";
 
 import React, { useEffect, useState, useTransition } from "react";
 
@@ -3969,7 +3969,26 @@ const AiCargoMateAssistant = () => {
   const liveView = getAssistantView(assistantResult);
 
   const hasAnalyzedShipment = Boolean(assistantResult);
-  const saveCurrentReport=async()=>{if(!assistantResult){await errorAlert("Analyze a shipment first");return;}try{await reportRequest("","POST",{reportName:`AI Shipment - ${assistantResult.query_id||new Date().toISOString()}`,description:queryText,category:"Analytics & Trends",module:"Analytics",type:"Analytics",dataSource:"AI CargoMate Assistant",reportData:assistantResult});await successAlert("Report saved. Open Saved to view it.")}catch(e){await errorAlert(e.message)}};
+  const saveCurrentReport = async () => {
+    if (!assistantResult) {
+      await errorAlert("Analyze a shipment first");
+      return;
+    }
+    try {
+      await reportRequest("", "POST", {
+        reportName: `AI Shipment - ${assistantResult.query_id || new Date().toISOString()}`,
+        description: queryText,
+        category: "Analytics & Trends",
+        module: "Analytics",
+        type: "Analytics",
+        dataSource: "AI CargoMate Assistant",
+        reportData: assistantResult,
+      });
+      await successAlert("Report saved. Open Saved to view it.");
+    } catch (e) {
+      await errorAlert(e.message);
+    }
+  };
   const zeroCards = [
     {
       label: "HS Code",
@@ -4060,8 +4079,7 @@ const AiCargoMateAssistant = () => {
     setAnalysisError("");
 
     try {
-      const token =
-        getSession()?.token;
+      const token = getSession()?.token;
 
       const response = await axios.get(
         `${assistantApiBaseURL}/assistant/analyze`,
@@ -4104,16 +4122,16 @@ const AiCargoMateAssistant = () => {
     setShowProductDetails(false);
   }, []);
   return (
-    <div className="cm-module-theme flex-1 flex flex-col min-w-0 overflow-hidden pt-14">
+    <div className="cm-module-theme flex-1 flex flex-col min-w-0 overflow-hidden pt-1">
            
       {activeTab === "AI CargoMate Assistant" && (
         <div>
                  
-          <main className="flex-1 overflow-y-auto bg-gray-50 p-3 sm:p-4 lg:p-5">
+          <main className="flex-1 overflow-y-auto bg-gray-50 p-1 sm:p-1 lg:p-1">
                      
-            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-1">
                          
-              <div>
+              {/* <div>
                              
                 <div className="flex items-center gap-2 flex-wrap">
                                  
@@ -4134,11 +4152,10 @@ const AiCargoMateAssistant = () => {
                                
                 </p>
                            
-              </div>
-                         
-              <div className="flex flex-wrap gap-2">
-                             
-                <button
+              </div> */}
+                         {/* <div className="flex flex-wrap gap-2"> */}         
+                 
+              {/* <button
                   onClick={() => setShowProductDetails(true)}
                   className="flex items-center gap-1.5 border border-gray-200 bg-white text-gray-700 text-xs  font-bold  px-2 py-1.5 rounded-lg hover:bg-gray-50"
                 >
@@ -4146,7 +4163,7 @@ const AiCargoMateAssistant = () => {
                      
                 </button>
                              
-                <ReportActions module="AI CargoMate Assistant" result={assistantResult} query={queryText} />
+               
                 <button
                   onClick={saveCurrentReport}
                   className="flex items-center gap-1.5 border border-gray-200 bg-white text-gray-700 text-xs  font-bold  px-3 py-1.5 rounded-lg hover:bg-gray-50"
@@ -4158,10 +4175,21 @@ const AiCargoMateAssistant = () => {
                   onClick={() => setDownloadReport(true)}
                   className="flex items-center gap-1.5 border border-gray-200 bg-white text-gray-700 text-xs  font-bold  px-3 py-1.5 rounded-lg hover:bg-gray-50"
                 >
-                                  <FiDownload size={13} /> Download Report (PDF)
+                              <FiDownload size={13} /> Download Report (PDF)
                                
-                </button>
-                             
+                </button> */}
+                         {" "}
+              <div className="" >
+                <ReportActions
+                  module="AI CargoMate Assistant"
+                  result={assistantResult}
+                  query={queryText}
+                />
+             
+              </div>
+                 <div className="flex items-center  justify-end">
+
+            
                 <button
                   onClick={() => {
                     setShipment("shipment");
@@ -4173,9 +4201,8 @@ const AiCargoMateAssistant = () => {
                                   <FiPlus size={13} /> Create Shipment          
                      
                 </button>
-                           
-              </div>
-                       
+                    </div>
+                         {/* </div> */}         
             </div>
                                
             <div className="grid grid-cols-1 xl:grid-cols-[1fr_300px] gap-4">
@@ -4615,9 +4642,7 @@ const AiCargoMateAssistant = () => {
                                  
                   </div>
                 )}
-                             
-              
-                           
+                                         
               </div>
                          
               <div className="flex flex-col gap-4">

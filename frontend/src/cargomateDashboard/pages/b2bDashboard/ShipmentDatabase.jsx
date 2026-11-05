@@ -280,7 +280,6 @@
 //     fetchReport();
 //   }, []);
 
-
 //   // --- DYNAMIC DROPDOWN OPTIONS GENERATION ---
 //   const uniqueOrigins = useMemo(
 //     () => ["All Countries", ...new Set(shipments.map((s) => s.route?.originCountry).filter(Boolean))],
@@ -490,7 +489,7 @@
 //               {filteredShipments.length}
 //             </h3>
 //             <span className="text-[11px] text-green-600 font-semibold flex items-center gap-0.5 mt-0.5">
-                
+
 //             </span>
 //           </div>
 //         </div>
@@ -510,7 +509,7 @@
 //               ₹{totalValue} Cr
 //             </h3>
 //             <span className="text-[11px] text-green-600 font-semibold flex items-center gap-0.5 mt-0.5">
-             
+
 //             </span>
 //           </div>
 //         </div>
@@ -530,12 +529,12 @@
 //               {uniqueExportersCount}
 //             </h3>
 //             <span className="text-[11px] text-green-600 font-semibold flex items-center gap-0.5 mt-0.5">
-               
+
 //             </span>
 //           </div>
 //         </div>
 
-//         {/* Baki Standard Static Cards Metrics Layout ke liye 
+//         {/* Baki Standard Static Cards Metrics Layout ke liye
 //         <div className="bg-white p-4 rounded-xl border border-slate-100 shadow-sm flex flex-col justify-between">
 //           <div className="flex items-center justify-between">
 //             <span className="text-[13px] font-semibold text-slate-600  tracking-wider">
@@ -546,7 +545,7 @@
 //           <div className="mt-2">
 //             <h3 className="text-xl font-bold text-slate-800">{dashboard.totalSuppliers || 0}</h3>
 //              <span className="text-[11px] text-green-600 font-semibold flex items-center gap-0.5 mt-0.5">
-               
+
 //             </span>
 //           </div>
 //         </div>*/}
@@ -562,7 +561,7 @@
 //           <div className="mt-2">
 //             <h3 className="text-xl font-bold text-slate-800">{dashboard.countries || 0}</h3>
 //              <span className="text-[11px] text-green-600 font-semibold flex items-center gap-0.5 mt-0.5">
-                
+
 //             </span>
 //           </div>
 //         </div>
@@ -578,7 +577,7 @@
 //           <div className="mt-2">
 //             <h3 className="text-xl font-bold text-slate-800">₹{((dashboard.avgShipmentValue || 0) / 100000).toFixed(2)} L</h3>
 //              <span className="text-[11px] text-red-600 font-semibold flex items-center gap-0.5 mt-0.5">
-//               <TrendingUp className="w-3 h-3" />  
+//               <TrendingUp className="w-3 h-3" />
 //             </span>
 //           </div>
 //         </div>
@@ -593,9 +592,9 @@
 //             <h3 className="text-xl font-bold text-slate-800">
 //               {dashboard.avgLeadTime || 0} d
 //                <span className="text-[11px] text-red-600 font-semibold flex items-center gap-0.5 mt-0.5">
-              
+
 //             </span>
-              
+
 //               </h3>
 //           </div>
 //         </div>*/}
@@ -663,7 +662,7 @@
 //             </div>
 //           </div>
 
-//           {/* Importer Dropdown 
+//           {/* Importer Dropdown
 //           <div>
 //             <label className="text-[11px] font-bold text-slate-400 block mb-1 uppercase">
 //               Importer
@@ -684,7 +683,7 @@
 //             </div>
 //           </div>
 
-//           {/* Exporter Dropdown 
+//           {/* Exporter Dropdown
 //           <div>
 //             <label className="text-[11px] font-bold text-slate-400 block mb-1 uppercase">
 //               Exporters
@@ -705,7 +704,7 @@
 //             </div>
 //           </div>
 
-//           {/* Loading Port Dropdown 
+//           {/* Loading Port Dropdown
 //           <div>
 //             <label className="text-[11px] font-bold text-slate-400 block mb-1 uppercase">
 //               Port of Loading
@@ -725,8 +724,6 @@
 //               <SlidersHorizontal className="w-3 h-3 absolute right-2.5 top-3 text-slate-400 pointer-events-none" />
 //             </div>
 //           </div>
-
-        
 
 //           {/* Reset Filters Control */}
 //           <div className="flex gap-2">
@@ -949,7 +946,7 @@
 // </div>
 //         </div>
 
-//       </div> 
+//       </div>
 //        {exportReport && (
 //                                <ExportReport onClose={() => setExportReport(false)} />
 //                              )}
@@ -966,8 +963,6 @@
 //     </div>
 //   );
 // }
-
-
 
 // mahima code //
 import React, { useState, useEffect, useCallback } from "react";
@@ -1041,8 +1036,7 @@ const formatCurrency = (value) =>
 const formatCrore = (value) =>
   `₹${((Number(value) || 0) / 10000000).toFixed(2)} Cr`;
 
-const formatNumber = (value) =>
-  Number(value || 0).toLocaleString("en-IN");
+const formatNumber = (value) => Number(value || 0).toLocaleString("en-IN");
 
 const formatDate = (date) => {
   if (!date) return "-";
@@ -1064,9 +1058,18 @@ const getMonthName = (month) => {
   const value = String(month);
 
   const months = [
-    "January", "February", "March", "April",
-    "May", "June", "July", "August",
-    "September", "October", "November", "December",
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
   ];
 
   if (/^\d+$/.test(value)) {
@@ -1089,9 +1092,7 @@ const StatCard = ({
   accent,
 }) => (
   <div className="group relative overflow-hidden rounded-2xl border border-slate-200/80 bg-white p-4 shadow-[0_2px_12px_rgba(15,23,42,0.035)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(15,23,42,0.09)]">
-    <div
-      className={`absolute left-0 top-0 h-full w-[3px] ${accent}`}
-    />
+    <div className={`absolute left-0 top-0 h-full w-[3px] ${accent}`} />
 
     <div className="flex items-start justify-between gap-3">
       <div className="min-w-0">
@@ -1121,13 +1122,7 @@ const StatCard = ({
 // FILTER SELECT
 // ==========================================
 
-const FilterSelect = ({
-  label,
-  value,
-  onChange,
-  options,
-  allLabel,
-}) => (
+const FilterSelect = ({ label, value, onChange, options, allLabel }) => (
   <div className="min-w-0">
     <label className="mb-1.5 block text-[10px] font-bold uppercase tracking-[0.08em] text-slate-500">
       {label}
@@ -1274,17 +1269,15 @@ export default function ShipmentDatabase() {
     return query;
   }, []);
 
-
-
   const getTabFilters = useCallback(() => {
     const query = buildQuery(appliedFilters);
-  
+
     if (activeTab === "import") {
       query.type = "import";
     } else if (activeTab === "export") {
       query.type = "export";
     }
-  
+
     return query;
   }, [activeTab, appliedFilters, buildQuery]);
 
@@ -1306,10 +1299,10 @@ export default function ShipmentDatabase() {
     try {
       const res = await getFilterOptions();
       const data = getResponseData(res);
-  
+
       console.log("FILTER OPTIONS API RESPONSE:", data);
       console.log("BUYERS:", data.buyers);
-  
+
       setFilterOptions(data);
     } catch (error) {
       console.error("Filter options error:", error);
@@ -1381,11 +1374,7 @@ export default function ShipmentDatabase() {
     try {
       setRefreshing(true);
 
-      await Promise.all([
-        fetchDashboard(),
-        fetchFilters(),
-        fetchShipments(),
-      ]);
+      await Promise.all([fetchDashboard(), fetchFilters(), fetchShipments()]);
     } finally {
       setRefreshing(false);
     }
@@ -1399,9 +1388,8 @@ export default function ShipmentDatabase() {
     try {
       setExporting(true);
 
-
       const query = getTabFilters();
-const res = await exportReport(query);
+      const res = await exportReport(query);
       const rows = getRecordArray(getResponseData(res));
 
       if (!rows.length) {
@@ -1435,7 +1423,7 @@ const res = await exportReport(query);
       const csv = [
         columns.join(","),
         ...rows.map((row) =>
-          columns.map((column) => escapeCSV(row[column])).join(",")
+          columns.map((column) => escapeCSV(row[column])).join(","),
         ),
       ].join("\n");
 
@@ -1481,8 +1469,7 @@ const res = await exportReport(query);
   const filterList = (key) =>
     Array.isArray(filterOptions[key]) ? filterOptions[key] : [];
 
-  const startRecord =
-    totalRecords === 0 ? 0 : (page - 1) * limit + 1;
+  const startRecord = totalRecords === 0 ? 0 : (page - 1) * limit + 1;
 
   const endRecord = Math.min(page * limit, totalRecords);
 
@@ -1490,17 +1477,14 @@ const res = await exportReport(query);
   const importValue = Number(dashboard.totalImportValue || 0);
   const exportValue = Number(dashboard.totalExportValue || 0);
 
-  const importPercentage = totalValue
-    ? (importValue / totalValue) * 100
-    : 0;
+  const importPercentage = totalValue ? (importValue / totalValue) * 100 : 0;
 
-  const exportPercentage = totalValue
-    ? (exportValue / totalValue) * 100
-    : 0;
+  const exportPercentage = totalValue ? (exportValue / totalValue) * 100 : 0;
 
-  const activeFilterCount = Object.entries(appliedFilters).filter(
-    ([key, value]) => key !== "search" && value !== initialFilters[key]
-  ).length + (appliedFilters.search ? 1 : 0);
+  const activeFilterCount =
+    Object.entries(appliedFilters).filter(
+      ([key, value]) => key !== "search" && value !== initialFilters[key],
+    ).length + (appliedFilters.search ? 1 : 0);
 
   // ==========================================
   // STATS
@@ -1570,8 +1554,7 @@ const res = await exportReport(query);
   // ==========================================
 
   return (
-    <div className="cm-module-theme min-h-screen bg-[#f4f7fc] px-3 pb-8 pt-14 font-sans text-slate-700 sm:px-5 lg:px-7">
-
+    <div className="cm-module-theme min-h-screen bg-[#f4f7fc] px-1 pb-8 pt-14 font-sans text-slate-700 sm:px-1 lg:px-1">
       {/* ================================== */}
       {/* PREMIUM HEADER */}
       {/* ================================== */}
@@ -1583,21 +1566,21 @@ const res = await exportReport(query);
 
         <div className="relative z-10 flex flex-col justify-between gap-6 xl:flex-row xl:items-center">
           <div>
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 backdrop-blur-sm">
+            {/* <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 backdrop-blur-sm">
               <Activity size={13} className="text-cyan-200" />
               <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-blue-50">
                 Trade Analytics
               </span>
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-300 shadow-[0_0_8px_rgba(110,231,183,0.8)]" />
-            </div>
+            </div> */}
 
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3  text-white">
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-white/20 bg-white/10 shadow-inner backdrop-blur-sm">
                 <Boxes size={25} />
               </div>
 
-              <div>
-                <h1 className="text-2xl font-extrabold tracking-tight sm:text-3xl">
+              <div className=" text-white">
+                <h1 className="font-extrabold text-white text-2xl tracking-tight sm:text-3xl">
                   Shipment Database
                 </h1>
                 <p className="mt-1 text-xs text-blue-100 sm:text-sm">
@@ -1658,7 +1641,7 @@ const res = await exportReport(query);
           </div>
         </div>
 
-        <div className="relative z-10 mt-7 flex flex-wrap items-center justify-between gap-3 border-t border-white/15 pt-4">
+        {/* <div className="relative z-10 mt-7 flex flex-wrap items-center justify-between gap-3 border-t border-white/15 pt-4">
           <div className="flex items-center gap-2 text-[11px] text-blue-100">
             <CheckCircle2 size={14} className="text-emerald-300" />
             Import Intelligence + Export Intelligence
@@ -1667,72 +1650,72 @@ const res = await exportReport(query);
           <div className="text-[10px] font-medium tracking-wide text-blue-100/80">
             UNIFIED TRADE OVERVIEW
           </div>
-        </div>
+        </div> */}
       </section>
 
       {/* ================================== */}
-{/* IMPORT / EXPORT TABS */}
-{/* ================================== */}
+      {/* IMPORT / EXPORT TABS */}
+      {/* ================================== */}
 
-<section className="mb-6">
-  <div className="flex flex-col justify-between gap-4 rounded-2xl border border-slate-200/80 bg-white p-3 shadow-[0_3px_15px_rgba(15,23,42,0.035)] sm:flex-row sm:items-center">
-    <div>
-      <h2 className="text-sm font-extrabold text-slate-800">
-        Shipment Intelligence
-      </h2>
-      <p className="mt-1 text-[11px] text-slate-400">
-        Select the trade category you want to explore
-      </p>
-    </div>
+      <section className="mb-6">
+        <div className="flex flex-col justify-between gap-4 rounded-2xl border border-slate-200/80 bg-white p-3 shadow-[0_3px_15px_rgba(15,23,42,0.035)] sm:flex-row sm:items-center">
+          <div>
+            <h2 className="text-sm font-extrabold text-slate-800">
+              Shipment Intelligence
+            </h2>
+            <p className="mt-1 text-[11px] text-slate-400">
+              Select the trade category you want to explore
+            </p>
+          </div>
 
-    <div className="grid grid-cols-3 gap-2 rounded-xl bg-slate-100 p-1.5">
-      <button
-        onClick={() => {
-          setActiveTab("all");
-          setPage(1);
-        }}
-        className={`flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-[11px] font-extrabold transition-all sm:px-5 ${
-          activeTab === "all"
-            ? "bg-white text-blue-700 shadow-sm"
-            : "text-slate-500 hover:text-slate-800"
-        }`}
-      >
-        <Layers size={15} />
-        All Shipments
-      </button>
+          <div className="grid grid-cols-3 gap-2 rounded-xl bg-slate-100 p-1.5">
+            <button
+              onClick={() => {
+                setActiveTab("all");
+                setPage(1);
+              }}
+              className={`flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-[11px] font-extrabold transition-all sm:px-5 ${
+                activeTab === "all"
+                  ? "bg-white text-blue-700 shadow-sm"
+                  : "text-slate-500 hover:text-slate-800"
+              }`}
+            >
+              <Layers size={15} />
+              All Shipments
+            </button>
 
-      <button
-        onClick={() => {
-          setActiveTab("import");
-          setPage(1);
-        }}
-        className={`flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-[11px] font-extrabold transition-all sm:px-5 ${
-          activeTab === "import"
-            ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/20"
-            : "text-slate-500 hover:text-emerald-700"
-        }`}
-      >
-        <ArrowDownRight size={16} />
-        Imports
-      </button>
+            <button
+              onClick={() => {
+                setActiveTab("import");
+                setPage(1);
+              }}
+              className={`flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-[11px] font-extrabold transition-all sm:px-5 ${
+                activeTab === "import"
+                  ? "bg-emerald-600 text-white shadow-md shadow-emerald-600/20"
+                  : "text-slate-500 hover:text-emerald-700"
+              }`}
+            >
+              <ArrowDownRight size={16} />
+              Imports
+            </button>
 
-      <button
-        onClick={() => {
-          setActiveTab("export");
-          setPage(1);
-        }}
-        className={`flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-[11px] font-extrabold transition-all sm:px-5 ${
-          activeTab === "export"
-            ? "bg-blue-700 text-white shadow-md shadow-blue-700/20"
-            : "text-slate-500 hover:text-blue-700"
-        }`}
-      >
-        <ArrowUpRight size={16} />
-        Exports
-      </button>
-    </div>
-  </div>
-</section>
+            <button
+              onClick={() => {
+                setActiveTab("export");
+                setPage(1);
+              }}
+              className={`flex items-center justify-center gap-2 rounded-lg px-3 py-3 text-[11px] font-extrabold transition-all sm:px-5 ${
+                activeTab === "export"
+                  ? "bg-blue-700 text-white shadow-md shadow-blue-700/20"
+                  : "text-slate-500 hover:text-blue-700"
+              }`}
+            >
+              <ArrowUpRight size={16} />
+              Exports
+            </button>
+          </div>
+        </div>
+      </section>
 
       {/* ================================== */}
       {/* KPI CARDS */}
@@ -1741,21 +1724,21 @@ const res = await exportReport(query);
       <section className="mb-6">
         <div className="mb-3 flex items-center justify-between">
           <div>
-          <h2 className="text-sm font-extrabold text-slate-800">
-  {activeTab === "import"
-    ? "Import Overview"
-    : activeTab === "export"
-    ? "Export Overview"
-    : "Trade Overview"}
-</h2>
+            <h2 className="text-sm font-extrabold text-slate-800">
+              {activeTab === "import"
+                ? "Import Overview"
+                : activeTab === "export"
+                  ? "Export Overview"
+                  : "Trade Overview"}
+            </h2>
 
-<p className="mt-0.5 text-[11px] text-slate-400">
-  {activeTab === "import"
-    ? "Import shipment performance indicators"
-    : activeTab === "export"
-    ? "Export shipment performance indicators"
-    : "Combined import and export performance indicators"}
-</p>
+            <p className="mt-0.5 text-[11px] text-slate-400">
+              {activeTab === "import"
+                ? "Import shipment performance indicators"
+                : activeTab === "export"
+                  ? "Export shipment performance indicators"
+                  : "Combined import and export performance indicators"}
+            </p>
           </div>
 
           <span className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-[10px] font-bold text-slate-500">
@@ -1776,55 +1759,55 @@ const res = await exportReport(query);
 
       <section className="mb-6">
         <div className="mb-3">
-        <h2 className="text-sm font-extrabold text-slate-800">
-  {activeTab === "import"
-    ? "Import Value Analysis"
-    : activeTab === "export"
-    ? "Export Value Analysis"
-    : "Trade Value Analysis"}
-</h2>
+          <h2 className="text-sm font-extrabold text-slate-800">
+            {activeTab === "import"
+              ? "Import Value Analysis"
+              : activeTab === "export"
+                ? "Export Value Analysis"
+                : "Trade Value Analysis"}
+          </h2>
           <p className="mt-0.5 text-[11px] text-slate-400">
             Import and export value contribution
           </p>
         </div>
 
         <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-  {activeTab !== "export" && (
-    <ValueCard
-      title="Total Import Value"
-      value={formatCrore(importValue)}
-      subtitle="Combined import assessment value"
-      icon={ArrowDownRight}
-      theme="bg-emerald-50 text-emerald-600"
-      percentage={importPercentage}
-    />
-  )}
+          {activeTab !== "export" && (
+            <ValueCard
+              title="Total Import Value"
+              value={formatCrore(importValue)}
+              subtitle="Combined import assessment value"
+              icon={ArrowDownRight}
+              theme="bg-emerald-50 text-emerald-600"
+              percentage={importPercentage}
+            />
+          )}
 
-  {activeTab !== "import" && (
-    <ValueCard
-      title="Total Export Value"
-      value={formatCrore(exportValue)}
-      subtitle="Combined export trade value"
-      icon={ArrowUpRight}
-      theme="bg-blue-50 text-blue-600"
-      percentage={exportPercentage}
-    />
-  )}
+          {activeTab !== "import" && (
+            <ValueCard
+              title="Total Export Value"
+              value={formatCrore(exportValue)}
+              subtitle="Combined export trade value"
+              icon={ArrowUpRight}
+              theme="bg-blue-50 text-blue-600"
+              percentage={exportPercentage}
+            />
+          )}
 
-  <ValueCard
-    title={
-      activeTab === "import"
-        ? "Average Import Value"
-        : activeTab === "export"
-        ? "Average Export Value"
-        : "Average Shipment Value"
-    }
-    value={formatCurrency(dashboard.avgShipmentValue)}
-    subtitle="Average value per shipment record"
-    icon={IndianRupee}
-    theme="bg-amber-50 text-amber-600"
-  />
-</div>
+          <ValueCard
+            title={
+              activeTab === "import"
+                ? "Average Import Value"
+                : activeTab === "export"
+                  ? "Average Export Value"
+                  : "Average Shipment Value"
+            }
+            value={formatCurrency(dashboard.avgShipmentValue)}
+            subtitle="Average value per shipment record"
+            icon={IndianRupee}
+            theme="bg-amber-50 text-amber-600"
+          />
+        </div>
       </section>
 
       {/* ================================== */}
@@ -1914,45 +1897,45 @@ const res = await exportReport(query);
               allLabel="All HS Codes"
             />
 
-{activeTab !== "export" && (
-  <FilterSelect
-    label="Importer"
-    value={filters.importer}
-    onChange={(v) => updateFilter("importer", v)}
-    options={filterList("importers")}
-    allLabel="All Importers"
-  />
-)}
+            {activeTab !== "export" && (
+              <FilterSelect
+                label="Importer"
+                value={filters.importer}
+                onChange={(v) => updateFilter("importer", v)}
+                options={filterList("importers")}
+                allLabel="All Importers"
+              />
+            )}
 
-{activeTab !== "import" && (
-  <FilterSelect
-    label="Exporter"
-    value={filters.exporter}
-    onChange={(v) => updateFilter("exporter", v)}
-    options={filterList("exporters")}
-    allLabel="All Exporters"
-  />
-)}
+            {activeTab !== "import" && (
+              <FilterSelect
+                label="Exporter"
+                value={filters.exporter}
+                onChange={(v) => updateFilter("exporter", v)}
+                options={filterList("exporters")}
+                allLabel="All Exporters"
+              />
+            )}
 
-          {activeTab !== "export" && (
-  <FilterSelect
-    label="Supplier"
-    value={filters.supplier}
-    onChange={(v) => updateFilter("supplier", v)}
-    options={filterList("suppliers")}
-    allLabel="All Suppliers"
-  />
-)}
+            {activeTab !== "export" && (
+              <FilterSelect
+                label="Supplier"
+                value={filters.supplier}
+                onChange={(v) => updateFilter("supplier", v)}
+                options={filterList("suppliers")}
+                allLabel="All Suppliers"
+              />
+            )}
 
-{activeTab !== "import" && (
-  <FilterSelect
-    label="Buyer"
-    value={filters.buyer}
-    onChange={(v) => updateFilter("buyer", v)}
-    options={filterList("buyers")}
-    allLabel="All Buyers"
-  />
-)}
+            {activeTab !== "import" && (
+              <FilterSelect
+                label="Buyer"
+                value={filters.buyer}
+                onChange={(v) => updateFilter("buyer", v)}
+                options={filterList("buyers")}
+                allLabel="All Buyers"
+              />
+            )}
 
             <FilterSelect
               label="Month"
@@ -2000,13 +1983,13 @@ const res = await exportReport(query);
             </div>
 
             <div>
-            <h2 className="text-sm font-extrabold text-slate-800">
-  {activeTab === "import"
-    ? "Import Shipment Records"
-    : activeTab === "export"
-    ? "Export Shipment Records"
-    : "All Shipment Records"}
-</h2>
+              <h2 className="text-sm font-extrabold text-slate-800">
+                {activeTab === "import"
+                  ? "Import Shipment Records"
+                  : activeTab === "export"
+                    ? "Export Shipment Records"
+                    : "All Shipment Records"}
+              </h2>
 
               <p className="mt-0.5 text-[11px] text-slate-400">
                 {formatNumber(totalRecords)} matching records found
@@ -2049,32 +2032,32 @@ const res = await exportReport(query);
         {/* Table */}
         <div className="overflow-x-auto">
           <table className="w-full min-w-[1350px] border-collapse text-left">
-          <thead>
-  <tr className="border-b border-slate-200 bg-[#f7f9fd]">
-    {[
-      "Shipment ID",
-      "Type",
-      "HS Code",
-      "Product Description",
-      ...(activeTab !== "export" ? ["Importer"] : []),
-      ...(activeTab !== "import" ? ["Exporter"] : []),
-      ...(activeTab !== "export" ? ["Supplier"] : []),
-      ...(activeTab !== "import" ? ["Buyer"] : []),
-      "Country",
-      "Quantity",
-      "Value (INR)",
-      "Month / Year",
-      "Uploaded",
-    ].map((heading) => (
-      <th
-        key={heading}
-        className="whitespace-nowrap px-4 py-4 text-[10px] font-extrabold uppercase tracking-[0.07em] text-slate-500"
-      >
-        {heading}
-      </th>
-    ))}
-  </tr>
-</thead>
+            <thead>
+              <tr className="border-b border-slate-200 bg-[#f7f9fd]">
+                {[
+                  "Shipment ID",
+                  "Type",
+                  "HS Code",
+                  "Product Description",
+                  ...(activeTab !== "export" ? ["Importer"] : []),
+                  ...(activeTab !== "import" ? ["Exporter"] : []),
+                  ...(activeTab !== "export" ? ["Supplier"] : []),
+                  ...(activeTab !== "import" ? ["Buyer"] : []),
+                  "Country",
+                  "Quantity",
+                  "Value (INR)",
+                  "Month / Year",
+                  "Uploaded",
+                ].map((heading) => (
+                  <th
+                    key={heading}
+                    className="whitespace-nowrap px-4 py-4 text-[10px] font-extrabold uppercase tracking-[0.07em] text-slate-500"
+                  >
+                    {heading}
+                  </th>
+                ))}
+              </tr>
+            </thead>
 
             <tbody className="divide-y divide-slate-100">
               {loading ? (
@@ -2118,7 +2101,7 @@ const res = await exportReport(query);
                     <td className="px-4 py-4">
                       <span
                         className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1.5 text-[10px] font-extrabold ${getTypeStyle(
-                          row.type
+                          row.type,
                         )}`}
                       >
                         <span className="h-1.5 w-1.5 rounded-full bg-current" />
@@ -2138,40 +2121,40 @@ const res = await exportReport(query);
                     </td>
 
                     {activeTab !== "export" && (
-  <td
-    className="max-w-[180px] truncate px-4 py-4 text-[11px] text-slate-600"
-    title={row.importer || ""}
-  >
-    {row.importer || "-"}
-  </td>
-)}
+                      <td
+                        className="max-w-[180px] truncate px-4 py-4 text-[11px] text-slate-600"
+                        title={row.importer || ""}
+                      >
+                        {row.importer || "-"}
+                      </td>
+                    )}
 
-{activeTab !== "import" && (
-  <td
-    className="max-w-[180px] truncate px-4 py-4 text-[11px] text-slate-600"
-    title={row.exporter || ""}
-  >
-    {row.exporter || "-"}
-  </td>
-)}
+                    {activeTab !== "import" && (
+                      <td
+                        className="max-w-[180px] truncate px-4 py-4 text-[11px] text-slate-600"
+                        title={row.exporter || ""}
+                      >
+                        {row.exporter || "-"}
+                      </td>
+                    )}
 
-{activeTab !== "export" && (
-  <td
-    className="max-w-[180px] truncate px-4 py-4 text-[11px] text-slate-600"
-    title={row.supplier || ""}
-  >
-    {row.supplier || "-"}
-  </td>
-)}
+                    {activeTab !== "export" && (
+                      <td
+                        className="max-w-[180px] truncate px-4 py-4 text-[11px] text-slate-600"
+                        title={row.supplier || ""}
+                      >
+                        {row.supplier || "-"}
+                      </td>
+                    )}
 
-{activeTab !== "import" && (
-  <td
-    className="max-w-[180px] truncate px-4 py-4 text-[11px] text-slate-600"
-    title={row.buyer || row.Cosignee || ""}
-  >
-    {row.buyer || row.Cosignee || "-"}
-  </td>
-)}
+                    {activeTab !== "import" && (
+                      <td
+                        className="max-w-[180px] truncate px-4 py-4 text-[11px] text-slate-600"
+                        title={row.buyer || row.Cosignee || ""}
+                      >
+                        {row.buyer || row.Cosignee || "-"}
+                      </td>
+                    )}
 
                     <td className="whitespace-nowrap px-4 py-4">
                       <div className="flex items-center gap-2">
@@ -2186,9 +2169,7 @@ const res = await exportReport(query);
                     </td>
 
                     <td className="whitespace-nowrap px-4 py-4 text-right text-[11px] font-semibold text-slate-600">
-                      {row.quantity == null
-                        ? "-"
-                        : formatNumber(row.quantity)}
+                      {row.quantity == null ? "-" : formatNumber(row.quantity)}
                     </td>
 
                     <td className="whitespace-nowrap px-4 py-4 text-right">
@@ -2199,10 +2180,7 @@ const res = await exportReport(query);
 
                     <td className="whitespace-nowrap px-4 py-4">
                       <div className="flex items-center gap-1.5 text-[11px] font-medium text-slate-600">
-                        <CalendarDays
-                          size={13}
-                          className="text-slate-400"
-                        />
+                        <CalendarDays size={13} className="text-slate-400" />
                         {getMonthName(row.month)} {row.year || ""}
                       </div>
                     </td>
@@ -2214,10 +2192,10 @@ const res = await exportReport(query);
                 ))
               ) : (
                 <tr>
-                  <td colSpan={
-  11 +
-  (activeTab === "all" ? 2 : 1)
-} className="py-20 text-center">
+                  <td
+                    colSpan={11 + (activeTab === "all" ? 2 : 1)}
+                    className="py-20 text-center"
+                  >
                     <div className="flex flex-col items-center">
                       <div className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 text-slate-400">
                         <Package size={26} />
@@ -2253,13 +2231,9 @@ const res = await exportReport(query);
         <div className="flex flex-col justify-between gap-3 border-t border-slate-100 bg-[#fbfcfe] px-5 py-4 sm:flex-row sm:items-center">
           <p className="text-[11px] text-slate-500">
             Showing{" "}
-            <span className="font-extrabold text-slate-800">
-              {startRecord}
-            </span>{" "}
+            <span className="font-extrabold text-slate-800">{startRecord}</span>{" "}
             to{" "}
-            <span className="font-extrabold text-slate-800">
-              {endRecord}
-            </span>{" "}
+            <span className="font-extrabold text-slate-800">{endRecord}</span>{" "}
             of{" "}
             <span className="font-extrabold text-slate-800">
               {formatNumber(totalRecords)}

@@ -2855,21 +2855,23 @@ export default function HSCodeLookup() {
     .slice(0, 6);
 
   return (
-    <div className="cm-module-theme  bg-gray-50   flex-1  pt-14">      <ReportActions module="HS Code Lookup" result={lookupResult} query={query} />
+    <div className="cm-module-theme  bg-gray-50   flex-1 ">      
 
       {activeTab === "HS Code Lookup" && (
-        <div className="">
-          <div className="  border-gray-200 px-4 sm:px-6 py-3">
+        <div>
+          <div className="  border-gray-200 px-1 sm:px-1 py-1">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
               <div>
-                <h1 className="text-lg font-bold text-gray-900">
+                {/* <h1 className="text-lg font-bold text-gray-900">
                   HS Code Lookup
                 </h1>
                 <p className="text-xs font-normal text-gray-500 mt-0.5">
                   Find the right HS code and get duty, tax, and trade insights.
-                </p>
+                </p> */}
+                <ReportActions module="HS Code Lookup" result={lookupResult} query={query}  />
               </div>
               <div className="flex flex-wrap gap-2">
+                
                 <button
                   onClick={() => {
                     setShipment("shipment");
@@ -2883,7 +2885,7 @@ export default function HSCodeLookup() {
             </div>
           </div>
 
-          <div className="max-w-[1400px] mx-auto px-3 sm:px-4 lg:px-6  grid grid-cols-1 xl:grid-cols-[1fr_290px] gap-4 ">
+          <div className="max-w-[1400px] mx-auto px-1 sm:px-1 lg:px-1 grid grid-cols-1 xl:grid-cols-[1fr_290px] gap-4 ">
             <div className="flex flex-col gap-4 min-w-0">
               <div className="bg-white border border-gray-200 rounded-xl p-4">
                 <p className="text-xs sm:text-sm font-bold   mb-2">

@@ -708,7 +708,6 @@
 // // //   const [formData, setFormData] = useState(emptyFormData);
 // // //   useEffect(()=>{if(!prefill || editId)return;const q=prefill.query?.parsed||{};const hs=prefill.recommended?.hs_code||{};const freight=prefill.recommended?.freight||{};const detail=prefill.freight_detail?.options?.[0]||{};setFormData(prev=>({...prev,shipmentMode:/air/i.test(q.mode||freight.mode||"")?"Air":/sea/i.test(q.mode||freight.mode||"")?"Sea":prev.shipmentMode,route:{...prev.route,originCountry:"India",originCity:q.origin||"",destinationCountry:q.destination_country||"",destinationCity:q.destination||""},incoterm:q.incoterm||"",cargo:{...prev.cargo,productName:q.product||"",productDescription:hs.description||"",hsCode:hs.hs_code||"",weight:q.weight_kg?.toString()||"",grossWeight:q.weight_kg?.toString()||""},amount:q.product_value_inr?.toString()||"",currency:prefill.currency||"INR",etd:detail.est_departure||"",eta:detail.est_arrival||""}));},[prefill,editId]);
 
-
 // // //   const fetchHsCodes = async () => {
 // // //     try {
 // // //       const res = await getHSCodes();
@@ -1047,13 +1046,12 @@
 // // //             </div>
 // // //           </div>
 
-         
 // // //         </div>
 // // //          <div className=" grid grid-cols-1 lg:grid-cols-2 gap-5 mt-4">
 // // //             {/* <QuickTipsCard /> */}
-             
+
 // // //             {formConfig?.documents?.enabled!==false && formConfig?.shipment?.sections?.documents!==false && <DocumentsUpload uploadedDocs={uploadedDocs} handleDocumentUpload={handleDocumentUpload} fileInputRef={fileInputRef} config={formConfig?.documents} />}
-             
+
 // // //              {formConfig?.shipment?.sections?.aiOutput!==false && <AIOutputAnalysis analysis={analysis} />}
 // // //           </div>
 
@@ -1063,9 +1061,7 @@
 // // //   );
 // // // }
 
-
-
-// // // mahima code 
+// // // mahima code
 
 // // import React, { useState, useEffect, useRef } from "react";
 // // import {
@@ -1517,7 +1513,6 @@
 // // /* ==========================================================================
 // //    FORM STEP SECTIONS
 // //    ========================================================================== */
-
 
 // //    function BasicShipmentDetails({
 // //   formData,
@@ -2178,7 +2173,6 @@
 // //   return (
 // //     <div className="bg-white mt-10 rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] mb-6">
 // //       {/* Breadcrumb */}
-      
 
 // //       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
 // //         <div>
@@ -2339,7 +2333,6 @@
 // //     };
 // //   }, []);
 
-
 // //   const [formData, setFormData] = useState({
 // //     // Step 1
 // //     shipmentType: "",
@@ -2437,7 +2430,6 @@
 // //     }));
 // //   };
 
- 
 // // const saveAllSteps = async () => {
 // //   let currentId = shipmentId;
 
@@ -2561,7 +2553,6 @@
 
 // //   return currentId;
 // // };
-
 
 // //   const handleSaveDraft = async () => {
 // //     setLoading(true);
@@ -3141,7 +3132,6 @@
 // //   );
 // // }
 
-
 // // function ShipmentValidationModal({ errors, onClose }) {
 // //   if (!errors?.length) return null;
 
@@ -3320,7 +3310,6 @@
 // // /* ==========================================================================
 // //    FORM STEP SECTIONS
 // //    ========================================================================== */
-
 
 // //    function BasicShipmentDetails({
 // //   formData,
@@ -3981,7 +3970,6 @@
 // //   return (
 // //     <div className="bg-white mt-10 rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] mb-6">
 // //       {/* Breadcrumb */}
-      
 
 // //       <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
 // //         <div>
@@ -4146,7 +4134,6 @@
 // //     };
 // //   }, []);
 
-
 // //   const [formData, setFormData] = useState({
 // //     // Step 1
 // //     shipmentType: "",
@@ -4293,7 +4280,6 @@
 // //     }));
 // //   };
 
- 
 // // const saveAllSteps = async () => {
 // //   let currentId = shipmentId;
 
@@ -4417,7 +4403,6 @@
 
 // //   return currentId;
 // // };
-
 
 // //   const handleSaveDraft = async () => {
 // //     setLoading(true);
@@ -4682,7 +4667,6 @@
 // //   );
 // // }
 
-
 // // mahima code //
 
 // const mongoose = require("mongoose");
@@ -4704,7 +4688,6 @@
 // exports.saveStep1 = async (req, res) => {
 //   try {
 
-    
 //     const {
 //       exporter,
 //       shipmentType,
@@ -4718,7 +4701,7 @@
 //     console.log("REQ USER:", req.user);
 // console.log("REQ USER ID:", req.user._id);
 // console.log("MAPPED USER ID:", req.user.mappedUserId);
-// console.log("SHIPMENT USER ID:", shipmentUserId); 
+// console.log("SHIPMENT USER ID:", shipmentUserId);
 
 // // Agar admin nahi hai aur kisi mapped user ke liye shipment create kar raha hai
 // if (userId) {
@@ -4734,14 +4717,14 @@
 //     const hasAccess = (req.user.allowedUserIds || []).some(
 //       id => id.toString() === userId.toString()
 //     );
-  
+
 //     if (!hasAccess) {
 //       return res.status(403).json({
 //         status: 0,
 //         message: "You are not authorized to create a shipment for this user"
 //       });
 //     }
-  
+
 //     shipmentUserId = userId;
 //   }
 // }
@@ -4939,7 +4922,7 @@
 //     });
 //   }
 // };
-  
+
 // exports.saveStep3 = async (req, res) => {
 //   try {
 //     const mappedUserId =
@@ -5035,7 +5018,6 @@
 //     });
 //   }
 // };
-
 
 // exports.saveDraft = async (req, res) => {
 //   try {
@@ -5166,7 +5148,7 @@
 //     });
 
 //   }
-// };  
+// };
 
 // exports.submitShipment = async (req, res) => {
 //   try {
@@ -5249,11 +5231,9 @@
 // exports.approveShipment = async (req, res) => {
 //   try {
 
-
-  
 //     const mappedUserId =
 //     req.user.mappedUserId || req.user._id;
-  
+
 //   const query =
 //     req.user.roleName === "admin"
 //       ? { _id: req.params.id }
@@ -5261,7 +5241,7 @@
 //           _id: req.params.id,
 //           userId: mappedUserId
 //         };
-  
+
 //   const shipment = await Shipment.findOne(query);
 
 //   if (!shipment) {
@@ -5269,7 +5249,7 @@
 //       status: 0,
 //       message: "Shipment not found or access denied"
 //     });
-//   } 
+//   }
 
 //     shipment.approvalStatus = "Approved";
 //     if (!canMoveToStatus(shipment.shipmentStatus, "Approved")) {
@@ -5278,7 +5258,7 @@
 //         message: `Shipment cannot move from "${shipment.shipmentStatus}" to "Approved"`
 //       });
 //     }
-    
+
 //     shipment.shipmentStatus = "Approved";
 //     shipment.approvedAt = new Date();
 //     shipment.lastStatusUpdatedAt = new Date();
@@ -5323,7 +5303,7 @@
 
 //     const mappedUserId =
 //     req.user.mappedUserId || req.user._id;
-  
+
 //   const query =
 //     req.user.roleName === "admin"
 //       ? { _id: req.params.id }
@@ -5331,8 +5311,8 @@
 //           _id: req.params.id,
 //           userId: mappedUserId
 //         };
-  
-//   const shipment = await Shipment.findOne(query); 
+
+//   const shipment = await Shipment.findOne(query);
 
 //     if (!shipment) {
 //       return res.status(404).json({
@@ -5349,9 +5329,8 @@
 //       updatedBy: req.user._id,
 //       remarks: req.body.reason || "Shipment rejected by admin"
 //     });
-    
-//     await shipment.save();
 
+//     await shipment.save();
 
 //     await Activity.create({
 //       userId: req.user._id,
@@ -5408,9 +5387,9 @@
 //     shipment.approvalStatus = "Correction Required";
 
 //     shipment.exceptionStatus = "On Hold";
-    
+
 //     shipment.lastStatusUpdatedAt = new Date();
-    
+
 //     shipment.statusHistory.push({
 //       status: shipment.shipmentStatus,
 //       updatedBy: req.user._id,
@@ -5418,8 +5397,6 @@
 //     });
 
 //     shipment.lastStatusUpdatedAt = new Date();
-
-    
 
 //     await shipment.save();
 
@@ -5825,7 +5802,7 @@
 
 //     const mappedUserId =
 //     req.user.mappedUserId || req.user._id;
-  
+
 //   const query =
 //     req.user.roleName === "admin"
 //       ? { _id: req.params.id }
@@ -5833,7 +5810,7 @@
 //           _id: req.params.id,
 //           userId: mappedUserId
 //         };
-  
+
 //   const shipment = await Shipment.findOne(query);
 
 //     if (!shipment) {
@@ -5860,7 +5837,7 @@
 //         message: `Shipment cannot move from "${shipment.shipmentStatus}" to "Carrier Assigned"`
 //       });
 //     }
-    
+
 //     shipment.shipmentStatus = "Carrier Assigned";
 //     shipment.lastStatusUpdatedAt = new Date();
 //     shipment.statusHistory.push({
@@ -6161,7 +6138,6 @@
 //         ? {}
 //         : { userId: mappedUserId };
 
-
 //     const total = await Shipment.countDocuments(
 //       baseQuery
 //     );
@@ -6186,7 +6162,6 @@
 //       exceptionStatus: "On Hold"
 //     });
 
-
 //     const revenueAgg = await Shipment.aggregate([
 //       {
 //         $match: baseQuery
@@ -6200,7 +6175,6 @@
 //         }
 //       }
 //     ]);
-
 
 //     return res.json({
 //       status: 1,
@@ -6382,16 +6356,14 @@
 //   }
 // };
 
-
-
 //   exports.getShipmentTracking = async (req, res) => {
 //     try {
-  
+
 //       const shipmentId = req.params.id;
 
 //       const mappedUserId =
 //         req.user.mappedUserId || req.user._id;
-  
+
 //       const query =
 //         req.user.roleName === "admin"
 //           ? {
@@ -6401,11 +6373,10 @@
 //               _id: shipmentId,
 //               userId: mappedUserId
 //             };
-  
+
 //       const shipment = await Shipment.findOne(query)
 //         .populate("cargo.hsCode");
-  
-  
+
 //       if (!shipment) {
 //         return res.status(404).json({
 //           status: 0,
@@ -6438,13 +6409,13 @@
 //       const header = {
 //         shipmentId: shipment.sbNumber,
 //         referenceNumber: shipment.referenceNumber,
-      
+
 //         shipmentStatus: shipment.shipmentStatus,
 //         approvalStatus: shipment.approvalStatus,
 //         trackingStatus: shipment.trackingStatus,
-      
+
 //         mode: shipment.route.mode,
-      
+
 //         route: {
 //           origin: {
 //             country: shipment.route.originCountry,
@@ -6455,7 +6426,7 @@
 //             city: shipment.route.destinationCity
 //           }
 //         },
-      
+
 //         etd: shipment.etd,
 //         eta: shipment.eta,
 //         transitTime: shipment.transitTime,
@@ -6482,58 +6453,57 @@
 //         eta: shipment.eta,
 //         transitTime: shipment.transitTime
 //       };
-  
+
 //       res.json({
 //         status: 1,
 //         message: "Shipment tracking fetched successfully",
-  
+
 //         data: {
-  
+
 //           header,
-  
+
 //           trackingTimeline,
-  
+
 //           liveTracking,
-  
+
 //           shipmentInfo,
-  
+
 //           transportInfo,
-  
+
 //           parties: {
 //             exporter,
 //             importer,
 //             notifyParty
 //           },
-  
+
 //           documents,
-  
+
 //           notifications
-  
+
 //         }
-  
+
 //       });
-  
+
 //     } catch (err) {
-  
+
 //       res.status(500).json({
 //         status: 0,
 //         message: err.message
 //       });
-  
+
 //     }
 //   };
 
 //   exports.addTrackingUpdate = async (req, res) => {
 //     try {
-  
+
 //       const shipmentId = req.params.id;
-  
+
 //       const {
 //         status,
 //         remarks,
 //         location
 //       } = req.body;
-
 
 //     const mappedUserId =
 //   req.user.mappedUserId || req.user._id;
@@ -6547,7 +6517,7 @@
 //       };
 
 // const shipment = await Shipment.findOne(query);
-  
+
 //       if (!shipment) {
 //         return res.status(404).json({
 //           status: 0,
@@ -6570,11 +6540,11 @@
 //         }
 //       );
 //       const tracking = await ShipmentTracking.create({
-  
+
 //         shipmentId,
-  
+
 //         status,
-  
+
 //         location: {
 //           country: location?.country || "",
 //           city: location?.city || "",
@@ -6582,13 +6552,13 @@
 //           latitude: location?.latitude || null,
 //           longitude: location?.longitude || null
 //         },
-  
+
 //         remarks,
-  
+
 //         updatedBy: req.user._id,
-  
+
 //         current: true
-  
+
 //       });
 // const allowed = canMoveToStatus(
 //   shipment.shipmentStatus,
@@ -6628,33 +6598,31 @@
 
 // await shipment.save();
 //       await Activity.create({
-  
+
 //         userId: req.user._id,
-  
+
 //         shipmentId: shipment._id,
-  
+
 //         type: "TRACKING_UPDATED",
 //         message: `Tracking updated to ${status} at ${location?.city || ""}`
-  
+
 //       });
-  
+
 //       res.status(200).json({
 //         status: 1,
 //         message: "Tracking updated successfully",
 //         data: tracking
 //       });
-  
+
 //     } catch (err) {
-  
+
 //       res.status(500).json({
 //         status: 0,
 //         message: err.message
 //       });
-  
+
 //     }
 //   };
-
-
 
 //   exports.updateShipment = async (req, res) => {
 //     try {
@@ -6688,9 +6656,9 @@
 
 //       if (requestedMode !== undefined) {
 //         shipment.shipmentMode = requestedMode;
-      
+
 //         if (!shipment.route) shipment.route = {};
-      
+
 //         if (["Air", "Sea", "Road"].includes(requestedMode)) {
 //           shipment.route.mode = requestedMode;
 //         } else if (requestedMode === "") {
@@ -6747,7 +6715,7 @@
 //           "productDescription",
 //           "category",
 //           "cargoType",
-//           "hsCodeText", 
+//           "hsCodeText",
 //           "quantity",
 //           "unit",
 //           "weight",
@@ -6916,7 +6884,6 @@
 //     }
 //   };
 
-
 // mahima code //
 import React, { useState, useEffect, useRef } from "react";
 import {
@@ -6964,12 +6931,19 @@ import { CloudCog } from "lucide-react";
 // VITE_API_URL is expected to contain the API base, e.g. https://api.example.com/api.
 const getShipmentDocumentUrl = (fileUrl) => {
   if (!fileUrl) return "";
-  if (/^https?:\/\//i.test(fileUrl) || fileUrl.startsWith("data:")) return fileUrl;
+  if (/^https?:\/\//i.test(fileUrl) || fileUrl.startsWith("data:"))
+    return fileUrl;
 
-  const apiBase = String(import.meta.env.VITE_API_URL || "").replace(/\/+$/, "");
+  const apiBase = String(import.meta.env.VITE_API_URL || "").replace(
+    /\/+$/,
+    "",
+  );
   const backendBase = apiBase.replace(/\/api$/i, "");
   const base = backendBase || window.location.origin;
-  return new URL(fileUrl.startsWith("/") ? fileUrl : `/${fileUrl}`, base).toString();
+  return new URL(
+    fileUrl.startsWith("/") ? fileUrl : `/${fileUrl}`,
+    base,
+  ).toString();
 };
 
 const normalizeDocumentName = (value) =>
@@ -7115,7 +7089,9 @@ function RadioGroup({ label, name, value, onChange, required = true }) {
 }
 
 function Grid2({ children }) {
-  return <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">{children}</div>;
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">{children}</div>
+  );
 }
 
 function SectionCard({ number, title, subtitle, badge, children }) {
@@ -7184,9 +7160,8 @@ function DocumentsUpload({
   onDelete,
   deletingDocumentKey = "",
 }) {
-  const visibleDocuments = (Array.isArray(config?.fields)
-    ? config.fields
-    : []
+  const visibleDocuments = (
+    Array.isArray(config?.fields) ? config.fields : []
   ).filter((document) => document.enabled !== false);
 
   return (
@@ -7208,7 +7183,8 @@ function DocumentsUpload({
             Unable to load document requirements
           </p>
           <p className="mt-1 text-xs text-rose-600">
-            Please try again. The form will use the latest shared settings saved by Admin.
+            Please try again. The form will use the latest shared settings saved
+            by Admin.
           </p>
           {onRetry && (
             <button
@@ -7234,12 +7210,20 @@ function DocumentsUpload({
             const uploadedDocument =
               uploadedDocs[documentKey] ||
               Object.values(uploadedDocs).find(
-                (doc) => normalizeDocumentName(doc.documentName || doc.documentLabel || doc.name) === normalizeDocumentName(documentLabel)
+                (doc) =>
+                  normalizeDocumentName(
+                    doc.documentName || doc.documentLabel || doc.name,
+                  ) === normalizeDocumentName(documentLabel),
               );
             const isUploaded = !!uploadedDocument;
             const documentUrl =
               uploadedDocument?.resolvedFileUrl ||
-              getShipmentDocumentUrl(uploadedDocument?.fileUrl || uploadedDocument?.url || uploadedDocument?.documentUrl || uploadedDocument?.path);
+              getShipmentDocumentUrl(
+                uploadedDocument?.fileUrl ||
+                  uploadedDocument?.url ||
+                  uploadedDocument?.documentUrl ||
+                  uploadedDocument?.path,
+              );
             const Icon = index === 1 ? FiClipboard : FiFileText;
             const iconStyle =
               DOCUMENT_ICON_STYLES[index % DOCUMENT_ICON_STYLES.length];
@@ -7270,7 +7254,13 @@ function DocumentsUpload({
                     <div className="mb-2 grid grid-cols-2 gap-1.5">
                       <button
                         type="button"
-                        onClick={() => onPreview?.(uploadedDocument, documentLabel, documentUrl)}
+                        onClick={() =>
+                          onPreview?.(
+                            uploadedDocument,
+                            documentLabel,
+                            documentUrl,
+                          )
+                        }
                         className="inline-flex items-center justify-center gap-1 rounded-lg bg-white border border-indigo-200 px-2 py-1.5 text-[11px] font-semibold text-indigo-700 hover:bg-indigo-50"
                       >
                         <FiEye size={12} /> Preview
@@ -7296,11 +7286,7 @@ function DocumentsUpload({
                       const file = event.target.files?.[0];
 
                       if (file) {
-                        handleDocumentUpload(
-                          documentKey,
-                          documentLabel,
-                          file
-                        );
+                        handleDocumentUpload(documentKey, documentLabel, file);
                       }
 
                       // Allows selecting the same file again after replacing it.
@@ -7326,7 +7312,9 @@ function DocumentsUpload({
                       onClick={() => onDelete?.(documentKey, uploadedDocument)}
                       className="mt-1.5 w-full rounded-lg border border-rose-200 bg-rose-50 px-2 py-1.5 text-[11px] font-semibold text-rose-700 hover:bg-rose-100 disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      {deletingDocumentKey === documentKey ? "Deleting..." : "Delete"}
+                      {deletingDocumentKey === documentKey
+                        ? "Deleting..."
+                        : "Delete"}
                     </button>
                   )}
                 </div>
@@ -7356,26 +7344,72 @@ function DocumentsUpload({
   );
 }
 
-
 function ShipmentValidationModal({ errors, onClose }) {
   if (!errors?.length) return null;
 
   const groups = [
-    { title: "Basic Shipment Details", items: ["Shipment Type", "Shipment Mode", "Shipment Purpose"] },
-    { title: "Origin & Destination", items: ["Origin Country", "Origin City / Port / Airport", "Destination Country", "Destination City / Port / Airport", "Consignee / Buyer Name", "Consignee Address"] },
-    { title: "Invoice & Value", items: ["Invoice Value", "Invoice Value must be greater than 0", "Currency", "Payment Terms"] },
-    { title: "Product & Cargo Details", items: ["Product Name", "Product Description", "Product Category", "Quantity", "Unit", "Net Weight (Kg)", "Gross Weight (Kg)", "No. of Packages", "Packing Type", "Package Length", "Package Width", "Package Height"] },
+    {
+      title: "Basic Shipment Details",
+      items: ["Shipment Type", "Shipment Mode", "Shipment Purpose"],
+    },
+    {
+      title: "Origin & Destination",
+      items: [
+        "Origin Country",
+        "Origin City / Port / Airport",
+        "Destination Country",
+        "Destination City / Port / Airport",
+        "Consignee / Buyer Name",
+        "Consignee Address",
+      ],
+    },
+    {
+      title: "Invoice & Value",
+      items: [
+        "Invoice Value",
+        "Invoice Value must be greater than 0",
+        "Currency",
+        "Payment Terms",
+      ],
+    },
+    {
+      title: "Product & Cargo Details",
+      items: [
+        "Product Name",
+        "Product Description",
+        "Product Category",
+        "Quantity",
+        "Unit",
+        "Net Weight (Kg)",
+        "Gross Weight (Kg)",
+        "No. of Packages",
+        "Packing Type",
+        "Package Length",
+        "Package Width",
+        "Package Height",
+      ],
+    },
   ];
 
   const known = new Set(groups.flatMap((group) => group.items));
   const sections = groups
-    .map((group) => ({ ...group, missing: errors.filter((item) => group.items.includes(item)) }))
+    .map((group) => ({
+      ...group,
+      missing: errors.filter((item) => group.items.includes(item)),
+    }))
     .filter((group) => group.missing.length > 0);
   const otherErrors = errors.filter((item) => !known.has(item));
-  if (otherErrors.length) sections.push({ title: "Required Documents / Other Details", missing: otherErrors });
+  if (otherErrors.length)
+    sections.push({
+      title: "Required Documents / Other Details",
+      missing: otherErrors,
+    });
 
   return (
-    <div className="fixed inset-0 z-[120] flex items-center justify-center bg-slate-950/60 p-4" onClick={onClose}>
+    <div
+      className="fixed inset-0 z-[120] flex items-center justify-center bg-slate-950/60 p-4"
+      onClick={onClose}
+    >
       <div
         role="dialog"
         aria-modal="true"
@@ -7388,12 +7422,24 @@ function ShipmentValidationModal({ errors, onClose }) {
             <FiInfo size={20} />
           </div>
           <div className="min-w-0 flex-1">
-            <h2 id="shipment-validation-title" className="text-base font-bold text-slate-900">Complete your shipment details</h2>
+            <h2
+              id="shipment-validation-title"
+              className="text-base font-bold text-slate-900"
+            >
+              Complete your shipment details
+            </h2>
             <p className="mt-1 text-sm text-slate-600">
-              Your shipment hasn’t been submitted yet. Please fill in the {errors.length} required {errors.length === 1 ? "field" : "fields"} below.
+              Your shipment hasn’t been submitted yet. Please fill in the{" "}
+              {errors.length} required{" "}
+              {errors.length === 1 ? "field" : "fields"} below.
             </p>
           </div>
-          <button type="button" onClick={onClose} className="rounded-lg p-1.5 text-slate-400 hover:bg-white hover:text-slate-700" aria-label="Close">
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-lg p-1.5 text-slate-400 hover:bg-white hover:text-slate-700"
+            aria-label="Close"
+          >
             <FiX size={19} />
           </button>
         </div>
@@ -7401,11 +7447,18 @@ function ShipmentValidationModal({ errors, onClose }) {
         <div className="max-h-[55vh] space-y-4 overflow-y-auto px-5 py-4">
           {sections.map((section) => (
             <section key={section.title}>
-              <h3 className="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">{section.title}</h3>
+              <h3 className="mb-2 text-xs font-bold uppercase tracking-wide text-slate-500">
+                {section.title}
+              </h3>
               <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 {section.missing.map((item) => (
-                  <li key={item} className="flex items-start gap-2 rounded-lg border border-rose-100 bg-rose-50/70 px-3 py-2 text-sm text-rose-800">
-                    <span className="mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-rose-100 text-[10px] font-bold">!</span>
+                  <li
+                    key={item}
+                    className="flex items-start gap-2 rounded-lg border border-rose-100 bg-rose-50/70 px-3 py-2 text-sm text-rose-800"
+                  >
+                    <span className="mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-rose-100 text-[10px] font-bold">
+                      !
+                    </span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -7415,8 +7468,14 @@ function ShipmentValidationModal({ errors, onClose }) {
         </div>
 
         <div className="flex flex-col-reverse gap-2 border-t border-slate-100 bg-slate-50 px-5 py-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-xs text-slate-500">Draft saving and document uploads are still available.</p>
-          <button type="button" onClick={onClose} className="rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700">
+          <p className="text-xs text-slate-500">
+            Draft saving and document uploads are still available.
+          </p>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-700"
+          >
             Okay, I’ll complete them
           </button>
         </div>
@@ -7428,34 +7487,68 @@ function ShipmentValidationModal({ errors, onClose }) {
 function DocumentPreviewModal({ document, onClose }) {
   if (!document) return null;
   const url = document.url || "";
-  const isImage = /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i.test(
-    `${document.fileName || ""} ${url}`
-  ) || String(document.mimeType || "").startsWith("image/");
-  const isPdf = /\.pdf(\?.*)?$/i.test(`${document.fileName || ""} ${url}`) ||
+  const isImage =
+    /\.(jpg|jpeg|png|webp|gif)(\?.*)?$/i.test(
+      `${document.fileName || ""} ${url}`,
+    ) || String(document.mimeType || "").startsWith("image/");
+  const isPdf =
+    /\.pdf(\?.*)?$/i.test(`${document.fileName || ""} ${url}`) ||
     document.mimeType === "application/pdf";
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/70 p-3 sm:p-6" onClick={onClose}>
-      <div className="flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl" onClick={(event) => event.stopPropagation()}>
+    <div
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-slate-950/70 p-3 sm:p-6"
+      onClick={onClose}
+    >
+      <div
+        className="flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-2xl bg-white shadow-2xl"
+        onClick={(event) => event.stopPropagation()}
+      >
         <div className="flex items-center justify-between gap-3 border-b border-slate-200 px-4 py-3">
           <div className="min-w-0">
-            <h3 className="truncate text-sm font-bold text-slate-900">{document.title || "Document Preview"}</h3>
-            <p className="truncate text-xs text-slate-500">{document.fileName || "Uploaded file"}</p>
+            <h3 className="truncate text-sm font-bold text-slate-900">
+              {document.title || "Document Preview"}
+            </h3>
+            <p className="truncate text-xs text-slate-500">
+              {document.fileName || "Uploaded file"}
+            </p>
           </div>
-          <button type="button" onClick={onClose} className="rounded-lg p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-900" aria-label="Close preview">
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-lg p-2 text-slate-500 hover:bg-slate-100 hover:text-slate-900"
+            aria-label="Close preview"
+          >
             <FiX size={18} />
           </button>
         </div>
         <div className="min-h-[260px] flex-1 overflow-auto bg-slate-100 p-3 sm:p-5">
           {isImage ? (
-            <img src={url} alt={document.title || "Uploaded document"} className="mx-auto max-h-[72vh] max-w-full rounded-lg object-contain shadow-sm" />
+            <img
+              src={url}
+              alt={document.title || "Uploaded document"}
+              className="mx-auto max-h-[72vh] max-w-full rounded-lg object-contain shadow-sm"
+            />
           ) : isPdf ? (
-            <iframe title={document.title || "PDF preview"} src={url} className="h-[72vh] w-full rounded-lg border border-slate-200 bg-white" />
+            <iframe
+              title={document.title || "PDF preview"}
+              src={url}
+              className="h-[72vh] w-full rounded-lg border border-slate-200 bg-white"
+            />
           ) : (
             <div className="flex h-64 flex-col items-center justify-center gap-3 text-center">
               <FiFileText size={42} className="text-slate-400" />
-              <p className="text-sm font-semibold text-slate-700">Preview is not available for this file type.</p>
-              <a href={url} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-indigo-600 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-700">Open document</a>
+              <p className="text-sm font-semibold text-slate-700">
+                Preview is not available for this file type.
+              </p>
+              <a
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-lg bg-indigo-600 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-700"
+              >
+                Open document
+              </a>
             </div>
           )}
         </div>
@@ -7470,17 +7563,46 @@ function DocumentPreviewModal({ document, onClose }) {
 
 function AIOutputAnalysis({ analysis }) {
   const aiTopStats = [
-    { label: "Suggested HS Code", value: analysis?.hsCode || "--", color: "bg-blue-50/70 border-blue-200/80 text-blue-700" },
-    { label: "Required Docs", value: analysis?.requiredDocs ? `${analysis.requiredDocs} Files` : "--", color: "bg-emerald-50/70 border-emerald-200/80 text-emerald-700" },
-    { label: "Freight Estimate", value: analysis?.freightEstimate ? `₹${analysis.freightEstimate}` : "--", color: "bg-amber-50/70 border-amber-200/80 text-amber-700" },
-    { label: "RoDTEP Incentive", value: analysis?.incentive || "N/A", color: "bg-purple-50/70 border-purple-200/80 text-purple-700" },
+    {
+      label: "Suggested HS Code",
+      value: analysis?.hsCode || "--",
+      color: "bg-blue-50/70 border-blue-200/80 text-blue-700",
+    },
+    {
+      label: "Required Docs",
+      value: analysis?.requiredDocs ? `${analysis.requiredDocs} Files` : "--",
+      color: "bg-emerald-50/70 border-emerald-200/80 text-emerald-700",
+    },
+    {
+      label: "Freight Estimate",
+      value: analysis?.freightEstimate ? `₹${analysis.freightEstimate}` : "--",
+      color: "bg-amber-50/70 border-amber-200/80 text-amber-700",
+    },
+    {
+      label: "RoDTEP Incentive",
+      value: analysis?.incentive || "N/A",
+      color: "bg-purple-50/70 border-purple-200/80 text-purple-700",
+    },
   ];
 
   const aiBottomStats = [
-    { label: "Compliance Checklist", value: analysis?.complianceCount || "--", sub: "Requirements" },
-    { label: "Risk Score Assessment", value: analysis?.riskScore || "--", sub: analysis?.riskSub || "", green: true },
+    {
+      label: "Compliance Checklist",
+      value: analysis?.complianceCount || "--",
+      sub: "Requirements",
+    },
+    {
+      label: "Risk Score Assessment",
+      value: analysis?.riskScore || "--",
+      sub: analysis?.riskSub || "",
+      green: true,
+    },
     { label: "Estimated Transit Time", value: analysis?.timeline || "--" },
-    { label: "Recommended Next Step", value: analysis?.recommendation || "--", green: true },
+    {
+      label: "Recommended Next Step",
+      value: analysis?.recommendation || "--",
+      green: true,
+    },
   ];
 
   return (
@@ -7491,8 +7613,12 @@ function AIOutputAnalysis({ analysis }) {
             <FiZap size={14} />
           </div>
           <div className="flex items-center gap-2">
-            <span className="w-6 h-6 rounded-full bg-indigo-600 text-white text-xs font-bold flex items-center justify-center">5</span>
-            <h3 className="text-sm font-bold text-slate-900">AI Output After Analysis</h3>
+            <span className="w-6 h-6 rounded-full bg-indigo-600 text-white text-xs font-bold flex items-center justify-center">
+              5
+            </span>
+            <h3 className="text-sm font-bold text-slate-900">
+              AI Output After Analysis
+            </h3>
           </div>
         </div>
         <span className="text-[10px] font-semibold tracking-wide uppercase px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200/70">
@@ -7502,7 +7628,10 @@ function AIOutputAnalysis({ analysis }) {
 
       <div className="grid grid-cols-2 gap-2.5">
         {aiTopStats.map((s) => (
-          <div key={s.label} className={`rounded-xl border p-2.5 flex flex-col justify-between ${s.color}`}>
+          <div
+            key={s.label}
+            className={`rounded-xl border p-2.5 flex flex-col justify-between ${s.color}`}
+          >
             <p className="text-[11px] font-medium opacity-80">{s.label}</p>
             <p className="text-sm font-bold mt-1 tracking-tight">{s.value}</p>
           </div>
@@ -7511,12 +7640,19 @@ function AIOutputAnalysis({ analysis }) {
 
       <div className="grid grid-cols-2 gap-2.5 mt-2.5">
         {aiBottomStats.map((s) => (
-          <div key={s.label} className="rounded-xl border border-slate-100 bg-slate-50/70 p-2.5">
+          <div
+            key={s.label}
+            className="rounded-xl border border-slate-100 bg-slate-50/70 p-2.5"
+          >
             <p className="text-[11px] text-slate-500 font-medium">{s.label}</p>
-            <p className={`text-xs font-bold mt-1 ${s.green ? "text-emerald-600" : "text-slate-800"}`}>
+            <p
+              className={`text-xs font-bold mt-1 ${s.green ? "text-emerald-600" : "text-slate-800"}`}
+            >
               {s.value}
             </p>
-            {s.sub && <p className="text-[10px] text-slate-400 mt-0.5">{s.sub}</p>}
+            {s.sub && (
+              <p className="text-[10px] text-slate-400 mt-0.5">{s.sub}</p>
+            )}
           </div>
         ))}
       </div>
@@ -7536,8 +7672,7 @@ function AIOutputAnalysis({ analysis }) {
    FORM STEP SECTIONS
    ========================================================================== */
 
-
-   function BasicShipmentDetails({
+function BasicShipmentDetails({
   formData,
   handleDirectChange,
   handleNestedChange,
@@ -7681,7 +7816,11 @@ function AIOutputAnalysis({ analysis }) {
   );
 }
 
-function OriginDestination({ formData, handleDirectChange, handleNestedChange }) {
+function OriginDestination({
+  formData,
+  handleDirectChange,
+  handleNestedChange,
+}) {
   return (
     <SectionCard number={2} title="Origin & Destination" subtitle="">
       <Grid2>
@@ -7689,7 +7828,9 @@ function OriginDestination({ formData, handleDirectChange, handleNestedChange })
           label="Origin Country"
           placeholder="Select Country"
           value={formData.route.originCountry}
-          onChange={(e) => handleNestedChange("route", "originCountry", e.target.value)}
+          onChange={(e) =>
+            handleNestedChange("route", "originCountry", e.target.value)
+          }
         >
           <option value="India">India</option>
           <option value="China">China</option>
@@ -7699,7 +7840,9 @@ function OriginDestination({ formData, handleDirectChange, handleNestedChange })
           label="Origin City / Port / Airport"
           placeholder="e.g. Mumbai Port (INBOM)"
           value={formData.route.originCity}
-          onChange={(e) => handleNestedChange("route", "originCity", e.target.value)}
+          onChange={(e) =>
+            handleNestedChange("route", "originCity", e.target.value)
+          }
         />
       </Grid2>
       <Grid2>
@@ -7707,7 +7850,9 @@ function OriginDestination({ formData, handleDirectChange, handleNestedChange })
           label="Destination Country"
           placeholder="Select Country"
           value={formData.route.destinationCountry}
-          onChange={(e) => handleNestedChange("route", "destinationCountry", e.target.value)}
+          onChange={(e) =>
+            handleNestedChange("route", "destinationCountry", e.target.value)
+          }
         >
           <option value="India">India</option>
           <option value="Singapore">Singapore</option>
@@ -7717,7 +7862,9 @@ function OriginDestination({ formData, handleDirectChange, handleNestedChange })
           label="Destination City / Port / Airport"
           placeholder="e.g. Jebel Ali Port (AEJEA)"
           value={formData.route.destinationCity}
-          onChange={(e) => handleNestedChange("route", "destinationCity", e.target.value)}
+          onChange={(e) =>
+            handleNestedChange("route", "destinationCity", e.target.value)
+          }
         />
       </Grid2>
       <Grid2>
@@ -7725,13 +7872,17 @@ function OriginDestination({ formData, handleDirectChange, handleNestedChange })
           label="Consignee / Buyer Name"
           placeholder="Buyer legal company name"
           value={formData.importer.companyName}
-          onChange={(e) => handleNestedChange("importer", "companyName", e.target.value)}
+          onChange={(e) =>
+            handleNestedChange("importer", "companyName", e.target.value)
+          }
         />
         <Input
           label="Consignee Address"
           placeholder="Warehouse or delivery address"
           value={formData.importer.address}
-          onChange={(e) => handleNestedChange("importer", "address", e.target.value)}
+          onChange={(e) =>
+            handleNestedChange("importer", "address", e.target.value)
+          }
         />
       </Grid2>
       <Grid2>
@@ -7771,13 +7922,17 @@ function ProductDetails({
           label="Product Name"
           placeholder="e.g. High Density Polymer Resins"
           value={formData.cargo.productName}
-          onChange={(e) => handleNestedChange("cargo", "productName", e.target.value)}
+          onChange={(e) =>
+            handleNestedChange("cargo", "productName", e.target.value)
+          }
         />
         <Input
           label="Product Description"
           placeholder="Brief technical or commercial description"
           value={formData.cargo.productDescription}
-          onChange={(e) => handleNestedChange("cargo", "productDescription", e.target.value)}
+          onChange={(e) =>
+            handleNestedChange("cargo", "productDescription", e.target.value)
+          }
         />
       </Grid2>
 
@@ -7794,7 +7949,9 @@ function ProductDetails({
           label="Product Category"
           placeholder="Select category"
           value={formData.cargo.category}
-          onChange={(e) => handleNestedChange("cargo", "category", e.target.value)}
+          onChange={(e) =>
+            handleNestedChange("cargo", "category", e.target.value)
+          }
         >
           <option value="Electronics">Electronics</option>
           <option value="Textiles">Textiles</option>
@@ -7808,13 +7965,17 @@ function ProductDetails({
             label="Quantity"
             placeholder="e.g. 500"
             value={formData.cargo.quantity}
-            onChange={(e) => handleNestedChange("cargo", "quantity", e.target.value)}
+            onChange={(e) =>
+              handleNestedChange("cargo", "quantity", e.target.value)
+            }
           />
           <Select
             label="Unit"
             placeholder="Unit"
             value={formData.cargo.unit}
-            onChange={(e) => handleNestedChange("cargo", "unit", e.target.value)}
+            onChange={(e) =>
+              handleNestedChange("cargo", "unit", e.target.value)
+            }
           >
             <option value="PCS">PCS</option>
             <option value="KG">KG</option>
@@ -7826,13 +7987,17 @@ function ProductDetails({
             label="Net Weight (Kg)"
             placeholder="Net Wt"
             value={formData.cargo.netWeight || formData.cargo.weight}
-            onChange={(e) => handleNestedChange("cargo", "netWeight", e.target.value)}
+            onChange={(e) =>
+              handleNestedChange("cargo", "netWeight", e.target.value)
+            }
           />
           <Input
             label="Gross Weight (Kg)"
             placeholder="Gross Wt"
             value={formData.cargo.grossWeight}
-            onChange={(e) => handleNestedChange("cargo", "grossWeight", e.target.value)}
+            onChange={(e) =>
+              handleNestedChange("cargo", "grossWeight", e.target.value)
+            }
           />
         </div>
       </Grid2>
@@ -7841,7 +8006,9 @@ function ProductDetails({
       <div className="rounded-xl border border-slate-200/90 bg-slate-50/40 p-4">
         <div className="flex items-center justify-between mb-2">
           <Label required={true}>Package Dimensions (L × W × H)</Label>
-          <span className="text-[11px] font-medium text-slate-400">Unit of measurement</span>
+          <span className="text-[11px] font-medium text-slate-400">
+            Unit of measurement
+          </span>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-2.5">
           <div className="relative">
@@ -7856,7 +8023,9 @@ function ProductDetails({
               }
               className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/10"
             />
-            <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-slate-400 pointer-events-none">L</span>
+            <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-slate-400 pointer-events-none">
+              L
+            </span>
           </div>
           <div className="relative">
             <input
@@ -7870,7 +8039,9 @@ function ProductDetails({
               }
               className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/10"
             />
-            <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-slate-400 pointer-events-none">W</span>
+            <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-slate-400 pointer-events-none">
+              W
+            </span>
           </div>
           <div className="relative">
             <input
@@ -7884,7 +8055,9 @@ function ProductDetails({
               }
               className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-800 placeholder-slate-400 focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/10"
             />
-            <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-slate-400 pointer-events-none">H</span>
+            <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-semibold text-slate-400 pointer-events-none">
+              H
+            </span>
           </div>
           <div className="relative">
             <select
@@ -7913,13 +8086,17 @@ function ProductDetails({
           label="Volumetric Weight"
           placeholder="Auto calculated"
           value={formData.cargo.volumetricWeight}
-          onChange={(e) => handleNestedChange("cargo", "volumetricWeight", e.target.value)}
+          onChange={(e) =>
+            handleNestedChange("cargo", "volumetricWeight", e.target.value)
+          }
         />
         <Input
           label="No. of Packages"
           placeholder="Total cartons or pallets"
           value={formData.cargo.packages}
-          onChange={(e) => handleNestedChange("cargo", "packages", e.target.value)}
+          onChange={(e) =>
+            handleNestedChange("cargo", "packages", e.target.value)
+          }
         />
       </Grid2>
 
@@ -7928,7 +8105,9 @@ function ProductDetails({
           label="Packing Type"
           placeholder="Select packing type"
           value={formData.cargo.packingType}
-          onChange={(e) => handleNestedChange("cargo", "packingType", e.target.value)}
+          onChange={(e) =>
+            handleNestedChange("cargo", "packingType", e.target.value)
+          }
         >
           <option value="Carton">Standard Carton</option>
           <option value="Pallet">Wooden / Plastic Pallet</option>
@@ -7939,7 +8118,9 @@ function ProductDetails({
           placeholder="e.g. UN1993"
           required={false}
           value={formData.cargo.unNumber}
-          onChange={(e) => handleNestedChange("cargo", "unNumber", e.target.value)}
+          onChange={(e) =>
+            handleNestedChange("cargo", "unNumber", e.target.value)
+          }
         />
       </Grid2>
 
@@ -7948,7 +8129,9 @@ function ProductDetails({
         placeholder="Shipping mark inscriptions on carton"
         required={false}
         value={formData.cargo.packageMarks}
-        onChange={(e) => handleNestedChange("cargo", "packageMarks", e.target.value)}
+        onChange={(e) =>
+          handleNestedChange("cargo", "packageMarks", e.target.value)
+        }
       />
 
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
@@ -8051,10 +8234,26 @@ function InvoiceValue({ formData, handleDirectChange, handleRadioChange }) {
 
 function DimensionsCard({ calculatedMetrics }) {
   const dimensionRows = [
-    { label: "Volume Total (CBM)", value: calculatedMetrics?.cbm ? `${calculatedMetrics.cbm} CBM` : "--" },
-    { label: "Volumetric Wt (Air)", value: calculatedMetrics?.volumetricWeight ? `${calculatedMetrics.volumetricWeight} Kg` : "--" },
-    { label: "Ocean Volume (CBM)", value: calculatedMetrics?.cbm ? `${calculatedMetrics.cbm} CBM` : "--" },
-    { label: "Chargeable Weight", value: calculatedMetrics?.chargeableWeight ? `${calculatedMetrics.chargeableWeight} Kg` : "--" },
+    {
+      label: "Volume Total (CBM)",
+      value: calculatedMetrics?.cbm ? `${calculatedMetrics.cbm} CBM` : "--",
+    },
+    {
+      label: "Volumetric Wt (Air)",
+      value: calculatedMetrics?.volumetricWeight
+        ? `${calculatedMetrics.volumetricWeight} Kg`
+        : "--",
+    },
+    {
+      label: "Ocean Volume (CBM)",
+      value: calculatedMetrics?.cbm ? `${calculatedMetrics.cbm} CBM` : "--",
+    },
+    {
+      label: "Chargeable Weight",
+      value: calculatedMetrics?.chargeableWeight
+        ? `${calculatedMetrics.chargeableWeight} Kg`
+        : "--",
+    },
   ];
 
   return (
@@ -8064,14 +8263,19 @@ function DimensionsCard({ calculatedMetrics }) {
           <div className="w-7 h-7 rounded-lg bg-emerald-50 border border-emerald-100 text-emerald-600 flex items-center justify-center">
             <FiBox size={14} />
           </div>
-          <h3 className="text-sm font-bold text-slate-900">Cargo & Weight Metrics</h3>
+          <h3 className="text-sm font-bold text-slate-900">
+            Cargo & Weight Metrics
+          </h3>
         </div>
         <span className="text-[10px] text-slate-400">Live Calc</span>
       </div>
 
       <div className="space-y-2.5">
         {dimensionRows.map((r) => (
-          <div key={r.label} className="flex items-center justify-between text-xs py-1">
+          <div
+            key={r.label}
+            className="flex items-center justify-between text-xs py-1"
+          >
             <span className="text-slate-500 font-medium">{r.label}</span>
             <span className="font-bold text-slate-800">{r.value}</span>
           </div>
@@ -8080,11 +8284,17 @@ function DimensionsCard({ calculatedMetrics }) {
 
       <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between bg-emerald-50/60 -mx-5 -mb-5 p-4 rounded-b-2xl border-emerald-100/60">
         <div>
-          <span className="text-[11px] font-semibold text-emerald-800 block">Estimated Freight</span>
-          <span className="text-[10px] text-emerald-600">Standard market rate</span>
+          <span className="text-[11px] font-semibold text-emerald-800 block">
+            Estimated Freight
+          </span>
+          <span className="text-[10px] text-emerald-600">
+            Standard market rate
+          </span>
         </div>
         <span className="text-base font-extrabold text-emerald-700">
-          {calculatedMetrics?.estimatedFreight ? `₹ ${calculatedMetrics.estimatedFreight}` : "--"}
+          {calculatedMetrics?.estimatedFreight
+            ? `₹ ${calculatedMetrics.estimatedFreight}`
+            : "--"}
         </span>
       </div>
     </div>
@@ -8100,7 +8310,11 @@ function StatusFlowCard({ currentStatus = "Draft" }) {
     { label: "Quotation Sent", sub: "Awaiting rate approval", icon: FiSend },
     { label: "Accepted", sub: "Booking confirmed", icon: FiCheckCircle },
     { label: "Shipment Active", sub: "Cargo in transit", icon: FiTruck },
-    { label: "Completed", sub: "Customs cleared & delivered", icon: FiCheckCircle },
+    {
+      label: "Completed",
+      sub: "Customs cleared & delivered",
+      icon: FiCheckCircle,
+    },
   ];
 
   return (
@@ -8194,12 +8408,11 @@ function Header({
   currentStatus,
 }) {
   return (
-    <div className="bg-white mt-10 rounded-2xl border border-slate-200/80 p-5 sm:p-6 shadow-[0_1px_3px_rgba(0,0,0,0.04)] mb-6">
+    <div className="p-1 sm:p-1  mb-1">
       {/* Breadcrumb */}
-      
 
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5">
-        <div>
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-end gap-1">
+        {/* <div>
           <div className="flex items-center gap-3">
             <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
               New Shipment Form
@@ -8211,9 +8424,10 @@ function Header({
           </div>
           <p className="text-xs sm:text-sm text-slate-500 mt-1 max-w-2xl leading-relaxed">
             Specify origin, destination, cargo dimensions, and trade documents.
-            Our logistics intelligence engine will compute HS code compliance, risk evaluation, and estimated freight.
+            Our logistics intelligence engine will compute HS code compliance,
+            risk evaluation, and estimated freight.
           </p>
-        </div>
+        </div> */}
 
         {/* Action Buttons */}
         <div className="flex flex-wrap items-center gap-2.5 shrink-0">
@@ -8269,9 +8483,15 @@ function Footer() {
     <div className="border-t border-slate-200/80 mt-10 pt-6 pb-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
       <p>© 2025 ASC CargoMatrix Logistics Hub. All rights reserved.</p>
       <div className="flex items-center gap-5">
-        <span className="hover:text-slate-600 cursor-pointer transition-colors">Privacy Policy</span>
-        <span className="hover:text-slate-600 cursor-pointer transition-colors">Terms of Operations</span>
-        <span className="hover:text-slate-600 cursor-pointer transition-colors">Customs Support</span>
+        <span className="hover:text-slate-600 cursor-pointer transition-colors">
+          Privacy Policy
+        </span>
+        <span className="hover:text-slate-600 cursor-pointer transition-colors">
+          Terms of Operations
+        </span>
+        <span className="hover:text-slate-600 cursor-pointer transition-colors">
+          Customs Support
+        </span>
       </div>
     </div>
   );
@@ -8281,7 +8501,13 @@ function Footer() {
    MAIN EXPORT COMPONENT
    ========================================================================== */
 
-export default function Shipment({ setActiveTab, setShipment, currentTab, editShipmentId = null, onSaved }) {
+export default function Shipment({
+  setActiveTab,
+  setShipment,
+  currentTab,
+  editShipmentId = null,
+  onSaved,
+}) {
   const [shipmentId, setShipmentId] = useState("");
   const [referenceNumber, setReferenceNumber] = useState("");
   const [currentStatus, setCurrentStatus] = useState("Draft");
@@ -8296,7 +8522,8 @@ export default function Shipment({ setActiveTab, setShipment, currentTab, editSh
 
   const [shipmentFormConfig, setShipmentFormConfig] = useState(null);
   const [documentsUploadConfig, setDocumentsUploadConfig] = useState(null);
-  const [documentsSettingsLoading, setDocumentsSettingsLoading] = useState(true);
+  const [documentsSettingsLoading, setDocumentsSettingsLoading] =
+    useState(true);
   const [documentsSettingsError, setDocumentsSettingsError] = useState(false);
 
   const fetchDocumentsSettings = async (isMountedCheck = () => true) => {
@@ -8360,7 +8587,6 @@ export default function Shipment({ setActiveTab, setShipment, currentTab, editSh
       isMounted = false;
     };
   }, []);
-
 
   const [formData, setFormData] = useState({
     // Step 1
@@ -8442,31 +8668,49 @@ export default function Shipment({ setActiveTab, setShipment, currentTab, editSh
       try {
         setLoading(true);
         const response = await getShipmentDetails(editShipmentId);
-        const data = response?.data?.data || response?.data?.shipment || response?.data;
+        const data =
+          response?.data?.data || response?.data?.shipment || response?.data;
         const shipment = data?.shipment || data;
         if (!active || !shipment?._id) return;
         setShipmentId(shipment._id);
         setReferenceNumber(shipment.referenceNumber || shipment.sbNumber || "");
         setCurrentStatus(shipment.shipmentStatus || "Draft");
         // Restore previously uploaded files so draft attachments remain visible in edit mode.
-        const savedDocuments = Array.isArray(shipment.documents) ? shipment.documents : [];
-        setUploadedDocs(savedDocuments.reduce((acc, doc) => {
-          const label = doc.documentName || doc.documentLabel || doc.name || "Document";
-          const key = normalizeDocumentName(doc.documentKey || label);
-          acc[key] = {
-            ...doc,
-            resolvedFileUrl: getShipmentDocumentUrl(doc.fileUrl || doc.url || doc.documentUrl || doc.path),
-          };
-          return acc;
-        }, {}));
+        const savedDocuments = Array.isArray(shipment.documents)
+          ? shipment.documents
+          : [];
+        setUploadedDocs(
+          savedDocuments.reduce((acc, doc) => {
+            const label =
+              doc.documentName || doc.documentLabel || doc.name || "Document";
+            const key = normalizeDocumentName(doc.documentKey || label);
+            acc[key] = {
+              ...doc,
+              resolvedFileUrl: getShipmentDocumentUrl(
+                doc.fileUrl || doc.url || doc.documentUrl || doc.path,
+              ),
+            };
+            return acc;
+          }, {}),
+        );
         setFormData((prev) => ({
           ...prev,
           ...shipment,
           exporter: { ...prev.exporter, ...(shipment.exporter || {}) },
           route: { ...prev.route, ...(shipment.route || {}) },
           importer: { ...prev.importer, ...(shipment.importer || {}) },
-          cargo: { ...prev.cargo, ...(shipment.cargo || {}), dimensions: { ...prev.cargo.dimensions, ...(shipment.cargo?.dimensions || {}) } },
-          additionalInformation: { ...prev.additionalInformation, ...(shipment.additionalInformation || {}) },
+          cargo: {
+            ...prev.cargo,
+            ...(shipment.cargo || {}),
+            dimensions: {
+              ...prev.cargo.dimensions,
+              ...(shipment.cargo?.dimensions || {}),
+            },
+          },
+          additionalInformation: {
+            ...prev.additionalInformation,
+            ...(shipment.additionalInformation || {}),
+          },
           customFields: shipment.customFields || {},
           amount: shipment.amount ?? shipment.cargo?.value ?? "",
           currency: shipment.currency || shipment.cargo?.currency || "",
@@ -8480,7 +8724,9 @@ export default function Shipment({ setActiveTab, setShipment, currentTab, editSh
         if (active) setLoading(false);
       }
     })();
-    return () => { active = false; };
+    return () => {
+      active = false;
+    };
   }, [editShipmentId]);
 
   const handleDirectChange = (e) => {
@@ -8508,131 +8754,136 @@ export default function Shipment({ setActiveTab, setShipment, currentTab, editSh
     }));
   };
 
- 
-const saveAllSteps = async () => {
-  let currentId = shipmentId;
+  const saveAllSteps = async () => {
+    let currentId = shipmentId;
 
-  const shipmentPayload = {
-    shipmentType: formData.shipmentType,
-    shipmentMode: formData.shipmentMode,
-    shipmentPurpose: formData.shipmentPurpose,
-    customerType: formData.customerType,
+    const shipmentPayload = {
+      shipmentType: formData.shipmentType,
+      shipmentMode: formData.shipmentMode,
+      shipmentPurpose: formData.shipmentPurpose,
+      customerType: formData.customerType,
 
-    exporter: {
-      ...formData.exporter,
-    },
-
-    customFields: formData.customFields || {},
-
-    currency: formData.currency || "INR",
-
-    paymentTerms: formData.paymentTerms || "",
-
-    amount: formData.amount === ""
-      ? undefined
-      : Number(formData.amount),
-
-    insuranceRequired: Boolean(formData.insuranceRequired),
-    exportIncentive: Boolean(formData.exportIncentive),
-  };
-
-  const step2Payload = {
-    route: {
-      ...formData.route,
-      mode: formData.shipmentMode || "",
-    },
-
-    importer: {
-      ...formData.importer,
-    },
-
-    shipmentMode: formData.shipmentMode,
-
-    etd: formData.etd || null,
-    eta: formData.eta || null,
-    incoterm: formData.incoterm || "",
-  };
-
-  const step3Payload = {
-    cargo: {
-      ...formData.cargo,
-
-      hsCode: formData.cargo.hsCode || null,
-      hsCodeText: formData.cargo.hsCodeText || "",
-
-      quantity: formData.cargo.quantity === ""
-        ? undefined
-        : Number(formData.cargo.quantity),
-
-      weight: formData.cargo.weight === ""
-        ? undefined
-        : Number(formData.cargo.weight),
-
-      netWeight: formData.cargo.netWeight === ""
-        ? undefined
-        : Number(formData.cargo.netWeight),
-
-      grossWeight: formData.cargo.grossWeight === ""
-        ? undefined
-        : Number(formData.cargo.grossWeight),
-
-      packages: formData.cargo.packages === ""
-        ? undefined
-        : Number(formData.cargo.packages),
-
-      volumetricWeight: formData.cargo.volumetricWeight === ""
-        ? undefined
-        : Number(formData.cargo.volumetricWeight),
-
-      dimensions: {
-        ...formData.cargo.dimensions,
-        length: formData.cargo.dimensions.length === ""
-          ? undefined
-          : Number(formData.cargo.dimensions.length),
-        width: formData.cargo.dimensions.width === ""
-          ? undefined
-          : Number(formData.cargo.dimensions.width),
-        height: formData.cargo.dimensions.height === ""
-          ? undefined
-          : Number(formData.cargo.dimensions.height),
+      exporter: {
+        ...formData.exporter,
       },
-    },
 
-    paymentTerms: formData.paymentTerms || "",
-    insuranceRequired: Boolean(formData.insuranceRequired),
-    exportIncentive: Boolean(formData.exportIncentive),
-    additionalInformation: {
-      ...formData.additionalInformation,
-    },
-  };
+      customFields: formData.customFields || {},
 
-  if (!currentId) {
-    const response = await createShipment(shipmentPayload);
+      currency: formData.currency || "INR",
 
-    const data = response.data?.data || response.data;
+      paymentTerms: formData.paymentTerms || "",
 
-    currentId = data._id;
+      amount: formData.amount === "" ? undefined : Number(formData.amount),
+
+      insuranceRequired: Boolean(formData.insuranceRequired),
+      exportIncentive: Boolean(formData.exportIncentive),
+    };
+
+    const step2Payload = {
+      route: {
+        ...formData.route,
+        mode: formData.shipmentMode || "",
+      },
+
+      importer: {
+        ...formData.importer,
+      },
+
+      shipmentMode: formData.shipmentMode,
+
+      etd: formData.etd || null,
+      eta: formData.eta || null,
+      incoterm: formData.incoterm || "",
+    };
+
+    const step3Payload = {
+      cargo: {
+        ...formData.cargo,
+
+        hsCode: formData.cargo.hsCode || null,
+        hsCodeText: formData.cargo.hsCodeText || "",
+
+        quantity:
+          formData.cargo.quantity === ""
+            ? undefined
+            : Number(formData.cargo.quantity),
+
+        weight:
+          formData.cargo.weight === ""
+            ? undefined
+            : Number(formData.cargo.weight),
+
+        netWeight:
+          formData.cargo.netWeight === ""
+            ? undefined
+            : Number(formData.cargo.netWeight),
+
+        grossWeight:
+          formData.cargo.grossWeight === ""
+            ? undefined
+            : Number(formData.cargo.grossWeight),
+
+        packages:
+          formData.cargo.packages === ""
+            ? undefined
+            : Number(formData.cargo.packages),
+
+        volumetricWeight:
+          formData.cargo.volumetricWeight === ""
+            ? undefined
+            : Number(formData.cargo.volumetricWeight),
+
+        dimensions: {
+          ...formData.cargo.dimensions,
+          length:
+            formData.cargo.dimensions.length === ""
+              ? undefined
+              : Number(formData.cargo.dimensions.length),
+          width:
+            formData.cargo.dimensions.width === ""
+              ? undefined
+              : Number(formData.cargo.dimensions.width),
+          height:
+            formData.cargo.dimensions.height === ""
+              ? undefined
+              : Number(formData.cargo.dimensions.height),
+        },
+      },
+
+      paymentTerms: formData.paymentTerms || "",
+      insuranceRequired: Boolean(formData.insuranceRequired),
+      exportIncentive: Boolean(formData.exportIncentive),
+      additionalInformation: {
+        ...formData.additionalInformation,
+      },
+    };
 
     if (!currentId) {
-      throw new Error("Shipment ID was not returned by server");
+      const response = await createShipment(shipmentPayload);
+
+      const data = response.data?.data || response.data;
+
+      currentId = data._id;
+
+      if (!currentId) {
+        throw new Error("Shipment ID was not returned by server");
+      }
+
+      setShipmentId(currentId);
+
+      if (data.referenceNumber) {
+        setReferenceNumber(data.referenceNumber);
+      }
+    } else {
+      await updateShipment(currentId, shipmentPayload);
     }
 
-    setShipmentId(currentId);
+    await updateShipmentStep2(currentId, step2Payload);
 
-    if (data.referenceNumber) {
-      setReferenceNumber(data.referenceNumber);
-    }
-  } else {
-    await updateShipment(currentId, shipmentPayload);
-  }
+    await updateShipmentStep3(currentId, step3Payload);
 
-  await updateShipmentStep2(currentId, step2Payload);
-
-  await updateShipmentStep3(currentId, step3Payload);
-
-  return currentId;
-};
-
+    return currentId;
+  };
 
   const handleSaveDraft = async () => {
     setLoading(true);
@@ -8671,7 +8922,11 @@ const saveAllSteps = async () => {
   const validateShipmentBeforeSubmit = () => {
     const missing = [];
     const addRequired = (label, value) => {
-      if (value === undefined || value === null || String(value).trim() === "") {
+      if (
+        value === undefined ||
+        value === null ||
+        String(value).trim() === ""
+      ) {
         missing.push(label);
       }
     };
@@ -8685,7 +8940,10 @@ const saveAllSteps = async () => {
     addRequired("Origin Country", formData.route?.originCountry);
     addRequired("Origin City / Port / Airport", formData.route?.originCity);
     addRequired("Destination Country", formData.route?.destinationCountry);
-    addRequired("Destination City / Port / Airport", formData.route?.destinationCity);
+    addRequired(
+      "Destination City / Port / Airport",
+      formData.route?.destinationCity,
+    );
     addRequired("Consignee / Buyer Name", formData.importer?.companyName);
     addRequired("Consignee Address", formData.importer?.address);
 
@@ -8693,7 +8951,11 @@ const saveAllSteps = async () => {
     addRequired("Invoice Value", formData.amount);
     addRequired("Currency", formData.currency);
     addRequired("Payment Terms", formData.paymentTerms);
-    if (formData.amount !== "" && (!Number.isFinite(Number(formData.amount)) || Number(formData.amount) <= 0)) {
+    if (
+      formData.amount !== "" &&
+      (!Number.isFinite(Number(formData.amount)) ||
+        Number(formData.amount) <= 0)
+    ) {
       missing.push("Invoice Value must be greater than 0");
     }
 
@@ -8703,7 +8965,10 @@ const saveAllSteps = async () => {
     addRequired("Product Category", formData.cargo?.category);
     addRequired("Quantity", formData.cargo?.quantity);
     addRequired("Unit", formData.cargo?.unit);
-    addRequired("Net Weight (Kg)", formData.cargo?.netWeight || formData.cargo?.weight);
+    addRequired(
+      "Net Weight (Kg)",
+      formData.cargo?.netWeight || formData.cargo?.weight,
+    );
     addRequired("Gross Weight (Kg)", formData.cargo?.grossWeight);
     addRequired("No. of Packages", formData.cargo?.packages);
     addRequired("Packing Type", formData.cargo?.packingType);
@@ -8713,14 +8978,19 @@ const saveAllSteps = async () => {
 
     // Only documents explicitly marked required in Admin document settings are mandatory.
     const requiredDocumentFields = (documentsUploadConfig?.fields || []).filter(
-      (field) => field.enabled !== false && field.required === true
+      (field) => field.enabled !== false && field.required === true,
     );
     requiredDocumentFields.forEach((field, index) => {
-      const key = normalizeDocumentName(field.key || field.label || `document-${index}`);
+      const key = normalizeDocumentName(
+        field.key || field.label || `document-${index}`,
+      );
       const label = field.label || "Required document";
       if (!uploadedDocs[key]) {
         const matchingDocument = Object.values(uploadedDocs).some(
-          (doc) => normalizeDocumentName(doc.documentName || doc.documentLabel || doc.name) === normalizeDocumentName(label)
+          (doc) =>
+            normalizeDocumentName(
+              doc.documentName || doc.documentLabel || doc.name,
+            ) === normalizeDocumentName(label),
         );
         if (!matchingDocument) missing.push(`${label} document`);
       }
@@ -8784,10 +9054,14 @@ const saveAllSteps = async () => {
 
   const handleDeleteDocument = async (documentKey, document) => {
     if (!document?._id) {
-      alert("Document record ID is missing. Please refresh the shipment and try again.");
+      alert(
+        "Document record ID is missing. Please refresh the shipment and try again.",
+      );
       return;
     }
-    const confirmed = window.confirm("Are you sure you want to delete this uploaded document?");
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this uploaded document?",
+    );
     if (!confirmed) return;
 
     try {
@@ -8812,15 +9086,21 @@ const saveAllSteps = async () => {
     setPreviewDocument({
       ...document,
       title,
-      url: document.resolvedFileUrl || getShipmentDocumentUrl(
-        document.fileUrl || document.url || document.documentUrl || document.path
-      ) || url,
+      url:
+        document.resolvedFileUrl ||
+        getShipmentDocumentUrl(
+          document.fileUrl ||
+            document.url ||
+            document.documentUrl ||
+            document.path,
+        ) ||
+        url,
     });
   };
 
   return (
-    <div className="min-h-screen bg-slate-50/70 p-3 sm:p-6 lg:p-8 text-slate-800">
-      <div className="max-w-[1520px] mx-auto">
+    <div className="min-h-screen p-1 sm:p-1 lg:p-1 text-slate-800">
+      <div className="max-w-[1620px] mx-auto">
         {/* TOP HEADER */}
         <Header
           setActiveTab={setActiveTab}
@@ -8836,13 +9116,13 @@ const saveAllSteps = async () => {
         {/* FULL-WIDTH SHIPMENT FORM */}
         <div className="w-full">
           <div className="w-full space-y-6">
-          <BasicShipmentDetails
-  formData={formData}
-  handleDirectChange={handleDirectChange}
-  handleNestedChange={handleNestedChange}
-  referenceNumber={referenceNumber}
-  config={shipmentFormConfig}
-/>
+            <BasicShipmentDetails
+              formData={formData}
+              handleDirectChange={handleDirectChange}
+              handleNestedChange={handleNestedChange}
+              referenceNumber={referenceNumber}
+              config={shipmentFormConfig}
+            />
 
             <OriginDestination
               formData={formData}

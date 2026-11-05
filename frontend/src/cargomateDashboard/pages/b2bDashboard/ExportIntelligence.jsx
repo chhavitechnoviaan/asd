@@ -1,5 +1,3 @@
-
-
 // // import React, { useState, useMemo, useEffect } from "react";
 // // import {
 // //   getDashboard,
@@ -164,7 +162,6 @@
 // //     }
 // //   };
 
-
 // //   const [selectedPort, setSelectedPort] = useState("All Ports");
 // //   const [selectedCountry, setSelectedCountry] = useState("All Countries");
 // //   const [selectedExporter, setSelectedExporter] = useState("All Exporters");
@@ -248,7 +245,7 @@
 // //       console.error(err);
 // //     }
 // //   };
-  
+
 // //   useEffect(() => {
 // //     fetchDashboard();
 // //     fetchFilterOptions();
@@ -260,7 +257,7 @@
 // //     fetchPortWiseExports();
 // //     fetchRecentShipments();
 // //   }, []);
-  
+
 // //   // Filter application triggers state
 // //   const [appliedFilters, setAppliedFilters] = useState({
 // //     search: "", port: "All Ports", country: "All Countries", exporter: "All Exporters", buyer: "All Buyers"
@@ -348,7 +345,7 @@
 // //     if(!match) return "₹0.00 Cr";
 // //     return `₹ ${Number(match.value).toFixed(2)} Cr`;
 // //   },[dynamicPieData, countryTotalValue, appliedFilters.country]);
-  
+
 // //   const lineChartData = useMemo(() => {
 // //     return exportTrend.map(item => ({
 // //       date: new Date(item._id).toLocaleDateString("en-GB", {
@@ -395,7 +392,7 @@
 // //               Discover export performance, markets, buyers, and opportunities.
 // //             </p>
 // //           </div>
-// //                 <div className="flex gap-3"> 
+// //                 <div className="flex gap-3">
 // //                <div className="relative flex-1 ">
 // //                       <DatePicker
 // //                         selected={shipmentStartDate}
@@ -518,7 +515,7 @@
 
 // //         {/* CHARTS LAYER */}
 // //         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-          
+
 // //           {/* TOP EXPORTED PRODUCTS */}
 // //           <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm flex flex-col justify-between">
 // //             <div>
@@ -544,7 +541,7 @@
 // //                 ))}
 // //               </div>
 // //             </div>
-            
+
 // //           </div>
 
 // //           {/* EXPORT VALUE TREND */}
@@ -613,7 +610,7 @@
 // //                 </div>
 // //               </div>
 // //             </div>
-           
+
 // //           </div>
 // //         </div>
 
@@ -700,7 +697,6 @@
 // //     </div>
 // //   );
 // // }
-
 
 // // mahima code //
 // import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
@@ -1161,12 +1157,12 @@
 //   const fetchFilterOptions = async () => {
 //     try {
 //       const res = await getFilterOptions();
-  
+
 //       const data = getResponseData(res, {});
-  
+
 //       console.log("FILTER OPTIONS API RESPONSE:", res);
 //       console.log("FILTER OPTIONS DATA:", data);
-  
+
 //       setFilterOptions({
 //         hsCodes: data?.hsCodes || [],
 //         countries: data?.countries || [],
@@ -1184,7 +1180,7 @@
 //     try {
 //       setLoading(true);
 //       setError("");
-  
+
 //       // Convert UI default values into empty values for backend
 //       const apiFilters = {
 //         search: filters.search || "",
@@ -1200,9 +1196,9 @@
 //         year:
 //           filters.year === "All Years" ? "" : filters.year,
 //       };
-  
+
 //       console.log("EXPORT DASHBOARD FILTERS:", apiFilters);
-  
+
 //       // Call all APIs independently
 //       const results = await Promise.allSettled([
 //         getDashboard(apiFilters),
@@ -1213,23 +1209,23 @@
 //         getTopBuyers(apiFilters),
 //         getRecentShipments(apiFilters),
 //       ]);
-  
+
 //       const getResult = (index, fallback = []) => {
 //         const result = results[index];
-  
+
 //         if (result.status === "rejected") {
 //           console.error(`Export API ${index + 1} failed:`, result.reason);
 //           return fallback;
 //         }
-  
+
 //         const data = getResponseData(result.value, fallback);
-  
+
 //         console.log(`Export API ${index + 1} response:`, result.value);
 //         console.log(`Export API ${index + 1} data:`, data);
-  
+
 //         return data;
 //       };
-  
+
 //       setDashboard(getResult(0, {}));
 //       setExportTrend(getResult(1, []));
 //       setCountryDistribution(getResult(2, []));
@@ -1237,11 +1233,11 @@
 //       setTopExporters(getResult(4, []));
 //       setTopBuyers(getResult(5, []));
 //       setRecentShipments(getResult(6, []));
-  
+
 //       const failedApis = results.filter(
 //         (result) => result.status === "rejected"
 //       );
-  
+
 //       if (failedApis.length > 0) {
 //         setError(
 //           `${failedApis.length} analytics API(s) failed. Check browser console for details.`
@@ -1249,7 +1245,7 @@
 //       }
 //     } catch (err) {
 //       console.error("Export dashboard error:", err);
-  
+
 //       setError(
 //         err?.response?.data?.message ||
 //           "Unable to load export intelligence data."
@@ -2293,11 +2289,16 @@
 //   );
 // }
 
-
 import ReportActions from "../../components/ReportActions";
 
 // mahima code //
-import React, { useState, useEffect, useMemo, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useCallback,
+  useRef,
+} from "react";
 
 import {
   getDashboard,
@@ -2391,8 +2392,7 @@ const formatINR = (value = 0) => {
 const formatCr = (value = 0) =>
   `₹${((Number(value) || 0) / 10000000).toFixed(2)} Cr`;
 
-const formatNumber = (value = 0) =>
-  Number(value || 0).toLocaleString("en-IN");
+const formatNumber = (value = 0) => Number(value || 0).toLocaleString("en-IN");
 
 const getMonthName = (month = "") => {
   const value = String(month).trim();
@@ -2422,11 +2422,7 @@ const getMonthLabel = (id = "") => {
 const getResponseData = (response, fallback = []) => {
   const body = response?.data ?? response;
 
-  const data =
-    body?.data ??
-    body?.result ??
-    body?.results ??
-    body;
+  const data = body?.data ?? body?.result ?? body?.results ?? body;
 
   return data ?? fallback;
 };
@@ -2455,7 +2451,7 @@ const SelectFilter = ({
 
   const filteredOptions = useMemo(() => {
     return options.filter((item) =>
-      String(item.label).toLowerCase().includes(search.toLowerCase())
+      String(item.label).toLowerCase().includes(search.toLowerCase()),
     );
   }, [options, search]);
 
@@ -2472,7 +2468,7 @@ const SelectFilter = ({
 
     const maxHeight = Math.max(
       120,
-      Math.min(250, openAbove ? spaceAbove - 12 : spaceBelow - 12)
+      Math.min(250, openAbove ? spaceAbove - 12 : spaceBelow - 12),
     );
 
     setPosition({
@@ -2525,7 +2521,6 @@ const SelectFilter = ({
 
   return (
     <div className="relative min-w-0 w-full" ref={wrapperRef}>
-
       <button
         ref={buttonRef}
         type="button"
@@ -2539,9 +2534,7 @@ const SelectFilter = ({
             : "border-slate-200 hover:border-blue-300"
         }`}
       >
-        <span className="truncate text-slate-700">
-          {selectedLabel}
-        </span>
+        <span className="truncate text-slate-700">{selectedLabel}</span>
 
         <ChevronDown
           size={15}
@@ -2568,10 +2561,7 @@ const SelectFilter = ({
           {searchable && (
             <div className="sticky top-0 border-b border-slate-100 bg-white p-2">
               <div className="flex items-center gap-2 rounded-lg border border-slate-200 px-2">
-                <Search
-                  size={13}
-                  className="shrink-0 text-slate-400"
-                />
+                <Search size={13} className="shrink-0 text-slate-400" />
 
                 <input
                   autoFocus
@@ -2582,10 +2572,7 @@ const SelectFilter = ({
                 />
 
                 {search && (
-                  <button
-                    type="button"
-                    onClick={() => setSearch("")}
-                  >
+                  <button type="button" onClick={() => setSearch("")}>
                     <X size={13} className="text-slate-400" />
                   </button>
                 )}
@@ -2662,12 +2649,7 @@ const StatCard = ({ item, loading }) => {
 // SECTION HEADER
 // ==========================================
 
-const SectionHeader = ({
-  icon: Icon,
-  title,
-  subtitle,
-  right,
-}) => (
+const SectionHeader = ({ icon: Icon, title, subtitle, right }) => (
   <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
     <div className="flex items-center gap-3">
       {Icon && (
@@ -2682,9 +2664,7 @@ const SectionHeader = ({
         </h3>
 
         {subtitle && (
-          <p className="mt-0.5 text-[11px] text-slate-400">
-            {subtitle}
-          </p>
+          <p className="mt-0.5 text-[11px] text-slate-400">{subtitle}</p>
         )}
       </div>
     </div>
@@ -2703,9 +2683,7 @@ const EmptyState = ({ text }) => (
       <Database size={20} />
     </div>
 
-    <p className="text-xs font-semibold text-slate-500">
-      {text}
-    </p>
+    <p className="text-xs font-semibold text-slate-500">{text}</p>
   </div>
 );
 
@@ -2756,12 +2734,12 @@ export default function ExportIntelligenceDashboard() {
   const fetchFilterOptions = async () => {
     try {
       const res = await getFilterOptions();
-  
+
       const data = getResponseData(res, {});
-  
+
       console.log("FILTER OPTIONS API RESPONSE:", res);
       console.log("FILTER OPTIONS DATA:", data);
-  
+
       setFilterOptions({
         hsCodes: data?.hsCodes || [],
         countries: data?.countries || [],
@@ -2779,25 +2757,20 @@ export default function ExportIntelligenceDashboard() {
     try {
       setLoading(true);
       setError("");
-  
+
       // Convert UI default values into empty values for backend
       const apiFilters = {
         search: filters.search || "",
         hsCode: filters.hsCode === "All" ? "" : filters.hsCode,
-        country:
-          filters.country === "All Countries" ? "" : filters.country,
-        exporter:
-          filters.exporter === "All Exporters" ? "" : filters.exporter,
-        buyer:
-          filters.buyer === "All Buyers" ? "" : filters.buyer,
-        month:
-          filters.month === "All Months" ? "" : filters.month,
-        year:
-          filters.year === "All Years" ? "" : filters.year,
+        country: filters.country === "All Countries" ? "" : filters.country,
+        exporter: filters.exporter === "All Exporters" ? "" : filters.exporter,
+        buyer: filters.buyer === "All Buyers" ? "" : filters.buyer,
+        month: filters.month === "All Months" ? "" : filters.month,
+        year: filters.year === "All Years" ? "" : filters.year,
       };
-  
+
       console.log("EXPORT DASHBOARD FILTERS:", apiFilters);
-  
+
       // Call all APIs independently
       const results = await Promise.allSettled([
         getDashboard(apiFilters),
@@ -2808,23 +2781,23 @@ export default function ExportIntelligenceDashboard() {
         getTopBuyers(apiFilters),
         getRecentShipments(apiFilters),
       ]);
-  
+
       const getResult = (index, fallback = []) => {
         const result = results[index];
-  
+
         if (result.status === "rejected") {
           console.error(`Export API ${index + 1} failed:`, result.reason);
           return fallback;
         }
-  
+
         const data = getResponseData(result.value, fallback);
-  
+
         console.log(`Export API ${index + 1} response:`, result.value);
         console.log(`Export API ${index + 1} data:`, data);
-  
+
         return data;
       };
-  
+
       setDashboard(getResult(0, {}));
       setExportTrend(getResult(1, []));
       setCountryDistribution(getResult(2, []));
@@ -2832,22 +2805,22 @@ export default function ExportIntelligenceDashboard() {
       setTopExporters(getResult(4, []));
       setTopBuyers(getResult(5, []));
       setRecentShipments(getResult(6, []));
-  
+
       const failedApis = results.filter(
-        (result) => result.status === "rejected"
+        (result) => result.status === "rejected",
       );
-  
+
       if (failedApis.length > 0) {
         setError(
-          `${failedApis.length} analytics API(s) failed. Check browser console for details.`
+          `${failedApis.length} analytics API(s) failed. Check browser console for details.`,
         );
       }
     } catch (err) {
       console.error("Export dashboard error:", err);
-  
+
       setError(
         err?.response?.data?.message ||
-          "Unable to load export intelligence data."
+          "Unable to load export intelligence data.",
       );
     } finally {
       setLoading(false);
@@ -2901,9 +2874,14 @@ export default function ExportIntelligenceDashboard() {
   const activeFilterCount = Object.values(appliedFilters).filter(
     (value) =>
       value &&
-      !["All", "All Countries", "All Exporters", "All Buyers", "All Months", "All Years"].includes(
-        value
-      )
+      ![
+        "All",
+        "All Countries",
+        "All Exporters",
+        "All Buyers",
+        "All Months",
+        "All Years",
+      ].includes(value),
   ).length;
 
   // ==========================================
@@ -2965,27 +2943,24 @@ export default function ExportIntelligenceDashboard() {
 
         return (
           Number(yearA) - Number(yearB) ||
-          getMonthIndex(monthA.join("-")) -
-            getMonthIndex(monthB.join("-"))
+          getMonthIndex(monthA.join("-")) - getMonthIndex(monthB.join("-"))
         );
       })
       .map((item) => ({
         date: getMonthLabel(item._id),
-        value: Number(
-          (Number(item.totalValue || 0) / 10000000).toFixed(2)
-        ),
+        value: Number((Number(item.totalValue || 0) / 10000000).toFixed(2)),
         shipments: Number(item.shipments || 0),
       }));
   }, [exportTrend]);
 
   const chartTotalValue = lineChartData.reduce(
     (sum, item) => sum + item.value,
-    0
+    0,
   );
 
   const chartTotalShipments = lineChartData.reduce(
     (sum, item) => sum + item.shipments,
-    0
+    0,
   );
 
   const countryChartData = useMemo(
@@ -2996,12 +2971,12 @@ export default function ExportIntelligenceDashboard() {
         percentage: Number(item.percentage || 0),
         color: COLORS[index % COLORS.length],
       })),
-    [countryDistribution]
+    [countryDistribution],
   );
 
   const countryTotalValue = countryChartData.reduce(
     (sum, item) => sum + item.value,
-    0
+    0,
   );
 
   // ==========================================
@@ -3016,34 +2991,25 @@ export default function ExportIntelligenceDashboard() {
     })),
   ];
 
-  const hsCodeOptions = makeOptions(
-    filterOptions.hsCodes || [],
-    "All"
-  );
+  const hsCodeOptions = makeOptions(filterOptions.hsCodes || [], "All");
 
   const countryOptions = makeOptions(
     filterOptions.countries || [],
-    "All Countries"
+    "All Countries",
   );
 
   const exporterOptions = makeOptions(
     filterOptions.exporters || [],
-    "All Exporters"
+    "All Exporters",
   );
 
-  const buyerOptions = makeOptions(
-    filterOptions.buyers || [],
-    "All Buyers"
-  );
+  const buyerOptions = makeOptions(filterOptions.buyers || [], "All Buyers");
 
-  const monthOptions = makeOptions(
-    filterOptions.months || [],
-    "All Months"
-  );
+  const monthOptions = makeOptions(filterOptions.months || [], "All Months");
 
   const yearOptions = makeOptions(
     (filterOptions.years || []).map(String),
-    "All Years"
+    "All Years",
   );
 
   // ==========================================
@@ -3082,10 +3048,8 @@ export default function ExportIntelligenceDashboard() {
     const csvContent = [headers, ...rows]
       .map((row) =>
         row
-          .map((value) =>
-            `"${String(value ?? "").replace(/"/g, '""')}"`
-          )
-          .join(",")
+          .map((value) => `"${String(value ?? "").replace(/"/g, '""')}"`)
+          .join(","),
       )
       .join("\n");
 
@@ -3108,10 +3072,9 @@ export default function ExportIntelligenceDashboard() {
   // ==========================================
 
   return (
-    <div className="min-h-screen bg-[#f5f7fb] px-3 pb-8 pt-16 font-sans text-slate-700 sm:px-5 lg:px-7">      <ReportActions module="Export Intelligence" result={(!loading && !error) ? ({dashboard,exportTrend,countryDistribution,topProducts,topExporters,topBuyers,recentShipments,appliedFilters}) : null} query={searchQuery} />
-
+    <div className="min-h-screen bg-[#f5f7fb] px-1 pb-8 pt-16 font-sans text-slate-700 sm:px-1 lg:px-1">
+     
       <div className="mx-auto max-w-[1600px]">
-
         {/* HEADER */}
 
         <div className="relative mb-6 overflow-hidden rounded-2xl bg-gradient-to-r from-[#102d5c] via-[#17458a] to-[#2563eb] p-5 shadow-lg sm:p-7">
@@ -3137,11 +3100,11 @@ export default function ExportIntelligenceDashboard() {
               </h1>
 
               <p className="mt-2 max-w-xl text-xs leading-6 text-blue-100 sm:text-sm">
-                Analyze export performance, discover leading products,
-                explore international buyers and understand global
-                destination markets.
+                Analyze export performance, discover leading products, explore
+                international buyers and understand global destination markets.
               </p>
             </div>
+            
 
             <div className="flex flex-wrap items-center gap-2">
               <div className="flex h-11 items-center gap-2 rounded-xl border border-white/15 bg-white/10 px-4 text-xs font-semibold text-white backdrop-blur-sm">
@@ -3161,6 +3124,25 @@ export default function ExportIntelligenceDashboard() {
           </div>
         </div>
 
+ {" "}
+      <ReportActions
+        module="Export Intelligence"
+        result={
+          !loading && !error
+            ? {
+                dashboard,
+                exportTrend,
+                countryDistribution,
+                topProducts,
+                topExporters,
+                topBuyers,
+                recentShipments,
+                appliedFilters,
+              }
+            : null
+        }
+        query={searchQuery}
+      />
         {/* ERROR */}
 
         {error && (
@@ -3181,11 +3163,7 @@ export default function ExportIntelligenceDashboard() {
 
         <div className="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5">
           {stats.map((item, index) => (
-            <StatCard
-              key={index}
-              item={item}
-              loading={loading}
-            />
+            <StatCard key={index} item={item} loading={loading} />
           ))}
         </div>
 
@@ -3210,7 +3188,9 @@ export default function ExportIntelligenceDashboard() {
             </div>
 
             <span className="rounded-lg bg-blue-50 px-3 py-1.5 text-[10px] font-bold text-blue-700">
-              {loading ? "Updating data..." : `${activeFilterCount} Active Filters`}
+              {loading
+                ? "Updating data..."
+                : `${activeFilterCount} Active Filters`}
             </span>
           </div>
 
@@ -3335,7 +3315,8 @@ export default function ExportIntelligenceDashboard() {
           <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 pt-4">
             <p className="flex items-center gap-2 text-[10px] font-medium text-slate-400">
               <CalendarDays size={13} />
-              Showing data based on uploaded export records and selected filters.
+              Showing data based on uploaded export records and selected
+              filters.
             </p>
 
             <div className="flex flex-wrap items-center gap-2">
@@ -3492,7 +3473,6 @@ export default function ExportIntelligenceDashboard() {
         {/* ANALYTICS - CHART DESIGN AND LOGIC UNCHANGED */}
 
         <div className="mb-6 grid grid-cols-1 gap-5 xl:grid-cols-3">
-
           {/* EXPORT TREND */}
 
           <div className="rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm sm:p-5 xl:col-span-2">
@@ -3621,10 +3601,7 @@ export default function ExportIntelligenceDashboard() {
             <div className="relative mx-auto h-[190px] w-full max-w-[230px]">
               {loading ? (
                 <div className="flex h-full items-center justify-center">
-                  <Loader2
-                    size={22}
-                    className="animate-spin text-blue-500"
-                  />
+                  <Loader2 size={22} className="animate-spin text-blue-500" />
                 </div>
               ) : countryChartData.length ? (
                 <>
@@ -3645,10 +3622,7 @@ export default function ExportIntelligenceDashboard() {
                       </Pie>
 
                       <Tooltip
-                        formatter={(value) => [
-                          formatINR(value),
-                          "FOB Value",
-                        ]}
+                        formatter={(value) => [formatINR(value), "FOB Value"]}
                       />
                     </PieChart>
                   </ResponsiveContainer>
@@ -3703,7 +3677,6 @@ export default function ExportIntelligenceDashboard() {
         {/* TOP PRODUCTS / EXPORTERS / BUYERS */}
 
         <div className="mb-6 grid grid-cols-1 gap-5 lg:grid-cols-3">
-
           {/* TOP PRODUCTS */}
 
           <div className="rounded-2xl border border-slate-200/80 bg-white p-4 shadow-sm sm:p-5">
@@ -3748,10 +3721,7 @@ export default function ExportIntelligenceDashboard() {
                       <div
                         className="h-full rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 transition-all duration-500"
                         style={{
-                          width: `${Math.min(
-                            100,
-                            Number(item.share || 0)
-                          )}%`,
+                          width: `${Math.min(100, Number(item.share || 0))}%`,
                         }}
                       />
                     </div>

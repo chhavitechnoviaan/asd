@@ -4555,8 +4555,8 @@
     };
 
     return (
-      <div className="cm-module-theme bg-gray-50 flex-1 overflow-y-auto pt-14">
-        <ReportActions module="Incentive Checker" result={apiResults} query={search?.productName || search?.hsCode || ""} />
+      <div className="cm-module-theme bg-gray-50 flex-1 overflow-y-auto ">
+       
 
         {activeTab === "Incentive Checker" && showPopup && (
           <SearchPopup
@@ -4591,16 +4591,17 @@
                 )}
               </div>
             )} */}
-            <div className=" border-gray-200 px-4 sm:px-6 py-3">
+            <div className=" border-gray-200 px-1 sm:px-1 py-1">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                 <div>
-                  <h1 className="text-xl font-bold text-gray-900">
+                  {/* <h1 className="text-xl font-bold text-gray-900">
                     Incentive Checker
                   </h1>
                   <p className="text-xs text-gray-500 mt-0.5">
                     Find applicable incentives and estimated benefits for your
                     shipment.
-                  </p>
+                  </p> */}
+                   <ReportActions module="Incentive Checker" result={apiResults} query={search?.productName || search?.hsCode || ""} />
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {/* <button className="flex items-center gap-1.5 border border-gray-200 bg-white text-gray-700 text-xs font-medium px-3 py-1.5 rounded-lg hover:bg-gray-50">
@@ -4632,7 +4633,7 @@
               </div>
             </div>
 
-            <div className="max-w-[1400px] mx-auto px-3 sm:px-4 lg:px-6 py-4 grid grid-cols-1 xl:grid-cols-[1fr_290px] gap-4">
+            <div className="max-w-[1400px] mx-auto px-1 sm:px-1 lg:px-1 py-1 grid grid-cols-1 xl:grid-cols-[1fr_290px] gap-4">
               <div className="flex flex-col gap-4 min-w-0">
                 {/* <div className="flex items-start gap-2 bg-teal-50 border border-teal-200 rounded-lg px-3 py-2.5 text-xs text-teal-800">
                   <FiInfo

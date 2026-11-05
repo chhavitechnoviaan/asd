@@ -3989,10 +3989,10 @@ export default function Shipment({ setActiveTab: setParentTab, activeTab: parent
       />
 
       {!shipment && (
-        <div className="max-w-[1540px] mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+        <div className="max-w-[1540px] mx-auto p-1 sm:p-1 lg:p-1 space-y-6">
           {/* Top Header */}
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-slate-200/70">
-            <div>
+          <div className="flex flex-col md:flex-row md:items-center justify-end gap-4 pb-2 border-b border-slate-200/70">
+            {/* <div>
               <div className="flex items-center gap-2.5">
                 <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-700 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
                   <Ship size={20} />
@@ -4006,7 +4006,7 @@ export default function Shipment({ setActiveTab: setParentTab, activeTab: parent
                   </p>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="flex items-center gap-2.5 flex-wrap">
               <div className="relative">

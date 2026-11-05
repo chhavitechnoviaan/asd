@@ -175,15 +175,15 @@ export default function AIInsightsDashboard() {
      const [exportReport, setExportReport] = useState(false)
 
   return (
-    <div className="cm-module-theme min-h-screen w-full overflow-y-auto bg-[#F8FAFC] text-slate-600  antialiased pt-10">
-      <div className="max-w-[1400px] mx-auto p-3 sm:p-4 md:p-6">
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mb-4">
-          <div>
+    <div className="cm-module-theme min-h-screen w-full overflow-y-auto bg-[#F8FAFC] text-slate-600  antialiased pt-1">
+      <div className="max-w-[1400px] mx-auto p-1 sm:p-1 md:p-1">
+        <div className="flex flex-col md:flex-row md:justify-end md:items-center gap-3 mb-4">
+          {/* <div>
             <h1 className={`text-xl sm:text-2xl font-bold tracking-tight ${HEADING}`}>AI Insights</h1>
             <p className="text-[11px] sm:text-xs text-slate-400 mt-0.5">
               AI-powered insights to help make smarter trade decisions.
             </p>
-          </div>
+          </div> */}
           <div className="flex items-center gap-2 w-full md:w-auto">
               <div className="relative flex-1 md:flex-none">
                          <DatePicker

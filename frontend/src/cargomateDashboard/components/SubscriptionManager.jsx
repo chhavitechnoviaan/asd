@@ -146,9 +146,9 @@ export default function SubscriptionManager({
     (k) => audience === "b2b" || k !== "tradeResearch",
   );
   return (
-    <div className="bg-[#F7F9FC] min-h-screen p-4 md:p-7 space-y-5 mt-10">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
+    <div className="bg-[#F7F9FC] min-h-screen p-1 md:p-1 space-y-5 mt-1">
+      <div className="flex flex-wrap items-start justify-end gap-3">
+        {/* <div>
           <h1 className="text-2xl font-bold text-slate-900">
             {mode === "upgrade" ? "Subscription Plans" : "My Subscription"}
           </h1>
@@ -156,7 +156,7 @@ export default function SubscriptionManager({
             {audience === "b2b" ? "B2B" : "User"} plan benefits, billing and
             monthly AI usage
           </p>
-        </div>
+        </div> */}
         <div className="flex gap-1 rounded-xl bg-white border border-slate-200 p-1">
           {["monthly", "yearly"].map((v) => (
             <button

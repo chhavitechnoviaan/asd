@@ -180,8 +180,8 @@ export default function SettingsDashboard({initialTab="General",showAccountProfi
     "Company Profile",
     "KYC Documents",
     "Security",
-    "Billing",
-    "Notifications"
+    // "Billing",
+    // "Notifications"
   ];
 
 
@@ -324,13 +324,13 @@ export default function SettingsDashboard({initialTab="General",showAccountProfi
 
   return (
 
-    <div className="cm-module-theme min-h-screen overflow-y-auto bg-slate-50 text-slate-800  p-6">
+    <div className="cm-module-theme min-h-screen overflow-y-auto bg-slate-50 text-slate-800  p-2">
 
 
       {/* =====================================
           HEADER
       ===================================== */}
-
+{/* 
       <div className="mb-6 mt-10">
 
         <h1 className="text-2xl font-bold text-slate-900">
@@ -341,7 +341,7 @@ export default function SettingsDashboard({initialTab="General",showAccountProfi
           Manage your account, preferences and system configuration.
         </p>
 
-      </div>
+      </div> */}
 
 
       {/* =====================================

@@ -217,7 +217,7 @@ export default function NotificationDashboard() {
   };
 
   return (
-    <div className="cm-module-theme min-h-screen bg-slate-50 text-slate-800  p-6 pt-20">
+    <div className="cm-module-theme min-h-screen bg-slate-50 text-slate-800  p-6 pt-2">
       {/* <div className="text-sm text-slate-500 mb-4 flex items-center gap-2">
         <span>Dashboard</span>
         <span>&gt;</span>
@@ -228,15 +228,15 @@ export default function NotificationDashboard() {
         {/* LEFT COLUMN*/}
         <div className="lg:col-span-3 space-y-6">
           {/* Header Section */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-end gap-4">
+            {/* <div>
               <h1 className="text-xl font-bold text-slate-900">
                 Manage your alerts
               </h1>
               <p className="text-xs text-slate-500 mt-1">
                 System updates, task reminders, and operational milestones.
               </p>
-            </div>
+            </div> */}
             <div className="flex items-center gap-3">
               <button
                 onClick={() =>

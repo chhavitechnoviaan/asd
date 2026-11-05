@@ -202,15 +202,15 @@ export default function HelpSupportDashboard({ role = "user" }) {
   const displayedTickets = showAllTickets ? filteredTickets : filteredTickets.slice(0, 5);
 
   return (
-    <div className="cm-module-theme min-h-screen bg-[#f8fafc] text-slate-800 p-6 pt-20">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <div className="cm-module-theme min-h-screen bg-[#f8fafc] text-slate-800 p-1 pt-2">
+      <div className="max-w-8xl mx-auto space-y-2">
         
         {/* Top Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-end gap-4">
+          {/* <div>
             <h1 className="text-xl font-bold text-slate-900 tracking-tight">Help & Support</h1>
             <p className="text-xs text-slate-500 mt-0.5">How can we help you today?</p>
-          </div>
+          </div> */}
           <button 
             onClick={() => setIsCreateOpen(true)}
             className="flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-white bg-teal-700 hover:bg-teal-800 rounded-lg transition-all shadow-sm shrink-0"

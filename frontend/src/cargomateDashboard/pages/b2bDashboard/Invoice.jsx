@@ -1104,15 +1104,15 @@ export default function InvoicesDashboard() {
   };
 
   return (
-    <div className="cm-module-theme min-h-screen mt-10 bg-[#F8FAFC] text-slate-700 antialiased"
+    <div className="cm-module-theme min-h-screen mt-1 bg-[#F8FAFC] text-slate-700 antialiased"
       style={{ fontFamily: "'Poppins', sans-serif" }}>
       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
 
-      <div className="max-w-[1540px] mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+      <div className="max-w-[1540px] mx-auto p-1 sm:p-1 lg:p-1 space-y-1">
 
         {/* ── Header ── */}
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-2 border-b border-slate-200/70">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-col md:flex-row md:items-center justify-end gap-4 pb-2 border-b border-slate-200/70">
+          {/* <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-700 to-indigo-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
               <FileText size={20} />
             </div>
@@ -1120,7 +1120,7 @@ export default function InvoicesDashboard() {
               <h1 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Invoice Management</h1>
               <p className="text-xs text-slate-400 font-medium">Track, manage and analyse all trade invoices in one place.</p>
             </div>
-          </div>
+          </div> */}
 
           <div className="flex flex-wrap items-center gap-2.5">
             <div className="relative">

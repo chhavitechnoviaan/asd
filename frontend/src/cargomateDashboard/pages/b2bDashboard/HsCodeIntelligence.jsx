@@ -2495,11 +2495,11 @@ export default function HSCodeIntelligence() {
   }, [hsCodeDetails, filters]);
 
   return (
-    <div className="cm-module-theme overflow-y-auto bg-[#f8fafc] p-5  text-slate-600 antialiased flex flex-col justify-between pt-14">
+    <div className="cm-module-theme overflow-y-auto bg-[#f8fafc] p-1  text-slate-600 antialiased flex flex-col justify-between ">
       <ReportActions module="HS Code Intelligence" result={hsIntelResult} query={searchQuery} />
 
       {/* TOP HEADER */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-5">
+      {/* <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-5">
         <div>
           <h1 className="text-2xl font-bold text-[#1e293b]">
             HS Code Intelligence
@@ -2536,7 +2536,7 @@ export default function HSCodeIntelligence() {
             Export Report
           </button>
         </div>
-      </div>
+      </div> */}
 
       {/* METRICS METERS ROW */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 xl:grid-cols-5 gap-3 mb-5">

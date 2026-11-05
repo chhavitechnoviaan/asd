@@ -1,4 +1,3 @@
-
 // import React, { useState } from "react";
 // import CargoMateAPI from "../../api/CargoMateApi";
 
@@ -428,7 +427,6 @@
 //     </section>
 //   );
 // }
-
 
 // function KeyAssumptions({ result }) {
 //   // Bind directly to the assumptions returned by GET /freight/estimate.
@@ -1520,7 +1518,6 @@ function FreightOptions({ result, onSelectOption, onViewDetails }) {
   );
 }
 
-
 function KeyAssumptions({ result }) {
   // Bind directly to the assumptions returned by GET /freight/estimate.
   const items = Array.isArray(result?.assumptions) ? result.assumptions : [];
@@ -1932,21 +1929,26 @@ export default function FreightCalculatorResult() {
   };
 
   return (
-    <div className="cm-module-theme bg-gray-50 text-gray-900 antialiased overflow-y-auto pt-10">
-      <ReportActions module="Freight Calculator" result={freightResult} query={freightForm?.origin || ""} />
+    <div className="cm-module-theme bg-gray-50 text-gray-900 antialiased overflow-y-auto ">
+     
 
       {activeTab === "Freight Calculator" && (
-        <div className="max-w-[1440px] mx-auto p-4 md:p-6 lg:p-8">
-          <header className="mb-6">
-            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <div className="max-w-[1440px] mx-auto p-1 md:p-1 lg:p-1">
+          <header className="mb-2">
+            <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-2">
               <div>
-                <h1 className="text-xl font-bold text-gray-900">
+                {/* <h1 className="text-xl font-bold text-gray-900">
                   Freight Calculator
                 </h1>
                 <p className="text-gray-500 text-xs">
                   Get accurate freight estimates and compare the best shipping
                   options.
-                </p>
+                </p> */}
+                 <ReportActions
+        module="Freight Calculator"
+        result={freightResult}
+        query={freightForm?.origin || ""}
+      />
               </div>
               <HeaderActions
                 setActiveTab={setActiveTab}

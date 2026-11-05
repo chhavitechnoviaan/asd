@@ -2485,12 +2485,12 @@ export default function DocumentsDashboard() {
   // -------------------------------------
 
   return (
-    <div className="cm-module-theme min-h-screen w-full bg-[#F8FAFC] text-slate-600 font-sans antialiased py-5">
-      <div className="max-w-[1500px] mx-auto p-3 sm:p-4 md:p-6">
+    <div className="cm-module-theme min-h-screen w-full bg-[#F8FAFC] text-slate-600 font-sans antialiased py-1">
+      <div className="max-w-[1500px] mx-auto p-1 sm:p-1 md:p-1">
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mt-10   mb-5">
-          <div>
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-3 mt-1   mb-1">
+          {/* <div>
             <h1 className={`text-xl sm:text-2xl font-bold tracking-tight ${HEADING}`}>
               Documents
             </h1>
@@ -2498,7 +2498,7 @@ export default function DocumentsDashboard() {
             <p className="text-[11px] sm:text-xs text-slate-400 mt-1">
               Manage, organize and track all your shipment documents in one place.
             </p>
-          </div>
+          </div> */}
 
           <div className="flex items-center gap-2 w-full md:w-auto flex-wrap">
             {/* <div className="relative flex-1 md:flex-none">

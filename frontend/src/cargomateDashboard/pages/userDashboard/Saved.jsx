@@ -72,13 +72,12 @@
 
 //   return (
 //     <div>
-        
+
 //         <section className="bg-white border border-slate-200 rounded-xl p-5 mb-5"><h2 className="font-semibold text-lg mb-3">Saved Reports</h2>{loading?<p>Loading reports…</p>:reports.length===0?<p className="text-slate-500">No saved reports yet.</p>:<div className="space-y-3">{reports.map(r=><details key={r._id} className="border rounded-lg p-3"><summary className="cursor-pointer font-medium">{r.reportName} <span className="text-xs text-slate-400">{r.createdAt&&new Date(r.createdAt).toLocaleDateString()}</span></summary><p className="text-sm my-2">{r.description}</p><div className="whitespace-pre-wrap break-words text-sm leading-6 bg-slate-50 border border-slate-100 p-4 rounded-xl">{typeof r.reportData === "string" ? r.reportData : (r.reportData?.answer || r.reportData?.response || r.reportData?.content || JSON.stringify(r.reportData,null,2))}</div></details>)}</div>}</section>
 
 //         <div className="mt-6"><DashboardAdPlacement location="User Dashboard - Saved" /></div>
-    
-//     </div>
 
+//     </div>
 
 // );
 // }
@@ -86,4 +85,13 @@
 import React from "react";
 import SavedReportsLibrary from "../../components/SavedReportsLibrary";
 import DashboardAdPlacement from "../../components/DashboardAdPlacement";
-export default function Saved(){return <div className="min-h-screen bg-slate-50 p-4 pt-16 sm:p-6 cm-module-theme"><SavedReportsLibrary/><div className="mt-6"><DashboardAdPlacement location="User Dashboard - Saved"/></div></div>;}
+export default function Saved() {
+  return (
+    <div className="min-h-screen bg-slate-50 p-4 pt-16 sm:p-6 cm-module-theme">
+      <SavedReportsLibrary />
+      <div className="mt-6">
+        <DashboardAdPlacement location="User Dashboard - Saved" />
+      </div>
+    </div>
+  );
+}
