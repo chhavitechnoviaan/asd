@@ -1,3 +1,356 @@
+// const TradeInvoice = require("../models/TradeInvoice");
+
+// exports.getDashboard = async (req,res)=>{
+//     try{
+    
+//     const totalInvoices=await TradeInvoice.countDocuments({createdBy:req.user._id});
+    
+//     const paidInvoices=await TradeInvoice.countDocuments({createdBy:req.user._id,
+//     status:"Paid"
+//     });
+    
+//     const pendingInvoices=await TradeInvoice.countDocuments({createdBy:req.user._id,
+//     status:"Pending"
+//     });
+    
+//     const overdueInvoices=await TradeInvoice.countDocuments({createdBy:req.user._id,
+//     status:"Overdue"
+//     });
+    
+//     const invoiceStats=await TradeInvoice.aggregate([
+//     {
+// $match:{
+// createdBy:req.user._id
+// }
+// },
+//     {
+//     $group:{
+//     _id:null,
+//     totalValue:{$sum:"$invoiceValue"},
+//     averageValue:{$avg:"$invoiceValue"}
+//     }
+//     }
+//     ]);
+    
+//     res.json({
+//     status:1,
+//     data:{
+//     totalInvoices,
+//     paidInvoices,
+//     pendingInvoices,
+//     overdueInvoices,
+//     totalInvoiceValue:invoiceStats[0]?.totalValue||0,
+//     averageInvoiceValue:invoiceStats[0]?.averageValue||0
+//     }
+//     });
+    
+//     }catch(error){
+    
+//     res.status(500).json({
+//     status:0,
+//     message:error.message
+//     });
+    
+//     }
+//     };
+
+//     exports.getInvoices=async(req,res)=>{
+//         try{
+        
+//         const {search,status,type,country}=req.query;
+        
+//         let filter={createdBy:req.user._id};
+        
+//         if(search){
+        
+//         filter.$or=[
+//         {
+//         invoiceNumber:{
+//         $regex:search,
+//         $options:"i"
+//         }
+//         },
+//         {
+//         party:{
+//         $regex:search,
+//         $options:"i"
+//         }
+//         }
+//         ];
+        
+//         }
+        
+//         if(status) filter.status=status;
+        
+//         if(type) filter.type=type;
+        
+//         if(country) filter.country=country;
+        
+//         const invoices=await TradeInvoice.find(filter)
+//         .sort({
+//         createdAt:-1
+//         });
+        
+//         res.json({
+//         status:1,
+//         data:invoices
+//         });
+        
+//         }catch(error){
+        
+//         res.status(500).json({
+//         status:0,
+//         message:error.message
+//         });
+        
+//         }
+//         };
+
+//         exports.getStatusSummary=async(req,res)=>{
+//             try{
+            
+//             const data=await TradeInvoice.aggregate([
+//             {
+// $match:{
+// createdBy:req.user._id
+// }
+// },
+//             {
+//             $group:{
+//             _id:"$status",
+//             count:{
+//             $sum:1
+//             }
+//             }
+//             }
+//             ]);
+            
+//             res.json({
+//             status:1,
+//             data
+//             });
+            
+//             }catch(error){
+            
+//             res.status(500).json({
+//             status:0,
+//             message:error.message
+//             });
+            
+//             }
+//             };
+
+//             exports.getValueTrend=async(req,res)=>{
+//                 try{
+                
+//                 const trend=await TradeInvoice.aggregate([
+//                 {
+// $match:{
+// createdBy:req.user._id
+// }
+// },
+//                 {
+//                 $group:{
+//                 _id:{
+//                 month:{
+//                 $month:"$invoiceDate"
+//                 }
+//                 },
+//                 value:{
+//                 $sum:"$invoiceValue"
+//                 }
+//                 }
+//                 },
+//                 {
+//                 $sort:{
+//                 "_id.month":1
+//                 }
+//                 }
+//                 ]);
+                
+//                 res.json({
+//                 status:1,
+//                 data:trend
+//                 });
+                
+//                 }catch(error){
+                
+//                 res.status(500).json({
+//                 status:0,
+//                 message:error.message
+//                 });
+                
+//                 }
+//                 };
+
+//                 exports.getRecentInvoices=async(req,res)=>{
+//                     try{
+                    
+//                     const invoices=await TradeInvoice.find({createdBy:req.user._id})
+//                     .sort({
+//                     invoiceDate:-1
+//                     })
+//                     .limit(10);
+                    
+//                     res.json({
+//                     status:1,
+//                     data:invoices
+//                     });
+                    
+//                     }catch(error){
+                    
+//                     res.status(500).json({
+//                     status:0,
+//                     message:error.message
+//                     });
+                    
+//                     }
+//                     };
+
+//                     exports.getTopParties=async(req,res)=>{
+//                         try{
+                        
+//                         const parties=await TradeInvoice.aggregate([
+//                             {
+// $match:{
+// createdBy:req.user._id
+// }
+// },
+//                         {
+//                         $group:{
+//                         _id:"$party",
+//                         total:{
+//                         $sum:"$invoiceValue"
+//                         }
+//                         }
+//                         },
+//                         {
+//                         $sort:{
+//                         total:-1
+//                         }
+//                         },
+//                         {
+//                         $limit:5
+//                         }
+//                         ]);
+                        
+//                         res.json({
+//                         status:1,
+//                         data:parties
+//                         });
+                        
+//                         }catch(error){
+                        
+//                         res.status(500).json({
+//                         status:0,
+//                         message:error.message
+//                         });
+                        
+//                         }
+//                         };
+
+//                         exports.getOverdueInvoices=async(req,res)=>{
+//                             try{
+                            
+//                             const invoices=await TradeInvoice.find({
+//                             createdBy:req.user._id,
+//                             status:"Overdue"
+//                             })
+//                             .sort({
+//                             dueDate:1
+//                             });
+                            
+//                             res.json({
+//                             status:1,
+//                             data:invoices
+//                             });
+                            
+//                             }catch(error){
+                            
+//                             res.status(500).json({
+//                             status:0,
+//                             message:error.message
+//                             });
+                            
+//                             }
+//                             };
+
+//                             exports.getInsights=async(req,res)=>{
+//                                 try{
+                                
+//                                 const paid=await TradeInvoice.countDocuments({
+//                                 createdBy:req.user._id,
+//                                 status:"Paid"
+//                                 });
+                                
+//                                 const overdue=await TradeInvoice.countDocuments({
+//                                 createdBy:req.user._id,
+//                                 status:"Overdue"
+//                                 });
+                                
+//                                 const pendingAmount=await TradeInvoice.aggregate([
+//                                 {
+//                                 $match:{
+//                                 createdBy:req.user._id,
+//                                 status:"Pending"
+//                                 }
+//                                 },
+//                                 {
+//                                 $group:{
+//                                 _id:null,
+//                                 amount:{
+//                                 $sum:"$invoiceValue"
+//                                 }
+//                                 }
+//                                 }
+//                                 ]);
+                                
+//                                 res.json({
+//                                 status:1,
+//                                 data:{
+//                                 paidInvoices:paid,
+//                                 overdueInvoices:overdue,
+//                                 pendingAmount:pendingAmount[0]?.amount||0
+//                                 }
+//                                 });
+                                
+//                                 }catch(error){
+                                
+//                                 res.status(500).json({
+//                                 status:0,
+//                                 message:error.message
+//                                 });
+                                
+//                                 }
+//                                 };
+
+//                                 exports.getFilterOptions=async(req,res)=>{
+//                                     try{
+                                    
+//                                     const countries=await TradeInvoice.distinct("country",{createdBy:req.user._id});
+                                    
+//                                     const types=await TradeInvoice.distinct("type",{createdBy:req.user._id});
+                                    
+//                                     const statuses=await TradeInvoice.distinct("status",{createdBy:req.user._id});
+                                    
+//                                     res.json({
+//                                     status:1,
+//                                     data:{
+//                                     countries,
+//                                     types,
+//                                     statuses
+//                                     }
+//                                     });
+                                    
+//                                     }catch(error){
+                                    
+//                                     res.status(500).json({
+//                                     status:0,
+//                                     message:error.message
+//                                     });
+                                    
+//                                     }
+//                                     };
 
                                     
 
@@ -9,18 +362,12 @@ const Shipment = require("../models/Shipment");
 const getMappedUserId = (req) =>
   req.user?.mappedUserId || req.user?._id;
 
-const getRole = (req) => String(req.user?.roleName || req.user?.role || "").trim().toLowerCase();
-const isAdmin = (req) => getRole(req) === "admin";
-const isB2B = (req) => getRole(req) === "b2b" || getRole(req).includes("b2b");
+const isAdmin = (req) => req.user?.roleName === "admin";
 
 // Return a shipment-based scope for non-admin users.
 // Admins can see all invoices.
 const getInvoiceScope = async (req) => {
   if (isAdmin(req)) return {};
-
-  // Normal User shipments are Admin-managed: quotation/invoice must not be visible
-  // from customer invoice endpoints. B2B invoice access remains unchanged.
-  if (!isB2B(req)) return { _id: null };
 
   const mappedUserId = getMappedUserId(req);
 
@@ -30,7 +377,6 @@ const getInvoiceScope = async (req) => {
 
   const userShipments = await Shipment.find({
     userId: mappedUserId,
-    createdByRole: "B2B",
   }).select("_id");
 
   return {
@@ -470,11 +816,7 @@ exports.createInvoiceFromAcceptedQuotation = async (req, res) => {
     const { shipmentId, quotationId, dueDate, type, paymentTerms, paymentMode,
       poReference, gstin, pan, bankDetails, companyDetails, notes, remarks,
       freightCharges, insuranceCharges, handlingCharges, discount,
-      cgst, sgst, igst, totalTax: requestedTotalTax, roundOff, items: requestedItems,
-      invoiceNumber: requestedInvoiceNumber, invoiceDate: requestedInvoiceDate,
-      currency: requestedCurrency, billTo: requestedBillTo, address: requestedAddress,
-      consignee: requestedConsignee, shipmentDetails: requestedShipmentDetails,
-      amountInWords, declaration } = req.body;
+      cgst, sgst, igst, roundOff, items: requestedItems } = req.body;
 
     if (!shipmentId || !quotationId) {
       return res.status(400).json({
@@ -499,17 +841,7 @@ exports.createInvoiceFromAcceptedQuotation = async (req, res) => {
       });
     }
 
-    const creatorRole = String(shipment.createdByRole || "").trim().toLowerCase();
-    const customerType = String(shipment.customerType || "").trim().toLowerCase();
-
-    // Explicit B2B markers take priority. Quotation acceptance is mandatory
-    // only for B2B shipments; Admin/Normal User shipments are handled internally.
-    const isB2BShipment =
-      creatorRole === "b2b" ||
-      customerType === "b2b" ||
-      Boolean(shipment.b2bCompanyId);
-
-    if (isB2BShipment && quotation.status !== "Accepted") {
+    if (quotation.status !== "Accepted") {
       return res.status(400).json({
         status: 0,
         message: "Invoice can only be generated after quotation acceptance.",
@@ -562,19 +894,17 @@ exports.createInvoiceFromAcceptedQuotation = async (req, res) => {
       const qty = toNumber(item.qty);
       const unitPrice = toNumber(item.unitPrice);
       return {
-        name: item.name || item.description || "",
-        description: item.description || item.name || "",
+        description: item.description || "",
         hsCode: item.hsCode || cargo.hsCodeText || "",
         qty,
         unit: item.unit || "",
         unitPrice,
-        total: qty * unitPrice,
+        total: item.total !== undefined ? toNumber(item.total) : qty * unitPrice,
       };
     });
 
-    // The invoice is a final snapshot: edited invoice line items take priority
-    // over the original quotation subtotal.
-    const subtotal = items.reduce((sum, item) => sum + toNumber(item.total), 0);
+    const subtotal = toNumber(quotation.subtotal) ||
+      items.reduce((sum, item) => sum + item.total, 0);
     const invoiceDiscount = discount !== undefined
       ? toNumber(discount)
       : toNumber(quotation.discount);
@@ -588,34 +918,24 @@ exports.createInvoiceFromAcceptedQuotation = async (req, res) => {
     const invoiceCgst = toNumber(cgst);
     const invoiceSgst = toNumber(sgst);
     const invoiceIgst = toNumber(igst);
-    const totalTax = requestedTotalTax !== undefined
-      ? toNumber(requestedTotalTax)
-      : invoiceCgst + invoiceSgst + invoiceIgst;
+    const totalTax = invoiceCgst + invoiceSgst + invoiceIgst;
     const calculatedTotal = taxableAmount + totalTax + toNumber(roundOff);
-    const totalAmount = calculatedTotal;
+    const totalAmount = calculatedTotal || toNumber(quotation.totalAmount);
 
     const invoice = await TradeInvoice.create({
-      invoiceNumber: requestedInvoiceNumber || makeInvoiceNumber(),
-      invoiceDate: requestedInvoiceDate ? new Date(requestedInvoiceDate) : new Date(),
+      invoiceNumber: makeInvoiceNumber(),
+      invoiceDate: new Date(),
       dueDate: dueDate || null,
-      currency: requestedCurrency || quotation.currency || shipment.currency || "INR",
+      currency: quotation.currency || shipment.currency || "INR",
       status: "Pending",
       party: importer.companyName || exporter.companyName || consignee.name,
       type: type || "Commercial Invoice",
       country: route.destinationCountry || route.originCountry || "",
       invoiceValue: totalAmount,
       remarks: remarks || "",
-      billTo: requestedBillTo || importer.companyName || shipment.buyer?.companyName || "",
-      address: requestedAddress || importer.address || "",
-      consignee: requestedConsignee
-        ? {
-            name: requestedConsignee.name || "",
-            address: requestedConsignee.address || "",
-            email: requestedConsignee.email || "",
-            phone: requestedConsignee.phone || "",
-            country: requestedConsignee.country || route.destinationCountry || "",
-          }
-        : consignee,
+      billTo: importer.companyName || shipment.buyer?.companyName || "",
+      address: importer.address || "",
+      consignee,
       companyDetails: companyDetails || {},
       gstin: gstin || "",
       pan: pan || "",
@@ -624,18 +944,18 @@ exports.createInvoiceFromAcceptedQuotation = async (req, res) => {
       poReference: poReference || "",
       bankDetails: bankDetails || {},
       shipmentDetails: {
-        awbNumber: requestedShipmentDetails?.awbNumber ?? shipment.awbNumber ?? "",
-        awbDate: requestedShipmentDetails?.awbDate || shipment.shipmentDate || null,
-        portOfLoading: requestedShipmentDetails?.portOfLoading || [route.originCity, route.originCountry].filter(Boolean).join(", "),
-        portOfDischarge: requestedShipmentDetails?.portOfDischarge || [route.destinationCity, route.destinationCountry].filter(Boolean).join(", "),
-        airline: requestedShipmentDetails?.airline || shipment.carrier?.name || "",
-        packages: toNumber(requestedShipmentDetails?.packages ?? cargo.packages ?? shipment.additionalInformation?.packages),
-        packageType: requestedShipmentDetails?.packageType || cargo.packingType || shipment.additionalInformation?.packagingType || "",
-        grossWeight: toNumber(requestedShipmentDetails?.grossWeight ?? cargo.grossWeight ?? cargo.weight),
-        grossWeightUnit: requestedShipmentDetails?.grossWeightUnit || "kg",
-        chargeableWeight: toNumber(requestedShipmentDetails?.chargeableWeight ?? cargo.volumetricWeight ?? cargo.weight),
-        chargeableWeightUnit: requestedShipmentDetails?.chargeableWeightUnit || "kg",
-        countryOfOrigin: requestedShipmentDetails?.countryOfOrigin || route.originCountry || "",
+        awbNumber: shipment.awbNumber || "",
+        awbDate: shipment.shipmentDate || null,
+        portOfLoading: [route.originCity, route.originCountry].filter(Boolean).join(", "),
+        portOfDischarge: [route.destinationCity, route.destinationCountry].filter(Boolean).join(", "),
+        airline: shipment.carrier?.name || "",
+        packages: toNumber(cargo.packages || shipment.additionalInformation?.packages),
+        packageType: cargo.packingType || shipment.additionalInformation?.packagingType || "",
+        grossWeight: toNumber(cargo.grossWeight || cargo.weight),
+        grossWeightUnit: "kg",
+        chargeableWeight: toNumber(cargo.volumetricWeight || cargo.weight),
+        chargeableWeightUnit: "kg",
+        countryOfOrigin: route.originCountry || "",
       },
       items,
       freightCharges: invoiceFreight,
@@ -651,8 +971,6 @@ exports.createInvoiceFromAcceptedQuotation = async (req, res) => {
       roundOff: toNumber(roundOff),
       totalAmount,
       notes: notes || quotation.notes || "",
-      declaration: declaration || "",
-      amountInWords: amountInWords || "",
       shipment: shipment._id,
       userId: shipment.userId,
       quotation: quotation._id,
@@ -740,13 +1058,6 @@ exports.sendInvoice = async (req, res) => {
 
     if (invoice.status === "Cancelled") {
       return res.status(400).json({ status: 0, message: "Cancelled invoice cannot be sent." });
-    }
-
-    const creatorRole = String(shipment.createdByRole || "").trim().toLowerCase();
-    const customerType = String(shipment.customerType || "").trim().toLowerCase();
-    const isB2BShipment = creatorRole === "b2b" || customerType === "b2b" || Boolean(shipment.b2bCompanyId);
-    if (!isB2BShipment) {
-      return res.status(403).json({ status: 0, message: "Normal User invoices are Admin-only and cannot be shared or marked as sent." });
     }
 
     shipment.invoiceStatus = "Sent";

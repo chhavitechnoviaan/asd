@@ -1,525 +1,892 @@
+//   const mongoose = require("mongoose");
+
+//   const shipmentSchema = new mongoose.Schema({
+
+//     customFields: {type: Map, of: String, default: {}},
+//     userId: {
+//       type: mongoose.Schema.Types.ObjectId,
+//       ref: "User"
+//     },
+  
+//     sbNumber: {
+//       type: String,
+//       unique: true
+//     },
+  
+//     exporter: {
+//       companyName: String,
+//       iecNumber: String,
+//       contactPerson: String,
+//       mobile: String
+//     },
+  
+//     importer: {
+//       companyName: String,
+//       iecNumber: String,
+//       contactPerson: String,
+//       mobile: String
+//   },
+
+//   referenceNumber: {
+//     type: String,
+//     unique: true,
+//     sparse: true
+//   },
+  
+//   createdByRole: {
+//     type: String,
+//     enum: ["Admin", "User", "B2B"],
+//     default: "User"
+//   },
+  
+//   customerType: {
+//     type: String,
+//     enum: ["Individual", "Company"],
+//     default: "Individual"
+//   },
+  
+//   b2bCompanyId: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: "Company",
+//     default: null
+//   },
+  
+//   assignedAdminId: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: "User",
+//     default: null
+//   },
+  
+//   currentStep: {
+//     type: Number,
+//     default: 1
+//   },
+
+
+// buyer:{
+
+//   buyerId:{
+//       type:mongoose.Schema.Types.ObjectId,
+//       ref:"Buyer"
+//   },
+
+//   companyName:String,
+
+//   country:String
+
+// },
+
+// cargo: {
+//   productName: String,
+
+//   description: String,
+
+//   hsCode: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: "HSCode"
+//   },
+
+//   cargoType: {
+//     type: String,
+//     enum: ["General", "Dangerous", "Perishable", "Live"],
+//     default: "General"
+//   },
+
+//   weight: Number,
+
+//   grossWeight: Number,
+
+//   netWeight: Number,
+
+//   quantity: Number,
+
+//   volumeCBM: Number,
+
+//   value: Number,
+
+//   currency: {
+//     type: String,
+//     default: "INR"
+//   }
+// },
+//     route: {
+
+//       originCountry: String,
+
+// originCity: String,
+
+// destinationCountry: String,
+
+// destinationCity: String,
+
+// warehouse: String,
+//       mode:{
+//           type:String,
+//           enum:["Air","Sea","Road"]
+//       }
+  
+//   },
+//   leadTime:{
+//     type:Number,
+//     default:0
+// },
+
+// shipmentDate:{
+//   type:Date,
+//   default:Date.now
+// },
+
+
+  
+//     etd: Date,
+//     eta: Date,
+  
+//     shipmentStatus: {
+//       type: String,
+//       enum: [
+//         "Draft",
+//         "Submitted",
+//         "Pending Admin Approval",
+//         "Approved",
+//         "Carrier Assigned",
+//         "Pickup Scheduled",
+//         "Picked Up",
+//         "Warehouse Received",
+//         "Customs Documentation",
+//         "Customs Clearance",
+//         "In Transit",
+//         "Arrived at Destination",
+//         "Out for Delivery",
+//         "Delivered",
+//         "Closed"
+//       ],
+//       default: "Draft"
+//     },
+
+//     approvalStatus: {
+//       type: String,
+//       enum: [
+//         "Pending",
+//         "Approved",
+//         "Rejected",
+//         "Correction Required"
+//       ],
+//       default: "Pending"
+//     },
+  
+//     documentStatus: {
+//       type: String,
+//       enum: [
+//         "Pending",
+//         "Uploaded",
+//         "Under Review",
+//         "Verified",
+//         "Rejected"
+//       ],
+//       default: "Pending"
+//     },
+  
+//     amount: Number,
+//     vendor: String,
+//     estimatedCost: {
+//       type: Number,
+//       default: 0
+//     },
+    
+//     paidAmount: {
+//       type: Number,
+//       default: 0
+//     },
+    
+//     balanceAmount: {
+//       type: Number,
+//       default: 0
+//     },
+    
+//     paymentStatus: {
+//       type: String,
+//       enum: [
+//         "Pending",
+//         "Partially Paid",
+//         "Paid",
+//         "Failed",
+//         "Refunded",
+//         "Overdue"
+//       ],
+//       default: "Pending"
+//     },
+
+//     trackingStatus: {
+//       type: String,
+//       enum: [
+//         "Not Started",
+//         "Tracking Active",
+//         "Completed"
+//       ],
+//       default: "Not Started"
+//     },
+
+//     exceptionStatus: {
+//       type: String,
+//       enum: [
+//         "None",
+//         "On Hold",
+//         "Delayed",
+//         "Cancelled",
+//         "Customs Issue",
+//         "Payment Pending",
+//         "Document Pending"
+//       ],
+//       default: "None"
+//     },
+
+//     approvedAt: Date,
+
+// deliveredAt: Date,
+
+// closedAt: Date,
+    
+//     supplier:{
+
+//       supplierId:{
+//           type:mongoose.Schema.Types.ObjectId,
+//           ref:"Supplier"
+//       },
+  
+//       companyName:String,
+  
+//       country:String
+  
+//   },
+//   notes:{
+//     type:String,
+//     default:""
+//     },
+
+//     additionalInformation:{
+
+//       packagingType:String,
+      
+//       packages:Number,
+      
+//       marksNumbers:String,
+      
+//       dangerousGoods:{
+//       type:Boolean,
+//       default:false
+//       },
+      
+//       specialHandling:{
+//       type:Boolean,
+//       default:false
+//       },
+      
+//       temperatureControl:{
+//       type:Boolean,
+//       default:false
+//       }
+      
+//       },
+
+//       carrier: {
+//         name: String,
+//         code: String,
+//         contactPerson: String,
+//         mobile: String,
+//         email: String
+//       },
+      
+//       assignedCarrierAt: Date,
+      
+//       assignedBy: {
+//         type: mongoose.Schema.Types.ObjectId,
+//         ref: "User"
+//       },
+
+//       statusHistory: [
+//         {
+//           status: String,
+      
+//           updatedBy: {
+//             type: mongoose.Schema.Types.ObjectId,
+//             ref: "User"
+//           },
+      
+//           remarks: String,
+      
+//           updatedAt: {
+//             type: Date,
+//             default: Date.now
+//           }
+//         }
+//       ],
+
+//       invoice: {
+//         invoiceNumber: String,
+//         invoiceDate: Date,
+//         invoiceValue: Number,
+//         currency: String
+//       },
+      
+//       paymentTerms: {
+//         type: String,
+//         default: ""
+//       },
+
+//       insuranceRequired: {
+//         type: Boolean,
+//         default: false
+//       },
+
+//       aiAnalysis: {
+//         riskLevel: String,
+//         freightEstimate: Number,
+//         estimatedTransit: String,
+//         requiredDocuments: [String],
+//         analyzedAt: Date
+//       },
+
+//       currentLocation: {
+//         country: String,
+//         city: String,
+//         latitude: Number,
+//         longitude: Number
+//       },
+
+//     awbNumber: String,
+    
+//     incoterm: String,
+    
+//     totalVolume: Number,
+    
+//     transitTime: String,
+    
+//     lastStatusUpdatedAt: {
+//       type: Date,
+//       default: Date.now
+//     },
+  
+//   }, { timestamps: true });
+
+// shipmentSchema.index({ shipmentStatus: 1 });
+
+// shipmentSchema.index({ approvalStatus: 1 });
+
+// shipmentSchema.index({ userId: 1 });
+
+// shipmentSchema.index({ createdAt: -1 });
+
+//   module.exports = mongoose.model("Shipment", shipmentSchema);
+
+
+// mahima code //
 const mongoose = require("mongoose");
 
-const shipmentSchema = new mongoose.Schema({
+  const shipmentSchema = new mongoose.Schema({
 
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
-  },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
+    },
+  
+    sbNumber: {
+      type: String,
+      unique: true
+    },
+  
+    
+    
+  
 
-  sbNumber: {
+  referenceNumber: {
     type: String,
-    unique: true
+    unique: true,
+    sparse: true
   },
-
   
+  createdByRole: {
+    type: String,
+    enum: ["Admin", "User", "B2B"],
+    default: "User"
+  },
+  customerType: {
+    type: String,
+    enum: ["Individual", "B2B", "Company"],
+    default: "Individual"
+  },
   
-
-
-referenceNumber: {
-  type: String,
-  unique: true,
-  sparse: true
-},
-
-createdByRole: {
-  type: String,
-  enum: ["Admin", "User", "B2B"],
-  default: "User"
-},
-customerType: {
-  type: String,
-  enum: ["Individual", "B2B", "Company"],
-  default: "Individual"
-},
-
-b2bCompanyId: {
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "Company",
-  default: null
-},
-
-assignedAdminId: {
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "User",
-  default: null
-},
-
-currentStep: {
-  type: Number,
-  default: 1
-},
+  b2bCompanyId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Company",
+    default: null
+  },
+  
+  assignedAdminId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    default: null
+  },
+  
+  currentStep: {
+    type: Number,
+    default: 1
+  },
 
 
 buyer:{
 
-buyerId:{
-    type:mongoose.Schema.Types.ObjectId,
-    ref:"Buyer"
-},
+  buyerId:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"Buyer"
+  },
 
-companyName:String,
+  companyName:String,
 
-country:String
+  country:String
 
 },
 cargo: {
-productName: String,
+  productName: String,
 
-productDescription: String,
+  productDescription: String,
 
-hsCode: {
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "HSCode"
-},
-
-hsCodeText: {
-  type: String,
-  default: ""
-},
-
-category: String,
-
-cargoType: {
-  type: String,
-  enum: ["General", "Dangerous", "Perishable", "Live"],
-  default: "General"
-},
-
-quantity: Number,
-
-unit: String,
-
-weight: Number,
-
-grossWeight: Number,
-
-netWeight: Number,
-
-volumetricWeight: Number,
-
-packages: Number,
-
-packingType: String,
-
-unNumber: String,
-
-packageMarks: String,
-
-isDangerous: {
-  type: Boolean,
-  default: false
-},
-
-isTemperatureControlled: {
-  type: Boolean,
-  default: false
-},
-
-isStackable: {
-  type: Boolean,
-  default: false
-},
-
-isFragile: {
-  type: Boolean,
-  default: false
-},
-
-hasBattery: {
-  type: Boolean,
-  default: false
-},
-
-isLithium: {
-  type: Boolean,
-  default: false
-},
-
-dimensions: {
-  length: Number,
-  width: Number,
-  height: Number,
-
-  unit: {
+  hsCode: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "HSCode"
+  },
+  
+  hsCodeText: {
     type: String,
-    default: "CM"
+    default: ""
+  },
+
+  category: String,
+
+  cargoType: {
+    type: String,
+    enum: ["General", "Dangerous", "Perishable", "Live"],
+    default: "General"
+  },
+
+  quantity: Number,
+
+  unit: String,
+
+  weight: Number,
+
+  grossWeight: Number,
+
+  netWeight: Number,
+
+  volumetricWeight: Number,
+
+  packages: Number,
+
+  packingType: String,
+
+  unNumber: String,
+
+  packageMarks: String,
+
+  isDangerous: {
+    type: Boolean,
+    default: false
+  },
+
+  isTemperatureControlled: {
+    type: Boolean,
+    default: false
+  },
+
+  isStackable: {
+    type: Boolean,
+    default: false
+  },
+
+  isFragile: {
+    type: Boolean,
+    default: false
+  },
+
+  hasBattery: {
+    type: Boolean,
+    default: false
+  },
+
+  isLithium: {
+    type: Boolean,
+    default: false
+  },
+
+  dimensions: {
+    length: Number,
+    width: Number,
+    height: Number,
+
+    unit: {
+      type: String,
+      default: "CM"
+    }
+  },
+
+  volumeCBM: Number,
+
+  value: Number,
+
+  currency: {
+    type: String,
+    default: "INR"
   }
 },
 
-volumeCBM: Number,
+route: {
+  originCountry: String,
+  originCity: String,
+  destinationCountry: String,
+  destinationCity: String,
+  warehouse: String,
 
-value: Number,
+  mode: {
+    type: String,
+    default: ""
+  }
+},
+  leadTime:{
+    type:Number,
+    default:0
+},
+
+shipmentDate:{
+  type:Date,
+  default:Date.now
+},
+
+customFields: {
+  type: mongoose.Schema.Types.Mixed,
+  default: {}
+},
 
 currency: {
   type: String,
   default: "INR"
-}
 },
 
-route: {
-originCountry: String,
-originCity: String,
-destinationCountry: String,
-destinationCity: String,
-warehouse: String,
-
-mode: {
-  type: String,
-  default: ""
-}
-},
-leadTime:{
-  type:Number,
-  default:0
-},
-
-shipmentDate:{
-type:Date,
-default:Date.now
-},
-
-customFields: {
-type: mongoose.Schema.Types.Mixed,
-default: {}
-},
-
-currency: {
-type: String,
-default: "INR"
-},
-
-
-
-quotationId: {
-  type: mongoose.Schema.Types.ObjectId,
-  ref: "Quotation",
-  default: null,
-},
-
+  
 quotationStatus: {
   type: String,
-  enum: [
-    "Not Created",
-    "Draft",
-    "Created",
-    "Shared",
-    "Accepted",
-    "Rejected",
-    "Expired",
-  ],
+  enum: ["Not Created", "Created", "Shared", "Accepted", "Rejected"],
   default: "Not Created",
 },
 
 // Admin-side commercial workflow; separate from shipmentStatus/approvalStatus.
 workflowStatus: {
-type: String,
-default: "Pending Review",
+  type: String,
+  default: "Pending Review",
 },
 
-  etd: Date,
-  eta: Date,
-
-  shipmentStatus: {
-    type: String,
-    enum: [
-      "Draft",
-      "Submitted",
-      "Pending Admin Approval",
-      "Approved",
-      "Carrier Assigned",
-      "Pickup Scheduled",
-      "Picked Up",
-      "Warehouse Received",
-      "Customs Documentation",
-      "Customs Clearance",
-      "In Transit",
-      "Arrived at Destination",
-      "Out for Delivery",
-      "Delivered",
-      "Closed"
-    ],
-    default: "Draft"
-  },
-
-  approvalStatus: {
-    type: String,
-    enum: [
-      "Pending",
-      "Approved",
-      "Rejected",
-      "Correction Required"
-    ],
-    default: "Pending"
-  },
-
-  documentStatus: {
-    type: String,
-    enum: [
-      "Pending",
-      "Uploaded",
-      "Under Review",
-      "Verified",
-      "Rejected"
-    ],
-    default: "Pending"
-  },
-
-  amount: Number,
-  vendor: String,
-  estimatedCost: {
-    type: Number,
-    default: 0
-  },
+    etd: Date,
+    eta: Date,
   
-  paidAmount: {
-    type: Number,
-    default: 0
-  },
+    shipmentStatus: {
+      type: String,
+      enum: [
+        "Draft",
+        "Submitted",
+        "Pending Admin Approval",
+        "Approved",
+        "Carrier Assigned",
+        "Pickup Scheduled",
+        "Picked Up",
+        "Warehouse Received",
+        "Customs Documentation",
+        "Customs Clearance",
+        "In Transit",
+        "Arrived at Destination",
+        "Out for Delivery",
+        "Delivered",
+        "Closed"
+      ],
+      default: "Draft"
+    },
+
+    approvalStatus: {
+      type: String,
+      enum: [
+        "Pending",
+        "Approved",
+        "Rejected",
+        "Correction Required"
+      ],
+      default: "Pending"
+    },
   
-  balanceAmount: {
-    type: Number,
-    default: 0
-  },
+    documentStatus: {
+      type: String,
+      enum: [
+        "Pending",
+        "Uploaded",
+        "Under Review",
+        "Verified",
+        "Rejected"
+      ],
+      default: "Pending"
+    },
   
-  paymentStatus: {
-    type: String,
-    enum: [
-      "Pending",
-      "Partially Paid",
-      "Paid",
-      "Failed",
-      "Refunded",
-      "Overdue"
-    ],
-    default: "Pending"
-  },
+    amount: Number,
+    vendor: String,
+    estimatedCost: {
+      type: Number,
+      default: 0
+    },
+    
+    paidAmount: {
+      type: Number,
+      default: 0
+    },
+    
+    balanceAmount: {
+      type: Number,
+      default: 0
+    },
+    
+    paymentStatus: {
+      type: String,
+      enum: [
+        "Pending",
+        "Partially Paid",
+        "Paid",
+        "Failed",
+        "Refunded",
+        "Overdue"
+      ],
+      default: "Pending"
+    },
 
-  trackingStatus: {
-    type: String,
-    enum: [
-      "Not Started",
-      "Tracking Active",
-      "Completed"
-    ],
-    default: "Not Started"
-  },
+    trackingStatus: {
+      type: String,
+      enum: [
+        "Not Started",
+        "Tracking Active",
+        "Completed"
+      ],
+      default: "Not Started"
+    },
 
-  exceptionStatus: {
-    type: String,
-    enum: [
-      "None",
-      "On Hold",
-      "Delayed",
-      "Cancelled",
-      "Customs Issue",
-      "Payment Pending",
-      "Document Pending"
-    ],
-    default: "None"
-  },
+    exceptionStatus: {
+      type: String,
+      enum: [
+        "None",
+        "On Hold",
+        "Delayed",
+        "Cancelled",
+        "Customs Issue",
+        "Payment Pending",
+        "Document Pending"
+      ],
+      default: "None"
+    },
 
-  approvedAt: Date,
+    approvedAt: Date,
 
 deliveredAt: Date,
 
 closedAt: Date,
+    
+    supplier:{
+
+      supplierId:{
+          type:mongoose.Schema.Types.ObjectId,
+          ref:"Supplier"
+      },
   
-  supplier:{
-
-    supplierId:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Supplier"
-    },
-
-    companyName:String,
-
-    country:String
-
-},
-notes:{
-  type:String,
-  default:""
+      companyName:String,
+  
+      country:String
+  
   },
-
-  additionalInformation: {
-    packagingType: String,
-    packages: Number,
-    marksNumbers: String,
-  
-    inspectionRequired: {
-      type: Boolean,
-      default: false
-    },
-  
-    dangerousGoods: {
-      type: Boolean,
-      default: false
-    },
-  
-    specialHandling: {
-      type: Boolean,
-      default: false
-    },
-  
-    temperatureControl: {
-      type: Boolean,
-      default: false
-    },
-  
-    remarks: {
-      type: String,
-      default: ""
-    }
-  },
-
-    carrier: {
-      name: String,
-      code: String,
-      contactPerson: String,
-      mobile: String,
-      email: String
-    },
-    
-    assignedCarrierAt: Date,
-    
-    assignedBy: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+  notes:{
+    type:String,
+    default:""
     },
 
-    statusHistory: [
-      {
-        status: String,
+    additionalInformation: {
+      packagingType: String,
+      packages: Number,
+      marksNumbers: String,
     
-        updatedBy: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User"
-        },
+      inspectionRequired: {
+        type: Boolean,
+        default: false
+      },
     
-        remarks: String,
+      dangerousGoods: {
+        type: Boolean,
+        default: false
+      },
     
-        updatedAt: {
-          type: Date,
-          default: Date.now
-        }
+      specialHandling: {
+        type: Boolean,
+        default: false
+      },
+    
+      temperatureControl: {
+        type: Boolean,
+        default: false
+      },
+    
+      remarks: {
+        type: String,
+        default: ""
       }
-    ],
+    },
 
-    invoice: {
-      invoiceNumber: String,
-      invoiceDate: Date,
-      invoiceValue: Number,
-      currency: String
+      carrier: {
+        name: String,
+        code: String,
+        contactPerson: String,
+        mobile: String,
+        email: String
+      },
+      
+      assignedCarrierAt: Date,
+      
+      assignedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+      },
+
+      statusHistory: [
+        {
+          status: String,
+      
+          updatedBy: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User"
+          },
+      
+          remarks: String,
+      
+          updatedAt: {
+            type: Date,
+            default: Date.now
+          }
+        }
+      ],
+
+      invoice: {
+        invoiceNumber: String,
+        invoiceDate: Date,
+        invoiceValue: Number,
+        currency: String
+      },
+      
+      paymentTerms: {
+        type: String,
+        default: ""
+      },
+
+      invoiceId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "TradeInvoice",
+        default: null,
+      },
+      
+      invoiceStatus: {
+        type: String,
+        enum: ["Not Generated", "Generated", "Sent"],
+        default: "Not Generated",
+      },
+
+      insuranceRequired: {
+        type: Boolean,
+        default: false
+      },
+
+      aiAnalysis: {
+        riskLevel: String,
+        freightEstimate: Number,
+        estimatedTransit: String,
+        requiredDocuments: [String],
+        analyzedAt: Date
+      },
+
+      currentLocation: {
+        country: String,
+        city: String,
+        latitude: Number,
+        longitude: Number
+      },
+
+    awbNumber: String,
+    
+    incoterm: String,
+    
+    totalVolume: Number,
+    
+    transitTime: String,
+    
+    lastStatusUpdatedAt: {
+      type: Date,
+      default: Date.now
+    },
+
+    shipmentType: {
+      type: String,
+      default: "Export"
     },
     
-    paymentTerms: {
+    shipmentPurpose: {
       type: String,
       default: ""
     },
-
-    invoiceId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "TradeInvoice",
-      default: null,
+    
+    shipmentMode: {
+      type: String,
+      default: ""
     },
     
-    invoiceStatus: {
+    priority: {
       type: String,
-      enum: ["Not Generated", "Generated", "Sent"],
-      default: "Not Generated",
+      enum: ["Low", "Medium", "High"],
+      default: "Medium",
+    },
+    
+    bookingNo: {
+      type: String,
+      default: "",
+      trim: true,
     },
 
-    insuranceRequired: {
+    exporter: {
+      companyName: String,
+      iecNumber: String,
+      contactPerson: String,
+      email: String,
+      mobile: String
+    },
+
+    importer: {
+      companyName: String,
+      address: String,
+      iecNumber: String,
+      contactPerson: String,
+      email: String,
+      mobile: String
+    },
+
+    exportIncentive: {
       type: Boolean,
       default: false
     },
-
-    aiAnalysis: {
-      riskLevel: String,
-      freightEstimate: Number,
-      estimatedTransit: String,
-      requiredDocuments: [String],
-      analyzedAt: Date
+    
+    notifyParty: {
+      companyName: String,
+      contactPerson: String,
+      email: String,
+      mobile: String
     },
-
-    currentLocation: {
-      country: String,
-      city: String,
-      latitude: Number,
-      longitude: Number
-    },
-
-  awbNumber: String,
   
-  incoterm: String,
-  
-  totalVolume: Number,
-  
-  transitTime: String,
-  
-  lastStatusUpdatedAt: {
-    type: Date,
-    default: Date.now
-  },
-
-  shipmentType: {
-    type: String,
-    default: "Export"
-  },
-  
-  shipmentPurpose: {
-    type: String,
-    default: ""
-  },
-  
-  shipmentMode: {
-    type: String,
-    default: ""
-  },
-  
-  priority: {
-    type: String,
-    enum: ["Low", "Medium", "High"],
-    default: "Medium",
-  },
-  
-  bookingNo: {
-    type: String,
-    default: "",
-    trim: true,
-  },
-
-  exporter: {
-    companyName: String,
-    iecNumber: String,
-    contactPerson: String,
-    email: String,
-    mobile: String
-  },
-
-  importer: {
-    companyName: String,
-    address: String,
-    iecNumber: String,
-    contactPerson: String,
-    email: String,
-    mobile: String
-  },
-
-  exportIncentive: {
-    type: Boolean,
-    default: false
-  },
-  
-  notifyParty: {
-    companyName: String,
-    contactPerson: String,
-    email: String,
-    mobile: String
-  },
-
-}, { timestamps: true });
+  }, { timestamps: true });
 
 shipmentSchema.index({ shipmentStatus: 1 });
 
@@ -530,19 +897,19 @@ shipmentSchema.index({ userId: 1 });
 shipmentSchema.index({ createdAt: -1 });
 // Auto-generate Booking Number
 shipmentSchema.pre("save", async function () {
-if (!this.bookingNo || !this.bookingNo.trim()) {
-  const date = new Date();
+  if (!this.bookingNo || !this.bookingNo.trim()) {
+    const date = new Date();
 
-  const datePart = [
-    date.getFullYear(),
-    String(date.getMonth() + 1).padStart(2, "0"),
-    String(date.getDate()).padStart(2, "0"),
-  ].join("");
+    const datePart = [
+      date.getFullYear(),
+      String(date.getMonth() + 1).padStart(2, "0"),
+      String(date.getDate()).padStart(2, "0"),
+    ].join("");
 
-  const randomPart = Math.floor(100000 + Math.random() * 900000);
+    const randomPart = Math.floor(100000 + Math.random() * 900000);
 
-  this.bookingNo = `BKG-${datePart}-${randomPart}`;
-}
+    this.bookingNo = `BKG-${datePart}-${randomPart}`;
+  }
 });
 
-module.exports = mongoose.model("Shipment", shipmentSchema);
+  module.exports = mongoose.model("Shipment", shipmentSchema);

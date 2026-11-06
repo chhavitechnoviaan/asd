@@ -540,7 +540,7 @@
 
 //       <aside
 //         className={`
-//                fixed lg:sticky top-14 bottom-0 lg:top-16   left-0  z-20 w-60
+//                fixed lg:sticky top-14 bottom-0 lg:top-16   left-0  z-20 w-60  
 //                 bg-white text-white flex flex-col sm:h-[calc(104vh-5rem)]  h-[calc(105vh-5rem)]
 //                transform transition-transform duration-300 ease-in-out
 //                ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
@@ -2108,7 +2108,7 @@ export default function B2BDashboard({ profileMode = false }) {
 
       <aside
         className={`
-               fixed lg:sticky top-14 bottom-0 lg:top-16   left-0  z-20 w-60
+               fixed lg:sticky top-14 bottom-0 lg:top-16   left-0  z-20 w-60  
                 bg-white text-white flex flex-col sm:h-[calc(104vh-5rem)]  h-[calc(105vh-5rem)]
                transform transition-transform duration-300 ease-in-out
                ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}

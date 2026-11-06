@@ -276,29 +276,7 @@ exports.createInvoice = async (req, res) => {
       });
     }
 
-    const creatorRole = String(shipment.createdByRole || "").trim().toLowerCase();
-    const customerType = String(shipment.customerType || "").trim().toLowerCase();
-
-    // Explicit B2B markers always take priority, including Admin-created
-    // shipments that are actually linked to a B2B company.
-    const isB2BShipment =
-      creatorRole === "b2b" ||
-      customerType === "b2b" ||
-      Boolean(shipment.b2bCompanyId);
-
-    const isAdminCreatedShipment = creatorRole === "admin" && !isB2BShipment;
-    const isAdminOnlyShipment =
-      !isB2BShipment &&
-      (
-        creatorRole === "user" ||
-        customerType === "individual" ||
-        !creatorRole ||
-        isAdminCreatedShipment
-      );
-
-    // Normal User and Admin-created non-B2B invoices are prepared internally
-    // by Admin after quotation creation. B2B still requires acceptance.
-    if (!isAdminOnlyShipment && quotation.status !== "Accepted") {
+    if (quotation.status !== "Accepted") {
       return res.status(409).json({
         success: false,
         message: `Invoice cannot be generated. Quotation status is ${quotation.status}. Customer acceptance is required.`,
@@ -673,7 +651,7 @@ const finalInvoiceNumber =
       // Relations
       userId: invoiceUserId,
       shipment: shipmentId,
-      quotation: quotation._id,
+      quotation: quotationId || null,
       createdBy: req.user?._id || null,
     });
 
@@ -743,13 +721,6 @@ exports.getInvoicesByShipment = async (req, res) => {
       });
     }
 
-    const creatorRole = String(shipment.createdByRole || "").trim().toLowerCase();
-    const customerType = String(shipment.customerType || "").trim().toLowerCase();
-    const isB2BShipment = creatorRole === "b2b" || customerType === "b2b" || Boolean(shipment.b2bCompanyId);
-    if (req.user?.roleName !== "admin" && !isB2BShipment) {
-      return res.status(403).json({ success: false, message: "Invoices for Normal User shipments are Admin-only." });
-    }
-
     const invoices = await TradeInvoice.find({ shipment: shipmentId })
       .populate(shipmentPopulate)
       .sort({ createdAt: -1 });
@@ -784,14 +755,6 @@ exports.getInvoiceById = async (req, res) => {
         success: false,
         message: "Invoice not found",
       });
-    }
-
-    const invoiceShipment = await Shipment.findById(invoice.shipment);
-    const creatorRole = String(invoiceShipment?.createdByRole || "").trim().toLowerCase();
-    const customerType = String(invoiceShipment?.customerType || "").trim().toLowerCase();
-    const isB2BShipment = creatorRole === "b2b" || customerType === "b2b" || Boolean(invoiceShipment?.b2bCompanyId);
-    if (req.user?.roleName !== "admin" && !isB2BShipment) {
-      return res.status(403).json({ success: false, message: "Invoices for Normal User shipments are Admin-only." });
     }
 
     if (req.user?.roleName !== "admin") {
@@ -844,13 +807,6 @@ exports.sendInvoice = async (req, res) => {
     const shipment = await Shipment.findById(invoice.shipment);
     if (!shipment) {
       return res.status(404).json({ success: false, message: "Linked shipment not found" });
-    }
-
-    const creatorRole = String(shipment.createdByRole || "").trim().toLowerCase();
-    const customerType = String(shipment.customerType || "").trim().toLowerCase();
-    const isB2BShipment = creatorRole === "b2b" || customerType === "b2b" || Boolean(shipment.b2bCompanyId);
-    if (!isB2BShipment) {
-      return res.status(403).json({ success: false, message: "Normal User invoices are Admin-only and cannot be shared or marked as sent." });
     }
 
     if (shipment.invoiceStatus === "Sent") {

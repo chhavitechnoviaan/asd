@@ -608,7 +608,6 @@ export default function B2BAuth() {
         email: formData.email,
         password: formData.password,
         confirmPassword: formData.confirmPassword,
-        accountType: "b2b",
         companyName: formData.fullName, // 🔥 adjust if needed
         gstNumber: formData.gst,
         importExportId: formData.exportId,
@@ -631,28 +630,15 @@ export default function B2BAuth() {
   const loginHandler = async (e) => {
     e.preventDefault();
   
-    alert("B2B LOGIN HANDLER CALLED");
-  
     try {
       const res = await API.post("/auth/login", {
         email: formData.email,
         password: formData.password,
-        type: "b2b",
+        type: "b2b"
       });
   
-      console.log("B2B LOGIN RESPONSE:", res.data);
-  
-      const authenticatedUser = {
-        ...res.data.user,
-        accountType: "b2b",
-      };
-  
       localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(authenticatedUser));
-      localStorage.setItem("accountType", "b2b");
-  
-      console.log("SAVED USER:", localStorage.getItem("user"));
-      console.log("SAVED ACCOUNT TYPE:", localStorage.getItem("accountType"));
+      localStorage.setItem("user", JSON.stringify(res.data.user));
   
       toast.success("Login Successful ✅");
   
@@ -661,10 +647,10 @@ export default function B2BAuth() {
       }, 1500);
   
     } catch (err) {
-      console.error("B2B LOGIN ERROR:", err.response?.data || err);
       toast.error(err.response?.data?.msg || "Login failed ❌");
     }
   };
+
   const ForgetPassoword = (e) => {
     console.log("for get passwr");
   };
