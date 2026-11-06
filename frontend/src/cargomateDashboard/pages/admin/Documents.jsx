@@ -495,28 +495,18 @@ export default function Documents({ shipment }) {
   const handleOpenPreview = (doc) => {
     const url = getDocumentUrl(doc);
     const name = getDocumentName(doc);
-
+  
     if (!url) {
       alert("Document URL is missing.");
       return;
     }
-
-    const fileInfo = getFileTypeInfo(
-      url,
-      name,
-      doc.mimeType || doc.mimetype
-    );
-
-    setPreviewError(false);
-    setPreviewLoading(true);
-
-    setPreviewDoc({
-      url,
-      name,
-      type: fileInfo.type,
-      isPdf: fileInfo.type === "pdf",
-      isImage: fileInfo.type === "image",
-    });
+  
+    // Open document in a separate browser tab
+    const newWindow = window.open(url, "_blank", "noopener,noreferrer");
+  
+    if (!newWindow) {
+      alert("Please allow popups for this website.");
+    }
   };
 
   // DOWNLOAD DOCUMENT

@@ -1,999 +1,3 @@
-// import { useState } from "react";
-// import {
-//   MapPin,
-//   Pencil,
-//   FileText,
-//   FileSignature,
-//   Share2,
-//   RefreshCcw,
-// } from "lucide-react";
-// import {
-//   FaPlus, FaMagnifyingGlass, FaXmark, FaChevronDown,
-//   FaStar, FaTruck, FaBoxOpen, FaWarehouse, FaFileContract
-// } from "react-icons/fa6";
-// const tabs = ["Shipment Details", "Parties & Contacts", "Cargo Details", "Documents", "Charges"];
-// import PartiesContact from "./Parties&Contact"
-// import CargoDetails from "./CargoDetails"
-// import Documents from "./Documents"
-// import Charges from "./Charges"
-// import ShipmentDetails from "./ShipmentDetails"
-// import Quotation from "./Quotation"
-// import CreateNewInvoice from "./CreateNewInvoice";
-// const actions = [
-//   { icon: Pencil, bg: "bg-purple-50", color: "text-purple-600", title: "Edit Shipment", desc: "Make changes to shipment details." },
-//   { icon: FileSignature, bg: "bg-blue-50", color: "text-blue-600", title: "Create quotation", desc: "Generate and share quotation",},
-//   // { icon: Share2, bg: "bg-orange-50", color: "text-orange-500", title: "Share Quotation", desc: "Share quotation with client." },
-//   { icon: RefreshCcw, bg: "bg-blue-50", color: "text-blue-500", title: "Change Status", desc: "Change Shipment status." },
-//     { icon: FileText, bg: "bg-green-50", color: "text-green-600", title: "Create Invoice", desc: "Create invoice for this shipment." },
-
-// ];
-
-// export default function ReviewShipment({onClose}) {
-//   const [activeTab, setActiveTab] = useState("Shipment Details");
-//   const [viewShipmentDetail, setViewShipmentDetail] = useState(false)
-//   const [showQuotationModal, setShowQuotationModal] = useState(false);
-//   const [editBasicInfo, setEditBasicInfo] = useState(false);
-//   const [newInvoice, setNewInvoice] = useState(false)
-//   const [basicInfo, setBasicInfo] = useState({
-//   shipmentType: "Export",
-//   transportMode: "Sea",
-//   incoterm: "FOB",
-//   priority: "Medium",
-//   referenceNo: "REF-2025-789",
-//   bookingNo: "BK-4587",
-//   etd: "25 May, 2025",
-//   eta: "05 June, 2025",
-// });
-
-// const initialRoute = {
-//   origin: "Nhava Sheva Port,India",
-//   destination: "Rotterdam Port, Netherlands",
-//   placeOfReceipt: "Indore, Madhya Pradesh",
-//   finalDelivery: "Rotterdam Warehouse,NL",
-// };
-// const [route, setRoute] = useState(initialRoute);
-// const [originalRoute, setOriginalRoute] = useState(initialRoute);
-// const [editRoute, setEditRoute] = useState(false);
-
-// const handleBasicInfoChange = (key) => (e) => {
-//   setBasicInfo((prev) => ({
-//     ...prev,
-//     [key]: e.target.value,
-//   }));
-// };
-
-// const saveBaseInfo = () => {
-
-//             try {
-//               // API call yaha kar sakte ho
-//               // await fetch("/api/shipment/basic-info", {
-//               //   method: "PUT",
-//               //   headers: {
-//               //     "Content-Type": "application/json",
-//               //   },
-//               //   body: JSON.stringify(basicInfo),
-//               // });
-
-//               setEditBasicInfo(false);
-//             } catch (error) {
-//               console.error("Failed to save basic information", error);
-//             }
-          
-// }
-//   const handleProceed = async () => {
-//     try {
-//       await fetch("/api/shipments/SHP-250520-0001/proceed", { method: "POST" });
-//     } catch (err) {}
-//   };
-
-//   const handleRouteChange = (key) => (e) => {
-//   setRoute((prev) => ({
-//     ...prev,
-//     [key]: e.target.value,
-//   }));
-// };
-
-// const handleRouteEdit = () => {
-//   setOriginalRoute(route);
-//   setEditRoute(true);
-// };
-
-// const handleRouteCancel = () => {
-//   setRoute(originalRoute);
-//   setEditRoute(false);
-// };
-
-// const handleRouteSave = async () => {
-//   try {
-//     // API call yaha kar sakte ho
-//     // await fetch("/api/shipment/route", {
-//     //   method: "PUT",
-//     //   headers: {
-//     //     "Content-Type": "application/json",
-//     //   },
-//     //   body: JSON.stringify(route),
-//     // });
-
-//     setOriginalRoute(route);
-//     setEditRoute(false);
-//   } catch (error) {
-//     console.error("Failed to save route", error);
-//   }
-// };
-
-// const initialCargo = {
-//   productName: "Allnonds (Blached)",
-//   hsCode: "0802.12.00",
-//   packagingType: "Cartons",
-//   totalPackages: "120",
-//   netWeight: "1500.00 KG",
-//   grossWeight: "1650.00 KG",
-//   volume: "3.250 CBM",
-//   cargoDescription: "Food Products",
-// };
-
-// const [cargo, setCargo] = useState(initialCargo);
-// const [originalCargo, setOriginalCargo] = useState(initialCargo);
-// const [editCargo, setEditCargo] = useState(false);
-
-// const handleCargoChange = (key) => (e) => {
-//   setCargo((prev) => ({
-//     ...prev,
-//     [key]: e.target.value,
-//   }));
-// };
-
-// const handleCargoEdit = () => {
-//   setOriginalCargo(cargo);
-//   setEditCargo(true);
-// };
-
-// const handleCargoCancel = () => {
-//   setCargo(originalCargo);
-//   setEditCargo(false);
-// };
-
-// const handleCargoSave = async () => {
-//   try {
-//     // API call yaha kar sakte ho
-//     // await fetch("/api/shipment/cargo-information", {
-//     //   method: "PUT",
-//     //   headers: {
-//     //     "Content-Type": "application/json",
-//     //   },
-//     //   body: JSON.stringify(cargo),
-//     // });
-
-//     setOriginalCargo(cargo);
-//     setEditCargo(false);
-//   } catch (error) {
-//     console.error("Failed to save cargo information", error);
-//   }
-// };
-
-// const initialAdditionalInfo = {
-//   specialInstructions: "Handle with care, keep away from moisture",
-//   insuranceRequired: "Yes",
-//   inspectionRequired: "Yes",
-//   remarks: "Please ensure time delivery",
-// };
-
-// const [additionalInfo, setAdditionalInfo] = useState(initialAdditionalInfo);
-// const [originalAdditionalInfo, setOriginalAdditionalInfo] =
-//   useState(initialAdditionalInfo);
-// const [editAdditionalInfo, setEditAdditionalInfo] = useState(false);
-
-// const handleAdditionalInfoChange = (key) => (e) => {
-//   setAdditionalInfo((prev) => ({
-//     ...prev,
-//     [key]: e.target.value,
-//   }));
-// };
-
-// const handleAdditionalInfoEdit = () => {
-//   setOriginalAdditionalInfo(additionalInfo);
-//   setEditAdditionalInfo(true);
-// };
-
-// const handleAdditionalInfoCancel = () => {
-//   setAdditionalInfo(originalAdditionalInfo);
-//   setEditAdditionalInfo(false);
-// };
-
-// const handleAdditionalInfoSave = async () => {
-//   try {
-//     // API call yaha kar sakte ho
-//     // await fetch("/api/shipment/additional-information", {
-//     //   method: "PUT",
-//     //   headers: {
-//     //     "Content-Type": "application/json",
-//     //   },
-//     //   body: JSON.stringify(additionalInfo),
-//     // });
-
-//     setOriginalAdditionalInfo(additionalInfo);
-//     setEditAdditionalInfo(false);
-//   } catch (error) {
-//     console.error("Failed to save additional information", error);
-//   }
-// };
-
-//   return (
-//   <div className="fixed inset-0 z-30 flex items-center justify-center bg-black/50  ">
-//    {!viewShipmentDetail && (  
-//     <div className="w-full max-h-[90vh] overflow-y-auto hide-scrollbar ">
-    
-//     <div className="w-full max-w-7xl mx-auto grid lg:grid-cols-[70%_30%] gap-4">
-//       <div className=" bg-white rounded-2xl shadow-xl p-4 sm:p-6">
-//         <div className="flex justify-between items-start"> 
-//         <div className="flex items-center gap-3 mb-4">
-//           <div className="w-11 h-11 rounded-full bg-purple-50 flex items-center justify-center shrink-0">
-//             <MapPin className="w-5 h-5 text-purple-600" />
-//           </div>
-//           <div>
-//             <h2 className="text-xl font-bold text-gray-900">Review Shipment</h2>
-//             <p className="text-sm text-gray-500">Review, edit shipment details, create invoice or share quotation.</p>
-//           </div>
-//         </div>
-//             <div> <button onClick={onClose}> <FaXmark className="text-lg"/></button></div>
-//         </div>
-
-//         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 border border-gray-100 rounded-lg p-3 mb-4 text-xs">
-//           <div>
-//             <p className="text-gray-400">Shipment ID</p>
-//             <p className="font-semibold text-gray-900">SHP-250520-0001</p>
-//           </div>
-//           <div>
-//             <p className="text-gray-400">Submitted By</p>
-//             <p className="font-semibold text-gray-900">Aarav Sharma</p>
-//           </div>
-//           <div>
-//             <p className="text-gray-400">Company</p>
-//             <p className="font-semibold text-gray-900">ABC Pvt. Ltd.</p>
-//           </div>
-//           <div>
-//             <p className="text-gray-400">Submitted On</p>
-//             <p className="font-semibold text-gray-900">20 May 2025, 10:30 PM</p>
-//           </div>
-//           <div>
-//             <p className="text-gray-400">Current Status</p>
-//             <p className="font-semibold text-orange-500">Under Review</p>
-//           </div>
-//         </div>
-
-//         <div className="flex gap-4 overflow-x-auto border-b border-gray-200 mb-4">
-//           {tabs.map((tab, i) => (
-//             <button
-//               key={i}
-//               onClick={() => setActiveTab(tab)}
-//               className={`whitespace-nowrap text-sm pb-2 border-b-2 ${
-//                 activeTab === tab
-//                   ? "text-purple-600 border-purple-600 font-medium"
-//                   : "text-gray-500 border-transparent"
-//               }`}
-//             >
-//               {tab}
-//             </button>
-//           ))}
-//         </div>
-
-//         {activeTab === "Shipment Details" && (
-//           <div className="space-y-4">
-//             <div className="border border-gray-300 rounded-lg   ">
-//              <div className="border border-gray-100 rounded-lg p-4">
-//             <div className="flex items-center justify-between mb-3">
-//               <p className="font-semibold text-gray-900 text-sm">
-//                 Basic Information
-//               </p>
-
-//               {!editBasicInfo ? (
-//                 <button
-//                   type="button"
-//                   onClick={() => setEditBasicInfo(true)}
-//                   className="text-xs text-blue-600 border border-blue-200 rounded-lg px-3 py-1.5"
-//                 >
-//                   Edit Section
-//                 </button>
-//               ) : (
-//                 <div className="flex items-center gap-2">
-//                   <button
-//                     type="button"
-//                     onClick={() => setEditBasicInfo(false)}
-//                     className="text-xs text-gray-600 border border-gray-200 rounded-lg px-3 py-1.5"
-//                   >
-//                     Cancel
-//                   </button>
-
-//                   <button
-//                     type="button"
-//                     onClick={saveBaseInfo}
-//                     className="text-xs text-white bg-blue-600 rounded-lg px-3 py-1.5"
-//                   >
-//                     Save
-//                   </button>
-//                 </div>
-//               )}
-//             </div>
-
-//             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
-
-//               {/* Shipment Type */}
-//               <div>
-//                 <p className="text-xs text-gray-400">Shipment Type</p>
-
-//                 {editBasicInfo ? (
-//                   <input
-//                     value={basicInfo.shipmentType}
-//                     onChange={handleBasicInfoChange("shipmentType")}
-//                     className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                   />
-//                 ) : (
-//                   <p className="font-medium text-gray-900">
-//                     {basicInfo.shipmentType}
-//                   </p>
-//                 )}
-//               </div>
-
-//               {/* Mode of Transport */}
-//               <div>
-//                 <p className="text-xs text-gray-400">Mode of Transport</p>
-
-//                 {editBasicInfo ? (
-//                   <input
-//                     value={basicInfo.transportMode}
-//                     onChange={handleBasicInfoChange("transportMode")}
-//                     className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                   />
-//                 ) : (
-//                   <p className="font-medium text-gray-900">
-//                     {basicInfo.transportMode}
-//                   </p>
-//                 )}
-//               </div>
-
-//               {/* Incoterm */}
-//               <div>
-//                 <p className="text-xs text-gray-400">Incoterm</p>
-
-//                 {editBasicInfo ? (
-//                   <input
-//                     value={basicInfo.incoterm}
-//                     onChange={handleBasicInfoChange("incoterm")}
-//                     className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                   />
-//                 ) : (
-//                   <p className="font-medium text-gray-900">
-//                     {basicInfo.incoterm}
-//                   </p>
-//                 )}
-//               </div>
-
-//               {/* Priority */}
-//               <div>
-//                 <p className="text-xs text-gray-400">Priority</p>
-
-//                 {editBasicInfo ? (
-//                   <select
-//                     value={basicInfo.priority}
-//                     onChange={handleBasicInfoChange("priority")}
-//                     className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                   >
-//                     <option value="Low">Low</option>
-//                     <option value="Medium">Medium</option>
-//                     <option value="High">High</option>
-//                   </select>
-//                 ) : (
-//                   <p className="font-medium text-orange-500">
-//                     {basicInfo.priority}
-//                   </p>
-//                 )}
-//               </div>
-
-//               {/* Reference No */}
-//               <div>
-//                 <p className="text-xs text-gray-400">Reference No.</p>
-
-//                 {editBasicInfo ? (
-//                   <input
-//                     value={basicInfo.referenceNo}
-//                     onChange={handleBasicInfoChange("referenceNo")}
-//                     className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                   />
-//                 ) : (
-//                   <p className="font-medium text-gray-900">
-//                     {basicInfo.referenceNo}
-//                   </p>
-//                 )}
-//               </div>
-
-//               {/* Booking No */}
-//               <div>
-//                 <p className="text-xs text-gray-400">Booking No.</p>
-
-//                 {editBasicInfo ? (
-//                   <input
-//                     value={basicInfo.bookingNo}
-//                     onChange={handleBasicInfoChange("bookingNo")}
-//                     className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                   />
-//                 ) : (
-//                   <p className="font-medium text-gray-900">
-//                     {basicInfo.bookingNo}
-//                   </p>
-//                 )}
-//               </div>
-
-//               {/* ETD */}
-//               <div>
-//                 <p className="text-xs text-gray-400">ETD (expected)</p>
-
-//                 {editBasicInfo ? (
-//                   <input
-//                     value={basicInfo.etd}
-//                     onChange={handleBasicInfoChange("etd")}
-//                     className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                   />
-//                 ) : (
-//                   <p className="font-medium text-gray-900">
-//                     {basicInfo.etd}
-//                   </p>
-//                 )}
-//               </div>
-
-//               {/* ETA */}
-//               <div>
-//                 <p className="text-xs text-gray-400">ETA (expected)</p>
-
-//                 {editBasicInfo ? (
-//                   <input
-//                     value={basicInfo.eta}
-//                     onChange={handleBasicInfoChange("eta")}
-//                     className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                   />
-//                 ) : (
-//                   <p className="font-medium text-gray-900">
-//                     {basicInfo.eta}
-//                   </p>
-//                 )}
-//               </div>
-
-//             </div>
-//           </div>
-//             </div>
-
-//           <div className="border border-gray-300 rounded-lg p-4">
-//   <div className="flex items-center justify-between mb-3">
-//     <p className="font-semibold text-gray-900 text-sm">Route</p>
-
-//     {!editRoute ? (
-//       <button
-//         type="button"
-//         onClick={handleRouteEdit}
-//         className="text-xs text-blue-600 border border-blue-200 rounded-lg px-3 py-1.5"
-//       >
-//         Edit Section
-//       </button>
-//     ) : (
-//       <div className="flex items-center gap-2">
-//         <button
-//           type="button"
-//           onClick={handleRouteCancel}
-//           className="text-xs text-blue-600 border border-blue-200 rounded-lg px-3 py-1.5"
-//         >
-//           Cancel
-//         </button>
-
-//         <button
-//           type="button"
-//           onClick={handleRouteSave}
-//           className="text-xs text-white bg-blue-600 border border-blue-600 rounded-lg px-3 py-1.5"
-//         >
-//           Save
-//         </button>
-//       </div>
-//     )}
-//   </div>
-
-//   <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
-
-//     {/* From */}
-//     <div>
-//       <p className="text-xs text-gray-400">From (Origin)</p>
-
-//       {editRoute ? (
-//         <input
-//           value={route.origin}
-//           onChange={handleRouteChange("origin")}
-//           className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//         />
-//       ) : (
-//         <p className="font-medium text-gray-900">
-//           {route.origin}
-//         </p>
-//       )}
-//     </div>
-
-//     {/* To */}
-//     <div>
-//       <p className="text-xs text-gray-400">To (Destination)</p>
-
-//       {editRoute ? (
-//         <input
-//           value={route.destination}
-//           onChange={handleRouteChange("destination")}
-//           className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//         />
-//       ) : (
-//         <p className="font-medium text-gray-900">
-//           {route.destination}
-//         </p>
-//       )}
-//     </div>
-
-//     {/* Place of receipt */}
-//     <div>
-//       <p className="text-xs text-gray-400">Place of receipt</p>
-
-//       {editRoute ? (
-//         <input
-//           value={route.placeOfReceipt}
-//           onChange={handleRouteChange("placeOfReceipt")}
-//           className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//         />
-//       ) : (
-//         <p className="font-medium text-gray-900">
-//           {route.placeOfReceipt}
-//         </p>
-//       )}
-//     </div>
-
-//     {/* Final Delivery */}
-//     <div>
-//       <p className="text-xs text-gray-400">Final Delivery</p>
-
-//       {editRoute ? (
-//         <input
-//           value={route.finalDelivery}
-//           onChange={handleRouteChange("finalDelivery")}
-//           className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//         />
-//       ) : (
-//         <p className="font-medium text-gray-900">
-//           {route.finalDelivery}
-//         </p>
-//       )}
-//     </div>
-
-//   </div>
-//           </div>
-
-//             <div className="border border-gray-300 rounded-lg p-4">
-//             <div className="flex items-center justify-between mb-3">
-//               <p className="font-semibold text-gray-900 text-sm">
-//                 Cargo Information
-//               </p>
-
-//               {!editCargo ? (
-//                 <button
-//                   type="button"
-//                   onClick={handleCargoEdit}
-//                   className="text-xs text-blue-600 border border-blue-200 rounded-lg px-3 py-1.5"
-//                 >
-//                   Edit Section
-//                 </button>
-//               ) : (
-//                 <div className="flex items-center gap-2">
-//                   <button
-//                     type="button"
-//                     onClick={handleCargoCancel}
-//                     className="text-xs text-blue-600 border border-blue-200 rounded-lg px-3 py-1.5"
-//                   >
-//                     Cancel
-//                   </button>
-
-//                   <button
-//                     type="button"
-//                     onClick={handleCargoSave}
-//                     className="text-xs text-white bg-blue-600 border border-blue-600 rounded-lg px-3 py-1.5"
-//                   >
-//                     Save
-//                   </button>
-//                 </div>
-//               )}
-//             </div>
-
-//             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
-
-//               {/* Product Name */}
-//               <div>
-//                 <p className="text-xs text-gray-400">Product Name</p>
-
-//                 {editCargo ? (
-//                   <input
-//                     value={cargo.productName}
-//                     onChange={handleCargoChange("productName")}
-//                     className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                   />
-//                 ) : (
-//                   <p className="font-medium text-gray-900">
-//                     {cargo.productName}
-//                   </p>
-//                 )}
-//               </div>
-
-//               {/* HS Code */}
-//               <div>
-//                 <p className="text-xs text-gray-400">HS Code</p>
-
-//                 {editCargo ? (
-//                   <input
-//                     value={cargo.hsCode}
-//                     onChange={handleCargoChange("hsCode")}
-//                     className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                   />
-//                 ) : (
-//                   <p className="font-medium text-gray-900">
-//                     {cargo.hsCode}
-//                   </p>
-//                 )}
-//               </div>
-
-//               {/* Packaging Type */}
-//               <div>
-//                 <p className="text-xs text-gray-400">Packaging Type</p>
-
-//                 {editCargo ? (
-//                   <input
-//                     value={cargo.packagingType}
-//                     onChange={handleCargoChange("packagingType")}
-//                     className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                   />
-//                 ) : (
-//                   <p className="font-medium text-gray-900">
-//                     {cargo.packagingType}
-//                   </p>
-//                 )}
-//               </div>
-
-//               {/* Total Packages */}
-//               <div>
-//                 <p className="text-xs text-gray-400">Total Packages</p>
-
-//                 {editCargo ? (
-//                   <input
-//                     value={cargo.totalPackages}
-//                     onChange={handleCargoChange("totalPackages")}
-//                     className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                   />
-//                 ) : (
-//                   <p className="font-medium text-gray-900">
-//                     {cargo.totalPackages}
-//                   </p>
-//                 )}
-//               </div>
-
-//               {/* Net Weight */}
-//               <div>
-//                 <p className="text-xs text-gray-400">Net weight</p>
-
-//                 {editCargo ? (
-//                   <input
-//                     value={cargo.netWeight}
-//                     onChange={handleCargoChange("netWeight")}
-//                     className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                   />
-//                 ) : (
-//                   <p className="font-medium text-gray-900">
-//                     {cargo.netWeight}
-//                   </p>
-//                 )}
-//               </div>
-
-//               {/* Gross Weight */}
-//               <div>
-//                 <p className="text-xs text-gray-400">Gross Weight</p>
-
-//                 {editCargo ? (
-//                   <input
-//                     value={cargo.grossWeight}
-//                     onChange={handleCargoChange("grossWeight")}
-//                     className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                   />
-//                 ) : (
-//                   <p className="font-medium text-gray-900">
-//                     {cargo.grossWeight}
-//                   </p>
-//                 )}
-//               </div>
-
-//               {/* Volume */}
-//               <div>
-//                 <p className="text-xs text-gray-400">Volume (CBM)</p>
-
-//                 {editCargo ? (
-//                   <input
-//                     value={cargo.volume}
-//                     onChange={handleCargoChange("volume")}
-//                     className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                   />
-//                 ) : (
-//                   <p className="font-medium text-gray-900">
-//                     {cargo.volume}
-//                   </p>
-//                 )}
-//               </div>
-
-//               {/* Cargo Description */}
-//               <div>
-//                 <p className="text-xs text-gray-400">Cargo Description</p>
-
-//                 {editCargo ? (
-//                   <input
-//                     value={cargo.cargoDescription}
-//                     onChange={handleCargoChange("cargoDescription")}
-//                     className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                   />
-//                 ) : (
-//                   <p className="font-medium text-gray-900">
-//                     {cargo.cargoDescription}
-//                   </p>
-//                 )}
-//               </div>
-
-//             </div>
-//           </div>
-
-
-//           <div className="border border-gray-300 rounded-lg p-4">
-//         <div className="flex items-center justify-between mb-3">
-//           <p className="font-semibold text-gray-900 text-sm">
-//             Additional Information
-//           </p>
-
-//           {!editAdditionalInfo ? (
-//             <button
-//               type="button"
-//               onClick={handleAdditionalInfoEdit}
-//               className="text-xs text-blue-600 border border-blue-200 rounded-lg px-3 py-1.5"
-//             >
-//               Edit Section
-//             </button>
-//           ) : (
-//             <div className="flex items-center gap-2">
-//               <button
-//                 type="button"
-//                 onClick={handleAdditionalInfoCancel}
-//                 className="text-xs text-blue-600 border border-blue-200 rounded-lg px-3 py-1.5"
-//               >
-//                 Cancel
-//               </button>
-
-//               <button
-//                 type="button"
-//                 onClick={handleAdditionalInfoSave}
-//                 className="text-xs text-white bg-blue-600 border border-blue-600 rounded-lg px-3 py-1.5"
-//               >
-//                 Save
-//               </button>
-//             </div>
-//           )}
-//         </div>
-
-//           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
-
-//             {/* Special Instructions */}
-//             <div>
-//               <p className="text-xs text-gray-400">
-//                 Special Instructions
-//               </p>
-
-//               {editAdditionalInfo ? (
-//                 <input
-//                   value={additionalInfo.specialInstructions}
-//                   onChange={handleAdditionalInfoChange("specialInstructions")}
-//                   className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                 />
-//               ) : (
-//                 <p className="font-medium text-gray-900">
-//                   {additionalInfo.specialInstructions}
-//                 </p>
-//               )}
-//             </div>
-
-//             {/* Insurance Required */}
-//             <div>
-//               <p className="text-xs text-gray-400">
-//                 Insurance Required
-//               </p>
-
-//               {editAdditionalInfo ? (
-//                 <select
-//                   value={additionalInfo.insuranceRequired}
-//                   onChange={handleAdditionalInfoChange("insuranceRequired")}
-//                   className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                 >
-//                   <option value="Yes">Yes</option>
-//                   <option value="No">No</option>
-//                 </select>
-//               ) : (
-//                 <p className="font-medium text-gray-900">
-//                   {additionalInfo.insuranceRequired}
-//                 </p>
-//               )}
-//             </div>
-
-//             {/* Inspection Required */}
-//             <div>
-//               <p className="text-xs text-gray-400">
-//                 Inspection required
-//               </p>
-
-//               {editAdditionalInfo ? (
-//                 <select
-//                   value={additionalInfo.inspectionRequired}
-//                   onChange={handleAdditionalInfoChange("inspectionRequired")}
-//                   className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                 >
-//                   <option value="Yes">Yes</option>
-//                   <option value="No">No</option>
-//                 </select>
-//               ) : (
-//                 <p className="font-medium text-gray-900">
-//                   {additionalInfo.inspectionRequired}
-//                 </p>
-//               )}
-//             </div>
-
-//             {/* Remarks */}
-//             <div>
-//               <p className="text-xs text-gray-400">
-//                 Remarks
-//               </p>
-
-//               {editAdditionalInfo ? (
-//                 <input
-//                   value={additionalInfo.remarks}
-//                   onChange={handleAdditionalInfoChange("remarks")}
-//                   className="w-full mt-1 border border-gray-200 rounded-lg px-2 py-1.5 text-sm"
-//                 />
-//               ) : (
-//                 <p className="font-medium text-gray-900">
-//                   {additionalInfo.remarks}
-//                 </p>
-//               )}
-//             </div>
-
-//           </div>
-//         </div>
-
-//             <div className="bg-purple-50 rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-//               <div>
-//                 <p className="font-semibold text-gray-900 text-sm">Ready To Proceed?</p>
-//                 <p className="text-xs text-gray-500">
-//                   You can edit shipment details, create invoice, or share quotation with your client.
-//                 </p>
-//               </div>
-//               <button
-//                 onClick={handleProceed}
-//                 className="px-5 py-2 rounded-full bg-purple-600 text-white text-sm font-medium whitespace-nowrap"
-//               >
-//                 Proceed to next step
-//               </button>
-//             </div>
-//           </div>
-//         )}
-
-//         {activeTab !== "Shipment Details" && (
-//           <p className="text-sm text-gray-500">{activeTab} content goes here.</p>
-//         )}
-
-//         {activeTab === "Parties & Contacts" && (
-//           <PartiesContact />
-//         )}
-//          {activeTab === "Cargo Details" && (
-//           <CargoDetails />
-//          )}
-//           {activeTab === "Documents" && (
-//             <Documents />
-//           )}
-//            {activeTab === "Charges" && (
-//             <Charges />
-//            )}                            
-//       </div>
-
-//       <div className="space-y-4">
-//         <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6">
-//           <p className="font-bold text-gray-900 mb-4">Actions</p>
-//           <div className="space-y-3">
-//             {actions.map((a,i) => {
-//               const Icon = a.icon;
-//               return (
-//                 <button
-//                onClick={() => {
-//                       if (a.title === "Create quotation") {
-//                         //  setViewShipmentDetail(false)
-//                          setShowQuotationModal(true);
-//                       }else if (a.title === "Create Invoice") {
-//                         setNewInvoice(true)
-//                       }
-//                     }}
-//                   key={a.title}
-//                   className={`w-full flex items-center gap-3 rounded-lg p-3 text-left ${a.bg}`}
-//                 >
-//                   <Icon className={`w-4 h-4 ${a.color} shrink-0`} />
-//                   <div>
-//                     <p className={`text-sm font-semibold ${a.color}`}>{a.title}</p>
-//                     <p className="text-xs text-gray-500">{a.desc}</p>
-//                   </div>
-//                 </button>
-//               );
-//             })}
-//           </div>
-//         </div>
-
-//         <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6">
-//           <p className="font-bold text-gray-900 mb-4">Shipment Summary</p>
-//           <div className="space-y-2 text-sm">
-//             <div className="flex justify-between">
-//               <span className="text-gray-500">Total cargo value</span>
-//               <span className="text-gray-900">₹8,75,000.00</span>
-//             </div>
-//             <div className="flex justify-between">
-//               <span className="text-gray-500">Total Charges</span>
-//               <span className="text-gray-900">₹1,24,500.00</span>
-//             </div>
-//             <div className="flex justify-between">
-//               <span className="text-gray-500">Insurance Value</span>
-//               <span className="text-gray-900">₹50,000.00</span>
-//             </div>
-//             <div className="flex justify-between pt-2 border-t border-gray-100">
-//               <span className="text-gray-900 font-semibold">Total Payable</span>
-//               <span className="text-purple-600 font-bold">₹1,74,500.00</span>
-//             </div>
-//             <div className="flex justify-between">
-//               <span className="text-gray-500">Payment Status</span>
-//               <span className="text-blue-600 font-medium">Pending</span>
-//             </div>
-//           </div>
-//         </div>
-
-//         <div className="bg-white rounded-2xl shadow-xl p-4 sm:p-6">
-//           <p className="font-bold text-gray-900 mb-4">Client Details</p>
-//           <div className="flex items-center gap-3 mb-1">
-//             <span className="w-10 h-10 rounded-full bg-purple-100 text-purple-700 flex items-center justify-center font-bold shrink-0">
-//               AS
-//             </span>
-//             <div>
-//               <p className="font-semibold text-gray-900 text-sm">Aarav Sharma</p>
-//               <p className="text-xs text-gray-500">ABC Export Pvt. Ltd.</p>
-//             </div>
-//           </div>
-//           <p className="text-xs text-gray-500 mt-2">aarav.sharma@gmail.com</p>
-//           <p className="text-xs text-gray-500 mb-4">+91 74833 65549</p>
-//           <button onClick={() => setViewShipmentDetail(true)} className="w-full py-2.5 rounded-lg border border-gray-300 text-gray-800 text-sm font-medium">
-//             View Full Details
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//     </div>
-  
-//   )}
-
-//     {
-//       viewShipmentDetail && (
-//           <ShipmentDetails  onClose={() => setViewShipmentDetail(false)}/>
-//       )
-//     }
-
-//       { showQuotationModal && <Quotation  onClose={() => setShowQuotationModal(false)} />}
-
-//       {newInvoice && <CreateNewInvoice onClose={() => setNewInvoice(false)} />}
-        
-//     </div>
-//   );
-// }
-
 // mahima code //
 
 import { useEffect, useState } from "react";
@@ -1045,8 +49,10 @@ import CargoDetails from "./CargoDetails";
 import Documents from "./Documents";
 import Charges from "./Charges";
 import ShipmentDetails from "./ShipmentDetails";
-import CreateQuotation from "./Quotation";
 import CreateNewInvoice from "./CreateNewInvoice";
+import QuotationModal from "./Quotation";
+import ViewInvoiceModal from "../../components/b2bComponent/viewInvoice";
+import API from "../../api/axios";
 import {
   getShipmentDetails,
   getQuotationByShipment,
@@ -1069,6 +75,12 @@ export default function ReviewShipment({ shipmentId, onClose }) {
   const [showQuotationModal, setShowQuotationModal] = useState(false);
   const [newInvoice, setNewInvoice] = useState(false);
   const [quotation, setQuotation] = useState(null);
+  const [quotationHistory, setQuotationHistory] = useState([]);
+  const [showSavedQuotation, setShowSavedQuotation] = useState(false);
+  const [selectedSavedQuotation, setSelectedSavedQuotation] = useState(null);
+  const [existingInvoice, setExistingInvoice] = useState(null);
+  const [showExistingInvoice, setShowExistingInvoice] = useState(false);
+  const [invoiceLoading, setInvoiceLoading] = useState(false);
   const [showStatusModal, setShowStatusModal] = useState(false);
   const [statusUpdating, setStatusUpdating] = useState(false);
   const [quotationUpdating, setQuotationUpdating] = useState(false);
@@ -1138,6 +150,7 @@ export default function ReviewShipment({ shipmentId, onClose }) {
     netWeight: "",
     grossWeight: "",
     volume: "",
+    volumetricWeight: "",
     cargoDescription: "",
   };
   const [cargo, setCargo] = useState(initialCargo);
@@ -1206,11 +219,13 @@ export default function ReviewShipment({ shipmentId, onClose }) {
     setOriginalRoute(routeData);
   
     // Cargo
+    // CBM and volumetric weight are different measurements.
+    // Keep CBM sourced only from the saved CBM fields; never use KG as CBM.
     const rawVolume =
       cargoData.volumeCBM ??
       cargoData.volume ??
-      cargoData.volumetricWeight ??
       "";
+    const rawVolumetricWeight = cargoData.volumetricWeight ?? "";
   
     const rawNetWeight = cargoData.netWeight ?? cargoData.weight ?? "";
     const rawGrossWeight = cargoData.grossWeight ?? "";
@@ -1232,6 +247,7 @@ export default function ReviewShipment({ shipmentId, onClose }) {
       netWeight: cleanNumStr(rawNetWeight),
       grossWeight: cleanNumStr(rawGrossWeight),
       volume: cleanNumStr(rawVolume),
+      volumetricWeight: cleanNumStr(rawVolumetricWeight),
       cargoDescription:
         cargoData.productDescription || cargoData.description || "",
     };
@@ -1260,14 +276,51 @@ export default function ReviewShipment({ shipmentId, onClose }) {
       const res = await getQuotationByShipment(shipmentId);
       const list = res.data?.data || res.data?.quotations || [];
       const latestQuotation = Array.isArray(list)
-        ? list[0] || null
+        ? [...list].sort(
+            (a, b) =>
+              new Date(b.createdAt || b.updatedAt || 0).getTime() -
+              new Date(a.createdAt || a.updatedAt || 0).getTime()
+          )[0] || null
         : list || null;
+      setQuotationHistory(Array.isArray(list) ? list : latestQuotation ? [latestQuotation] : []);
       setQuotation(latestQuotation);
       return latestQuotation;
     } catch (err) {
       console.error("Failed to fetch shipment quotation:", err);
       setQuotation(null);
+      setQuotationHistory([]);
       return null;
+    }
+  };
+
+  // Load the persisted invoice whenever this shipment is reopened/refreshed.
+  const fetchExistingInvoice = async (data = shipment) => {
+    const invoiceId =
+      data?.invoiceId?._id ||
+      data?.invoiceId ||
+      data?.invoice?._id ||
+      null;
+
+    if (!invoiceId || typeof invoiceId !== "string" && typeof invoiceId !== "object") {
+      setExistingInvoice(null);
+      return null;
+    }
+
+    const id = typeof invoiceId === "object" ? invoiceId._id : invoiceId;
+    if (!id) return null;
+
+    try {
+      setInvoiceLoading(true);
+      const response = await API.get(`/trade-invoices/${id}`);
+      const savedInvoice = response.data?.data || response.data?.invoice || null;
+      setExistingInvoice(savedInvoice);
+      return savedInvoice;
+    } catch (err) {
+      console.error("Failed to fetch saved invoice:", err);
+      setExistingInvoice(null);
+      return null;
+    } finally {
+      setInvoiceLoading(false);
     }
   };
 
@@ -1284,7 +337,7 @@ export default function ReviewShipment({ shipmentId, onClose }) {
       const data = res.data.data || res.data.shipment || res.data;
       
       syncShipmentState(data);
-      await fetchExistingQuotation();
+      await Promise.all([fetchExistingQuotation(), fetchExistingInvoice(data)]);
     } catch (err) {
       console.error("Review shipment error:", err);
       setError("Failed to load shipment details.");
@@ -1573,34 +626,141 @@ const initials =
         .toUpperCase()
     : "CL";
 
-  // Quotation status is authoritative; shipment metadata is only a fallback.
-  const quotationStatus = quotation?.status || shipment?.quotationStatus || "";
-  const quotationExists = Boolean(
-    quotation?._id || quotation?.quotationNumber || quotation?.id ||
-    shipment?.quotationId || shipment?.quotation || shipment?.quotationNumber ||
-    ["Draft", "Shared", "Accepted", "Rejected", "Expired"].includes(quotationStatus)
+  // Identify the source using explicit shipment metadata.
+  // B2B markers always take priority; never assume "User" when the role is missing.
+  const shipmentCreatorRole = String(shipment?.createdByRole || "").trim().toLowerCase();
+  const shipmentCustomerType = String(shipment?.customerType || "").trim().toLowerCase();
+  const isB2BShipment =
+    shipmentCreatorRole === "b2b" ||
+    shipmentCustomerType === "b2b" ||
+    Boolean(shipment?.b2bCompanyId);
+  // Admin-created non-B2B shipments follow the same internal workflow as
+  // Normal User shipments: quotation/invoice are created and downloaded by Admin,
+  // and invoice creation does not wait for customer quotation acceptance.
+  // Explicit B2B markers always take priority so the existing B2B flow is preserved.
+  const isAdminCreatedShipment = shipmentCreatorRole === "admin" && !isB2BShipment;
+  const isAdminOnlyShipment =
+    !isB2BShipment &&
+    (
+      shipmentCreatorRole === "user" ||
+      shipmentCustomerType === "individual" ||
+      isAdminCreatedShipment
+    );
+
+  // For Normal User shipments, use the quotation record returned by the quotation API.
+  // Preserve the shipment metadata fallback for B2B and other existing flows.
+  const quotationStatus = quotation?.status || (
+    isAdminOnlyShipment ? "" : shipment?.quotationStatus || ""
   );
+  const quotationExists = isAdminOnlyShipment
+    ? Boolean(
+        quotation?._id ||
+        quotation?.quotationNumber ||
+        quotation?.id ||
+        ["Draft", "Shared", "Accepted", "Rejected", "Expired"].includes(quotation?.status)
+      )
+    : Boolean(
+        quotation?._id || quotation?.quotationNumber || quotation?.id ||
+        shipment?.quotationId || shipment?.quotation || shipment?.quotationNumber ||
+        ["Draft", "Shared", "Accepted", "Rejected", "Expired"].includes(quotationStatus)
+      );
   const quotationAccepted = quotationStatus === "Accepted";
+  const quotationRejected = quotationStatus === "Rejected";
+  const quotationCanBeRecreated = quotationRejected;
   const invoiceAlreadyGenerated = Boolean(
     shipment?.invoiceId || shipment?.invoice?._id ||
     ["Generated", "Sent"].includes(shipment?.invoiceStatus)
   );
 
+  // Admin-only PDF download for Normal User quotations.
+  // This opens the browser print dialog; choose "Save as PDF".
+  const downloadPrintableDocument = (elementId, documentTitle) => {
+    const element = document.getElementById(elementId);
+    if (!element) {
+      showToast("error", "Quotation preview is not available.");
+      return;
+    }
+
+    const printWindow = window.open("", "_blank", "width=1100,height=850");
+    if (!printWindow) {
+      showToast("warning", "Please allow pop-ups to download the quotation PDF.");
+      return;
+    }
+
+    const styles = Array.from(
+      document.querySelectorAll('link[rel="stylesheet"], style')
+    ).map((node) => node.outerHTML).join("\\n");
+
+    const safeTitle = String(documentTitle || "Quotation").replace(/[<>]/g, "");
+    printWindow.document.open();
+    printWindow.document.write(`<!doctype html>
+      <html><head><meta charset="utf-8" />
+      <title>${safeTitle}</title>
+      ${styles}
+      <style>
+        @page { size: A4; margin: 12mm; }
+        html, body { margin:0; padding:0; background:#fff; color:#172b4d;
+          -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+        body { font-family:Arial,Helvetica,sans-serif; }
+        #${elementId} { display:block!important; width:100%!important;
+          max-width:none!important; max-height:none!important; overflow:visible!important;
+          margin:0!important; padding:0!important; box-shadow:none!important; }
+        #${elementId} * { visibility:visible!important; }
+        #${elementId} { color:#172b4d!important; background:#f8fafc!important;
+          font-family:Arial,Helvetica,sans-serif!important; }
+        #${elementId} table { width:100%!important; border-collapse:collapse!important; }
+        #${elementId} th, #${elementId} td { padding:8px 10px!important; }
+        #${elementId} tr, #${elementId} .rounded-2xl, #${elementId} .rounded-xl {
+          break-inside:avoid; page-break-inside:avoid; }
+        #${elementId} .overflow-x-auto, #${elementId} .overflow-y-auto {
+          overflow:visible!important; }
+        .no-print { display:none!important; }
+      </style></head><body>${element.outerHTML}
+      <script>
+        window.addEventListener("load", () => setTimeout(() => {
+          window.focus(); window.print();
+        }, 350));
+        window.addEventListener("afterprint", () => window.close());
+      </script></body></html>`);
+    printWindow.document.close();
+  };
+
   // Actions list (Strictly ordered: Quotation, Invoice, Share, Change Status)
   const actionList = [
     {
-      title: quotationExists ? `Quotation ${quotationStatus || "Created"}` : "Create Quotation",
-      desc: quotationExists
+      title: isAdminOnlyShipment && quotationExists && !quotationCanBeRecreated
+        ? "Download Quotation"
+        : quotationRejected
+        ? "Create Revised Quotation"
+        : quotationExists
+        ? `Quotation ${quotationStatus || "Created"}`
+        : "Create Quotation",
+      desc: isAdminOnlyShipment && quotationExists && !quotation
+        ? "Quotation details are linked to this shipment, but could not be loaded. Refresh to try again."
+        : isAdminOnlyShipment && quotationExists && !quotationCanBeRecreated
+        ? "View and download the saved quotation PDF. It remains Admin-only."
+        : quotationRejected
+        ? "Review the customer's rejection reason and prepare a revised quotation."
+        : quotationExists
         ? `Quotation status: ${quotationStatus || "Created"}.`
         : "Generate commercial freight quotation.",
       icon: FileSignature,
       color: quotationExists
         ? "text-emerald-700 bg-emerald-50 border-emerald-200/80"
         : "text-indigo-600 bg-indigo-50 border-indigo-200/80 hover:bg-indigo-100/60",
-      disabled: quotationExists || quotationUpdating,
+      disabled: quotationUpdating || (quotationExists && !quotationCanBeRecreated && !(isAdminOnlyShipment && quotation)),
       action: () => {
-        if (quotationExists) {
-          showToast("warning", "Quotation has already been created. Please proceed to invoice.");
+        if (isAdminOnlyShipment && quotationExists && !quotationCanBeRecreated) {
+          if (quotation) {
+            setSelectedSavedQuotation(quotation);
+            setShowSavedQuotation(true);
+          } else {
+            showToast("warning", "Quotation details could not be loaded. Please refresh the shipment.");
+          }
+          return;
+        }
+        if (quotationExists && !quotationCanBeRecreated) {
+          showToast("warning", "A quotation is already active. Please wait for the customer's response.");
           return;
         }
         setShowQuotationModal(true);
@@ -1610,14 +770,22 @@ const initials =
       title: invoiceAlreadyGenerated ? "Invoice Generated" : "Create Invoice",
       desc: invoiceAlreadyGenerated
         ? "An invoice already exists for this shipment."
+        : isAdminOnlyShipment
+        ? quotationExists
+          ? "You can generate invoice after quotation is created."
+          : "Create a quotation first to generate the invoice."
         : quotationAccepted
-        ? "Quotation accepted. You can now generate the invoice."
+        ? "The customer has accepted the quotation. You can now generate the invoice."
         : "Invoice can be generated only after the customer accepts the quotation.",
       icon: FileText,
       color: "text-emerald-600 bg-emerald-50 border-emerald-200/80 hover:bg-emerald-100/60",
-      disabled: !quotationAccepted || invoiceAlreadyGenerated,
+      disabled: !(quotationExists && (quotationAccepted || isAdminOnlyShipment)) || invoiceAlreadyGenerated,
       action: () => {
-        if (!quotationAccepted) {
+        if (!quotationExists) {
+          showToast("warning", "Please create the quotation first before generating the invoice.");
+          return;
+        }
+        if (!(quotationAccepted || isAdminOnlyShipment)) {
           showToast("warning", "Invoice can be generated only after the customer accepts the quotation.");
           return;
         }
@@ -1628,6 +796,18 @@ const initials =
         setNewInvoice(true);
       },
     },
+    ...(isAdminOnlyShipment && invoiceAlreadyGenerated ? [{
+      title: "View Invoice",
+      desc: "Open the saved Admin-only invoice and download its PDF.",
+      icon: FileText,
+      color: "text-sky-700 bg-sky-50 border-sky-200/80 hover:bg-sky-100/60",
+      disabled: invoiceLoading,
+      action: async () => {
+        const saved = existingInvoice || await fetchExistingInvoice(shipment);
+        if (saved) setShowExistingInvoice(true);
+        else showToast("warning", "Saved invoice could not be loaded. Please refresh and try again.");
+      },
+    }] : []),
     // {
     //   title: "Share Quotation",
     //   desc: "Send quotation PDF link to client.",
@@ -1641,6 +821,21 @@ const initials =
     //     showToast("success", "Quotation shared successfully with client email!");
     //   },
     // },
+    // ...(invoiceAlreadyGenerated ? [{
+    //   title: "View Saved Invoice",
+    //   desc: "Open the invoice saved for this shipment.",
+    //   icon: FileText,
+    //   color: "text-sky-700 bg-sky-50 border-sky-200/80 hover:bg-sky-100/60",
+    //   disabled: invoiceLoading || !existingInvoice,
+    //   action: async () => {
+    //     if (!existingInvoice) {
+    //       const saved = await fetchExistingInvoice(shipment);
+    //       if (saved) setShowExistingInvoice(true);
+    //       return;
+    //     }
+    //     setShowExistingInvoice(true);
+    //   },
+    // }] : []),
     {
       title: "Refresh Status",
       desc: "Fetch the latest shipment, quotation and invoice status.",
@@ -2302,7 +1497,7 @@ const initials =
                         </div>
 
                         {/* Volume Field (Fixed sync bug!) */}
-                        <div>
+                        {/* <div>
                           <p className="text-slate-400 font-medium mb-1">
                             Volume (CBM)
                           </p>
@@ -2318,6 +1513,17 @@ const initials =
                               {cargo.volume ? `${cargo.volume} CBM` : "-"}
                             </p>
                           )}
+                        </div> */}
+
+                        <div>
+                          <p className="text-slate-400 font-medium mb-1">
+                            Volumetric Weight (KG)
+                          </p>
+                          <p className="font-extrabold text-emerald-700 bg-emerald-50/80 px-2 py-0.5 rounded-md inline-block">
+                            {cargo.volumetricWeight !== "" && cargo.volumetricWeight !== null && cargo.volumetricWeight !== undefined
+                              ? `${cargo.volumetricWeight} KG`
+                              : "-"}
+                          </p>
                         </div>
 
                         <div>
@@ -2519,7 +1725,8 @@ const initials =
                           type="button"
                           onClick={a.action}
                           disabled={a.disabled}
-                          className={`w-full flex items-center gap-3.5 rounded-2xl border p-3.5 text-left transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-90 ${a.color}`}
+                          title={a.desc}
+                          className={`group w-full flex items-center gap-3.5 rounded-2xl border p-3.5 text-left transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-90 ${a.color}`}
                         >
                           <div className="w-8 h-8 rounded-xl bg-white shadow-2xs flex items-center justify-center shrink-0">
                             <Icon size={16} />
@@ -2528,7 +1735,7 @@ const initials =
                             <p className="text-xs font-bold leading-tight">
                               {a.title}
                             </p>
-                            <p className="text-[11px] text-slate-500 mt-0.5 line-clamp-1">
+                            <p className="mt-0.5 text-[11px] leading-relaxed text-slate-500 line-clamp-1 transition-all duration-200 group-hover:line-clamp-none group-hover:text-slate-700">
                               {a.desc}
                             </p>
                           </div>
@@ -2560,6 +1767,61 @@ const initials =
           {quotation.quotationNumber || "-"}
         </span>
       </div>
+
+      <button
+        type="button"
+        onClick={() => { setSelectedSavedQuotation(quotation); setShowSavedQuotation(true); }}
+        className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-indigo-200 bg-indigo-50 px-3 py-2.5 text-xs font-bold text-indigo-700 hover:bg-indigo-100 transition-all"
+      >
+        <FileText size={14} /> View Saved Quotation
+      </button>
+
+      {quotation.status === "Rejected" && (
+        <div className="rounded-xl border border-rose-200 bg-rose-50 p-3">
+          <div className="flex items-center gap-2 text-rose-700">
+            <AlertTriangle size={14} />
+            <p className="text-xs font-bold">Customer rejected this quotation</p>
+          </div>
+          <p className="mt-2 text-[11px] font-semibold text-rose-800">Rejection reason</p>
+          <p className="mt-1 whitespace-pre-wrap break-words text-xs leading-relaxed text-rose-700">
+            {quotation.rejectionReason?.trim() || "No rejection reason was provided."}
+          </p>
+          <p className="mt-2 text-[10px] font-medium text-rose-600">
+            You can create and share a revised quotation using the action above.
+          </p>
+        </div>
+      )}
+
+      {quotationHistory.length > 1 && (
+        <div className="border-t border-slate-100 pt-3 space-y-2">
+          <p className="font-bold text-slate-700">Saved Quotation Versions</p>
+          {quotationHistory
+            .slice()
+            .sort((a, b) => new Date(a.createdAt || 0) - new Date(b.createdAt || 0))
+            .map((savedQuote, index) => (
+              <div key={savedQuote._id || index} className="flex items-center justify-between gap-3 rounded-lg bg-slate-50 px-3 py-2">
+                <div className="min-w-0">
+                  <p className="font-semibold text-slate-700">
+                    {savedQuote.quotationNumber || `Quotation ${index + 1}`}
+                  </p>
+                  <p className="text-[10px] text-slate-400">
+                    {savedQuote.status || "Saved"} · {savedQuote.createdAt ? new Date(savedQuote.createdAt).toLocaleDateString("en-GB") : ""}
+                  </p>
+                </div>
+                <div className="flex items-center gap-2 shrink-0">
+                  <span className="whitespace-nowrap font-semibold text-slate-800">
+                    {savedQuote.currency || quotation.currency || "INR"} {Number(savedQuote.totalAmount || 0).toLocaleString("en-IN")}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => { setSelectedSavedQuotation(savedQuote); setShowSavedQuotation(true); }}
+                    className="rounded-lg border border-indigo-200 bg-white px-2.5 py-1.5 font-bold text-indigo-600 hover:bg-indigo-50"
+                  >View</button>
+                </div>
+              </div>
+            ))}
+        </div>
+      )}
 
       <div className="border-t border-slate-100 pt-3 space-y-3">
         {quotation.charges?.map((charge, index) => (
@@ -2618,6 +1880,35 @@ const initials =
             {Number(quotation.totalAmount || 0).toLocaleString("en-IN")}
           </span>
         </div>
+      </div>
+    </div>
+  )}
+
+  {existingInvoice && (
+    <div className="mt-4 border-t border-slate-200 pt-3 space-y-2 text-xs">
+      <div className="flex items-center justify-between gap-2">
+        <span className="font-bold text-slate-900">Saved Invoice</span>
+        <button
+          type="button"
+          onClick={() => setShowExistingInvoice(true)}
+          className="font-semibold text-indigo-600 hover:text-indigo-800"
+        >
+          View Invoice
+        </button>
+      </div>
+      <div className="flex justify-between text-slate-600">
+        <span>Invoice No.</span>
+        <span className="font-semibold text-slate-800">{existingInvoice.invoiceNumber || "-"}</span>
+      </div>
+      <div className="flex justify-between text-slate-600">
+        <span>Invoice Status</span>
+        <span className="font-semibold text-slate-800">{existingInvoice.status || "-"}</span>
+      </div>
+      <div className="flex justify-between border-t border-slate-100 pt-2 font-bold">
+        <span className="text-slate-900">Final Invoice Amount</span>
+        <span className="text-indigo-600">
+          {existingInvoice.currency || "INR"} {Number(existingInvoice.totalAmount ?? existingInvoice.invoiceValue ?? 0).toLocaleString("en-IN")}
+        </span>
       </div>
     </div>
   )}
@@ -2724,8 +2015,10 @@ const initials =
 
       {/* CREATE QUOTATION MODAL */}
       {showQuotationModal && (
-        <CreateQuotation
+        <QuotationModal
           shipment={shipment}
+          previousQuotation={quotation}
+          isNormalUserShipment={isAdminOnlyShipment}
           onClose={() => setShowQuotationModal(false)}
           onSuccess={async () => {
             setShowQuotationModal(false);
@@ -2756,12 +2049,153 @@ const initials =
           onClose={() => setNewInvoice(false)}
           onSuccess={async (invoice) => {
             setNewInvoice(false);
-          
-            await fetchShipment(true);
-            await fetchExistingQuotation();
-          
-            showToast("success", "Invoice generated successfully!");
+            try {
+              await fetchShipment(true);
+              await fetchExistingQuotation();
+              const saved = invoice?._id ? invoice : await fetchExistingInvoice(shipment);
+              if (saved) {
+                setExistingInvoice(saved);
+                setShowExistingInvoice(true);
+              }
+              showToast("success", "Invoice generated and saved successfully. It is available only in Admin.");
+            } catch (error) {
+              console.error("Invoice saved but refresh failed:", error);
+              showToast("warning", "Invoice was generated. Refresh shipment to view the saved invoice.");
+            }
           }}
+        />
+      )}
+
+      {showSavedQuotation && selectedSavedQuotation && (
+        <div className="fixed inset-0 z-[70] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-3 sm:p-5" style={{ fontFamily: "'Poppins', sans-serif" }}>
+          <div className="w-full max-w-6xl h-[92vh] overflow-hidden rounded-3xl bg-white shadow-2xl flex flex-col">
+            <div className="shrink-0 flex items-center justify-between gap-3 border-b border-slate-200 px-6 sm:px-8 py-4 bg-white">
+              <div className="flex items-center gap-3">
+                <div className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-700 to-indigo-600 flex items-center justify-center shadow-md shadow-blue-500/25">
+                  <FileText size={20} className="text-white" />
+                </div>
+                <div>
+                  <h3 className="text-base font-extrabold text-slate-900 tracking-tight">Freight Quotation</h3>
+                  <p className="mt-0.5 text-[11px] text-slate-400 font-medium">{selectedSavedQuotation.quotationNumber || "Quotation"} · Admin copy</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-3">
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-bold px-3 py-1.5 rounded-full border bg-blue-50 text-blue-700 border-blue-200">
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                  {selectedSavedQuotation.status || "Draft"}
+                </span>
+                <button type="button" onClick={() => { setShowSavedQuotation(false); setSelectedSavedQuotation(null); }} className="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500" aria-label="Close quotation">
+                  <X size={17} />
+                </button>
+              </div>
+            </div>
+
+            <div id="saved-quotation-print" className="flex-1 overflow-y-auto px-6 sm:px-8 py-5 space-y-4 bg-slate-50/30 text-sm">
+              <div className="rounded-2xl bg-gradient-to-r from-blue-700 to-indigo-600 p-5 sm:p-6 text-white shadow-lg">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 items-center">
+                  <div>
+                    <p className="text-blue-200 text-[11px] font-semibold uppercase tracking-wider">Quotation No.</p>
+                    <p className="font-black text-sm mt-1">{selectedSavedQuotation.quotationNumber || "-"}</p>
+                    <p className="text-blue-200 text-[10px] mt-1.5">Issued: {selectedSavedQuotation.createdAt ? new Date(selectedSavedQuotation.createdAt).toLocaleDateString("en-GB") : selectedSavedQuotation.quotationDate ? new Date(selectedSavedQuotation.quotationDate).toLocaleDateString("en-GB") : "-"}</p>
+                  </div>
+                  <div className="sm:text-center">
+                    <p className="text-blue-200 text-[11px] font-semibold uppercase tracking-wider mb-1">Total Amount</p>
+                    <p className="text-3xl font-black tracking-tight">{selectedSavedQuotation.currency || "INR"} {Number(selectedSavedQuotation.totalAmount || 0).toLocaleString("en-IN", { maximumFractionDigits: 2 })}</p>
+                    <p className="text-blue-200 text-[10px] mt-1">Inclusive of applicable charges</p>
+                  </div>
+                  <div className="sm:text-right">
+                    <div className="inline-flex items-center gap-2 bg-white/15 border border-white/20 rounded-xl px-3 py-2 text-left">
+                      <Calendar size={14} className="text-blue-200" />
+                      <div><p className="text-blue-200 text-[10px]">Valid Until</p><p className="font-bold text-xs">{selectedSavedQuotation.validUntil ? new Date(selectedSavedQuotation.validUntil).toLocaleDateString("en-GB") : "-"}</p></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="bg-white rounded-2xl border border-slate-200 p-5">
+                  <div className="flex items-center gap-2 mb-3.5"><div className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center"><Building size={14} /></div><span className="text-[10px] font-black text-blue-700 uppercase tracking-widest">From (Freight Agent)</span></div>
+                  <p className="text-sm font-extrabold text-slate-900">ASD Company</p>
+                  <p className="text-xs text-slate-400 mt-0.5">Admin / Company Details</p>
+                  <div className="mt-3 pt-3 border-t border-slate-100"><span className="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded-full border border-emerald-200">✓ Verified Partner</span></div>
+                </div>
+                <div className="bg-white rounded-2xl border border-slate-200 p-5">
+                  <div className="flex items-center gap-2 mb-3.5"><div className="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center"><User size={14} /></div><span className="text-[10px] font-black text-indigo-700 uppercase tracking-widest">To (Exporter)</span></div>
+                  <p className="text-sm font-extrabold text-slate-900">{getValue(applicant?.companyName, applicant?.name, applicant?.contactPerson, shipment?.customerName)}</p>
+                  <div className="space-y-1 mt-1">
+                    {(applicant?.contactPerson || clientName !== "-") && <p className="text-xs text-slate-500">Contact: {getValue(applicant?.contactPerson, clientName)}</p>}
+                    {clientEmail !== "-" && <p className="text-xs text-slate-500">Email: {clientEmail}</p>}
+                    {clientPhone !== "-" && <p className="text-xs text-slate-500">Phone: {clientPhone}</p>}
+                    {applicantAddress !== "-" && <p className="text-xs text-slate-500">{applicantAddress}</p>}
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-white rounded-2xl border border-slate-200 p-5">
+                <div className="flex items-center gap-2.5 mb-4 pb-3 border-b border-slate-100">
+                  <div className="w-7 h-7 rounded-lg bg-teal-50 text-teal-600 flex items-center justify-center"><Truck size={14} /></div>
+                  <h3 className="text-sm font-extrabold text-slate-900">Shipment Details</h3>
+                  <div className="ml-auto text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200 px-3 py-1 rounded-full">{getValue(shipment?.route?.originCountry, shipment?.originCountry, route?.origin)} <span className="mx-1">→</span> {getValue(shipment?.route?.destinationCountry, shipment?.destinationCountry, route?.destination)}</div>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                  {[
+                    ["Shipment Route", `${getValue(shipment?.route?.originCity, route?.origin)} → ${getValue(shipment?.route?.destinationCity, route?.destination)}`],
+                    ["Shipment Type", getValue(shipment?.shipmentInfo?.shipmentType, shipment?.shipmentType, basicInfo?.shipmentType)],
+                    ["Shipment Mode", getValue(shipment?.shipmentInfo?.shipmentMode, shipment?.shipmentMode, basicInfo?.transportMode)],
+                    ["Port of Loading", getValue(shipment?.route?.portOfLoading, shipment?.route?.loadingPort, shipment?.route?.originCity, shipment?.route?.origin?.city, shipment?.route?.origin?.name, shipment?.route?.origin, shipment?.portOfLoading, shipment?.originCity, shipment?.origin)],
+                    ["Port of Discharge", getValue(shipment?.route?.portOfDischarge, shipment?.route?.dischargePort, shipment?.route?.destinationCity, shipment?.route?.destination?.city, shipment?.route?.destination?.name, shipment?.route?.destination, shipment?.portOfDischarge, shipment?.destinationCity, shipment?.destination)],
+                    ["Incoterm", getValue(shipment?.shipmentInfo?.incoterm, shipment?.incoterm, basicInfo?.incoterm)],
+                    ["Submitted On", formatDateForDisplay(shipment?.createdAt || shipment?.submittedAt)],
+                    ["Reference ID", getValue(shipment?.header?.shipmentId, shipment?.shipmentId, shipment?._id)],
+                  ].map(([label, value]) => <div key={label} className="bg-slate-50/70 rounded-xl p-3 border border-slate-100"><p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-1">{label}</p><p className="text-xs font-bold text-slate-900 break-words">{value}</p></div>)}
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                <div className="lg:col-span-2 bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                  <div className="px-5 py-3.5 border-b border-slate-100 flex items-center justify-between"><h3 className="text-sm font-extrabold text-slate-900">Charges Breakdown</h3><span className="text-[11px] font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full border border-blue-200">{(selectedSavedQuotation.charges || selectedSavedQuotation.chargeDetails || []).length} Items</span></div>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-xs border-collapse min-w-[500px]">
+                      <thead><tr className="bg-slate-50 text-[10px] font-bold text-slate-500 uppercase tracking-wider"><th className="py-3 px-4 text-left">#</th><th className="py-3 px-4 text-left">Charge Name</th><th className="py-3 px-4 text-left">Description</th><th className="py-3 px-4 text-right">Amount ({selectedSavedQuotation.currency || "INR"})</th></tr></thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {(selectedSavedQuotation.charges || selectedSavedQuotation.chargeDetails || []).length ? (selectedSavedQuotation.charges || selectedSavedQuotation.chargeDetails).map((charge, idx) => <tr key={charge?._id || idx}><td className="py-3 px-4 text-slate-400 font-bold">{String(idx + 1).padStart(2, "0")}</td><td className="py-3 px-4 font-semibold text-slate-800">{charge?.name || charge?.chargeName || charge?.title || "-"}</td><td className="py-3 px-4 text-slate-500 whitespace-pre-line">{charge?.description || charge?.details || charge?.remark || "-"}</td><td className="py-3 px-4 text-right font-extrabold text-slate-900">{selectedSavedQuotation.currency || "INR"} {Number(charge?.amount ?? charge?.price ?? charge?.value ?? 0).toLocaleString("en-IN", { maximumFractionDigits: 2 })}</td></tr>) : <tr><td colSpan={4} className="py-8 text-center text-slate-400">No charges available for this quotation.</td></tr>}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="flex items-center justify-between px-5 py-3.5 bg-blue-600"><p className="text-white font-bold text-xs uppercase tracking-wider">Total {selectedSavedQuotation.currency || "INR"}</p><p className="text-white font-black text-sm">{selectedSavedQuotation.currency || "INR"} {Number(selectedSavedQuotation.totalAmount || 0).toLocaleString("en-IN", { maximumFractionDigits: 2 })}</p></div>
+                </div>
+                <div className="bg-white rounded-2xl border border-slate-200 p-5 h-fit">
+                  <h3 className="text-sm font-extrabold text-slate-900 mb-4 pb-3 border-b border-slate-100">Price Summary</h3>
+                  <div className="space-y-3 text-xs">
+                    {[["Sub Total", selectedSavedQuotation.subtotal], ["Discount", selectedSavedQuotation.discount], ["Tax / GST", selectedSavedQuotation.tax]].map(([label, value]) => <div key={label} className="flex justify-between gap-3 pb-3 border-b border-slate-50"><span className="text-slate-500">{label}</span><b className="text-slate-800">{selectedSavedQuotation.currency || "INR"} {Number(value || 0).toLocaleString("en-IN", { maximumFractionDigits: 2 })}</b></div>)}
+                    <div className="flex justify-between items-center px-4 py-3 rounded-xl bg-blue-600"><span className="text-white font-extrabold uppercase">Grand Total</span><span className="text-white font-black">{selectedSavedQuotation.currency || "INR"} {Number(selectedSavedQuotation.totalAmount || 0).toLocaleString("en-IN", { maximumFractionDigits: 2 })}</span></div>
+                  </div>
+                  <div className="mt-4 space-y-2">
+                    {[["Version", selectedSavedQuotation.quoteVersion || "-"], ["Freight Amount", selectedSavedQuotation.freightQuote], ["Valid From", formatDateForDisplay(selectedSavedQuotation.validFrom)], ["Valid Until", formatDateForDisplay(selectedSavedQuotation.validUntil)]].map(([label, value]) => <div key={label} className="flex justify-between gap-3 text-[11px]"><span className="text-slate-400">{label}</span><b className="text-slate-700">{typeof value === "number" ? `${selectedSavedQuotation.currency || "INR"} ${value.toLocaleString("en-IN")}` : value || "-"}</b></div>)}
+                  </div>
+                </div>
+              </div>
+
+              {selectedSavedQuotation.notes && <div className="bg-amber-50/60 border border-amber-200 rounded-2xl p-5"><p className="text-[10px] font-black text-amber-700 uppercase tracking-widest mb-2">Notes</p><p className="text-xs text-slate-700 leading-relaxed whitespace-pre-line">{selectedSavedQuotation.notes}</p></div>}
+              {selectedSavedQuotation.termsAndConditions && <div className="bg-white rounded-2xl border border-slate-200 p-5"><div className="flex items-center gap-2 mb-3"><FileText size={15} className="text-slate-600" /><h3 className="text-sm font-extrabold text-slate-900">Terms & Conditions</h3></div><p className="text-xs text-slate-600 leading-relaxed whitespace-pre-line">{selectedSavedQuotation.termsAndConditions}</p></div>}
+              {selectedSavedQuotation.rejectionReason && <div className="bg-rose-50 border border-rose-200 rounded-2xl p-4"><p className="text-xs font-bold text-rose-700">Rejection Reason</p><p className="mt-1 text-xs text-rose-700 whitespace-pre-line">{selectedSavedQuotation.rejectionReason}</p></div>}
+              <div className="text-center text-[10px] text-slate-400 pt-2 border-t border-slate-200">CargoMate · Generated for administrative use</div>
+            </div>
+
+            <div className="shrink-0 border-t border-slate-200 bg-white px-5 py-3 flex flex-wrap justify-end gap-2 no-print">
+              <button type="button" onClick={() => downloadPrintableDocument("saved-quotation-print", `Quotation-${selectedSavedQuotation.quotationNumber || "Document"}`)} className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-blue-700">
+                <FileText size={14} /> Download PDF
+              </button>
+              <button type="button" onClick={() => { setShowSavedQuotation(false); setSelectedSavedQuotation(null); }} className="rounded-xl bg-slate-900 px-5 py-2.5 text-xs font-bold text-white hover:bg-slate-800">Close</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showExistingInvoice && existingInvoice && (
+        <ViewInvoiceModal
+          invoice={existingInvoice}
+          onClose={() => setShowExistingInvoice(false)}
         />
       )}
 
