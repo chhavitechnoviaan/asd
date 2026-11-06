@@ -7,7 +7,7 @@ const {
   deleteCsvBatch,
 } = require("../controllers/masterDataCsvController");
 
-const { protect, adminOnly } = require("../middleware/authMiddleware");
+const { protect, adminOnly, adminOrStaff } = require("../middleware/authMiddleware");
 
 // Upload CSV
 router.post("/upload", protect, adminOnly, uploadCsvData);
@@ -16,6 +16,9 @@ router.post("/upload", protect, adminOnly, uploadCsvData);
 router.delete("/batch/:batchId", protect, adminOnly, deleteCsvBatch);
 
 // Fetch Import / Export data
-router.get("/:dataType", protect, adminOnly, getCsvData);
+router.get("/:dataType", protect, adminOrStaff("masterData", "view"), (req, res, next) => {
+  if (!["import", "export"].includes(req.params.dataType)) return res.status(400).json({ status: 0, message: "Invalid data type" });
+  return next();
+}, getCsvData);
 
 module.exports = router;

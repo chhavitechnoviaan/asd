@@ -27,3 +27,15 @@ test('vendors.edit does not grant delete; plans.add does not grant edit', () => 
   assert.equal(allowedForStaff(user,'POST','/api/ai-subscription/plans').ok,true);
   assert.equal(allowedForStaff(user,'PATCH','/api/ai-subscription/plans/123').ok,false);
 });
+
+test('staff view grants vendor/master/support/settings read only, not privileged writes', () => {
+  const user = staff({vendors:{view:true},masterData:{view:true},support:{view:true},settings:{view:true}});
+  const {allowedForStaff} = require('../middleware/staffPolicy');
+  for (const path of ['/api/vendors','/api/vendors/stats/all','/api/master-data/import','/api/master-data/export','/api/help-support/dashboard','/api/help-support/tickets','/api/admin-settings']) {
+    assert.equal(allowedForStaff(user,'GET',path).ok,true,`${path} should be readable`);
+  }
+  assert.equal(allowedForStaff(user,'POST','/api/master-data/upload').ok,false);
+  assert.equal(allowedForStaff(user,'DELETE','/api/master-data/batch/123').ok,false);
+  assert.equal(allowedForStaff(user,'PUT','/api/admin-settings/general').ok,false);
+  assert.equal(allowedForStaff(user,'POST','/api/help-support/ticket/123/reply').ok,false);
+});

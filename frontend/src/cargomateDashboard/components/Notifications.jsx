@@ -27,6 +27,7 @@ export default function NotificationsModal({ onClose }) {
       setItems((v) =>
         v.map((n) => (n._id === id ? { ...n, isRead: true } : n)),
       );
+      window.dispatchEvent(new Event("cargomate:notifications-changed"));
     } catch (e) {
       setError(
         e.response?.data?.message || "Could not mark notification as read",
@@ -43,7 +44,7 @@ export default function NotificationsModal({ onClose }) {
       <section
         role="dialog"
         aria-modal="true"
-        aria-label="Admin notifications"
+        aria-label="Account notifications"
         className="w-full max-w-lg max-h-[86vh] overflow-hidden bg-white/95 backdrop-blur-xl border border-teal-100 rounded-3xl shadow-2xl flex flex-col"
       >
         <header className="px-5 py-4 border-b border-teal-100 flex items-center justify-between">

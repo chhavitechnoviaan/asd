@@ -1,6 +1,6 @@
 import { ArrowUpRight, Play, Sparkles } from "lucide-react";
 import globeImage from "../assets/trade-globe.png";
-
+import { useNavigate } from "react-router-dom";
 // Keep dashboard navigation on the current origin so local development works.
 const goTo = (path) => {
   const normalizedPath = path.startsWith("/") ? path : `/${path}`;
@@ -8,6 +8,7 @@ const goTo = (path) => {
 };
 
 export default function HeroSearch() {
+  const navigate = useNavigate();
   return (
     <section className="relative isolate overflow-hidden bg-white">
       <div className="mx-auto grid min-h-[560px] max-w-7xl grid-cols-1 items-center gap-10 px-5 py-12 sm:px-8 md:min-h-[590px] md:py-14 lg:grid-cols-2 lg:gap-8 lg:px-10 lg:py-10">
@@ -34,13 +35,21 @@ export default function HeroSearch() {
             >
               Get Started <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </button>
-            <button
+            {/* <button
               type="button"
               onClick={() => document.getElementById("contact-demo")?.scrollIntoView({ behavior: "smooth", block: "start" })}
               className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 transition hover:border-teal-400 hover:bg-teal-50/60 focus:outline-none focus:ring-4 focus:ring-teal-100"
             >
               <Play className="h-3.5 w-3.5" /> Request for Demo
-            </button>
+            </button> */}
+            <button
+  type="button"
+  onClick={() => navigate("/contactpage")}
+  className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 transition hover:border-teal-400 hover:bg-teal-50/60 focus:outline-none focus:ring-4 focus:ring-teal-100"
+>
+  <Play size={14} />
+  Request for Demo
+</button>
           </div>
           <div className="mt-8 flex items-center gap-2 text-xs font-medium text-slate-400">
             <Sparkles className="h-4 w-4 text-teal-500" /> Smarter decisions for every shipment

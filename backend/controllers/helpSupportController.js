@@ -7,8 +7,11 @@ const Role = require("../models/Role");
 
 // Helper to determine normalized role
 function getUserRole(user) {
+  // Every support request made by internal staff is pre-authorized by protect/staffPolicy.
+  // Authorized support staff must use the admin ticket scope, not their personal inbox.
+  if (user?.isInternalStaff) return "admin";
   const roleName = String(user?.roleId?.name || user?.roleName || "").trim().toLowerCase();
-  if (roleName === "admin" || String(user?.email || "").toLowerCase().includes("admin")) {
+  if (roleName === "admin") {
     return "admin";
   }
   if (["b2b", "dealer", "vendor"].includes(roleName)) {

@@ -52,6 +52,14 @@ function HeroSection() {
               <FiPlay size={13} />
               Request for Demo
             </button>
+                       <button
+  type="button"
+  onClick={() => navigate("/contact")}
+className="flex items-center gap-2 border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition-colors"
+>
+  <Play size={14} />
+  Request for Demo
+</button>
           </div>
         </div>
 

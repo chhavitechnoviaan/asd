@@ -1,6 +1,4 @@
 import API from "./axios";
-
-// Document Dashboard APIs
 export const getDocumentDashboard = (params) => API.get("/document-dashboard/dashboard", { params });
 export const getDashboardDocuments = (params) => API.get("/document-dashboard/documents", { params });
 export const getDocumentsByType = (params) => API.get("/document-dashboard/documents-by-type", { params });

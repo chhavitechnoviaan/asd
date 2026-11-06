@@ -220,7 +220,7 @@ export default function HelpSupportDashboard({ role = "user" }) {
         </div>
 
         {/* Top Metrics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {/* My Tickets */}
           <div className="bg-white border border-slate-100 rounded-xl p-5 shadow-[0_2px_8px_rgba(0,0,0,0.02)] flex items-center justify-between group">
             <div className="flex items-center gap-4">
@@ -266,7 +266,7 @@ export default function HelpSupportDashboard({ role = "user" }) {
           </div>
 
           {/* Live Support */}
-          <div className="bg-white border border-slate-100 rounded-xl p-5 shadow-[0_2px_8px_rgba(0,0,0,0.02)] flex items-center justify-between group">
+          {/* <div className="bg-white border border-slate-100 rounded-xl p-5 shadow-[0_2px_8px_rgba(0,0,0,0.02)] flex items-center justify-between group">
             <div className="flex items-center gap-4">
               <div className="p-3.5 bg-orange-50 rounded-full text-orange-500">
                 <MessageSquare className="w-6 h-6 stroke-[1.75]" />
@@ -282,7 +282,7 @@ export default function HelpSupportDashboard({ role = "user" }) {
             </button>  </div>
             </div>
             
-          </div>
+          </div> */}
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">

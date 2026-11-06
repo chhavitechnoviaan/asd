@@ -592,6 +592,7 @@ const masterDataCsvRoutes = require("./routes/masterDataCsvRoutes");
 
 // CORS
 const allowedOrigins = [...new Set([
+  "https://asdcargomate.com",
   "https://asd-f9ko.vercel.app",
   "http://localhost:5173",
   "http://localhost:3000",

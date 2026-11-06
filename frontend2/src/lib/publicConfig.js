@@ -1,4 +1,0 @@
-import {useEffect,useState} from "react";
-export const DEFAULT_SITE={websiteTitle:"ASD CargoMate",companyName:"CargoMate",systemLogo:"",loadingLogo:"",description:"",socialUrl:"",socialLogin:{google:{enabled:false,clientId:""},facebook:{enabled:false,clientId:""}}};
-export const apiBase=()=>{const raw=(import.meta.env.VITE_API_URL||"http://localhost:8000/api").replace(/\/$/,"");return raw.endsWith("/api")?raw:`${raw}/api`;};
-export function usePublicConfig(){const [config,setConfig]=useState(DEFAULT_SITE);useEffect(()=>{const controller=new AbortController();fetch(`${apiBase()}/public-config`,{signal:controller.signal,cache:"no-store"}).then(r=>{if(!r.ok)throw Error("config unavailable");return r.json()}).then(r=>setConfig({...DEFAULT_SITE,...r.data})).catch(()=>{});return()=>controller.abort();},[]);return config;}

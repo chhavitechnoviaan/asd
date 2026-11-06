@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import ReactCountryFlag from "react-country-flag";
 import {
   CalendarDays,
@@ -60,7 +60,7 @@ function ConfidenceBadge({ level }) {
   return <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${styles[level]}`}>{level}</span>;
 }
 
-const KPI_STATS = [
+const UNUSED_DEMO_KPI_STATS = [
   { title: "Top Insight", desc: "Electronics & Electrical category showing highest growth potential.", link: "View Details", icon: Lightbulb, bg: "bg-blue-50", color: "text-blue-500" },
   { title: "Growth Opportunities", value: "356", desc: "High potential opportunities", link: "View Opportunities", icon: TrendingUp, bg: "bg-emerald-50", color: "text-emerald-500" },
   { title: "Risk Alerts", value: "18", desc: "High risk alerts detected", link: "View Alerts", icon: AlertTriangle, bg: "bg-rose-50", color: "text-rose-500" },
@@ -71,7 +71,7 @@ const KPI_STATS = [
 
 const TABS = ["Smart Summary", "Opportunity Insights", "Market Predictions", "Risk Insights", "Price Insights"];
 
-const SMART_SUMMARY = [
+const UNUSED_DEMO_SMART_SUMMARY = [
   { icon: Sparkles, bg: "bg-emerald-50", color: "text-emerald-600", text: "Global trade value is predicted to grow by 12.6% in next 3 months, driven by Electronics, Machinery & Pharmaceuticals." },
   { icon: Square, bg: "bg-emerald-50", color: "text-emerald-600", text: "USA, India and Germany are the top growth markets with strong import demand." },
   { icon: Square, bg: "bg-emerald-50", color: "text-emerald-600", text: "853 new HS codes show emerging demand with low competition." },
@@ -79,7 +79,7 @@ const SMART_SUMMARY = [
   { icon: ShieldAlert, bg: "bg-rose-50", color: "text-rose-600", text: "23 suppliers flagged for risk due to financial instability or geopolitical exposure." },
 ];
 
-const GROWTH_OPPORTUNITIES = [
+const UNUSED_DEMO_GROWTH_OPPORTUNITIES = [
   { rank: 1, name: "Smart Phones (8517)", score: 92 },
   { rank: 2, name: "Lithium Batteries (8507)", score: 89 },
   { rank: 3, name: "Industrial Robots (8479)", score: 87 },
@@ -104,7 +104,7 @@ const HEATMAP_LEGEND = [
   { label: "No Data", color: "#CBD5E1" },
 ];
 
-const MARKET_PREDICTIONS = [
+const UNUSED_DEMO_MARKET_PREDICTIONS = [
   { name: "Electronics & Electrical", growth: "15.8%", up: true, confidence: "High" },
   { name: "Machinery & Parts", growth: "12.4%", up: true, confidence: "High" },
   { name: "Pharmaceuticals", growth: "10.7%", up: true, confidence: "Medium" },
@@ -113,7 +113,7 @@ const MARKET_PREDICTIONS = [
 ];
 
 const RADAR_AXES = ["Political", "Economic", "Regulatory", "Security", "Supply Chain", "Compliance"];
-const RADAR_DATA = RADAR_AXES.map((axis, i) => ({
+const UNUSED_DEMO_RADAR_DATA = RADAR_AXES.map((axis, i) => ({
   axis,
   A: [70, 60, 55, 65, 70, 60][i],
   B: [50, 70, 60, 40, 55, 65][i],
@@ -121,7 +121,7 @@ const RADAR_DATA = RADAR_AXES.map((axis, i) => ({
   D: [40, 55, 45, 60, 50, 45][i],
   E: [65, 50, 40, 70, 60, 55][i],
 }));
-const RADAR_SERIES = [
+const UNUSED_DEMO_RADAR_SERIES = [
   { key: "A", color: "#14B8A6" },
   { key: "B", color: "#EC4899" },
   { key: "C", color: "#F97316" },
@@ -134,7 +134,7 @@ const RADAR_LEGEND = [
   { label: "Low (0-39)", color: "#10B981" },
 ];
 
-const PRICE_TRENDS = [
+const UNUSED_DEMO_PRICE_TRENDS = [
   { name: "Crude Oil (2709)", prediction: "-4.2%", up: false, confidence: "High", trend: [8, 6, 7, 5, 4, 3] },
   { name: "Copper (7403)", prediction: "+5.6%", up: true, confidence: "Medium", trend: [3, 4, 4, 5, 6, 7] },
   { name: "Aluminium (7601)", prediction: "+3.1%", up: true, confidence: "Medium", trend: [4, 4, 5, 5, 6, 6] },
@@ -142,7 +142,7 @@ const PRICE_TRENDS = [
   { name: "Plastic Resin (3901)", prediction: "+1.8%", up: true, confidence: "Low", trend: [4, 5, 4, 5, 6, 6] },
 ];
 
-const RECOMMENDED_ACTIONS = [
+const UNUSED_DEMO_RECOMMENDED_ACTIONS = [
   { icon: Box, bg: "bg-purple-50", color: "text-purple-600", text: "Explore 128 high potential opportunities in Electronics & Machinery categories.", link: "View Opportunities" },
   { icon: Users, bg: "bg-emerald-50", color: "text-emerald-600", text: "Consider sourcing from Vietnam, Mexico & Poland for better cost advantage.", link: "View Suppliers" },
   { icon: TrendingDown, bg: "bg-teal-50", color: "text-teal-600", text: "Hedge against price volatility in metals & energy commodities.", link: "View Price Insights" },
@@ -169,10 +169,50 @@ function ViewAllHeader({ title }) {
 
 export default function AIInsightsDashboard() {
   const [activeTab, setActiveTab] = useState("Smart Summary");
-   const [shipmentStartDate, setShipmentStartDate] = useState(null);
-    const [shipmentEndDate, setShipmentEndDate] = useState(null);
-     const [dateRange, setDateRange] = useState(false)
-     const [exportReport, setExportReport] = useState(false)
+  const [shipmentStartDate, setShipmentStartDate] = useState(() => new Date(new Date().getFullYear(), new Date().getMonth(), 1));
+  const [shipmentEndDate, setShipmentEndDate] = useState(() => new Date());
+  const [country, setCountry] = useState("");
+  const [category, setCategory] = useState("");
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [exportReport, setExportReport] = useState(false);
+  const toISO = (date) => date ? [date.getFullYear(), String(date.getMonth()+1).padStart(2,"0"), String(date.getDate()).padStart(2,"0")].join("-") : "";
+  const fetchInsights = async (start = shipmentStartDate, end = shipmentEndDate, selectedCountry = country, selectedCategory = category) => {
+    if (!start || !end) return;
+    if (start > end) { setError("From Date cannot be after To Date"); return; }
+    setLoading(true); setError(""); setData(null);
+    try {
+      const base = String(import.meta.env.VITE_AI_API_BASE_URL || "https://ai-service-nb69.onrender.com/api").replace(/\/+$/, "").replace(/\/api$/i, "");
+      const params = new URLSearchParams({ date_from: toISO(start), date_to: toISO(end) });
+      if (selectedCountry.trim()) params.set("country", selectedCountry.trim());
+      if (selectedCategory.trim()) params.set("category", selectedCategory.trim());
+      const response = await fetch(`${base}/ai-insights?${params.toString()}`);
+      if (!response.ok) throw new Error(`AI Insights request failed (${response.status})`);
+      const result = await response.json();
+      const payload = result?.data?.kpis ? result.data : result;
+      if (!payload || !payload.kpis) throw new Error("Unexpected AI Insights API response");
+      setData(payload);
+    } catch (e) { setError(e.message || "Unable to load AI Insights"); }
+    finally { setLoading(false); }
+  };
+  useEffect(() => { fetchInsights(); }, []); // initial load; filter button applies later changes
+  const KPI_STATS = [
+    { title:"Top Insight", value:data?.kpis?.top_insight?.title || "—", desc:data?.kpis?.top_insight?.detail || "—", icon:Lightbulb, bg:"bg-blue-50", color:"text-blue-500" },
+    { title:"Growth Opportunities", value:data?.kpis?.growth_opportunities?.value ?? "—", desc:data?.kpis?.growth_opportunities?.label || "", icon:TrendingUp, bg:"bg-emerald-50", color:"text-emerald-500" },
+    { title:"Risk Alerts", value:data?.kpis?.risk_alerts?.value ?? "—", desc:data?.kpis?.risk_alerts?.label || "", icon:AlertTriangle, bg:"bg-rose-50", color:"text-rose-500" },
+    { title:"Market Predictions", value:data?.kpis?.market_predictions?.value ?? "—", desc:data?.kpis?.market_predictions?.label || "", icon:BarChart3, bg:"bg-teal-50", color:"text-teal-500" },
+    { title:"AI Confidence Score", value:data?.kpis?.ai_confidence_score ? `${data.kpis.ai_confidence_score.value}${data.kpis.ai_confidence_score.unit || "%"}` : "—", desc:data?.kpis?.ai_confidence_score?.label || "", icon:CheckCircle2, bg:"bg-blue-50", color:"text-blue-500" },
+    { title:"Data Signals Analyzed", value:data?.kpis?.data_signals_analyzed?.value ?? "—", desc:data?.kpis?.data_signals_analyzed?.label || "", icon:Zap, bg:"bg-purple-50", color:"text-purple-500" },
+  ];
+  const SMART_SUMMARY = (data?.smart_summary || []).map((text, i) => ({ text, icon:i%2?Square:Sparkles, bg:"bg-emerald-50", color:"text-emerald-600" }));
+  const GROWTH_OPPORTUNITIES = (data?.opportunity_insights?.top_growth_opportunities || []).map(o => ({ rank:o.rank, name:`${o.product || "Product"} (${o.hs_code || "—"})`, score:Number(o.ai_score)||0 }));
+  const MARKET_PREDICTIONS = (data?.market_predictions || []).map(m => ({ name:m.category, growth:`${m.growth_pct > 0 ? "+" : ""}${m.growth_pct}%`, up:m.trend === "up" || m.growth_pct > 0, confidence:m.confidence }));
+  const RADAR_SERIES = (data?.risk_insights?.series || []).map((item, i) => ({ key:`series${i}`, label:item.name, color:["#14B8A6","#EC4899","#F97316","#FACC15","#EF4444"][i%5] }));
+  const RADAR_DATA = (data?.risk_insights?.axes || []).map((axis,i) => Object.assign({axis}, Object.fromEntries((data?.risk_insights?.series || []).map((series,j) => [`series${j}`, Number(series.values?.[i])||0]))));
+  const PRICE_TRENDS = (data?.price_insights || []).map(p => ({ name:`${p.product} (${p.hs_code || "—"})`, prediction:`${p.prediction_pct > 0 ? "+" : ""}${p.prediction_pct}%`, up:p.trend === "up", confidence:p.confidence, trend:p.trend_points || [] }));
+  const RECOMMENDED_ACTIONS = (data?.recommended_actions || []).map((a,i) => ({ text:`${a.icon || ""} ${a.text || ""}`, icon:[Box,Users,TrendingDown,ShieldAlert,MapPin][i%5], bg:"bg-teal-50", color:"text-teal-600" }));
+  const regions = data?.opportunity_insights?.heatmap || [];
 
   return (
     <div className="cm-module-theme min-h-screen w-full overflow-y-auto bg-[#F8FAFC] text-slate-600  antialiased pt-1">
@@ -185,26 +225,15 @@ export default function AIInsightsDashboard() {
             </p>
           </div> */}
           <div className="flex items-center gap-2 w-full md:w-auto">
-              <div className="relative flex-1 md:flex-none">
-                         <DatePicker
-                           selected={shipmentStartDate}
-                           onChange={(dates) => {
-                             const [start, end] = dates;
-                             setShipmentStartDate(start);
-                             setShipmentEndDate(end);
-                           }}
-                           startDate={shipmentStartDate}
-                           endDate={shipmentEndDate}
-                           selectsRange
-                           dateFormat="dd MMM yyyy"
-                           placeholderText="01 Apr 2025 - 24 Apr 2025"
-                           className={`bg-white border border-slate-200 text-[11px] sm:text-xs font-semibold pl-3 pr-9 py-2 rounded-xl shadow-xs hover:bg-slate-50 transition whitespace-nowrap outline-none cursor-pointer ${HEADING}`}
-                         />
-                         <CalendarDays
-                           size={14}
-                           className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 pointer-events-none"
-                         />
-                       </div>
+              <label className="text-[11px] font-semibold text-slate-600">From
+                <DatePicker selected={shipmentStartDate} onChange={setShipmentStartDate} selectsStart startDate={shipmentStartDate} endDate={shipmentEndDate} maxDate={shipmentEndDate || undefined} dateFormat="dd MMM yyyy" placeholderText="From date" className="block bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs w-32" />
+              </label>
+              <label className="text-[11px] font-semibold text-slate-600">To
+                <DatePicker selected={shipmentEndDate} onChange={setShipmentEndDate} selectsEnd startDate={shipmentStartDate} endDate={shipmentEndDate} minDate={shipmentStartDate || undefined} dateFormat="dd MMM yyyy" placeholderText="To date" className="block bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs w-32" />
+              </label>
+              <input aria-label="Country" value={country} onChange={e=>setCountry(e.target.value)} placeholder="Country (e.g. UAE)" className="bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs w-36" />
+              <input aria-label="Category" value={category} onChange={e=>setCategory(e.target.value)} placeholder="Category (e.g. Coffee)" className="bg-white border border-slate-200 px-3 py-2 rounded-xl text-xs w-40" />
+              <button type="button" disabled={loading || !shipmentStartDate || !shipmentEndDate} onClick={()=>fetchInsights()} className="bg-teal-600 text-white rounded-xl px-4 py-2 text-xs font-bold disabled:opacity-50">{loading ? "Loading..." : "Apply"}</button>
                        <button onClick={() => setExportReport(true)} className={`flex-1 md:flex-none flex items-center justify-center gap-2 bg-white border border-slate-200 text-[11px] sm:text-xs font-semibold px-3 sm:px-4 py-2 rounded-xl shadow-xs hover:bg-slate-50 transition whitespace-nowrap ${HEADING}`}>
                          <Download size={14} className="text-slate-400" />
                          Export Report
@@ -212,6 +241,9 @@ export default function AIInsightsDashboard() {
           </div>
         </div>
 
+        {error && <div role="alert" className="mb-4 rounded-xl bg-rose-50 border border-rose-200 p-3 text-sm text-rose-700">{error} <button className="ml-3 underline" onClick={()=>fetchInsights()}>Retry</button></div>}
+        {loading && <p className="mb-3 text-sm text-slate-500">Loading AI insights...</p>}
+        {data?.is_estimate && <p className="mb-3 text-xs text-amber-800 bg-amber-50 rounded-xl p-3">{data.disclaimer || "AI-generated estimates, not verified trade facts."}</p>}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 mb-5">
           {KPI_STATS.map((stat, idx) => {
             const Icon = stat.icon;
@@ -289,7 +321,7 @@ export default function AIInsightsDashboard() {
             <div className="bg-emerald-50/60 border border-emerald-100 rounded-xl p-3 mt-4">
               <h4 className={`font-bold text-[12px] mb-1 ${HEADING}`}>Why these opportunities?</h4>
               <p className="text-[11px] text-slate-500 leading-snug">
-                High demand growth, low competition, favorable market conditions & supplier availability.
+                {data?.opportunity_insights?.why || "—"}
               </p>
             </div>
           </SectionCard> )}
@@ -301,40 +333,13 @@ export default function AIInsightsDashboard() {
                 Countries <ChevronDown size={12} className="text-slate-400" />
               </button>
             </div>
-            <div className="relative h-[260px] sm:h-[300px] bg-slate-50 rounded-xl overflow-hidden border border-slate-100">
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg"
-                alt="world map"
-                className="absolute inset-0 w-full h-full object-cover"
-                style={{ filter: "grayscale(1) brightness(0) invert(0.85)" }}
-              />
-              <svg viewBox="0 0 1000 500" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
-                {HEATMAP_COUNTRIES.map((c) => (
-                  <polygon key={c.id} points={c.points} fill={c.color} opacity={0.92} />
-                ))}
-              </svg>
-              <div className="absolute bottom-2 left-2 bg-white/95 rounded-lg p-2 shadow border border-slate-100">
-                <span className="text-[9px] font-bold text-slate-400 uppercase block mb-1">Risk Level</span>
-                <div className="space-y-0.5">
-                  {HEATMAP_LEGEND.map((l, i) => (
-                    <div key={i} className="flex items-center gap-1.5 text-[9px] text-slate-500 font-medium">
-                      <div className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: l.color }} />
-                      {l.label}
-                    </div>
-                  ))}
+            <div className="max-h-[300px] overflow-auto bg-slate-50 rounded-xl border border-slate-100 p-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {regions.length ? regions.map((r,i) => (
+                <div key={`${r.region}-${i}`} className="bg-white rounded-lg border p-3 flex justify-between gap-3 text-xs">
+                  <span className="font-semibold text-slate-700">{r.region} {r.iso2 ? `(${r.iso2})` : ""}</span>
+                  <span className="text-teal-700">{r.risk_level || "Not rated"} risk</span>
                 </div>
-              </div>
-              <div className="absolute bottom-2 right-2 flex flex-col gap-1">
-                <button className="w-6 h-6 bg-white rounded-md shadow flex items-center justify-center text-slate-500">
-                  <Plus size={12} />
-                </button>
-                <button className="w-6 h-6 bg-white rounded-md shadow flex items-center justify-center text-slate-500">
-                  <Minus size={12} />
-                </button>
-                <button className="w-6 h-6 bg-white rounded-md shadow flex items-center justify-center text-slate-500">
-                  <RotateCw size={11} />
-                </button>
-              </div>
+              )) : <p className="text-xs text-slate-400">No regional heatmap data returned.</p>}
             </div>
           </SectionCard> )}
 
@@ -456,7 +461,7 @@ export default function AIInsightsDashboard() {
 
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-t border-slate-200 pt-3 pb-2">
           <span className="flex items-center gap-1.5 text-[10px] text-slate-400 font-medium">
-            <Info size={12} /> All data is updated daily. Last updated on 24 Apr 2025, 09:30 AM
+            <Info size={12} /> Data generated: {data?.generated_on ? new Date(data.generated_on).toLocaleString("en-IN") : "Not loaded"}
           </span>
           <span className="flex items-center gap-1.5 text-[10px] text-slate-500 font-semibold cursor-pointer">
             <HelpCircle size={12} /> Help Center

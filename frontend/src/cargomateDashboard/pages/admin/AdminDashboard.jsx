@@ -2577,15 +2577,21 @@ export default function AdminDashboard({ profileMode = false }) {
   const [staffAccess, setStaffAccess] = useState(null);
   useEffect(() => {
     let active = true;
-    API.get("/auth/me")
+    const refreshEffectivePermissions = () => API.get("/auth/me")
       .then(({ data }) => {
         if (!active) return;
-        if (data?.user?.isInternalStaff)
-          setStaffAccess(data.user.permissions || {});
+        // Backend is authoritative: refresh when returning to the tab after role changes.
+        setStaffAccess(data?.user?.isInternalStaff ? (data.user.permissions || {}) : null);
       })
-      .catch(() => {});
+      .catch(() => {
+        // Never treat an unreadable role as unrestricted Admin access.
+        if (active) setStaffAccess({});
+      });
+    refreshEffectivePermissions();
+    window.addEventListener("focus", refreshEffectivePermissions);
     return () => {
       active = false;
+      window.removeEventListener("focus", refreshEffectivePermissions);
     };
   }, []);
   const menuModules = {

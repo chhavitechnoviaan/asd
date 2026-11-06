@@ -56,7 +56,19 @@ function AppContent() {
     setActivePage(page);
     if (location.pathname !== "/") navigate("/");
   };
-
+if (normalizedPath === "/contactpage") {
+  return (
+    <>
+      <Navbar
+        activePage="Contact Us"
+        onNavigate={handleNavigate}
+        onLoginClick={() => navigate("/login")}
+        onSignupClick={() => navigate("/signup")}
+      />
+      <ContactPage onNavigate={handleNavigate} />
+    </>
+  );
+}
   const handleLoginClick = () => navigate("/login");
   const handleSignupClick = () => navigate("/signup");
 

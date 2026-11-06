@@ -21,6 +21,7 @@
 //     return ['shipment', read(m)?'view':m==='POST'?'add':'edit'];
 //   }],
 //   [/^\/api\/quotations(?:\/|$)/, (m,p) => /\/accept|\/reject|\/my-quotations/.test(p)?null:['shipment',read(m)?'view':m==='POST'?'add':'edit']],
+//   [/^\/api\/master-data(?:\/|$)/, (m) => ["masterData", read(m) ? "view" : m === "POST" ? "add" : m === "DELETE" ? "delete" : "edit" ]],
 //   [/^\/api\/(?:master|items)(?:\/|$)/, (m) => ['masterData',read(m)?'view':m==='POST'?'add':m==='DELETE'?'delete':'edit']],
 //   [/^\/api\/hs(?:\/|$)/, (m) => ['hsRules',read(m)?'view':m==='POST'?'add':m==='DELETE'?'delete':'edit']],
 //   [/^\/api\/country-rules(?:\/|$)/, (m) => ['countryRules',read(m)?'view':m==='POST'?'add':m==='DELETE'?'delete':'edit']],
@@ -79,6 +80,7 @@ const rules = [
     return ['shipment', read(m)?'view':m==='POST'?'add':'edit'];
   }],
   [/^\/api\/quotations(?:\/|$)/, (m,p) => /\/accept|\/reject|\/my-quotations/.test(p)?null:['shipment',read(m)?'view':m==='POST'?'add':'edit']],
+  [/^\/api\/master-data(?:\/|$)/, (m) => ["masterData", read(m) ? "view" : m === "POST" ? "add" : m === "DELETE" ? "delete" : "edit" ]],
   [/^\/api\/(?:master|items)(?:\/|$)/, (m) => ['masterData',read(m)?'view':m==='POST'?'add':m==='DELETE'?'delete':'edit']],
   [/^\/api\/hs(?:\/|$)/, (m) => ['hsRules',read(m)?'view':m==='POST'?'add':m==='DELETE'?'delete':'edit']],
   [/^\/api\/country-rules(?:\/|$)/, (m) => ['countryRules',read(m)?'view':m==='POST'?'add':m==='DELETE'?'delete':'edit']],
