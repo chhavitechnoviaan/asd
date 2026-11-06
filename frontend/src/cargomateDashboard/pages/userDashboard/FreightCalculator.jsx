@@ -1495,13 +1495,13 @@ function FreightOptions({ result, onSelectOption, onViewDetails }) {
                     </div>
                   </>
                 )}
-                <button
+                {/* <button
                   type="button"
                   onClick={() => onViewDetails?.(card.raw)}
                   className={`w-full text-xs font-bold mb-3 border py-2 rounded-md ${card.viewBtnClass} ${card.viewBorderClass} ${card.viewHoverClass}`}
                 >
                   View Details
-                </button>
+                </button> */}
                 <button
                   type="button"
                   onClick={() => onSelectOption?.(card.raw)}
@@ -1716,13 +1716,13 @@ function ReportInformation() {
           </div>
         ))}
       </div>
-      <button
+      {/* <button
         className="w-full border border-teal-600 text-teal-600 font-bold  text-xs
       py-2.5 rounded-lg mt-6 flex items-center justify-center gap-2 hover:bg-teal-50"
       >
         <Icon d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
         Download Report (PDF)
-      </button>
+      </button> */}
     </section>
   );
 }
