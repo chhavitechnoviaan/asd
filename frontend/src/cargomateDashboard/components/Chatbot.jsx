@@ -1779,11 +1779,7 @@ export default function CargoMateChat() {
 
 
 
-          <button className="flex items-center gap-1 text-sm text-gray-600">
-
-            English <ChevronDown size={14} />
-
-          </button>
+          
 
           <div className="flex items-center gap-2">
 
