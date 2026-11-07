@@ -1,3 +1,4 @@
+import { saveShipmentPrefill } from "../../utils/shipmentPrefill";
 // import React, { useState } from "react";
 // import CargoMateAPI from "../../api/CargoMateApi";
 
@@ -31,7 +32,7 @@
 //   </svg>
 // );
 
-// function HeaderActions({ setShipment, setActiveTab, onOpenFreight }) {
+// function HeaderActions({ setShipment, setActiveTab, onOpenFreight, result, query }) {
 //   return (
 //     <div className="flex flex-wrap gap-2">
 //       <button
@@ -43,7 +44,8 @@
 //       </button>
 //       <button
 //         onClick={() => {
-//           setShipment("shipment");
+//           saveShipmentPrefill(result, query);
+          // setShipment("shipment");
 //           setActiveTab("");
 //         }}
 //         className="px-4 py-2 bg-teal-600 text-white rounded-md text-xs font-bold hover:bg-teal-700"
@@ -509,7 +511,7 @@
 //   );
 // }
 
-// function ResultSummary({ setActiveTab, setShipment, result }) {
+// function ResultSummary({ setActiveTab, setShipment, result, conversion }) {
 //   const summary = result?.result_summary || {};
 //   const currency = summary.currency || result?.query?.currency || "INR";
 //   const money = (value) =>
@@ -590,7 +592,8 @@
 //       </div>
 //       <button
 //         onClick={() => {
-//           setShipment("shipment");
+//           saveShipmentPrefill(result);
+          // setShipment("shipment");
 //           setActiveTab("");
 //         }}
 //         className="w-full bg-teal-600 text-white font-bold py-3 text-xs rounded-lg mt-6 hover:bg-teal-700"
@@ -857,12 +860,17 @@
 //                 setActiveTab={setActiveTab}
 //                 setShipment={setShipment}
 //                 onOpenFreight={openFreightForm}
+                // result={freightResult}
+                // query={freightForm}
 //               />
 //             </div>
 //           </header>
 //           <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-12">
 //             <main className="min-w-0 space-y-6 lg:col-span-8">
 //               <SearchSummary result={freightResult} form={freightForm} />
+              // {freightResult && !freightResult.port_specific && !freightResult?.query?.destination_port && (
+              //   <p className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-xs text-amber-800">Destination port was sent with the request, but the AI freight response did not confirm port-specific pricing. Verify rates with the carrier.</p>
+              // )}
 //               <FreightOptions
 //                 result={freightResult}
 //                 onViewDetails={(option) => {
@@ -1088,8 +1096,9 @@
 
 import ReportActions from "../../components/ReportActions";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CargoMateAPI from "../../api/CargoMateApi";
+import API from "../../api/axios";
 
 import plane from "../../assets/Images/webp/plane.webp";
 import blueship from "../../assets/Images/webp/blueship.webp";
@@ -1097,6 +1106,7 @@ import orangeship from "../../assets/Images/webp/orangeship.webp";
 import NeedHelp from "../../components/core/NeedHelp";
 import Shipment from "../../components/ShipmentForm";
 import DashboardAdPlacement from "../../components/DashboardAdPlacement";
+import CountryAutocomplete from "../../../components/CountryAutocomplete";
 import poster2 from "../../assets/Images/webp/poster2.webp";
 import poster from "../../assets/Images/webp/poster3.webp";
 
@@ -1164,6 +1174,7 @@ function SearchSummary({ result, form }) {
   const fields = [
     { label: "Origin", value: query?.origin || "—" },
     { label: "Destination", value: query?.destination || "—" },
+    { label: "Destination Port", value: query?.destination_port || form?.destination_port || "—" },
     { label: "Shipment Type", value: result?.best_mode || "—" },
     { label: "Commodity", value: query?.commodity || query?.product || "—" },
     {
@@ -1276,17 +1287,25 @@ function FreightCard({
   );
 }
 
-function FreightOptions({ result, onSelectOption, onViewDetails }) {
+function FreightOptions({ result, onSelectOption, onViewDetails, onConversionChange }) {
   const [activeTab, setActiveTab] = useState("freight");
   const [currency, setCurrency] = useState("");
+  const [fx, setFx] = useState(null);
+  const [fxError, setFxError] = useState("");
   const options = result?.options || [];
-  const selectedCurrency =
-    currency ||
-    result?.query?.currency ||
-    result?.result_summary?.currency ||
-    "INR";
-  const money = (value) =>
-    `${selectedCurrency} ${Number(value ?? 0).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
+  const baseCurrency=String(result?.query?.currency || result?.result_summary?.currency || "INR").toUpperCase();
+  const selectedCurrency = currency || baseCurrency;
+  useEffect(()=>{
+    if(selectedCurrency===baseCurrency){setFx({rate:1,date:null});setFxError("");return;}
+    let alive=true;setFx(null);setFxError("");
+    fetch(`https://api.frankfurter.dev/v1/latest?base=${encodeURIComponent(baseCurrency)}&symbols=${encodeURIComponent(selectedCurrency)}`)
+      .then(r=>{if(!r.ok)throw new Error("FX service unavailable");return r.json();})
+      .then(data=>{const rate=Number(data?.rates?.[selectedCurrency]);if(!Number.isFinite(rate)||rate<=0)throw new Error("FX rate missing");if(alive)setFx({rate,date:data.date});})
+      .catch(e=>{if(alive)setFxError(e.message||"Conversion unavailable");});
+    return()=>{alive=false;};
+  },[baseCurrency,selectedCurrency]);
+  useEffect(()=>{onConversionChange?.({currency:selectedCurrency,rate:fx?.rate??null,date:fx?.date||null});},[onConversionChange,selectedCurrency,fx]);
+  const money=(value)=>value==null?"—":fx?`${selectedCurrency} ${(Number(value)*fx.rate).toLocaleString(undefined,{maximumFractionDigits:2})}`:"Rate unavailable";
   const palettes = [
     {
       badgeClass: "bg-green-100 text-green-700",
@@ -1403,6 +1422,10 @@ function FreightOptions({ result, onSelectOption, onViewDetails }) {
               <option>EUR</option>
               <option>GBP</option>
             </select>
+            {fxError && <span role="alert" className="ml-2 text-xs text-red-600">{fxError}</span>}
+            {fx?.date && <span className="ml-2 text-[10px] text-gray-500">FX: {fx.date}</span>}
+            {fxError && <span className="ml-2 text-xs text-red-600">{fxError}</span>}
+            {fx?.date && <span className="ml-2 text-[10px] text-gray-500">FX reference: {fx.date}</span>}
           </div>
         </div>
         {!result && (
@@ -1599,11 +1622,12 @@ function DataSources({ result }) {
   );
 }
 
-function ResultSummary({ setActiveTab, setShipment, result }) {
+function ResultSummary({ setActiveTab, setShipment, result, conversion }) {
   const summary = result?.result_summary || {};
-  const currency = summary.currency || result?.query?.currency || "INR";
-  const money = (value) =>
-    `${currency} ${Number(value ?? 0).toLocaleString(undefined, { maximumFractionDigits: 2 })}`;
+  const baseCurrency=String(summary.currency || result?.query?.currency || "INR").toUpperCase();
+  const currency=conversion?.currency || baseCurrency;
+  const rate=currency===baseCurrency?1:conversion?.rate;
+  const money=(value)=>value==null?"—":rate==null?"Rate unavailable":`${currency} ${(Number(value)*rate).toLocaleString(undefined,{maximumFractionDigits:2})}`;
   const rows = [
     {
       iconD: "M13 10V3L4 14h7v7l9-11h-7z",
@@ -1696,13 +1720,25 @@ function ResultSummary({ setActiveTab, setShipment, result }) {
   );
 }
 
-function ReportInformation() {
+function ReportInformation({ result }) {
+  const [profile,setProfile] = useState(null);
+  const [plan,setPlan] = useState(null);
+  useEffect(()=>{
+    let active=true;
+    Promise.allSettled([API.get("/profile"),API.get("/ai-subscription/me")]).then(([p,sub])=>{
+      if(!active)return;
+      if(p.status==="fulfilled")setProfile(p.value?.data?.data?.user || p.value?.data?.data || p.value?.data?.user || null);
+      if(sub.status==="fulfilled")setPlan(sub.value?.data?.data || null);
+    });
+    return()=>{active=false;};
+  },[]);
+  const user=profile?.user||profile;
   const rows = [
-    { label: "Report ID", value: "INC-2025-04-24-000123" },
-    { label: "Generated On", value: "24 Apr 2025, 09:25 AM" },
-    { label: "Generated By", value: "Arjun Soni" },
-    { label: "Plan", value: "Pro Plan" },
-    { label: "AI Model Version", value: "v2.1.0" },
+    {label:"Report ID",value:result?.report_id||result?.query_id||result?.search_id||"—"},
+    {label:"Generated On",value:result?.generated_on?new Date(result.generated_on).toLocaleString("en-IN"):"—"},
+    {label:"Generated By",value:user?.name||user?.fullName||"—"},
+    {label:"Plan",value:plan?.plan?.name||plan?.subscription?.planId?.name||plan?.activePlan?.name||"—"},
+    {label:"AI Model Version",value:result?.model_version||result?.ai_model_version||"Not provided"},
   ];
 
   return (
@@ -1860,9 +1896,13 @@ export default function FreightCalculatorResult() {
   const [freightLoading, setFreightLoading] = useState(false);
   const [freightError, setFreightError] = useState("");
   const [freightResult, setFreightResult] = useState(null);
+  const [conversion,setConversion] = useState(null);
   const [freightForm, setFreightForm] = useState({
+    trade: "export",
     origin: "India",
-    destination: "UAE",
+    origin_port: "",
+    destination: "United Arab Emirates",
+    destination_port: "",
     weight_kg: "5000",
     volume_cbm: "12",
     commodity: "cotton t-shirt",
@@ -1877,8 +1917,11 @@ export default function FreightCalculatorResult() {
   const calculateFreight = async (event) => {
     event.preventDefault();
     const payload = {
+      trade: freightForm.trade,
       origin: freightForm.origin.trim(),
+      origin_port: freightForm.origin_port.trim(),
       destination: freightForm.destination.trim(),
+      destination_port: freightForm.destination_port.trim(),
       weight_kg: Number(freightForm.weight_kg),
       volume_cbm: Number(freightForm.volume_cbm),
       commodity: freightForm.commodity.trim(),
@@ -1962,12 +2005,14 @@ export default function FreightCalculatorResult() {
               <SearchSummary result={freightResult} form={freightForm} />
               <FreightOptions
                 result={freightResult}
+                onConversionChange={setConversion}
                 onViewDetails={(option) => {
                   setSelectedFreightOption(option);
                   openFreightForm();
                 }}
                 onSelectOption={(option) => {
                   setSelectedFreightOption(option);
+                  saveShipmentPrefill(freightResult, freightForm, option);
                   setShowFreightForm(false);
                   setShipment("shipment");
                   setActiveTab("");
@@ -1983,6 +2028,7 @@ export default function FreightCalculatorResult() {
                 setActiveTab={setActiveTab}
                 setShipment={setShipment}
                 result={freightResult}
+                conversion={conversion}
               />
 
               <DashboardAdPlacement
@@ -1990,7 +2036,7 @@ export default function FreightCalculatorResult() {
                 layout="sidebar"
                 slot="sidebar"
               />
-              <ReportInformation />
+              <ReportInformation result={freightResult} />
             </aside>
           </div>
           <div className="mt-6">
@@ -2038,6 +2084,17 @@ export default function FreightCalculatorResult() {
               </button>
             </div>
             <form onSubmit={calculateFreight} className="space-y-4 p-6">
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <label className="text-xs font-bold text-gray-700">Trade Type
+                  <select value={freightForm.trade} onChange={e => setFreightForm(p => ({...p, trade: e.target.value}))} className="mt-1 block rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm">
+                    <option value="export">Export</option><option value="import">Import</option>
+                  </select>
+                </label>
+                <button type="button" aria-label="Swap origin and destination countries and ports" onClick={() => setFreightForm(p => ({
+                  ...p, origin: p.destination, destination: p.origin,
+                  origin_port: p.destination_port, destination_port: p.origin_port,
+                }))} className="rounded-lg border border-teal-300 px-4 py-2 text-sm font-semibold text-teal-700 hover:bg-teal-50">⇄ Swap origin / destination</button>
+              </div>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 {[
                   {
@@ -2075,7 +2132,10 @@ export default function FreightCalculatorResult() {
                     <span className="mb-1.5 block text-xs font-bold text-gray-700">
                       {field.label}
                     </span>
-                    <input
+                    {field.key === "origin" || field.key === "destination" ? (
+                      <CountryAutocomplete required value={freightForm[field.key]} onChange={e => setFreightForm(prev => ({...prev, [field.key]: e.target.value}))}
+                        placeholder={field.placeholder} className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100" />
+                    ) : <input
                       required
                       type={field.type}
                       min={
@@ -2095,9 +2155,17 @@ export default function FreightCalculatorResult() {
                       }
                       placeholder={field.placeholder}
                       className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
-                    />
+                    />}
                   </label>
                 ))}
+                <label className="block">
+                  <span className="mb-1.5 block text-xs font-bold text-gray-700">Origin Port / Airport (optional)</span>
+                  <input value={freightForm.origin_port} placeholder="e.g. Nhava Sheva" onChange={e=>setFreightForm(p=>({...p,origin_port:e.target.value}))} className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm" />
+                </label>
+                <label className="block">
+                  <span className="mb-1.5 block text-xs font-bold text-gray-700">Destination Port / Airport (optional)</span>
+                  <input value={freightForm.destination_port} placeholder="e.g. Jebel Ali" onChange={e=>setFreightForm(p=>({...p,destination_port:e.target.value}))} className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm" />
+                </label>
                 <label className="block">
                   <span className="mb-1.5 block text-xs font-bold text-gray-700">
                     Incoterm

@@ -386,6 +386,21 @@ exports.updateB2BUser=async(req,res)=>{
     res.json({status:1,message:"B2B account updated",data:result.user.toObject({transform:(_doc,ret)=>{delete ret.password;return ret;}})});
   }catch(e){res.status(500).json({message:"Unable to update B2B account"});}
 };
+// Main-admin-only credential reset; old password is never returned.
+exports.resetB2BPassword = async (req, res) => {
+  try {
+    const password = req.body?.newPassword;
+    if (typeof password !== "string" || password.length < 12 || password.length > 128)
+      return res.status(400).json({ message: "New password must be 12–128 characters" });
+    const result = await getB2BUser(req.params.id);
+    if (result.error) return res.status(result.statusCode).json({ message: result.error });
+    const bcrypt = require("bcryptjs");
+    result.user.password = await bcrypt.hash(password, 12);
+    result.user.sessionVersion = Number(result.user.sessionVersion || 0) + 1;
+    await result.user.save();
+    return res.json({ status: 1, message: "Vendor password updated. Existing sessions invalidated." });
+  } catch (error) { return res.status(500).json({ message: "Unable to reset vendor password" }); }
+};
 exports.deleteB2BUser=async(req,res)=>{
   try{
     const result=await getB2BUser(req.params.id);

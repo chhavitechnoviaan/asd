@@ -1,3 +1,5 @@
+import { saveShipmentPrefill } from "../../utils/shipmentPrefill";
+import CountryAutocomplete from "../../../components/CountryAutocomplete";
 // // // import { getSession } from "../../../lib/auth";
 // // // import {reportRequest} from "../../../lib/accountApi";
 // // // import {successAlert,errorAlert} from "../../../lib/alerts";
@@ -7861,6 +7863,7 @@ const AiCargoMateAssistant = () => {
   const [currency, setCurrency] = useState("INR");
   const [originCountry, setOriginCountry] = useState("India");
   const [destinationCountry, setDestinationCountry] = useState("");
+  const [destinationPort, setDestinationPort] = useState("");
   const [quantity, setQuantity] = useState("");
   const [unit, setUnit] = useState("KG");
 
@@ -7978,8 +7981,8 @@ const AiCargoMateAssistant = () => {
       return;
     }
 
-    if (!originCountry.trim() || !destinationCountry.trim() || !quantity || !Number.isFinite(Number(quantity)) || Number(quantity) <= 0) {
-      setAnalysisError("Enter origin country, destination country and a valid quantity.");
+    if (!originCountry.trim() || !destinationCountry.trim() || !destinationPort.trim() || !quantity || !Number.isFinite(Number(quantity)) || Number(quantity) <= 0) {
+      setAnalysisError("Enter origin, destination, destination port/airport and a valid quantity.");
       return;
     }
     setAnalysisLoading(true);
@@ -8001,6 +8004,7 @@ const AiCargoMateAssistant = () => {
             currency: currency.trim() || "INR",
             origin_country: originCountry.trim(),
             destination_country: destinationCountry.trim(),
+            destination_port: destinationPort.trim(),
             quantity: Number(quantity),
             unit,
           },
@@ -8104,6 +8108,7 @@ const AiCargoMateAssistant = () => {
             
                 <button
                   onClick={() => {
+                    saveShipmentPrefill(assistantResult, { query: queryText });
                     setShipment("shipment");
 
                     setActiveTab("");
@@ -8180,10 +8185,13 @@ const AiCargoMateAssistant = () => {
                                      
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                       <label className="text-xs font-medium text-gray-600">Origin Country
-                        <input required value={originCountry} onChange={(e) => setOriginCountry(e.target.value)} placeholder="India" className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800" />
+                        <CountryAutocomplete required value={originCountry} onChange={(e) => setOriginCountry(e.target.value)} placeholder="India" className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800" />
                       </label>
                       <label className="text-xs font-medium text-gray-600">Destination Country
-                        <input required value={destinationCountry} onChange={(e) => setDestinationCountry(e.target.value)} placeholder="UAE" className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800" />
+                        <CountryAutocomplete required value={destinationCountry} onChange={(e) => setDestinationCountry(e.target.value)} placeholder="United Arab Emirates" className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800" />
+                      </label>
+                      <label className="text-xs font-medium text-gray-600">Destination Port / Airport *
+                        <input required value={destinationPort} onChange={(e)=>setDestinationPort(e.target.value)} placeholder="e.g. AEJEA or DXB" className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800" />
                       </label>
                       <label className="text-xs font-medium text-gray-600">Quantity
                         <input required type="number" min="0.001" step="any" value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder="500" className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800" />
@@ -8434,7 +8442,8 @@ const AiCargoMateAssistant = () => {
                                              
                         <button
                           onClick={() => {
-                            setShipment("shipment");
+                            saveShipmentPrefill(assistantResult, { query: queryText });
+                    setShipment("shipment");
 
                             setActiveTab("");
                           }}
@@ -8626,7 +8635,8 @@ const AiCargoMateAssistant = () => {
                                  
                   <button
                     onClick={() => {
-                      setShipment("shipment");
+                      saveShipmentPrefill(assistantResult, { query: queryText });
+                    setShipment("shipment");
 
                       setActiveTab("");
                     }}

@@ -391,9 +391,14 @@ export default function SettingsDashboard({initialTab="General",showAccountProfi
 
           <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
 
-            <h3 className="font-bold text-sm text-slate-900 mb-5">
-              Account Summary
-            </h3>
+            <div className="mb-5 flex flex-wrap items-center gap-3">
+              <h3 className="font-bold text-sm text-slate-900">Account Summary</h3>
+              {accountSummary?.user?.kycStatus === "Verified" && (
+                <span className="inline-flex items-center gap-1 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700" title="KYC approved by CargoMate">
+                  <CheckCircle2 size={14} /> KYC Verified
+                </span>
+              )}
+            </div>
 
 
             <div className="flex items-center gap-4 border-b border-slate-100 pb-5 mb-5">
@@ -543,9 +548,10 @@ export default function SettingsDashboard({initialTab="General",showAccountProfi
 
           <div className="lg:col-span-2 bg-white border border-slate-200 rounded-xl p-5 shadow-sm">
 
-            <h3 className="font-bold text-sm text-slate-900 mb-5">
-              Company Details
-            </h3>
+            <div className="mb-5 flex flex-wrap items-center gap-3">
+              <h3 className="font-bold text-sm text-slate-900">Company Details</h3>
+              {accountSummary?.user?.kycStatus === "Verified" && <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-3 py-1 text-xs font-semibold text-emerald-700"><CheckCircle2 size={14} /> KYC Verified</span>}
+            </div>
 
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">

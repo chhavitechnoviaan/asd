@@ -410,6 +410,8 @@ export const estimateIncentives = (payload = {}) =>
   QuotaGatewayAPI.get("/incentiveEstimate", {
     params: {
       hs_code: payload.hs_code,
+      destination_country: payload.destination_country,
+      destination_port: payload.destination_port,
       fob_value: Number(payload.fob_value),
       quantity: Number(payload.quantity),
       meis_rate_pct: Number(payload.meis_rate_pct),
@@ -420,6 +422,8 @@ export const calculateMeis = (payload = {}) =>
   QuotaGatewayAPI.get("/incentiveMeis", {
     params: {
       hs_code: payload.hs_code,
+      destination_country: payload.destination_country,
+      destination_port: payload.destination_port,
       fob_value: Number(payload.fob_value),
       quantity: Number(payload.quantity),
       meis_rate_pct: Number(payload.meis_rate_pct),
@@ -464,25 +468,21 @@ export const getCommodityTrade = (payload = {}) =>
     },
   });
 
-export const calculateFreight = (payload = {}) => {
-  const requestBody = {
-    origin: String(payload.origin ?? "").trim(),
-    destination: String(payload.destination ?? "").trim(),
-    weight_kg: Number(payload.weight_kg),
-    volume_cbm: Number(payload.volume_cbm),
-    product: String(
-      payload.product ?? payload.commodity ?? ""
-    ).trim(),
-    incoterm: String(payload.incoterm ?? "FOB")
-      .trim()
-      .toUpperCase(),
-    currency: String(payload.currency ?? "INR")
-      .trim()
-      .toUpperCase(),
-  };
-
-  return CargoMateAPI.post("/freight/estimate", requestBody);
-};
+export const calculateFreight = (payload = {}) =>
+  CargoMateAPI.get("/freight/estimate", {
+    params: {
+      trade: payload.trade ?? "export",
+      origin: String(payload.origin ?? "India").trim(),
+      origin_port: payload.origin_port || undefined,
+      destination: String(payload.destination ?? "").trim(),
+      destination_port: payload.destination_port || undefined,
+      weight_kg: Number(payload.weight_kg),
+      volume_cbm: payload.volume_cbm === "" || payload.volume_cbm == null ? undefined : Number(payload.volume_cbm),
+      commodity: payload.commodity ?? payload.product ?? undefined,
+      incoterm: payload.incoterm ?? "FOB",
+      currency: payload.currency ?? "INR",
+    },
+  });
 
 // ========================================
 // RISK ASSESSMENT API

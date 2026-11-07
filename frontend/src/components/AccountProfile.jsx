@@ -2,12 +2,14 @@ import {useEffect,useRef,useState} from "react";
 import {createPortal} from "react-dom";
 import {useNavigate} from "react-router-dom";
 import {accountRequest} from "../lib/accountApi";
+import {getAccountSummary} from "../cargomateDashboard/api/SettingsApi";
 import {getSession,clearSession,authApi} from "../lib/auth";
 import {successAlert,errorAlert} from "../lib/alerts";
 export function AccountBadge(){
   const nav=useNavigate();
   const role=getSession()?.role||"user";
   const [user,setUser]=useState(null);
+  const [serverKycStatus,setServerKycStatus]=useState(null);
   const [open,setOpen]=useState(false);
   const triggerRef=useRef(null);
   const dropdownRef=useRef(null);
@@ -27,11 +29,12 @@ export function AccountBadge(){
     return()=>{window.removeEventListener("resize",positionDropdown);document.removeEventListener("pointerdown",onOutside);};
   },[open]);
   useEffect(()=>{let current=true;accountRequest("/").then(d=>{if(current)setUser(d.user)}).catch(()=>{});return()=>{current=false}},[]);
+  useEffect(()=>{if(role!=="b2b")return;let mounted=true;getAccountSummary().then(res=>{const status=res?.data?.data?.user?.kycStatus; if(mounted)setServerKycStatus(status ?? null);}).catch(()=>{});return()=>{mounted=false};},[role]);
   const logout=()=>{clearSession();nav("/login",{replace:true})};
   return <div ref={triggerRef} className="relative group" onMouseEnter={()=>setOpen(true)}>
     <button type="button" aria-expanded={open} onClick={()=>setOpen(v=>!v)} onFocus={()=>setOpen(true)} className="flex items-center gap-2 px-2 py-1 text-left rounded-xl hover:bg-teal-50 focus-visible:outline focus-visible:outline-teal-500" title="Open account menu">
       {user?.profileImage?<img src={user.profileImage} alt="Profile" className="w-10 h-10 rounded-full object-cover"/>:<span className="w-10 h-10 rounded-full bg-gradient-to-br from-[#14B8A6] to-[#0D9488] text-white flex items-center justify-center font-bold">{(user?.name||role)[0].toUpperCase()}</span>}
-      <span className="hidden sm:block"><strong className="block text-xs text-slate-800">{user?.name||"My Account"}</strong><small className="text-slate-500 uppercase">{user?.isInternalStaff ? "SUB-ADMIN" : role}</small></span>
+      <span className="hidden sm:block"><strong className="block text-xs text-slate-800">{user?.name||"My Account"}</strong><small className="text-slate-500 uppercase">{user?.isInternalStaff ? "SUB-ADMIN" : role}</small>{role === "b2b" && String(serverKycStatus ?? user?.kycStatus ?? "").toLowerCase() === "verified" && <small className="block text-[10px] font-semibold text-emerald-700">✓ KYC Verified</small>}</span>
       <span className="text-slate-400">⌄</span>
     </button>
     {open&&createPortal(<div ref={dropdownRef} className="fixed z-[9999] w-72 max-w-[calc(100vw-24px)]" style={{top:position.top,right:position.right}} onMouseLeave={()=>setOpen(false)} onClick={e=>e.stopPropagation()}>
@@ -41,6 +44,7 @@ export function AccountBadge(){
           <p className="mt-1 text-lg font-semibold break-words">{user?.name||"My Account"}</p>
           <p className="mt-1 text-xs break-all opacity-95">{user?.email||""}</p>
           <p className="mt-2 inline-block rounded-full bg-white/20 px-2 py-1 text-xs">{user?.roleId?.name|| (user?.isInternalStaff?"Sub-admin":role.toUpperCase())}</p>
+          {role==="b2b" && String(serverKycStatus ?? user?.kycStatus ?? "").toLowerCase()==="verified" && <span className="ml-2 inline-block rounded-full bg-white/20 border border-white/40 px-2 py-1 text-xs font-semibold">✓ KYC Verified</span>}
         </div>
         <div className="p-2 space-y-1">
           <button type="button" onClick={()=>{setOpen(false);nav(`/${role}-profile`)}} className="w-full rounded-lg px-3 py-2.5 text-left text-sm text-slate-700 hover:bg-teal-50">View My Profile</button>
@@ -55,6 +59,7 @@ export default function AccountProfile({ embedded=false }) {
   const role=getSession()?.role||"user";
   const [staff,setStaff]=useState(null);
   const [user,setUser]=useState(null);
+  const [serverKycStatus,setServerKycStatus]=useState(null);
   const [name,setName]=useState("");
   const [phone,setPhone]=useState("");
   const [oldPassword,setOldPassword]=useState("");
@@ -66,6 +71,7 @@ export default function AccountProfile({ embedded=false }) {
     accountRequest("/").then(d=>{if(mounted){setUser(d.user);setName(d.user?.name||"");setPhone(d.user?.phone||"")}}).catch(e=>errorAlert(e.message));
     return()=>{mounted=false};
   },[role]);
+  useEffect(()=>{if(role!=="b2b")return;let mounted=true;getAccountSummary().then(res=>{const status=res?.data?.data?.user?.kycStatus; if(mounted)setServerKycStatus(status ?? null);}).catch(()=>{});return()=>{mounted=false};},[role]);
   const perform=async fn=>{setBusy(true);try{await fn()}catch(e){await errorAlert(e.message)}finally{setBusy(false)}};
   const save=()=>perform(async()=>{const data=await accountRequest("/","PUT",{name,phone});setUser(data);await successAlert("Profile updated successfully")});
   const changePassword=()=>perform(async()=>{
@@ -91,7 +97,7 @@ export default function AccountProfile({ embedded=false }) {
         <div className="bg-gradient-to-r from-[#0D9488] via-[#14B8A6] to-[#8EE9E0] p-6 sm:p-8 text-white">
           <div className="flex items-center gap-5 flex-wrap">
             {user?.profileImage?<img src={user.profileImage} alt="Your profile" className="h-20 w-20 rounded-2xl border-2 border-white/40 object-cover"/>:<div className="h-20 w-20 rounded-2xl bg-white/20 grid place-items-center text-4xl font-semibold">{(name||"A")[0].toUpperCase()}</div>}
-            <div className="min-w-0"><p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-80">{displayRole}</p><h2 className="text-2xl sm:text-3xl font-semibold break-words">{name||"My Account"}</h2><p className="text-sm break-all opacity-90 mt-1">{user?.email||""}</p></div>
+            <div className="min-w-0"><p className="text-xs font-semibold uppercase tracking-[0.24em] opacity-80">{displayRole}</p><div className="flex flex-wrap items-center gap-2"><h2 className="text-2xl sm:text-3xl font-semibold break-words">{name||"My Account"}</h2>{role === "b2b" && String(serverKycStatus ?? user?.kycStatus ?? "").toLowerCase() === "verified" && <span className="rounded-full bg-white/25 border border-white/60 px-3 py-1 text-xs font-semibold" title="KYC approved by CargoMate">✓ KYC Verified</span>}</div><p className="text-sm break-all opacity-90 mt-1">{user?.email||""}</p></div>
           </div>
         </div>
         <div className="p-5 sm:p-7 grid grid-cols-1 lg:grid-cols-2 gap-8">

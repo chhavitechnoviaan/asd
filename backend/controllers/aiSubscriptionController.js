@@ -14,6 +14,48 @@ exports.order=async(req,res)=>{try{const plan=await Plan.findById(req.body.planI
 exports.verify=async(req,res)=>{try{const {razorpay_order_id:orderId,razorpay_payment_id:paymentId,razorpay_signature:signature}=req.body;if(!orderId||!paymentId||!signature)return res.status(400).json({message:"Missing payment parameters"});const record=await Payment.findOne({orderId,userId:req.user._id}).select("+gatewaySecretEncrypted");if(!record)return res.status(404).json({message:"Order not found"});const orderCredential=record.gatewaySecretEncrypted ? {key:record.gatewayKeyId,secret:decrypt(record.gatewaySecretEncrypted)} : await credentials();const expected=crypto.createHmac("sha256",orderCredential.secret).update(orderId+"|"+paymentId).digest("hex");if(expected.length!==signature.length||!crypto.timingSafeEqual(Buffer.from(expected),Buffer.from(signature)))return res.status(400).json({message:"Invalid signature"});const payment=await api(`payments/${encodeURIComponent(paymentId)}`,{},orderCredential);if(payment.order_id!==orderId||payment.status!=="captured"||payment.amount!==record.amountPaise||payment.currency!=="INR")return res.status(400).json({message:"Payment not captured or order mismatch"});const claimed=await Payment.findOneAndUpdate({_id:record._id,status:"Created"},{$set:{status:"Paid",paymentId,verifiedAt:new Date()}},{new:true});if(!claimed)return res.json({status:1,message:"Payment already processed"});const plan=await Plan.findById(record.planId);const now=new Date(),expiry=new Date(now);expiry.setUTCMonth(expiry.getUTCMonth()+(plan.planType==="yearly"?12:1));await Subscription.updateMany({userId:req.user._id,status:"Active"},{$set:{status:"Cancelled"}});const sub=await Subscription.create({userId:req.user._id,planId:plan._id,audience:plan.audience,razorpayOrderId:orderId,razorpayPaymentId:paymentId,billingCycle:plan.planType==="yearly"?"Yearly":"Monthly",startDate:now,expiryDate:expiry,nextBillingDate:expiry,amount:plan.price,status:"Active"});await Invoice.create({invoiceNumber:"ASD-"+orderId,userId:req.user._id,subscriptionId:sub._id,amount:plan.price,paymentMethod:"Razorpay",status:"Paid",paidAt:now});await Notification.create({userId:req.user._id,title:"Subscription activated",message:`${plan.name} active until ${expiry.toLocaleDateString("en-IN")}`,category:"System",type:"Payment",actionLink:"/user-dashboard",urgency:"Information"});res.json({status:1,data:sub});}catch(e){res.status(500).json({message:e.message});}};
 exports.create=async(req,res)=>{try{const {name,audience,tier,price,planType,featureLimits,features}=req.body;if(!name||!["user","b2b"].includes(audience)||!["Basic","Premium","Platinum"].includes(tier)||!Number.isFinite(Number(price))||Number(price)<0||!["monthly","yearly"].includes(planType))return res.status(400).json({message:"Invalid plan"});const clean=Object.fromEntries(Object.entries(featureLimits||defaults(audience,tier)).filter(([k,v])=>/^[a-zA-Z]+$/.test(k)&&Number.isInteger(Number(v))&&Number(v)>=0).map(([k,v])=>[k,Number(v)]));const doc=await Plan.create({name,audience,tier,price:Number(price),planType,featureLimits:clean,features:Array.isArray(features)?features.filter(x=>typeof x==="string"):[],status:"active"});res.status(201).json({status:1,data:doc});}catch(e){res.status(500).json({message:e.message});}};
 exports.update=async(req,res)=>{try{const allowed=["name","price","featureLimits","features","status","trialDays","description","planType"];const updates=Object.fromEntries(allowed.filter(k=>Object.hasOwn(req.body,k)).map(k=>[k,req.body[k]]));const doc=await Plan.findByIdAndUpdate(req.params.id,{$set:updates},{new:true,runValidators:true});if(!doc)return res.status(404).json({message:"Not found"});res.json({status:1,data:doc});}catch(e){res.status(400).json({message:e.message});}};
+// Admin listing includes inactive plans so their history remains visible.
+exports.adminPlans = async (req,res) => {
+  try { const plans = await Plan.find({}).sort({createdAt:-1}); return res.json({status:1,data:plans}); }
+  catch (e) { return res.status(500).json({message:"Could not list plans"}); }
+};
+exports.deletePlan = async (req,res) => {
+  try {
+    const plan = await Plan.findById(req.params.id);
+    if (!plan) return res.status(404).json({message:"Plan not found"});
+    const linked = await Subscription.exists({planId:plan._id});
+    if (linked) return res.status(409).json({message:"Plan is linked to subscription history. Deactivate instead of deleting."});
+    await Plan.deleteOne({_id:plan._id});
+    return res.json({status:1,message:"Plan deleted"});
+  } catch(e) { return res.status(400).json({message:"Unable to delete plan"}); }
+};
+// Manual changes are not payments and do not create paid invoices.
+exports.adminChangeCustomerPlan = async (req,res) => {
+  try {
+    const mongoose = require("mongoose");
+    const User = require("../models/user");
+    if (!mongoose.isValidObjectId(req.params.userId) || !mongoose.isValidObjectId(req.body?.planId))
+      return res.status(400).json({message:"Invalid user or plan ID"});
+    if (typeof req.body?.reason !== "string" || req.body.reason.trim().length < 5)
+      return res.status(400).json({message:"A reason of 5+ characters is required"});
+    const user=await User.findById(req.params.userId).populate("roleId", "name");
+    if (!user) return res.status(404).json({message:"Customer not found"});
+    const roleName=String(user.roleId?.name||"").toLowerCase();
+    if (!(["user","b2b"].includes(roleName)))return res.status(400).json({message:"Only User and B2B customer plans can be changed"});
+    const plan=await Plan.findById(req.body.planId);
+    if (!plan || plan.status!=="active" || plan.audience!==roleName)
+      return res.status(400).json({message:"Selected plan must be active and match customer audience"});
+    const now=new Date(), expires=new Date(now);
+    expires.setUTCMonth(expires.getUTCMonth()+(plan.planType==="yearly"?12:1));
+    await Subscription.updateMany({userId:user._id,status:"Active"},{$set:{status:"Cancelled"}});
+    const sub=await Subscription.create({userId:user._id,planId:plan._id,audience:plan.audience,billingCycle:plan.planType==="yearly"?"Yearly":"Monthly",startDate:now,expiryDate:expires,nextBillingDate:expires,amount:0,status:"Active",isTrial:false});
+    // Keep the legacy User.planId reference aligned with the active subscription.
+    await User.updateOne({_id:user._id},{$set:{planId:plan._id}});
+    // Existing paid invoices and Razorpay transactions are not modified.
+    console.info("ADMIN_PLAN_CHANGE",JSON.stringify({adminId:String(req.user._id),userId:String(user._id),planId:String(plan._id),reason:req.body.reason.trim(),subscriptionId:String(sub._id)}));
+    return res.json({status:1,data:sub,message:"Plan assigned without charging payment"});
+  } catch(e) { console.error("adminChangeCustomerPlan",e); return res.status(500).json({message:"Unable to assign plan"}); }
+};
 exports.expiryAlerts=async()=>{const now=new Date(),until=new Date(now.getTime()+15*86400000);const subs=await Subscription.find({status:"Active",expiryDate:{$gte:now,$lte:until}}).populate("planId");for(const s of subs){const day=now.toISOString().slice(0,10);const exists=await Notification.exists({userId:s.userId,relatedId:s._id,title:`Subscription expiry reminder ${day}`});if(!exists)await Notification.create({userId:s.userId,relatedId:s._id,title:`Subscription expiry reminder ${day}`,message:`Your ${s.planId?.name||"plan"} expires on ${s.expiryDate.toLocaleDateString("en-IN")}. Renew or upgrade.`,category:"System",type:"System",urgency:"Warning",actionText:"Upgrade plan",actionLink:"/user-dashboard"});}};
 
 // Claim a trial only once per account, independent of plan selection.

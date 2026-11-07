@@ -8,7 +8,8 @@
 // // import SubscriptionManager from "../../components/SubscriptionManager";
 // // import { AccountBadge } from "../../../components/AccountProfile";
 // // import DashboardAdPlacement from "../../components/DashboardAdPlacement";
-// // import { useState, useEffect } from "react";
+// // import { useNavigate, useLocation } from "react-router-dom";
+// import { useState, useEffect } from "react";
 // // import { GiCutDiamond } from "react-icons/gi";
 // // import {
 // //   getDashboardMetrics,
@@ -429,13 +430,17 @@
 // // ];
 
 // // export default function B2BDashboard({ profileMode = false }) {
-// //   const siteBranding = usePublicConfig();
+// //   const navigate = useNavigate();
+  // const location = useLocation();
+  // const navigate = useNavigate();
+  // const location = useLocation();
+  // const siteBranding = usePublicConfig();
 // //   const quotaData = useSubscriptionQuotas();
 // //   const [openTrade, setOpenTrade] = useState(false);
 // //   const [sidebarOpen, setSidebarOpen] = useState(false);
 // //   const [desktopSidebarVisible, setDesktopSidebarVisible] = useState(true);
 // //   const [activeTab, setActiveTab] = useState(
-// //     profileMode ? "Settings" : "Dashboard",
+// //     location.state?.activeTab || (profileMode ? "Settings" : "Dashboard"),
 // //   );
 // //   const [activeSubTab, setActiveSubTab] = useState("Import Intelligence");
 // //   const [openMenu, setOpenMenu] = useState("Import Intelligence"); // null
@@ -553,7 +558,8 @@
 // //               <p
 // //                 onClick={() => {
 // //                   if (section.items.length === 0) {
-// //                     setActiveTab(section.title);
+// //                     if (profileMode) { navigate("/b2b-dashboard", { state: { activeTab: section.title } }); return; }
+                    // setActiveTab(section.title);
 // //                   }
 // //                 }}
 // //                 className={`px-4 py-2 text-[0.7rem] font-normal cursor-pointer uppercase tracking-widest
@@ -2002,7 +2008,7 @@
 //   const [sidebarOpen, setSidebarOpen] = useState(false);
 //   const [desktopSidebarVisible, setDesktopSidebarVisible] = useState(true);
 //   const [activeTab, setActiveTab] = useState(
-//     profileMode ? "Settings" : "Dashboard",
+//     location.state?.activeTab || (profileMode ? "Settings" : "Dashboard"),
 //   );
 //   const [activeSubTab, setActiveSubTab] = useState("Import Intelligence");
 //   const [openMenu, setOpenMenu] = useState("Import Intelligence"); // null
@@ -3142,6 +3148,7 @@ import AIQuerySidebarStatus from "../../components/AIQuerySidebarStatus";
 import SubscriptionManager from "../../components/SubscriptionManager";
 import { AccountBadge } from "../../../components/AccountProfile";
 import DashboardAdPlacement from "../../components/DashboardAdPlacement";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { GiCutDiamond } from "react-icons/gi";
 import {
@@ -3563,13 +3570,21 @@ const globalTrade = [
 ];
 
 export default function B2BDashboard({ profileMode = false }) {
+  const navigate = useNavigate();
+  const location = useLocation();
   const siteBranding = usePublicConfig();
   const quotaData = useSubscriptionQuotas();
   const [openTrade, setOpenTrade] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  // The profile and dashboard paths can reuse the same React component instance.
+  // Respond to router state changes, not only the initial useState value.
+  useEffect(() => {
+    if (!profileMode && location.state?.activeTab) setActiveTab(location.state.activeTab);
+  }, [profileMode, location.state?.activeTab]);
+
   const [desktopSidebarVisible, setDesktopSidebarVisible] = useState(true);
   const [activeTab, setActiveTab] = useState(
-    profileMode ? "Settings" : "Dashboard",
+    location.state?.activeTab || (profileMode ? "Settings" : "Dashboard"),
   );
   const [activeSubTab, setActiveSubTab] = useState("Import Intelligence");
   const [openMenu, setOpenMenu] = useState("Import Intelligence"); // null
@@ -3690,6 +3705,7 @@ export default function B2BDashboard({ profileMode = false }) {
               <p
                 onClick={() => {
                   if (section.items.length === 0) {
+                    if (profileMode) { navigate("/b2b-dashboard", { state: { activeTab: section.title } }); return; }
                     setActiveTab(section.title);
                   }
                 }}
@@ -3709,6 +3725,7 @@ export default function B2BDashboard({ profileMode = false }) {
                              : "text-[#8aa0bc] hover:bg-teal-500 hover:text-white rounded-r-lg"
                          }`}
                   onClick={() => {
+                    if (profileMode) { navigate("/b2b-dashboard", { state: { activeTab: label } }); return; }
                     setActiveTab(label);
                     setSidebarOpen(false);
                   }}
@@ -3732,7 +3749,7 @@ export default function B2BDashboard({ profileMode = false }) {
           ))}
           <SidebarQuota
             data={quotaData}
-            onUpgrade={() => setActiveTab("UpgradePlan")}
+            onUpgrade={() => profileMode ? navigate("/b2b-dashboard", { state: { activeTab: "UpgradePlan" } }) : setActiveTab("UpgradePlan")}
           />
         </nav>
       </aside>

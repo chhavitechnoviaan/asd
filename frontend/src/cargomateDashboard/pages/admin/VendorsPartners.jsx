@@ -2306,6 +2306,7 @@
 
 
 import AdminCustomerPlanEditor from "./AdminCustomerPlanEditor";
+import VendorPasswordReset from "./VendorPasswordReset";
 import { useEffect, useState } from "react";
 import API from "../../api/axios";
 import {glassSuccess,glassError} from "../../utils/glassAlert";
@@ -3218,6 +3219,7 @@ export default function VendorsPartners({ permissions=null }) {
               <label className="block text-sm font-medium text-slate-600">Account status<select value={String(vendorEdit.status||"active").toLowerCase()} onChange={e=>setVendorEdit(prev=>({...prev,status:e.target.value}))} className="mt-1 w-full p-3 border rounded-xl"><option value="active">Active</option><option value="inactive">Inactive</option></select></label>
               <p className="text-sm text-slate-600">Current purchased subscription: <strong>{vendorEdit.purchasedPlan ?? "No active purchased plan"}</strong></p>
               <AdminCustomerPlanEditor customer={vendorEdit} audience="b2b" onUpdated={fetchB2BUsers} />
+              <VendorPasswordReset key={vendorEdit._id || vendorEdit.id} vendorId={vendorEdit._id || vendorEdit.id} />
               <div className="grid grid-cols-2 gap-3 rounded-xl bg-[#F4FBFA] p-4 text-xs text-slate-700">
                 {[ ["GST Number",vendorEdit.gstNumber||vendorEdit.gstin],["IEC Code",vendorEdit.importExportId?"Configured":"Not supplied"],
                    ["Business Type",vendorEdit.businessType],["Account Type",vendorEdit.accountType],

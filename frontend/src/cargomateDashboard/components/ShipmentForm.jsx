@@ -1,3 +1,5 @@
+import { consumeShipmentPrefill } from "../utils/shipmentPrefill";
+import CountryAutocomplete from "../../components/CountryAutocomplete";
 // // // mahima code //
 // // import React, { useState, useEffect, useRef } from "react";
 // // import {
@@ -6094,16 +6096,12 @@ function OriginDestination({
   return (
     <SectionCard number={2} title="Origin & Destination" subtitle="">
       <Grid2>
-        <Select
-          label="Origin Country"
-          placeholder="Select Country"
-          value={formData.route.originCountry}
-          onChange={(e) =>
-            handleNestedChange("route", "originCountry", e.target.value)
-          }
-        >
-          {getShipmentDropdownOptions(config, "originCountry", ["India", "China", "USA"]).map((option) => <option key={option} value={option}>{option}</option>)}
-        </Select>
+        <div className="w-full min-w-0">
+          <label className="mb-1.5 block text-sm font-medium text-slate-700">Origin Country *</label>
+          <CountryAutocomplete required value={formData.route.originCountry || ""}
+            onChange={(e) => handleNestedChange("route", "originCountry", e.target.value)}
+            placeholder="Type a country name" className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 py-2.5 text-sm text-slate-800 focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10" />
+        </div>
         <Input
           label="Origin City / Port / Airport"
           placeholder="e.g. Mumbai Port (INBOM)"
@@ -6114,16 +6112,19 @@ function OriginDestination({
         />
       </Grid2>
       <Grid2>
-        <Select
-          label="Destination Country"
-          placeholder="Select Country"
-          value={formData.route.destinationCountry}
-          onChange={(e) =>
-            handleNestedChange("route", "destinationCountry", e.target.value)
-          }
-        >
-          {getShipmentDropdownOptions(config, "destinationCountry", ["India", "Singapore", "Dubai"]).map((option) => <option key={option} value={option}>{option}</option>)}
-        </Select>
+        <div className="w-full min-w-0">
+          <label className="mb-1.5 block text-sm font-medium text-slate-700">Destination Country *</label>
+          <CountryAutocomplete required value={formData.route.destinationCountry || ""}
+            onChange={(e) => handleNestedChange("route", "destinationCountry", e.target.value)}
+            placeholder="Type a country name" className="w-full rounded-xl border border-slate-200 bg-slate-50/50 px-3.5 py-2.5 text-sm text-slate-800 focus:border-indigo-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-indigo-500/10" />
+        </div>
+        <Input
+          label="Destination Port / Airport / Terminal *"
+          placeholder="Enter port or airport code, e.g. AEJEA"
+          required
+          value={formData.route.destinationPort || ""}
+          onChange={(e) => handleNestedChange("route", "destinationPort", e.target.value)}
+        />
         <Input
           label="Destination City / Port / Airport"
           placeholder="e.g. Jebel Ali Port (AEJEA)"
@@ -6874,6 +6875,7 @@ export default function Shipment({
       originCountry: "",
       originCity: "",
       destinationCountry: "",
+      destinationPort: "",
       destinationCity: "",
     },
     importer: {
@@ -6928,6 +6930,42 @@ export default function Shipment({
       temperatureControl: false,
     },
   });
+
+  // One-time prefill from the selected AI / HS / freight response.
+  // Editing an existing shipment always takes priority over a new prefill.
+  useEffect(() => {
+    if (editShipmentId) return;
+    const fields = consumeShipmentPrefill();
+    if (!fields) return;
+    const toValue = (key) => fields[key] === undefined ? undefined : String(fields[key]);
+    setFormData((prev) => ({
+      ...prev,
+      ...(fields.shipmentType ? { shipmentType: toValue("shipmentType") } : {}),
+      ...(fields.shipmentMode ? { shipmentMode: toValue("shipmentMode") } : {}),
+      ...(fields.incoterm ? { incoterm: toValue("incoterm") } : {}),
+      ...(fields.etd ? { etd: toValue("etd").slice(0,10) } : {}),
+      ...(fields.eta ? { eta: toValue("eta").slice(0,10) } : {}),
+      ...(fields.amount !== undefined ? { amount: toValue("amount") } : {}),
+      ...(fields.currency ? { currency: toValue("currency") } : {}),
+      route: {
+        ...prev.route,
+        ...(fields.originCountry ? { originCountry: toValue("originCountry") } : {}),
+        ...(fields.originCity ? { originCity: toValue("originCity") } : {}),
+        ...(fields.destinationCountry ? { destinationCountry: toValue("destinationCountry") } : {}),
+        ...(fields.destinationCity ? { destinationCity: toValue("destinationCity") } : {}),
+        ...(fields.destinationPort ? { destinationPort: toValue("destinationPort") } : {}),
+      },
+      cargo: {
+        ...prev.cargo,
+        ...(fields.productName ? { productName: toValue("productName") } : {}),
+        ...(fields.productDescription ? { productDescription: toValue("productDescription") } : {}),
+        ...(fields.hsCode ? { hsCode: toValue("hsCode"), hsCodeText: toValue("hsCode") } : {}),
+        ...(fields.quantity !== undefined ? { quantity: toValue("quantity") } : {}),
+        ...(fields.unit ? { unit: toValue("unit") } : {}),
+        ...(fields.weight !== undefined ? { weight: toValue("weight") } : {}),
+      },
+    }));
+  }, [editShipmentId]);
 
   // Load the selected draft into the existing multi-step form.
   useEffect(() => {
@@ -7239,6 +7277,7 @@ additionalInformation: {
     addRequired("Origin Country", formData.route?.originCountry);
     addRequired("Origin City / Port / Airport", formData.route?.originCity);
     addRequired("Destination Country", formData.route?.destinationCountry);
+    addRequired("Destination Port / Airport", formData.route?.destinationPort);
     addRequired(
       "Destination City / Port / Airport",
       formData.route?.destinationCity,

@@ -1,3 +1,4 @@
+import { saveShipmentPrefill } from "../../utils/shipmentPrefill";
 
 
 // // // // import { useEffect, useState } from "react";
@@ -405,7 +406,8 @@
 // // // //               <div className="flex flex-wrap gap-2">
 // // // //                 <button
 // // // //                   onClick={() => {
-// // // //                     setShipment("shipment");
+// // // //                     saveShipmentPrefill(lookupResult, { product: query, export_country: exportCountry, import_country: importCountry, quantity, unit, shipment_type: shipmentType });
+                    // setShipment("shipment");
 // // // //                     setActiveTab("");
 // // // //                   }}
 // // // //                   className="flex items-center gap-1.5 bg-teal-500 hover:bg-teal-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg"
@@ -1625,7 +1627,8 @@
 // // //               <div className="flex flex-wrap gap-2">
 // // //                 <button
 // // //                   onClick={() => {
-// // //                     setShipment("shipment");
+// // //                     saveShipmentPrefill(lookupResult, { product: query, export_country: exportCountry, import_country: importCountry, quantity, unit, shipment_type: shipmentType });
+                    // setShipment("shipment");
 // // //                     setActiveTab("");
 // // //                   }}
 // // //                   className="flex items-center gap-1.5 bg-teal-500 hover:bg-teal-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg"
@@ -2874,7 +2877,8 @@
                 
 // //                 <button
 // //                   onClick={() => {
-// //                     setShipment("shipment");
+// //                     saveShipmentPrefill(lookupResult, { product: query, export_country: exportCountry, import_country: importCountry, quantity, unit, shipment_type: shipmentType });
+                    // setShipment("shipment");
 // //                     setActiveTab("");
 // //                   }}
 // //                   className="flex items-center gap-1.5 bg-teal-500 hover:bg-teal-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg"
@@ -4126,7 +4130,8 @@
                 
 //                 <button
 //                   onClick={() => {
-//                     setShipment("shipment");
+//                     saveShipmentPrefill(lookupResult, { product: query, export_country: exportCountry, import_country: importCountry, quantity, unit, shipment_type: shipmentType });
+                    // setShipment("shipment");
 //                     setActiveTab("");
 //                   }}
 //                   className="flex items-center gap-1.5 bg-teal-500 hover:bg-teal-600 text-white text-xs font-semibold px-3 py-1.5 rounded-lg"
@@ -5005,6 +5010,7 @@ import Shipment from "../../components/ShipmentForm";
 import poster2 from "../../assets/Images/webp/poster2.webp";
 import { lookupHsCode } from "../../api/CargoMateApi";
 import DashboardAdPlacement from "../../components/DashboardAdPlacement";
+import CountryAutocomplete from "../../../components/CountryAutocomplete";
 
 const getAuditUserScope = () => {
   for (const key of ["userId", "user_id", "email", "userEmail"]) {
@@ -5243,8 +5249,8 @@ export default function HSCodeLookup() {
         country_of_import: importCountry,
         quantity: Number(quantity),
         unit,
-        searchedAt,
-        queryId,
+        searchedAt: data?.searched_on || searchedAt,
+        queryId: data?.query_id || queryId,
         searchedBy,
       });
 
@@ -5358,6 +5364,7 @@ export default function HSCodeLookup() {
                 
                 <button
                   onClick={() => {
+                    saveShipmentPrefill(lookupResult, { product: query, export_country: exportCountry, import_country: importCountry, quantity, unit, shipment_type: shipmentType });
                     setShipment("shipment");
                     setActiveTab("");
                   }}
@@ -5437,7 +5444,7 @@ export default function HSCodeLookup() {
                         Country of Export
                       </label>
                       <div className="flex items-center justify-between border border-gray-200 rounded-lg px-3 py-2 text-sm text-[#1E293B] cursor-pointer hover:border-gray-300 bg-white">
-                        <input
+                        <CountryAutocomplete
                           value={exportCountry}
                           onChange={(e) => setExportCountry(e.target.value)}
                           aria-label="Country of export"
@@ -5450,7 +5457,7 @@ export default function HSCodeLookup() {
                         Country of Import
                       </label>
                       <div className="flex items-center justify-between border border-gray-200 rounded-lg px-3 py-2 text-sm text-[#1E293B] cursor-pointer hover:border-gray-300 bg-white">
-                        <input
+                        <CountryAutocomplete
                           value={importCountry}
                           onChange={(e) => setImportCountry(e.target.value)}
                           aria-label="Country of import"

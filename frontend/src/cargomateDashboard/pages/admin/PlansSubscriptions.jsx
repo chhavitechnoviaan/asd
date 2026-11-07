@@ -156,7 +156,7 @@ const inputClass =
   "mt-1.5 h-11 w-full rounded-xl border border-[#DCE5EF] bg-white px-3.5 text-sm text-[#002259] outline-none transition focus:border-[#14B8A6] focus:ring-4 focus:ring-[#14B8A6]/10 disabled:bg-slate-100";
 const labelClass = "block text-xs font-semibold tracking-wide text-[#4B6280]";
 
-function PlanCard({ plan, onEdit, canEdit }) {
+function PlanCard({ plan, onEdit, onDelete, canEdit }) {
   const tier = String(plan.tier || "basic").toLowerCase();
   const palette = TIER_THEME[tier] || TIER_THEME.basic;
   const listed = Object.entries(FEATURE_NAMES).filter(
@@ -220,6 +220,7 @@ function PlanCard({ plan, onEdit, canEdit }) {
               <ButtonIcon name="edit" size={14} /> Edit
             </button>
           )}
+          {canEdit && <button type="button" onClick={() => onDelete(plan)} className="shrink-0 rounded-lg border border-red-200 bg-white px-2.5 py-1.5 text-xs font-semibold text-red-700 hover:bg-red-50">Delete</button>}
         </div>
         <div className="relative mt-4 flex flex-wrap items-baseline gap-2">
           <strong className="text-[30px] font-black leading-none tracking-tight text-[#002259]">
@@ -609,6 +610,61 @@ export default function PlanSection({
     setEditorOpen(true);
   };
 
+  const deletePlan = async (plan) => {
+    if (!canEdit) return;
+    const confirmation = await Swal.fire({
+      icon: "warning",
+      title: `Delete ${plan.name}?`,
+      text: "Plans with subscription history cannot be permanently deleted.",
+      showCancelButton: true,
+      confirmButtonText: "Delete plan",
+      cancelButtonText: "Cancel",
+      confirmButtonColor: NAVY,
+      cancelButtonColor: "#64748b",
+      background: "#ffffff",
+      color: NAVY,
+      reverseButtons: true,
+      customClass: { popup: "cargomate-swal-popup", title: "cargomate-swal-title", confirmButton: "cargomate-swal-confirm" },
+    });
+    if (!confirmation.isConfirmed) return;
+    setError("");
+    try {
+      await API.delete(`/ai-subscription/plans/${plan._id}`);
+      await reload();
+      await showAlert("success", "Plan deleted", "The plan was deleted.");
+    } catch (err) {
+      const message = err.response?.data?.message || "Unable to delete plan";
+      if (err.response?.status === 409) {
+        const action = await Swal.fire({
+          icon: "info",
+          title: "Plan has subscription history",
+          text: "This plan is referenced by existing subscriptions. Deactivate it instead; history and invoices will remain intact.",
+          showCancelButton: true,
+          confirmButtonText: plan.status === "inactive" ? "Keep inactive" : "Deactivate plan",
+          cancelButtonText: "Cancel",
+          confirmButtonColor: TEAL,
+          cancelButtonColor: "#64748b",
+          background: "#ffffff",
+          color: NAVY,
+          customClass: { popup: "cargomate-swal-popup", title: "cargomate-swal-title", confirmButton: "cargomate-swal-confirm" },
+        });
+        if (!action.isConfirmed || plan.status === "inactive") return;
+        try {
+          await API.patch(`/ai-subscription/plans/${plan._id}`, { status: "inactive" });
+          await reload();
+          await showAlert("success", "Plan deactivated", "The plan is no longer available for new subscriptions. Existing records are preserved.");
+        } catch (deactivateError) {
+          const reason = deactivateError.response?.data?.message || "Unable to deactivate plan";
+          setError(reason);
+          await showAlert("error", "Deactivation failed", reason);
+        }
+        return;
+      }
+      setError(message);
+      await showAlert("error", "Plan deletion failed", message);
+    }
+  };
+
   const submit = async (event) => {
     event.preventDefault();
     if (editing ? !canEdit : !canAdd) return;
@@ -789,6 +845,7 @@ export default function PlanSection({
                 key={plan._id}
                 plan={plan}
                 onEdit={openEdit}
+                onDelete={deletePlan}
                 canEdit={canEdit}
               />
             ))}

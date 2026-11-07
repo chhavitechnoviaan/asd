@@ -161,6 +161,7 @@ route: {
 originCountry: String,
 originCity: String,
 destinationCountry: String,
+destinationPort: String,
 destinationCity: String,
 warehouse: String,
 

@@ -3171,6 +3171,10 @@ exports.submitShipment = async (req, res) => {
       });
     }
 
+    if (!String(shipment.route?.destinationPort || "").trim()) {
+      return res.status(400).json({status:0,message:"Destination port or airport is required before submission"});
+    }
+
     // A B2B user may reopen and resubmit their own saved Draft.
     if (shipment.shipmentStatus !== "Draft" && !canMoveToStatus(
       shipment.shipmentStatus,
@@ -4891,6 +4895,7 @@ await shipment.save();
           "originCountry",
           "originCity",
           "destinationCountry",
+          "destinationPort",
           "destinationCity",
           "warehouse",
           "mode",

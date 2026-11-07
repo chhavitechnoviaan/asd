@@ -1220,7 +1220,7 @@
 //                   </div>
 //                   <div>
 //                     <h3 className="font-black text-sm text-slate-900 tracking-tight">
-//                       Active Live Tracker
+//                       Shipment Tracking & Carrier Lookup
 //                     </h3>
 //                     <p className="text-[11px] text-slate-400">
 //                       Tracking:{" "}
@@ -1705,6 +1705,7 @@
 
 
 import React, { useState, useEffect, useMemo } from "react";
+import CarrierTrackingResolver from "../../components/CarrierTrackingResolver";
 import ReactCountryFlag from "react-country-flag";
 import axios from "axios";
 import DatePicker from "react-datepicker";
@@ -2961,6 +2962,7 @@ export default function Shipment({
                   </button>
                 </div>
                 {trackingError && <p className="text-xs text-rose-600">{trackingError}</p>}
+                <CarrierTrackingResolver />
               </div>
 
               {/* Map Graphic Box */}

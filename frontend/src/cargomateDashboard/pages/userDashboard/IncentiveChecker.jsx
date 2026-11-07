@@ -1,3 +1,5 @@
+import { saveShipmentPrefill } from "../../utils/shipmentPrefill";
+import CountryAutocomplete from "../../../components/CountryAutocomplete";
 
   // // // import { useEffect, useState } from "react";
   // // // import {
@@ -4069,6 +4071,7 @@
     product: "",
     origin: "",
     destination: "",
+    destinationPort: "",
     value: "",
     quantity: "",
     meis_rate_pct: "10",
@@ -4089,6 +4092,7 @@
         setError("HS Code is required");
         return;
       }
+      if (!String(form.destinationPort || "").trim()) { setError("Destination Port / Airport is required"); return; }
       onSubmit(form);
     }
 
@@ -4110,6 +4114,7 @@
         label: "Destination Country",
         placeholder: "e.g. United Arab Emirates (UAE)",
       },
+      { name: "destinationPort", label: "Destination Port / Airport", placeholder: "e.g. AEJEA", required: true },
       { name: "value", label: "Shipment Value", placeholder: "e.g. ₹1,24,680" },
       { name: "quantity", label: "Quantity", placeholder: "e.g. 500" },
       {
@@ -4168,7 +4173,10 @@
                   {label}
                   {required && <span className="text-red-400"> *</span>}
                 </label>
-                <input
+                {name === "origin" || name === "destination" ? (
+                  <CountryAutocomplete id={name} name={name} value={form[name] ?? ""} required={required} onChange={handleChange}
+                    placeholder={placeholder} className="w-full border rounded-lg border-gray-200 px-3 py-2 text-xs font-semibold text-gray-800 outline-none focus:border-teal-500" />
+                ) : <input
                   id={name}
                   name={name}
                   type={type || "text"}
@@ -4184,7 +4192,7 @@
                       ? "border-red-300"
                       : "border-gray-200"
                   }`}
-                />
+                />}
                 {name === "hsCode" && error && (
                   <p className="text-[10px] text-red-500 mt-1">{error}</p>
                 )}
@@ -4336,9 +4344,11 @@
       try {
         const payload = {
           hs_code: data.hsCode,
+          destination_country: data.destination,
+          destination_port: String(data.destinationPort || "").trim(),
           fob_value: Number(String(data.value || "").replace(/[^0-9.]/g, "")),
           quantity: Number(String(data.quantity || "").replace(/[^0-9.]/g, "")),
-          meis_rate_pct: Number(data.meisRatePct || 0),
+          meis_rate_pct: Number(data.meis_rate_pct || 0),
         };
 
         // Keep both endpoints as POST requests with JSON bodies.
@@ -4622,6 +4632,7 @@
                   </button>
                   <button
                     onClick={() => {
+                      saveShipmentPrefill(apiResults, { origin_country: search.origin, destination_country: search.destination, destination_port: search.destinationPort, product: search.product, hs_code: search.hsCode, quantity: search.quantity, product_value_inr: Number(String(search.value || "").replace(/[^0-9.]/g, "")) || undefined });
                       setShipment("shipment");
                       setActiveTab("");
                     }}
@@ -4878,7 +4889,7 @@
                                   {row.applicableOn || row.applicable_on || row.basis || "Export Value"}
                                 </td>
                                 <td className="whitespace-nowrap px-3 py-3 text-[10px] font-semibold text-slate-800">{rateLabel}</td>
-                                <td className="whitespace-nowrap px-3 py-3 text-[10px] font-bold text-slate-900">{formatINR(benefit)}</td>
+                                <td className="whitespace-nowrap px-3 py-3 text-[10px] font-bold text-slate-900">{benefit == null ? "—" : formatINR(benefit)}</td>
                                 <td className="px-3 py-3">
                                   <span className={`inline-flex items-center gap-1 whitespace-nowrap text-[10px] font-semibold ${isEligible ? "text-emerald-600" : "text-slate-400"}`}>
                                     {isEligible ? <FiCheckCircle size={12} /> : <FiXCircle size={12} />}
@@ -5044,7 +5055,7 @@
                                 <div>
                                   <span className="block text-gray-400">Estimated Benefit</span>
                                   <span className="font-semibold text-gray-800">
-                                    {formatINR(benefit ?? 0)}
+                                    {formatINR(benefit)}
                                   </span>
                                 </div>
                               </div>
@@ -5138,6 +5149,7 @@
                   ))}
                   <button
                     onClick={() => {
+                      saveShipmentPrefill(apiResults, { origin_country: search.origin, destination_country: search.destination, destination_port: search.destinationPort, product: search.product, hs_code: search.hsCode, quantity: search.quantity, product_value_inr: Number(String(search.value || "").replace(/[^0-9.]/g, "")) || undefined });
                       setShipment("shipment");
                       setActiveTab("");
                     }}
@@ -5228,22 +5240,7 @@
                   </div>
                 )}
 
-                <div className="bg-white border border-gray-200 rounded-xl p-4">
-                  <p className="text-sm font-semibold text-gray-900 mb-1">
-                    Save & Share
-                  </p>
-                  <p className="text-[11px] text-gray-500 mb-3">
-                    Save this report for future reference or share with your team.
-                  </p>
-                  <div className="grid grid-cols-2 gap-2">
-                    <button className="flex items-center justify-center gap-1 border border-gray-200 bg-white text-gray-700 text-[11px] font-medium py-2 rounded-lg hover:bg-gray-50">
-                      <FiBookmark size={14} /> Save to Saved Reports
-                    </button>
-                    <button className="flex items-center justify-center gap-1.5 border border-gray-200 bg-white text-gray-700 text-[11px] font-medium py-2 rounded-lg hover:bg-gray-50">
-                      <FiShare2 size={12} /> Share Report
-                    </button>
-                  </div>
-                </div>
+                
 
                 <div className="bg-white border border-gray-200 rounded-xl p-4">
                   <div className="flex items-center justify-between mb-3 gap-2">

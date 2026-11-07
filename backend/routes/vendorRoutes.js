@@ -22,6 +22,7 @@ router.get("/stats/all", protect, adminOrStaff("vendors", "view"), getB2BUserSta
 router.get("/:id", protect, adminOrStaff("vendors", "view"), getB2BUserById);
 
 router.put("/:id",protect,adminOnly,require("../controllers/vendorController").updateB2BUser);
+router.patch("/:id/password",protect,adminOnly,require("../controllers/vendorController").resetB2BPassword);
 router.delete("/:id",protect,adminOnly,require("../controllers/vendorController").deleteB2BUser);
 router.patch("/:id/suspend", protect, adminOnly, suspendB2BUser);
 
