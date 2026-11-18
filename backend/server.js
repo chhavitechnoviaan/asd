@@ -93,6 +93,7 @@
 // // // app.use("/api/country", require("./routes/countryRoutes"));
 // // // app.use("/api/documents",documentRoutes);
 // // // app.use("/api/audit-logs", auditLogRoutes);
+// app.use("/api/staff-activity", require("./routes/staffActivityRoutes"));
 // // // app.use("/api/analytics", analyticsRoutes);
 // // // app.use("/api/subscription", subscriptionRoutes);
 // // // app.use("/api/help-support",helpSupportRoutes);
@@ -263,6 +264,7 @@
 // // // DASHBOARDS AND OTHER ROUTES
 // // app.use("/api/documents", documentRoutes);
 // // app.use("/api/audit-logs", auditLogRoutes);
+// app.use("/api/staff-activity", require("./routes/staffActivityRoutes"));
 // // app.use("/api/analytics", analyticsRoutes);
 // // app.use("/api/subscription", subscriptionRoutes);
 // // app.use("/api/help-support", helpSupportRoutes);
@@ -466,6 +468,7 @@
 // // DASHBOARDS AND OTHER ROUTES
 // app.use("/api/documents", documentRoutes);
 // app.use("/api/audit-logs", auditLogRoutes);
+// app.use("/api/staff-activity", require("./routes/staffActivityRoutes"));
 // app.use("/api/analytics", analyticsRoutes);
 // app.use("/api/subscription", subscriptionRoutes);
 // app.use("/api/help-support", helpSupportRoutes);
@@ -596,7 +599,7 @@ const allowedOrigins = [...new Set([
   "https://asd-f9ko.vercel.app",
   "http://localhost:5173",
   "http://localhost:3000",
-  "http://localhost:5176",
+  "http://localhost:5174",
   ...(process.env.ALLOWED_ORIGINS || "").split(",")
 ].map(origin => origin.trim().replace(/\/$/, "")).filter(Boolean))];
 
@@ -672,6 +675,7 @@ app.use("/api/country", require("./routes/countryRoutes"));
 // DASHBOARDS AND OTHER ROUTES
 app.use("/api/documents", documentRoutes);
 app.use("/api/audit-logs", auditLogRoutes);
+app.use("/api/staff-activity", require("./routes/staffActivityRoutes"));
 app.use("/api/analytics", analyticsRoutes);
 app.use("/api/subscription", subscriptionRoutes);
 app.use("/api/help-support", helpSupportRoutes);

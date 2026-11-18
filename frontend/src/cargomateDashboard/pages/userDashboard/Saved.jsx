@@ -87,7 +87,7 @@ import SavedReportsLibrary from "../../components/SavedReportsLibrary";
 import DashboardAdPlacement from "../../components/DashboardAdPlacement";
 export default function Saved() {
   return (
-    <div className="min-h-screen bg-slate-50 p-4 pt-16 sm:p-6 cm-module-theme">
+    <div className="min-h-screen bg-slate-50 p-1 pt-16 sm:p-1 cm-module-theme">
       <SavedReportsLibrary />
       <div className="mt-6">
         <DashboardAdPlacement location="User Dashboard - Saved" />

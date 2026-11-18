@@ -1,0 +1,135 @@
+import { useEffect, useState } from "react";
+import { FiBell, FiX, FiCheck, FiRefreshCw } from "react-icons/fi";
+import API from "../api/axios";
+
+export default function NotificationsModal({ onClose }) {
+  const [items, setItems] = useState([]),
+    [loading, setLoading] = useState(true),
+    [error, setError] = useState("");
+  const load = async () => {
+    setLoading(true);
+    setError("");
+    try {
+      const { data } = await API.get("/notifications");
+      setItems(Array.isArray(data?.data) ? data.data : []);
+    } catch (e) {
+      setError(e.response?.data?.message || "Unable to load notifications");
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    load();
+  }, []);
+  const read = async (id) => {
+    try {
+      await API.put(`/notifications/${id}/read`);
+      setItems((v) =>
+        v.map((n) => (n._id === id ? { ...n, isRead: true } : n)),
+      );
+      window.dispatchEvent(new Event("cargomate:notifications-changed"));
+    } catch (e) {
+      setError(
+        e.response?.data?.message || "Could not mark notification as read",
+      );
+    }
+  };
+  return (
+    <div
+      className="fixed inset-0 z-[100] bg-[#002259]/45 backdrop-blur-[5px] flex items-start justify-end p-3 sm:p-6"
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
+    >
+      <section
+        role="dialog"
+        aria-modal="true"
+        aria-label="Account notifications"
+        className="w-full max-w-lg max-h-[86vh] overflow-hidden bg-white/95 backdrop-blur-xl border border-teal-100 rounded-3xl shadow-2xl flex flex-col"
+      >
+        <header className="px-5 py-4 border-b border-teal-100 flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="rounded-xl p-3 bg-teal-50 text-teal-600">
+              <FiBell />
+            </span>
+            <div>
+              <h2 className="font-bold text-lg text-[#002259]">
+                Notifications
+              </h2>
+              <p className="text-xs text-slate-500">
+                {items.filter((x) => !x.isRead).length} unread · Activity from
+                your account
+              </p>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={load}
+              aria-label="Refresh notifications"
+              className="p-2 hover:bg-teal-50 rounded-lg"
+            >
+              <FiRefreshCw />
+            </button>
+            <button
+              onClick={onClose}
+              aria-label="Close notifications"
+              className="p-2 hover:bg-teal-50 rounded-lg"
+            >
+              <FiX />
+            </button>
+          </div>
+        </header>
+        <main className="overflow-y-auto p-4 space-y-2">
+          {loading ? (
+            <p className="text-center text-slate-500 py-10">
+              Loading activity…
+            </p>
+          ) : error ? (
+            <div
+              role="alert"
+              className="rounded-xl bg-red-50 text-red-700 p-4 text-sm"
+            >
+              {error}
+            </div>
+          ) : items.length === 0 ? (
+            <p className="text-center text-slate-500 py-10">
+              No notifications yet. New activity will appear here.
+            </p>
+          ) : (
+            items.map((n) => (
+              <article
+                key={n._id}
+                className={`rounded-2xl border p-4 ${n.isRead ? "border-slate-100 bg-white" : "border-teal-100 bg-teal-50/60"}`}
+              >
+                <div className="flex justify-between items-start gap-2">
+                  <h3 className="text-sm font-semibold text-[#002259]">
+                    {n.title}
+                  </h3>
+                  <time className="text-[11px] text-slate-400 whitespace-nowrap">
+                    {n.createdAt
+                      ? new Date(n.createdAt).toLocaleString("en-IN")
+                      : ""}
+                  </time>
+                </div>
+                <p className="mt-1 text-sm text-slate-600">{n.message}</p>
+                <div className="mt-3 flex justify-between items-center">
+                  <span className="rounded-full bg-white px-2 py-1 text-xs text-teal-700">
+                    {n.category || "Activity"}
+                  </span>
+                  {!n.isRead && (
+                    <button
+                      className="text-xs text-teal-700 flex gap-1 items-center"
+                      onClick={() => read(n._id)}
+                    >
+                      <FiCheck /> Mark read
+                    </button>
+                  )}
+                </div>
+              </article>
+            ))
+          )}
+        </main>
+      </section>
+    </div>
+  );
+}

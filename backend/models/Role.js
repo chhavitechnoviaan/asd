@@ -20,7 +20,7 @@ const roleSchema = new mongoose.Schema({
   permissions: {
     dashboard: permissionSchema,
     booking: permissionSchema,
-    shipment: permissionSchema,
+    shipment: { ...permissionSchema, approve: { type: Boolean, default: false }, reject: { type: Boolean, default: false } },
     tracking: permissionSchema,
     documents: permissionSchema,
     earnings: permissionSchema,
@@ -36,7 +36,9 @@ const roleSchema = new mongoose.Schema({
     dgftSchemes: permissionSchema,
     aiAssistant: permissionSchema,
     roles: permissionSchema,
-    subAdmins: permissionSchema
+    subAdmins: permissionSchema,
+    notices: permissionSchema,
+    notifications: permissionSchema
   }
 
 }, { timestamps: true });

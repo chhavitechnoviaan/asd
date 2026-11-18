@@ -165,7 +165,7 @@ useEffect(() => {
      setMainTab("")
 },[])
   return (
-    <div className="h-auto bg-gray-50  flex-1 overflow-y-auto pt-14">
+    <div className="h-auto bg-gray-50  flex-1 overflow-y-auto pt-1">
      { mainTab === "Shipment Planning" && (
       <div className=" flex-1 overflow-y-auto"> 
        <div className=" border-gray-200 px-4 sm:px-6 py-3">

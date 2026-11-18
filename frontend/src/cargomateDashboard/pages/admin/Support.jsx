@@ -33,7 +33,8 @@ function formatFullDate(dateStr) {
   return `${date.getDate()} ${date.toLocaleString('default', { month: 'short' })} ${date.getFullYear()}, ${timePart}`;
 }
 
-export default function Support() {
+export default function Support({ permissions = null }) {
+  const can = (action) => permissions === null || permissions?.[action] === true;
   const [activeTab, setActiveTab] = useState("tickets"); // "tickets" | "departments"
   const [loading, setLoading] = useState(true);
 
@@ -118,6 +119,7 @@ export default function Support() {
 
   // Handle Send Reply from Bottom Panel
   const handleSendReply = async () => {
+    if (!can("edit")) return;
     if (!selectedTicket) return;
     if (!replyText.trim()) {
       Swal.fire({ icon: "warning", title: "Message Required", text: "Please enter your reply text before sending." });
@@ -409,7 +411,10 @@ export default function Support() {
                             {/* REPLY */}
                             <td className="py-4">
                               <button
+                                disabled={!can("edit")}
+                                title={!can("edit") ? "Edit permission required" : "Reply to ticket"}
                                 onClick={() => {
+                                  if (!can("edit")) return;
                                   setSelectedTicket(t);
                                   setReplyStatus(t.status === "Open" ? "In Progress" : t.status);
                                 }}
@@ -533,7 +538,7 @@ export default function Support() {
                         <button
                           type="button"
                           onClick={handleSendReply}
-                          disabled={sendingReply || !replyText.trim()}
+                          disabled={!can("edit") || sendingReply || !replyText.trim()}
                           className="px-4 py-2 bg-teal-700 hover:bg-teal-800 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors shadow-sm disabled:opacity-50"
                         >
                           <FiMail className="w-3.5 h-3.5" />
@@ -775,7 +780,7 @@ export default function Support() {
                         <button
                           type="button"
                           onClick={handleSendModalReply}
-                          disabled={modalSendingReply || !modalReplyText.trim()}
+                          disabled={!can("edit") || modalSendingReply || !modalReplyText.trim()}
                           className="px-4 py-2 bg-teal-700 hover:bg-teal-800 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 transition-colors shadow-sm disabled:opacity-50"
                         >
                           <FiMail className="w-3.5 h-3.5" />

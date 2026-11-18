@@ -900,7 +900,8 @@
 //   );
 // }
 
-// export default function CountryRules() {
+// export default function CountryRules({ permissions = null }) {
+  const can = (action) => permissions === null || permissions?.[action] === true;
 //   const [showAdd, setShowAdd] = useState(false);
 //   const handleSave = (data) => { console.log("Saved Rule Data:", data); setShowAdd(false); };
 //   return showAdd
@@ -1605,7 +1606,8 @@ function AddCountryRulePage({ onCancel, onSave, initialRule = null }) {
   );
 }
 
-function CountryRulesPage({ onAddClick, refreshKey, onEditClick }) {
+function CountryRulesPage({ onAddClick, refreshKey, onEditClick, permissions }) {
+  const can = (action) => permissions === null || permissions?.[action] === true;
   const [rows, setRows] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -1678,7 +1680,7 @@ function CountryRulesPage({ onAddClick, refreshKey, onEditClick }) {
         <div className="mb-6 flex w-full flex-wrap items-center justify-end gap-2">
           <button onClick={() => showTool("resolve")} className="rounded-xl border border-teal-300 bg-white px-3 py-2 text-xs font-semibold text-teal-700">Resolve Country</button>
           <button onClick={() => showTool("calculate")} className="rounded-xl border border-teal-300 bg-white px-3 py-2 text-xs font-semibold text-teal-700">Calculate Duty / Tax</button>
-          <button onClick={onAddClick} className="flex items-center gap-2 rounded-xl bg-teal-500 px-3 py-2 text-xs font-medium text-white shadow-sm hover:bg-teal-600 sm:px-4 sm:text-sm"><FaPlus className="text-xs" /> Add Country Rule</button>
+          <button disabled={!can("add")} title={!can("add") ? "Add permission required" : "Add Country Rule"} onClick={() => { if (can("add")) onAddClick?.(); }} className="flex items-center gap-2 rounded-xl bg-teal-500 px-3 py-2 text-xs font-medium text-white shadow-sm hover:bg-teal-600 sm:px-4 sm:text-sm"><FaPlus className="text-xs" /> Add Country Rule</button>
         </div>
         <div className="mb-4 rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-5">
           <div className="mb-3 flex flex-col gap-3 sm:flex-row">
@@ -1702,8 +1704,8 @@ function CountryRulesPage({ onAddClick, refreshKey, onEditClick }) {
                 <td className="px-3 py-3"><span className={`rounded-lg px-2.5 py-1 text-xs font-medium ${r.active !== false ? "bg-teal-100 text-teal-700" : "bg-gray-100 text-gray-500"}`}>{r.active !== false ? "active" : "inactive"}</span></td>
                 <td className="px-3 py-3"><div className="flex flex-wrap items-center gap-2 text-xs font-semibold">
                   <button disabled={!!actionLoading} onClick={() => getOne(r)} className="text-sky-700">View</button>
-                  <button disabled={!!actionLoading} onClick={() => getOne(r,"edit")} className="text-teal-600">Edit</button>
-                  <button disabled={!!actionLoading} onClick={() => deleteRule(r)} className="text-rose-600">Delete</button>
+                  <button disabled={!!actionLoading || !can("edit")} title={!can("edit") ? "Edit permission required" : "Edit"} onClick={() => { if (can("edit")) getOne(r,"edit"); }} className={`text-teal-600 ${!can("edit") ? "opacity-35 cursor-not-allowed pointer-events-none" : ""}`}>Edit</button>
+                  <button disabled={!!actionLoading || !can("delete")} title={!can("delete") ? "Delete permission required" : "Delete"} onClick={() => { if (can("delete")) deleteRule(r); }} className={`text-rose-600 ${!can("delete") ? "opacity-35 cursor-not-allowed pointer-events-none" : ""}`}>Delete</button>
                   <button disabled={!!actionLoading} onClick={() => showTool("saved-calculate",r)} className="text-indigo-600">Calculate</button>
                 </div></td>
               </tr>)}</tbody>
@@ -1725,12 +1727,13 @@ function CountryRulesPage({ onAddClick, refreshKey, onEditClick }) {
   );
 }
 
-export default function CountryRules() {
+export default function CountryRules({ permissions = null }) {
+  const can = (action) => permissions === null || permissions?.[action] === true;
   const [showAdd, setShowAdd] = useState(false);
   const [editRule, setEditRule] = useState(null);
   const [refreshKey, setRefreshKey] = useState(0);
   const handleSaved = () => { setShowAdd(false); setEditRule(null); setRefreshKey(v => v + 1); };
-  return showAdd || editRule
+  return ((showAdd && can("add")) || (editRule && can("edit")))
     ? <AddCountryRulePage key={ruleId(editRule) || "new"} initialRule={editRule} onCancel={() => { setShowAdd(false); setEditRule(null); }} onSave={handleSaved} />
-    : <CountryRulesPage refreshKey={refreshKey} onAddClick={() => setShowAdd(true)} onEditClick={r => setEditRule(r)} />;
+    : <CountryRulesPage permissions={permissions} refreshKey={refreshKey} onAddClick={() => { if (can("add")) setShowAdd(true); }} onEditClick={r => { if (can("edit")) setEditRule(r); }} />;
 }

@@ -120,7 +120,7 @@ export default function SavedReportsLibrary() {
               {shown.map((r) => (
                 <tr
                   key={r._id}
-                  className="border-t border-slate-100 odd:bg-white even:bg-[#F1F7F9] hover:bg-teal-50"
+                  className="border-t border-slate-100 odd:bg-white even:bg-[#F1F7F9] hover:bg-teal-50 "
                 >
                   <td className="p-3 font-semibold text-[#11264C]">
                     <FileText size={15} className="mr-2 inline text-teal-700" />
@@ -133,7 +133,7 @@ export default function SavedReportsLibrary() {
                   <td className="p-3 whitespace-nowrap">
                     {new Date(r.createdAt).toLocaleString("en-IN")}
                   </td>
-                  <td className="p-3 whitespace-nowrap">
+                  <td className="flex p-3 whitespace-nowrap gap-2">
                     <button
                       onClick={() => preview(r._id)}
                       className="rounded-lg border px-3 py-2 text-xs"
@@ -171,7 +171,7 @@ export default function SavedReportsLibrary() {
           <iframe
             title="PDF Preview"
             src={previewUrl}
-            className="mx-auto h-full w-full max-w-5xl rounded-lg bg-white"
+            className="mx-auto h-full w-full max-w-6xl rounded-lg bg-white"
           />
         </div>
       )}
