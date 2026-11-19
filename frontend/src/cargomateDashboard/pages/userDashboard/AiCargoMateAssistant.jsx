@@ -1,3 +1,4 @@
+import PortAutocomplete from "../../components/PortAutocomplete.jsx";
 import { saveShipmentPrefill } from "../../utils/shipmentPrefill";
 import CountryAutocomplete from "../../../components/CountryAutocomplete";
 // // // import { getSession } from "../../../lib/auth";
@@ -8191,7 +8192,7 @@ const AiCargoMateAssistant = () => {
                         <CountryAutocomplete required value={destinationCountry} onChange={(e) => setDestinationCountry(e.target.value)} placeholder="United Arab Emirates" className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800" />
                       </label>
                       <label className="text-xs font-medium text-gray-600">Destination Port / Airport *
-                        <input required value={destinationPort} onChange={(e)=>setDestinationPort(e.target.value)} placeholder="e.g. AEJEA or DXB" className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800" />
+                        <PortAutocomplete required value={destinationPort} onChange={(e)=>setDestinationPort(e.target.value)} placeholder="e.g. AEJEA or DXB" className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800" />
                       </label>
                       <label className="text-xs font-medium text-gray-600">Quantity
                         <input required type="number" min="0.001" step="any" value={quantity} onChange={(e) => setQuantity(e.target.value)} placeholder="500" className="mt-1 w-full rounded-lg border border-gray-200 px-3 py-2 text-xs text-gray-800" />

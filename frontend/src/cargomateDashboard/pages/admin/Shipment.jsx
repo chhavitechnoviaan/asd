@@ -1,3 +1,4 @@
+import PortAutocomplete from "../../components/PortAutocomplete.jsx";
 // // import { useState, useRef, useEffect, useMemo } from "react";
 // // import {
 // //   FaDownload,
@@ -3571,7 +3572,7 @@ function Step3({ form, set, onNext }) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-5">
         <FormField label="Origin Port / ICD">
-          <input
+          <PortAutocomplete
             className={inputClass}
             placeholder="e.g. HYD ICD (IN)"
             value={form.originPort}
@@ -3580,7 +3581,7 @@ function Step3({ form, set, onNext }) {
         </FormField>
 
         <FormField label="Destination Port">
-          <input
+          <PortAutocomplete
             className={inputClass}
             placeholder="e.g. Hamburg (DE)"
             value={form.destPort}
@@ -3685,7 +3686,7 @@ function NewBookingPage({ onCancel, onSaved }) {
   const setNested = (parent, key, value) => setForm(prev => ({ ...prev, [parent]: { ...prev[parent], [key]: value } }));
   const setCargo = (key, value) => setForm(prev => ({ ...prev, cargo: { ...prev.cargo, [key]: value } }));
   const setDimension = (key, value) => setForm(prev => ({ ...prev, cargo: { ...prev.cargo, dimensions: { ...prev.cargo.dimensions, [key]: value } } }));
-  const input = (label, value, onChange, opts={}) => <FormField label={`${label}${opts.required ? " *" : ""}`}><input type={opts.type || "text"} min={opts.min} className={inputClass} placeholder={opts.placeholder || "Enter " + label.toLowerCase()} value={value ?? ""} onChange={e => onChange(e.target.value)}/></FormField>;
+  const input = (label, value, onChange, opts={}) => <FormField label={`${label}${opts.required ? " *" : ""}`}>{/port|airport|icd/i.test(label) ? <PortAutocomplete type={opts.type || "text"} min={opts.min} className={inputClass} placeholder={opts.placeholder || "Enter " + label.toLowerCase()} value={value ?? ""} onChange={e => onChange(e.target.value)}/> : <input type={opts.type || "text"} min={opts.min} className={inputClass} placeholder={opts.placeholder || "Enter " + label.toLowerCase()} value={value ?? ""} onChange={e => onChange(e.target.value)}/>}</FormField>;
   const select = (label, value, onChange, choices) => <FormField label={label}><select className={inputClass} value={value || ""} onChange={e => onChange(e.target.value)}><option value="">Select {label}</option>{choices.map(v => <option key={v} value={v}>{v}</option>)}</select></FormField>;
   const check = (label, value, onChange) => <label className="flex items-center gap-2 text-[11px] font-semibold text-slate-600 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2"><input type="checkbox" checked={!!value} onChange={e => onChange(e.target.checked)} className="accent-teal-600"/>{label}</label>;
   useEffect(() => {

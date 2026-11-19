@@ -8,6 +8,7 @@ export default function PolicyPage({
   lastUpdated,
   ctaQuestion,
   onClose,
+  onContact,
 }) {
   return (
     <div className="min-h-screen bg-gray-100 py-8 px-4">
@@ -69,7 +70,7 @@ export default function PolicyPage({
               </p>
               <p className="text-blue-100 text-sm mt-0.5">{ctaQuestion}</p>
             </div>
-            <button className="bg-white text-blue-700 text-sm font-semibold rounded-lg px-5 py-2 shrink-0">
+            <button onClick={onContact || (() => { window.location.href = "/contactpage"; })} className="bg-white text-blue-700 text-sm font-semibold rounded-lg px-5 py-2 shrink-0">
               Contact us
             </button>
           </div>

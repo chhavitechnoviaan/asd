@@ -1,52 +1,3 @@
-const express = require("express");
-const router = express.Router();
-const controller = require("../controllers/helpSupportController");
-const { protect } = require("../middleware/authMiddleware");
-const upload = require("../middleware/upload");
-
-router.get("/dashboard", protect, controller.getDashboard);
-router.post("/ticket", protect, upload.single("attachment"), controller.createTicket);
-router.get("/tickets", protect, controller.getTickets);
-router.get("/ticket/:id", protect, controller.getTicket);
-router.post("/ticket/:id/reply", protect, controller.replyTicket);
-router.put("/ticket/:id/status", protect, controller.updateTicketStatus);
-
-router.get("/articles", protect, controller.getArticles);
-router.get("/article/:slug", protect, controller.getArticle);
-router.get("/categories", protect, controller.getCategories);
-router.get("/search", protect, controller.searchKnowledgeBase);
-
-module.exports = router;
-
-
-
-// <<<<<<< HEAD
-// const express=require("express");
-
-// const router=express.Router();
-
-// const controller=require("../controllers/helpSupportController");
-
-// const {protect}=require("../middleware/authMiddleware");
-// router.get("/dashboard",protect,controller.getDashboard);
-// router.post("/ticket",protect,controller.createTicket);
-
-// router.get("/tickets",protect,controller.getTickets);
-
-// router.get("/ticket/:id",protect,controller.getTicket);
-// router.get("/articles",protect,controller.getArticles);
-
-// router.get("/article/:slug",protect,controller.getArticle);
-// router.get("/categories",protect,controller.getCategories);
-
-// router.get(
-//     "/search",
-//     protect,
-//     controller.searchKnowledgeBase
-// );
-
-// module.exports=router;
-// =======
 // const express = require("express");
 // const router = express.Router();
 // const controller = require("../controllers/helpSupportController");
@@ -66,4 +17,77 @@ module.exports = router;
 // router.get("/search", protect, controller.searchKnowledgeBase);
 
 // module.exports = router;
-// >>>>>>> origin/perumal
+
+
+
+// // <<<<<<< HEAD
+// // const express=require("express");
+
+// // const router=express.Router();
+
+// // const controller=require("../controllers/helpSupportController");
+
+// // const {protect}=require("../middleware/authMiddleware");
+// // router.get("/dashboard",protect,controller.getDashboard);
+// // router.post("/ticket",protect,controller.createTicket);
+
+// // router.get("/tickets",protect,controller.getTickets);
+
+// // router.get("/ticket/:id",protect,controller.getTicket);
+// // router.get("/articles",protect,controller.getArticles);
+
+// // router.get("/article/:slug",protect,controller.getArticle);
+// // router.get("/categories",protect,controller.getCategories);
+
+// // router.get(
+// //     "/search",
+// //     protect,
+// //     controller.searchKnowledgeBase
+// // );
+
+// // module.exports=router;
+// // =======
+// // const express = require("express");
+// // const router = express.Router();
+// // const controller = require("../controllers/helpSupportController");
+// // const { protect } = require("../middleware/authMiddleware");
+// // const upload = require("../middleware/upload");
+
+// // router.get("/dashboard", protect, controller.getDashboard);
+// // router.post("/ticket", protect, upload.single("attachment"), controller.createTicket);
+// // router.get("/tickets", protect, controller.getTickets);
+// // router.get("/ticket/:id", protect, controller.getTicket);
+// // router.post("/ticket/:id/reply", protect, controller.replyTicket);
+// // router.put("/ticket/:id/status", protect, controller.updateTicketStatus);
+
+// // router.get("/articles", protect, controller.getArticles);
+// // router.get("/article/:slug", protect, controller.getArticle);
+// // router.get("/categories", protect, controller.getCategories);
+// // router.get("/search", protect, controller.searchKnowledgeBase);
+
+// // module.exports = router;
+// // >>>>>>> origin/perumal
+
+
+
+const express = require("express");
+const router = express.Router();
+const controller = require("../controllers/helpSupportController");
+const { protect } = require("../middleware/authMiddleware");
+const upload = require("../middleware/upload");
+
+router.get("/dashboard", protect, controller.getDashboard);
+router.post("/ticket", protect, upload.single("attachment"), controller.createTicket);
+router.get("/tickets", protect, controller.getTickets);
+router.get("/ticket/:id", protect, controller.getTicket);
+const replyUpload = require("../middleware/supportReplyUpload");
+router.post("/ticket/:id/reply", protect, replyUpload.single("attachment"), controller.replyTicket);
+router.get("/ticket/:id/reply/:replyId/attachment", protect, controller.downloadReplyAttachment);
+router.put("/ticket/:id/status", protect, controller.updateTicketStatus);
+
+router.get("/articles", protect, controller.getArticles);
+router.get("/article/:slug", protect, controller.getArticle);
+router.get("/categories", protect, controller.getCategories);
+router.get("/search", protect, controller.searchKnowledgeBase);
+
+module.exports = router;
