@@ -4183,7 +4183,17 @@ export default function SettingsDashboard({initialTab="View Profile",showAccount
 
 
 
-      
+      <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm grid grid-cols-1 sm:grid-cols-2 gap-5 text-xs">
+        <div><h4 className="font-extrabold text-slate-900 mb-3">Legal</h4><div className="flex flex-wrap gap-4">
+          <a className="text-teal-700 hover:underline" href="/refund-policy">Refund Policy</a>
+          <a className="text-teal-700 hover:underline" href="/privacy-policy">Privacy Policy</a>
+          <a className="text-teal-700 hover:underline" href="/terms-and-conditions">Terms &amp; Conditions</a>
+          <a className="text-teal-700 hover:underline" href="/terms-and-conditions">Terms &amp; Conditions</a>
+        </div></div>
+        <div><h4 className="font-extrabold text-slate-900 mb-3">Help Center</h4>
+          <button type="button" onClick={onHelpCenter} className="text-teal-700 hover:underline">Help &amp; Support</button>
+        </div>
+      </div>
       {/* =====================================
           FOOTER
       ===================================== */}
@@ -4199,26 +4209,13 @@ export default function SettingsDashboard({initialTab="View Profile",showAccount
         </span>
 
 
-        {/* <button type="button" onClick={onHelpCenter} className="flex items-center gap-1 hover:text-teal-700 font-semibold">
+        <button type="button" onClick={onHelpCenter} className="flex items-center gap-1 hover:text-teal-700 font-semibold">
 
           <HelpCircle size={14} />
 
           Help Center
 
-        </button> */}
-
-
-        <div className="mt-2 rounded-2xl  p-5 shadow-sm grid grid-cols-1 sm:grid-cols-2 gap-5 text-xs">
-        <div><h4 className="font-extrabold text-slate-900 mb-3">Legal</h4><div className="grid  gap-4">
-          <a className="text-teal-700 hover:underline" href="/refund-policy">Refund Policy</a>
-          <a className="text-teal-700 hover:underline" href="/privacy-policy">Privacy Policy</a>
-          <a className="text-teal-700 hover:underline" href="/terms-and-conditions">Terms &amp; Conditions</a>
-          <a className="text-teal-700 hover:underline" href="/terms-and-conditions">Terms &amp; Conditions</a>
-        </div></div>
-        <div><h4 className="font-extrabold text-slate-900 mb-3">Help Center</h4>
-          <button type="button" onClick={onHelpCenter} className="text-teal-700 hover:underline">Help &amp; Support</button>
-        </div>
-      </div>
+        </button>
 
       </div>
 

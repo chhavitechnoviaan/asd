@@ -1,73 +1,262 @@
-import { ArrowUpRight, Play, Sparkles } from "lucide-react";
-import globeImage from "../assets/trade-globe.png";
+// // import { ArrowUpRight, Sparkles, Ship, Globe2, Plane, MapPin, MessageCircle, ClipboardList } from "lucide-react";
+// // import globeImage from "../assets/asd-holographic-globe.png";
+// // import { useNavigate } from "react-router-dom";
+// // import "./HeroSearch.css";
+
+// // export default function HeroSearch() {
+// //   const navigate = useNavigate();
+// //   return (
+// //     <section className="asd-hero relative isolate overflow-hidden">
+// //       <div className="asd-hero-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
+// //       <div className="relative mx-auto grid max-w-7xl min-h-[650px] grid-cols-1 items-center gap-5 px-5 py-12 sm:px-8 lg:grid-cols-2 lg:gap-8 lg:px-10 lg:py-16">
+// //         <div className="relative z-20 order-2 lg:order-1">
+// //           <div className="asd-hero-eyebrow inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-bold">
+// //             <span className="asd-live-dot h-2 w-2 rounded-full bg-teal-400" />
+// //             AI-Powered Global Trade &amp; Logistics
+// //           </div>
+// //           <h1 className="mt-6 max-w-2xl text-[2.8rem] font-black leading-[1.1] tracking-tight text-white sm:text-5xl xl:text-[3.8rem]">
+// //             <span className="asd-gradient-text">Ask. Plan. Ship.</span>
+// //           </h1>
+// //           <h2 className="mt-6 max-w-2xl text-2xl font-bold leading-snug text-white sm:text-3xl">
+// //             Your Global Trade Journey, Powered by AI.
+// //           </h2>
+// //           <p className="mt-5 max-w-xl text-base leading-8 text-slate-300 sm:text-lg">
+// //             From EXIM benefits and compliance to freight insights and shipment planning, get everything you need to make smarter trade decisions — all in one intelligent platform.
+// //           </p>
+// //           <p className="mt-5 text-base font-bold text-teal-200 sm:text-lg">
+// //             Ask smarter. Plan better. Ship globally.
+// //           </p>
+// //           <div className="mt-7 flex flex-wrap items-center gap-3">
+// //             <button type="button" onClick={() => window.location.assign("/signup")}
+// //               className="asd-primary-btn inline-flex items-center gap-2 rounded-xl px-6 py-3.5 text-sm font-bold text-slate-950 transition hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300">
+// //               Get Started <ArrowUpRight size={17} />
+// //             </button>
+// //             <button type="button" onClick={() => document.getElementById("asd-hero-features")?.scrollIntoView({ behavior: "smooth" })}
+// //               className="asd-secondary-btn inline-flex items-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300">
+// //               Explore Platform
+// //             </button>
+// //           </div>
+// //         </div>
+
+// //         <div className="asd-globe-stage relative order-1 flex min-h-[370px] items-center justify-center lg:order-2 lg:min-h-[570px]" aria-label="Animated glowing globe representing worldwide trade">
+// //           <div className="asd-globe-ambient absolute" aria-hidden="true" />
+// //           <div className="asd-orbit asd-orbit-one absolute" aria-hidden="true" />
+// //           <div className="asd-orbit asd-orbit-two absolute" aria-hidden="true" />
+// //           <div className="asd-orbit asd-orbit-three absolute" aria-hidden="true" />
+// //           <div className="asd-globe-frame relative z-10">
+// //             <div className="asd-globe-halo absolute inset-0" aria-hidden="true" />
+// //             <img src={globeImage} alt="Blue digital globe" className="asd-globe-img relative h-full w-full object-contain" />
+// //             <div className="asd-globe-shine absolute inset-0 pointer-events-none" aria-hidden="true" />
+// //           </div>
+// //           <div className="asd-globe-floor absolute" aria-hidden="true" />
+// //           <div className="asd-float asd-float-top absolute z-20 flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold text-white">
+// //             <Plane size={16} className="text-cyan-300" /> Global connectivity
+// //           </div>
+// //           <div className="asd-float asd-float-bottom absolute z-20 flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold text-white">
+// //             <MapPin size={16} className="text-teal-300" /> Worldwide logistics
+// //           </div>
+// //           <div className="asd-orbit-dot asd-orbit-dot-one absolute" aria-hidden="true" />
+// //           <div className="asd-orbit-dot asd-orbit-dot-two absolute" aria-hidden="true" />
+// //         </div>
+// //       </div>
+// //       <div id="asd-hero-features" className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-4 px-5 pb-10 sm:grid-cols-3 sm:px-8 lg:px-10">
+// //         <div className="asd-feature-tile rounded-2xl p-5">
+// //           <MessageCircle size={23} className="text-teal-300" />
+// //           <h3 className="mt-4 text-lg font-bold text-white">ASK</h3>
+// //           <p className="mt-1 text-sm text-slate-300">Get instant AI-powered trade answers.</p>
+// //         </div>
+// //         <div className="asd-feature-tile rounded-2xl p-5">
+// //           <ClipboardList size={23} className="text-teal-300" />
+// //           <h3 className="mt-4 text-lg font-bold text-white">PLAN</h3>
+// //           <p className="mt-1 text-sm text-slate-300">Discover benefits, insights and smarter strategies.</p>
+// //         </div>
+// //         <div className="asd-feature-tile rounded-2xl p-5">
+// //           <Ship size={23} className="text-teal-300" />
+// //           <h3 className="mt-4 text-lg font-bold text-white">SHIP</h3>
+// //           <p className="mt-1 text-sm text-slate-300">Move your business confidently across borders.</p>
+// //         </div>
+// //       </div>
+// //       <div className="asd-hero-bottom relative z-10 mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-5 py-4 text-xs text-slate-300 sm:px-8 lg:px-10">
+// //         <span className="flex items-center gap-2"><Sparkles size={15} className="text-cyan-300" /> Powered by intelligence. Built for global trade.</span>
+// //         <span className="flex items-center gap-2"><Globe2 size={15} className="text-teal-300" /> Ask. Plan. Ship.</span>
+// //       </div>
+// //     </section>
+// //   );
+// // }
+
+
+
+
+// import { ArrowUpRight, Sparkles, Ship, Globe2, Plane, MapPin, MessageCircle, ClipboardList } from "lucide-react";
+// import RotatingEarth from "./RotatingEarth";
+// import { useNavigate } from "react-router-dom";
+// import "./HeroSearch.css";
+
+// export default function HeroSearch() {
+//   const navigate = useNavigate();
+//   return (
+//     <section className="asd-hero relative isolate overflow-hidden">
+//       <div className="asd-hero-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
+//       <div className="relative mx-auto grid max-w-7xl min-h-[650px] grid-cols-1 items-center gap-5 px-5 py-12 sm:px-8 lg:grid-cols-2 lg:gap-8 lg:px-10 lg:py-16">
+//         <div className="relative z-20 order-2 lg:order-1">
+//           <div className="asd-hero-eyebrow inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-bold">
+//             <span className="asd-live-dot h-2 w-2 rounded-full bg-teal-400" />
+//             AI-Powered Global Trade &amp; Logistics
+//           </div>
+//           <h1 className="mt-6 max-w-2xl text-[2.8rem] font-black leading-[1.1] tracking-tight text-white sm:text-5xl xl:text-[3.8rem]">
+//             <span className="asd-gradient-text">Ask. Plan. Ship.</span>
+//           </h1>
+//           <h2 className="mt-6 max-w-2xl text-2xl font-bold leading-snug text-white sm:text-3xl">
+//             Your Global Trade Journey, Powered by AI.
+//           </h2>
+//           <p className="mt-5 max-w-xl text-base leading-8 text-slate-300 sm:text-lg">
+//             From EXIM benefits and compliance to freight insights and shipment planning, get everything you need to make smarter trade decisions — all in one intelligent platform.
+//           </p>
+//           <p className="mt-5 text-base font-bold text-teal-200 sm:text-lg">
+//             Ask smarter. Plan better. Ship globally.
+//           </p>
+//           <div className="mt-7 flex flex-wrap items-center gap-3">
+//             <button type="button" onClick={() => window.location.assign("/signup")}
+//               className="asd-primary-btn inline-flex items-center gap-2 rounded-xl px-6 py-3.5 text-sm font-bold text-slate-950 transition hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300">
+//               Get Started <ArrowUpRight size={17} />
+//             </button>
+//             <button type="button" onClick={() => document.getElementById("asd-hero-features")?.scrollIntoView({ behavior: "smooth" })}
+//               className="asd-secondary-btn inline-flex items-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300">
+//               Explore Platform
+//             </button>
+//           </div>
+//         </div>
+
+//         <div className="asd-globe-stage relative order-1 flex min-h-[370px] items-center justify-center lg:order-2 lg:min-h-[570px]" aria-label="Animated glowing globe representing worldwide trade">
+//           <div className="asd-globe-ambient absolute" aria-hidden="true" />
+//           <div className="asd-orbit asd-orbit-one absolute" aria-hidden="true" />
+//           <div className="asd-orbit asd-orbit-two absolute" aria-hidden="true" />
+//           <div className="asd-orbit asd-orbit-three absolute" aria-hidden="true" />
+//           <div className="asd-globe-frame relative z-10">
+//             <div className="asd-globe-halo absolute inset-0" aria-hidden="true" />
+//             <RotatingEarth />
+//             <div className="asd-globe-shine absolute inset-0 pointer-events-none" aria-hidden="true" />
+//           </div>
+//           <div className="asd-globe-floor absolute" aria-hidden="true" />
+//           <div className="asd-float asd-float-top absolute z-20 flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold text-white">
+//             <Plane size={16} className="text-cyan-300" /> Global connectivity
+//           </div>
+//           <div className="asd-float asd-float-bottom absolute z-20 flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold text-white">
+//             <MapPin size={16} className="text-teal-300" /> Worldwide logistics
+//           </div>
+//           <div className="asd-orbit-dot asd-orbit-dot-one absolute" aria-hidden="true" />
+//           <div className="asd-orbit-dot asd-orbit-dot-two absolute" aria-hidden="true" />
+//         </div>
+//       </div>
+//       <div id="asd-hero-features" className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-4 px-5 pb-5 sm:grid-cols-3 sm:px-8 lg:px-10">
+//         <div className="asd-feature-tile rounded-2xl p-5">
+//           <MessageCircle size={23} className="text-teal-300" />
+//           <h3 className="mt-4 text-lg font-bold text-white">ASK</h3>
+//           <p className="mt-1 text-sm text-slate-300">Get instant AI-powered trade answers.</p>
+//         </div>
+//         <div className="asd-feature-tile rounded-2xl p-5">
+//           <ClipboardList size={23} className="text-teal-300" />
+//           <h3 className="mt-4 text-lg font-bold text-white">PLAN</h3>
+//           <p className="mt-1 text-sm text-slate-300">Discover benefits, insights and smarter strategies.</p>
+//         </div>
+//         <div className="asd-feature-tile rounded-2xl p-5">
+//           <Ship size={23} className="text-teal-300" />
+//           <h3 className="mt-4 text-lg font-bold text-white">SHIP</h3>
+//           <p className="mt-1 text-sm text-slate-300">Move your business confidently across borders.</p>
+//         </div>
+//       </div>
+//       {/* <div className="asd-hero-bottom relative z-10 mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-5 py-4 text-xs text-slate-300 sm:px-8 lg:px-10">
+//         <span className="flex items-center gap-2"><Sparkles size={15} className="text-cyan-300" /> Powered by intelligence. Built for global trade.</span>
+//         <span className="flex items-center gap-2"><Globe2 size={15} className="text-teal-300" /> Ask. Plan. Ship.</span>
+//       </div> */}
+//     </section>
+//   );
+// }
+
+
+
+import { ArrowUpRight, Sparkles, Ship, Globe2, Plane, MapPin, MessageCircle, ClipboardList } from "lucide-react";
+import RotatingEarth from "./RotatingEarth";
 import { useNavigate } from "react-router-dom";
-// Keep dashboard navigation on the current origin so local development works.
-const goTo = (path) => {
-  const normalizedPath = path.startsWith("/") ? path : `/${path}`;
-  window.location.assign(normalizedPath);
-};
+import "./HeroSearch.css";
 
 export default function HeroSearch() {
   const navigate = useNavigate();
   return (
-    <section className="relative isolate overflow-hidden bg-white">
-      <div className="mx-auto grid min-h-[560px] max-w-7xl grid-cols-1 items-center gap-10 px-5 py-12 sm:px-8 md:min-h-[590px] md:py-14 lg:grid-cols-2 lg:gap-8 lg:px-10 lg:py-10">
-        <div className="relative z-10 order-2 max-w-2xl animate-fade-up lg:order-1">
-          <div className="mb-6 inline-flex items-center gap-2 rounded-xl border border-teal-300 bg-white/80 px-4 py-3 text-xs font-semibold tracking-wide text-teal-700 shadow-sm">
-            <span className="h-2 w-2 rounded-full bg-teal-500 shadow-[0_0_0_4px_rgba(20,184,166,0.12)]" />
-            AI Powered Platform
+    <section className="asd-hero relative isolate overflow-hidden">
+      <div className="asd-hero-grid absolute inset-0 pointer-events-none" aria-hidden="true" />
+      <div className="relative mx-auto grid max-w-7xl min-h-[650px] grid-cols-1 items-center gap-5 px-5 py-12 sm:px-8 lg:grid-cols-2 lg:gap-8 lg:px-10 lg:py-16">
+        <div className="relative z-20 order-2 lg:order-1">
+          <div className="asd-hero-eyebrow inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-xs font-bold">
+            <span className="asd-live-dot h-2 w-2 rounded-full bg-teal-400" />
+            AI-Powered Global Trade &amp; Logistics
           </div>
-
-          <h1 className="max-w-2xl text-4xl font-bold leading-[1.08] tracking-tight text-slate-950 sm:text-5xl md:text-6xl">
-            <span className="text-teal-500">AI-Powered</span> Global
-            <br className="hidden sm:block" /> Trade &amp; Logistics
-            <br className="hidden sm:block" /> Intelligence
+          <h1 className="mt-6 max-w-2xl text-[2.8rem] font-black leading-[1.1] tracking-tight text-white sm:text-5xl xl:text-[3.8rem]">
+            <span className="asd-gradient-text">Ask. Plan. Ship.</span>
           </h1>
-          <p className="mt-5 max-w-lg text-base leading-7 text-slate-500 sm:text-lg">
-            One platform for EXIM benefits, freight insights, compliance guidance, and trade planning.
+          <h2 className="mt-6 max-w-2xl text-2xl font-bold leading-snug text-white sm:text-3xl">
+            Your Global Trade Journey, Powered by AI.
+          </h2>
+          <p className="mt-5 max-w-xl text-base leading-8 text-slate-300 sm:text-lg">
+            From EXIM benefits and compliance to freight insights and shipment planning, get everything you need to make smarter trade decisions — all in one intelligent platform.
           </p>
-
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <button
-              type="button"
-              onClick={() => goTo("/signup")}
-              className="group inline-flex items-center gap-2 rounded-lg bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-sm transition duration-200 hover:-translate-y-0.5 hover:bg-slate-800 hover:shadow-lg focus:outline-none focus:ring-4 focus:ring-slate-300"
-            >
-              Get Started <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          <p className="mt-5 text-base font-bold text-teal-200 sm:text-lg">
+            Ask smarter. Plan better. Ship globally.
+          </p>
+          <div className="mt-7 flex flex-wrap items-center gap-3">
+            <button type="button" onClick={() => window.location.assign("/signup")}
+              className="asd-primary-btn inline-flex items-center gap-2 rounded-xl px-6 py-3.5 text-sm font-bold text-slate-950 transition hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300">
+              Get Started <ArrowUpRight size={17} />
             </button>
-            {/* <button
-              type="button"
-              onClick={() => document.getElementById("contact-demo")?.scrollIntoView({ behavior: "smooth", block: "start" })}
-              className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 transition hover:border-teal-400 hover:bg-teal-50/60 focus:outline-none focus:ring-4 focus:ring-teal-100"
-            >
-              <Play className="h-3.5 w-3.5" /> Request for Demo
-            </button> */}
-            <button
-  type="button"
-  onClick={() => navigate("/contactpage")}
-  className="inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-5 py-3 text-sm font-medium text-slate-700 transition hover:border-teal-400 hover:bg-teal-50/60 focus:outline-none focus:ring-4 focus:ring-teal-100"
->
-  <Play size={14} />
-  Request for Demo
-</button>
-          </div>
-          <div className="mt-8 flex items-center gap-2 text-xs font-medium text-slate-400">
-            <Sparkles className="h-4 w-4 text-teal-500" /> Smarter decisions for every shipment
+            <button type="button" onClick={() => navigate("/contactpage")}
+              className="asd-secondary-btn inline-flex items-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold text-white transition hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-300">
+              Explore Platform
+            </button>
           </div>
         </div>
 
-        <div className="relative order-1 flex min-h-[280px] items-center justify-center lg:order-2 lg:min-h-[480px]">
-          <div className="absolute h-64 w-64 rounded-full bg-blue-200/40 blur-3xl sm:h-80 sm:w-80 lg:h-[28rem] lg:w-[28rem]" />
-          <div className="absolute right-[12%] top-[16%] h-3 w-3 rounded-full bg-teal-400 shadow-[0_0_24px_rgba(45,212,191,0.9)]" />
-          <div className="absolute bottom-[18%] left-[12%] h-2.5 w-2.5 rounded-full bg-blue-400 shadow-[0_0_22px_rgba(96,165,250,0.9)]" />
-          <img
-            src={globeImage}
-            alt="Blue globe representing global trade and logistics"
-            className="relative z-10 w-full max-w-[390px] object-contain drop-shadow-[0_12px_24px_rgba(37,99,235,0.16)] sm:max-w-[450px] lg:max-w-[540px]"
-          />
+        <div className="asd-globe-stage relative order-1 flex min-h-[370px] items-center justify-center lg:order-2 lg:min-h-[570px]" aria-label="Animated glowing globe representing worldwide trade">
+          <div className="asd-globe-ambient absolute" aria-hidden="true" />
+          <div className="asd-orbit asd-orbit-one absolute" aria-hidden="true" />
+          <div className="asd-orbit asd-orbit-two absolute" aria-hidden="true" />
+          <div className="asd-orbit asd-orbit-three absolute" aria-hidden="true" />
+          <div className="asd-globe-frame relative z-10">
+            <div className="asd-globe-halo absolute inset-0" aria-hidden="true" />
+            <RotatingEarth />
+            <div className="asd-globe-shine absolute inset-0 pointer-events-none" aria-hidden="true" />
+          </div>
+          <div className="asd-globe-floor absolute" aria-hidden="true" />
+          <div className="asd-float asd-float-top absolute z-20 flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold text-white">
+            <Plane size={16} className="text-cyan-300" /> Global connectivity
+          </div>
+          <div className="asd-float asd-float-bottom absolute z-20 flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold text-white">
+            <MapPin size={16} className="text-teal-300" /> Worldwide logistics
+          </div>
+          <div className="asd-orbit-dot asd-orbit-dot-one absolute" aria-hidden="true" />
+          <div className="asd-orbit-dot asd-orbit-dot-two absolute" aria-hidden="true" />
         </div>
       </div>
-      <div id="contact-demo" className="sr-only" aria-hidden="true" />
+      <div id="asd-hero-features" className="relative z-10 mx-auto grid max-w-7xl grid-cols-1 gap-4 px-5 pb-5 sm:grid-cols-3 sm:px-8 lg:px-10">
+        <div className="asd-feature-tile rounded-2xl p-5">
+          <MessageCircle size={23} className="text-teal-300" />
+          <h3 className="mt-4 text-lg font-bold text-white">ASK</h3>
+          <p className="mt-1 text-sm text-slate-300">Get instant AI-powered trade answers.</p>
+        </div>
+        <div className="asd-feature-tile rounded-2xl p-5">
+          <ClipboardList size={23} className="text-teal-300" />
+          <h3 className="mt-4 text-lg font-bold text-white">PLAN</h3>
+          <p className="mt-1 text-sm text-slate-300">Discover benefits, insights and smarter strategies.</p>
+        </div>
+        <div className="asd-feature-tile rounded-2xl p-5">
+          <Ship size={23} className="text-teal-300" />
+          <h3 className="mt-4 text-lg font-bold text-white">SHIP</h3>
+          <p className="mt-1 text-sm text-slate-300">Move your business confidently across borders.</p>
+        </div>
+      </div>
+      {/* <div className="asd-hero-bottom relative z-10 mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3 px-5 py-4 text-xs text-slate-300 sm:px-8 lg:px-10">
+        <span className="flex items-center gap-2"><Sparkles size={15} className="text-cyan-300" /> Powered by intelligence. Built for global trade.</span>
+        <span className="flex items-center gap-2"><Globe2 size={15} className="text-teal-300" /> Ask. Plan. Ship.</span>
+      </div> */}
     </section>
   );
 }

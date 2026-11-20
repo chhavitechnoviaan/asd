@@ -4435,7 +4435,7 @@ export default function FreightCalculatorResult() {
                   </select>
                 </label>
                 <label className="text-xs font-bold text-gray-700">Transport Mode
-                  <select value={freightForm.mode} onChange={e => setFreightForm(p => ({...p, mode: e.target.value}))} className="mt-1 block rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm">
+                  <select value={freightForm.mode} onChange={e => setFreightForm(p => ({...p, mode: e.target.value, origin_port: "", destination_port: ""}))} className="mt-1 block rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm">
                     <option value="all">All Modes</option><option value="sea">Sea Freight</option><option value="air">Air Freight</option>
                   </select>
                 </label>
@@ -4509,11 +4509,11 @@ export default function FreightCalculatorResult() {
                 ))}
                 <label className="block">
                   <span className="mb-1.5 block text-xs font-bold text-gray-700">Origin Port / Airport (optional)</span>
-                  <PortAutocomplete value={freightForm.origin_port} placeholder="e.g. Nhava Sheva" onChange={e=>setFreightForm(p=>({...p,origin_port:e.target.value}))} className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm" />
+                  <PortAutocomplete mode={freightForm.mode} value={freightForm.origin_port} placeholder="e.g. Nhava Sheva" onChange={e=>setFreightForm(p=>({...p,origin_port:e.target.value}))} className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm" />
                 </label>
                 <label className="block">
                   <span className="mb-1.5 block text-xs font-bold text-gray-700">Destination Port / Airport (optional)</span>
-                  <PortAutocomplete value={freightForm.destination_port} placeholder="e.g. Jebel Ali" onChange={e=>setFreightForm(p=>({...p,destination_port:e.target.value}))} className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm" />
+                  <PortAutocomplete mode={freightForm.mode} value={freightForm.destination_port} placeholder="e.g. Jebel Ali" onChange={e=>setFreightForm(p=>({...p,destination_port:e.target.value}))} className="w-full rounded-lg border border-gray-300 px-3 py-2.5 text-sm" />
                 </label>
                 <label className="block">
                   <span className="mb-1.5 block text-xs font-bold text-gray-700">

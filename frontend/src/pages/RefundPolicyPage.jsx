@@ -1,6 +1,6 @@
 import { DollarSign, ClipboardList, Ban, CreditCard, HandCoins } from "lucide-react";
 import PolicyPage from "../components/PolicyPage";
-
+import Footer from "../components/Footer";
 const items = [
   {
     icon: DollarSign,
@@ -31,12 +31,26 @@ const items = [
 
 export default function RefundPolicyPage({ onNavigate }) {
   return (
-    <PolicyPage
-      title="Refund Policy"
-      subtitle="We aim to provide the best service possible. Please read our refund policy carefully."
-      items={items}
-      ctaQuestion="Need help with a refund? We're here to assist you."
-      onClose={() => onNavigate("Home")}
-    />
+    // <PolicyPage
+    //   title="Refund Policy"
+    //   subtitle="We aim to provide the best service possible. Please read our refund policy carefully."
+    //   items={items}
+    //   ctaQuestion="Need help with a refund? We're here to assist you."
+    //   onClose={() => onNavigate("Home")}
+    // />
+<div>
+<PolicyPage
+  title="Refund Policy"
+  subtitle="We aim to provide the best service possible. Please read our refund policy carefully."
+  items={items}
+  ctaQuestion="Need help with a refund? We're here to assist you."
+  onClose={() => onNavigate?.("Home")}
+  onContactSupport={() => onNavigate?.("Contact Us")}
+/>
+<Footer onNavigate={onNavigate} />
+</div>
+
+
+
   );
 }
