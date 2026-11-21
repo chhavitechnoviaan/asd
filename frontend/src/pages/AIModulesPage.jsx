@@ -78,9 +78,9 @@ export default function AIModulesPage({ onNavigate }) {
       <section className="relative isolate overflow-hidden bg-gradient-to-b from-[#F0FBFD] via-[#F8FCFF] to-white">
 
         {/* Background Glows */}
-        <div className="pointer-events-none absolute -left-24 top-20 h-80 w-80 rounded-full bg-teal-200/25 blur-3xl" />
+        <div className="pointer-events-none absolute -left-24 top-20 h-80 w-80 rounded-full bg-[#2563EB]/25 blur-3xl" />
 
-        <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-cyan-200/25 blur-3xl" />
+        <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-[#2563EB]/25 blur-3xl" />
 
         <div className="relative z-10 mx-auto max-w-6xl px-4 py-14 sm:px-6 sm:py-20">
 
@@ -88,10 +88,10 @@ export default function AIModulesPage({ onNavigate }) {
           <div className="mx-auto max-w-2xl text-center">
 
             {/* Badge */}
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-teal-200 bg-white/80 px-4 py-1.5 shadow-sm">
-              <Sparkles className="h-3.5 w-3.5 text-teal-600" />
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#2563EB] bg-white/80 px-4 py-1.5 shadow-sm">
+              <Sparkles className="h-3.5 w-3.5 text-[#2563EB]" />
 
-              <span className="text-[11px] font-bold uppercase tracking-wider text-teal-700">
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#2563EB]">
                 Explore Our AI Solutions
               </span>
             </div>
@@ -99,7 +99,7 @@ export default function AIModulesPage({ onNavigate }) {
             {/* Title */}
             <h2 className="text-2xl font-extrabold tracking-tight text-[#102A43] sm:text-3xl">
               All{" "}
-              <span className="bg-gradient-to-r from-[#0D9488] via-[#06B6D4] to-[#0284C7] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#2563EB] via-[#2563EB] to-[#0284C7] bg-clip-text text-transparent">
                 AI Modules
               </span>
             </h2>
@@ -119,19 +119,19 @@ export default function AIModulesPage({ onNavigate }) {
                 key={m.id}
                 type="button"
                 onClick={() => setSelectedModule(m)}
-                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[#D8EDF2] bg-white/90 p-5 text-left shadow-[0_6px_24px_rgba(8,71,96,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-teal-300 hover:shadow-[0_16px_38px_rgba(8,145,178,0.12)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500"
+                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[#D8EDF2] bg-white/90 p-5 text-left shadow-[0_6px_24px_rgba(8,71,96,0.04)] transition-all duration-300 hover:-translate-y-1.5 hover:border-[#2563EB] hover:shadow-[0_16px_38px_rgba(8,145,178,0.12)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563EB]"
               >
 
                 {/* Top Accent */}
-                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-teal-400 via-cyan-400 to-sky-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#2563EB] via-[#2563EB] to-sky-400 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
                 {/* Icon */}
-                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-teal-100 bg-gradient-to-br from-[#DDF9F5] to-[#E0F2FE] text-[#089FAB] transition-all duration-300 group-hover:scale-110 group-hover:from-teal-500 group-hover:to-cyan-500 group-hover:text-white">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-teal-100 bg-gradient-to-br from-[#DDF9F5] to-[#E0F2FE] text-[#2563EB] transition-all duration-300 group-hover:scale-110 group-hover:from-[#2563EB] group-hover:to-[#2563EB] group-hover:text-white">
                   <m.icon className="h-5 w-5" />
                 </div>
 
                 {/* Module Title */}
-                <h3 className="mt-5 text-sm font-bold leading-6 text-[#102A43] transition-colors group-hover:text-teal-700">
+                <h3 className="mt-5 text-sm font-bold leading-6 text-[#102A43] transition-colors group-hover:text-[#2563EB]">
                   {m.title}
                 </h3>
 
@@ -143,11 +143,11 @@ export default function AIModulesPage({ onNavigate }) {
                 {/* Explore Action */}
                 <div className="mt-5 flex items-center justify-between border-t border-[#E7F2F5] pt-4">
 
-                  <span className="text-xs font-bold text-[#089FAB]">
+                  <span className="text-xs font-bold text-[#2563EB]">
                     Explore Module
                   </span>
 
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full border border-teal-100 bg-teal-50 text-teal-600 transition-all duration-300 group-hover:translate-x-1 group-hover:border-teal-400 group-hover:bg-teal-500 group-hover:text-white">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full border border-teal-100 bg-teal-50 text-[#2563EB] transition-all duration-300 group-hover:translate-x-1 group-hover:border-[#2563EB] group-hover:bg-[#2563EB] group-hover:text-white">
                     <ArrowRight className="h-4 w-4" />
                   </span>
                 </div>

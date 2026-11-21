@@ -132,9 +132,9 @@ export default function WhyCargoMate() {
     <section className="relative isolate overflow-hidden border-y border-cyan-100 bg-gradient-to-br from-[#F5FCFF] via-[#EAF9FC] to-[#E7F8F6] py-14 sm:py-20">
 
       {/* Background Glow */}
-      <div className="pointer-events-none absolute -left-24 -top-24 h-80 w-80 rounded-full bg-cyan-200/30 blur-3xl" />
+      <div className="pointer-events-none absolute -left-24 -top-24 h-80 w-80 rounded-full bg-[#2563EB]/30 blur-3xl" />
 
-      <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-teal-200/25 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-[#2563EB]25 blur-3xl" />
 
       {/* Subtle Digital Grid */}
       <div
@@ -152,10 +152,10 @@ export default function WhyCargoMate() {
         <div className="text-center">
 
           {/* Badge */}
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-teal-200 bg-white/80 px-4 py-2 shadow-sm">
-            <Sparkles className="h-3.5 w-3.5 text-[#0AA6B5]" />
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#2563EB] bg-white/80 px-4 py-2 shadow-sm">
+            <Sparkles className="h-3.5 w-3.5 text-[#2563EB]" />
 
-            <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#087E8B]">
+            <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#2563EB]">
               Why CargoMate?
             </span>
           </div>
@@ -163,7 +163,7 @@ export default function WhyCargoMate() {
           {/* Main Heading */}
           <h2 className="text-2xl font-extrabold tracking-tight text-[#102A43] sm:text-3xl md:text-4xl">
             Smarter by Choice.{" "}
-            <span className="bg-gradient-to-r from-[#14B8A6] via-[#06B6D4] to-[#60A5FA] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#2563EB] via-[#6284f5] to-[#60A5FA] bg-clip-text text-transparent">
               Stronger by Result.
             </span>
           </h2>
@@ -179,11 +179,11 @@ export default function WhyCargoMate() {
           {pillars.map(({ icon: Icon, label, desc }) => (
             <div
               key={label}
-              className="group relative flex flex-col items-center rounded-2xl border border-[#D5EBF0] bg-white/85 p-5 text-center shadow-[0_8px_25px_rgba(15,118,130,0.05)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-teal-300 hover:shadow-[0_15px_35px_rgba(20,184,166,0.12)]"
+              className="group relative flex flex-col items-center rounded-2xl border border-[#D5EBF0] bg-white/85 p-5 text-center shadow-[0_8px_25px_rgba(15,118,130,0.05)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#2563EB] hover:shadow-[0_15px_35px_rgba(20,184,166,0.12)]"
             >
 
               {/* Icon */}
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-teal-100 bg-gradient-to-br from-[#DDF9F5] to-[#DDEFFF] text-[#089FAB] transition-all duration-300 group-hover:scale-110">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-teal-100 bg-gradient-to-br from-[#DDF9F5] to-[#DDEFFF] text-[#2563EB] transition-all duration-300 group-hover:scale-110">
                 <Icon className="h-6 w-6" />
               </div>
 
@@ -198,7 +198,7 @@ export default function WhyCargoMate() {
               </p>
 
               {/* Bottom Accent */}
-              <div className="absolute bottom-0 left-1/2 h-[3px] w-0 -translate-x-1/2 rounded-full bg-gradient-to-r from-teal-400 to-cyan-400 transition-all duration-300 group-hover:w-1/2" />
+              <div className="absolute bottom-0 left-1/2 h-[3px] w-0 -translate-x-1/2 rounded-full bg-gradient-to-r from-[#2563EB] to-cyan-400 transition-all duration-300 group-hover:w-1/2" />
             </div>
           ))}
         </div>
@@ -210,17 +210,17 @@ export default function WhyCargoMate() {
           <div className="mb-7 flex flex-col justify-between gap-3 sm:flex-row sm:items-end">
 
             <div>
-              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-cyan-200 bg-white/75 px-3 py-1.5">
-                <Cpu className="h-3.5 w-3.5 text-[#0AA6B5]" />
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-[#2563EB] bg-white/75 px-3 py-1.5">
+                <Cpu className="h-3.5 w-3.5 text-[#2563EB]" />
 
-                <span className="text-[11px] font-semibold uppercase tracking-wider text-[#087E8B]">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-[#2563EB]">
                   Our Technology
                 </span>
               </div>
 
               <h3 className="text-2xl font-extrabold tracking-tight text-[#102A43] sm:text-3xl">
                 Intelligence{" "}
-                <span className="bg-gradient-to-r from-teal-500 to-sky-500 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-[#2563EB] to-[#2563EB] bg-clip-text text-transparent">
                   at the Core
                 </span>
               </h3>
@@ -237,11 +237,11 @@ export default function WhyCargoMate() {
             {techs.map(({ icon: Icon, title, desc }) => (
               <div
                 key={title}
-                className="group relative flex items-start gap-4 overflow-hidden rounded-2xl border border-[#D5EBF0] bg-white/90 p-6 shadow-[0_8px_25px_rgba(15,118,130,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:shadow-[0_15px_35px_rgba(6,182,212,0.1)]"
+                className="group relative flex items-start gap-4 overflow-hidden rounded-2xl border border-[#D5EBF0] bg-white/90 p-6 shadow-[0_8px_25px_rgba(15,118,130,0.05)] transition-all duration-300 hover:-translate-y-1 hover:border-[#2563EB] hover:shadow-[0_15px_35px_rgba(6,182,212,0.1)]"
               >
 
                 {/* Icon */}
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-cyan-100 bg-gradient-to-br from-[#DDF9F5] to-[#DDEFFF] text-[#089FAB]">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-[#2563EB] bg-gradient-to-br from-[#DDF9F5] to-[#DDEFFF] text-[#2563EB]">
                   <Icon className="h-6 w-6" />
                 </div>
 
@@ -257,7 +257,7 @@ export default function WhyCargoMate() {
                 </div>
 
                 {/* Decorative Arrow */}
-                <ArrowUpRight className="h-4 w-4 shrink-0 text-teal-400 opacity-50 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:opacity-100" />
+                <ArrowUpRight className="h-4 w-4 shrink-0 text-[#2563EB] opacity-50 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:opacity-100" />
               </div>
             ))}
           </div>

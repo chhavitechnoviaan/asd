@@ -98,14 +98,14 @@ export default function PlatformFeatures() {
       <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
         {/* Heading */}
         <div className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-4 py-2 text-xs font-semibold tracking-wide text-teal-700">
+          <span className="inline-flex items-center gap-2 rounded-full border border-teal-200 bg-[#2563EC]-50 px-4 py-2 text-xs font-semibold tracking-wide text-[#2563EC]-700">
             <Sparkles className="h-3.5 w-3.5" />
             WHY CHOOSE ASD CARGOMATE
           </span>
 
           <h2 className="mt-5 text-2xl font-extrabold tracking-tight text-[#102A43] sm:text-3xl lg:text-4xl">
             One Platform.{" "}
-            <span className="bg-gradient-to-r from-[#12B8B0] to-[#1596D2] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#2563EC] to-[#1596D2] bg-clip-text text-transparent">
               Endless Opportunities.
             </span>
           </h2>
@@ -122,16 +122,16 @@ export default function PlatformFeatures() {
           {features.map(({ icon: Icon, title, desc }) => (
             <div
               key={title}
-              className="group relative overflow-hidden rounded-2xl border border-[#DCEEF3] bg-white/90 p-6 shadow-[0_8px_30px_rgba(15,89,112,0.05)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-cyan-300 hover:shadow-[0_18px_40px_rgba(6,182,212,0.13)]"
+              className="group relative overflow-hidden rounded-2xl border border-[#DCEEF3] bg-white/90 p-6 shadow-[0_8px_30px_rgba(15,89,112,0.05)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:border-[#2563EC] hover:shadow-[0_18px_40px_rgba(6,182,212,0.13)]"
             >
-              <div className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-teal-400 to-cyan-400 transition-transform duration-300 group-hover:scale-x-100" />
+              <div className="absolute inset-x-0 top-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-[#2563EC] to-[#2563EC] transition-transform duration-300 group-hover:scale-x-100" />
 
               <div className="flex items-start justify-between">
-                <div className="flex h-13 w-13 items-center justify-center rounded-xl border border-cyan-100 bg-gradient-to-br from-[#DDF9F5] to-[#E5F5FF] p-3 text-[#089FB0] transition-all duration-300 group-hover:scale-105 group-hover:from-[#C7F7F0] group-hover:to-[#CDEFFF]">
+                <div className="flex h-13 w-13 items-center justify-center rounded-xl border border-cyan-100 bg-gradient-to-br from-[#DDF9F5] to-[#E5F5FF] p-3 text-[#089FB0] transition-all duration-300 group-hover:scale-105 group-hover:from-[#2563EC]group-hover:to-[#2563EC]">
                   <Icon className="h-6 w-6" strokeWidth={1.8} />
                 </div>
 
-                <ArrowUpRight className="h-4 w-4 text-slate-300 transition-colors group-hover:text-cyan-500" />
+                <ArrowUpRight className="h-4 w-4 text-slate-300 transition-colors group-hover:text-[#2563EC]" />
               </div>
 
               <h3 className="mt-6 text-base font-bold text-[#14314C]">

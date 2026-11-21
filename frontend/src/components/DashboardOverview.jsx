@@ -325,7 +325,7 @@ export default function DashboardOverview() {
 
           <h2 className="mt-5 text-3xl font-extrabold tracking-tight text-[#102A43] sm:text-4xl">
             Dashboard{" "}
-            <span className="bg-gradient-to-r from-[#14B8A6] to-[#1596D2] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#2563EC] to-[#1596D2] bg-clip-text text-transparent">
               Overview
             </span>
           </h2>
@@ -343,7 +343,7 @@ export default function DashboardOverview() {
           <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
             <div>
               <div className="flex items-center gap-2">
-                <BarChart3 className="h-5 w-5 text-teal-500" />
+                <BarChart3 className="h-5 w-5 text-[#2563EC]" />
                 <h3 className="text-lg font-bold text-[#102A43]">
                   Logistics Analytics
                 </h3>
@@ -355,8 +355,8 @@ export default function DashboardOverview() {
             </div>
 
             <div className="flex items-center gap-2 rounded-full border border-teal-100 bg-teal-50 px-3 py-1.5">
-              <span className="h-2 w-2 rounded-full bg-teal-500" />
-              <span className="text-xs font-semibold text-teal-700">
+              <span className="h-2 w-2 rounded-full bg-[#2563EC]" />
+              <span className="text-xs font-semibold text-[#2563EC]">
                 Overview
               </span>
             </div>
@@ -368,14 +368,14 @@ export default function DashboardOverview() {
               ({ label, value, change, icon: Icon }) => (
                 <div
                   key={label}
-                  className="group relative overflow-hidden rounded-2xl border border-[#DCEEF3] bg-gradient-to-br from-white to-[#F0FAFC] p-4 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:shadow-[0_12px_30px_rgba(6,182,212,0.12)] sm:p-5"
+                  className="group relative overflow-hidden rounded-2xl border border-[#DCEEF3] bg-gradient-to-br from-white to-[#F0FAFC] p-4 transition-all duration-300 hover:-translate-y-1 hover:border-[#2563EC] hover:shadow-[0_12px_30px_rgba(6,182,212,0.12)] sm:p-5"
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-100 bg-gradient-to-br from-[#DDF9F5] to-[#E5F5FF] text-[#089FB0]">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan-100 bg-gradient-to-br from-[#DDF9F5] to-[#E5F5FF] text-[#2563EC]">
                       <Icon className="h-5 w-5" />
                     </div>
 
-                    <ArrowUpRight className="h-4 w-4 text-slate-300 transition-colors group-hover:text-cyan-500" />
+                    <ArrowUpRight className="h-4 w-4 text-slate-300 transition-colors group-hover:text-[#2563EC]" />
                   </div>
 
                   <p className="mt-4 text-xs font-medium text-slate-500">
@@ -386,7 +386,7 @@ export default function DashboardOverview() {
                     {value}
                   </p>
 
-                  <div className="mt-3 inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-600">
+                  <div className="mt-3 inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 text-xs font-semibold text-[#2563EC]">
                     <TrendingUp className="h-3 w-3" />
                     +{change}
                   </div>
@@ -409,7 +409,7 @@ export default function DashboardOverview() {
                   </p>
                 </div>
 
-                <div className="rounded-lg bg-cyan-50 p-2 text-cyan-600">
+                <div className="rounded-lg bg-cyan-50 p-2 text-[#2563EC]">
                   <TrendingUp className="h-4 w-4" />
                 </div>
               </div>
@@ -523,7 +523,7 @@ export default function DashboardOverview() {
                   </p>
                 </div>
 
-                <div className="rounded-lg bg-teal-50 p-2 text-teal-600">
+                <div className="rounded-lg bg-teal-50 p-2 text-[#2563EC]">
                   <Globe2 className="h-4 w-4" />
                 </div>
               </div>
@@ -536,14 +536,14 @@ export default function DashboardOverview() {
                         {route}
                       </span>
 
-                      <span className="text-xs font-bold text-[#089FB0]">
+                      <span className="text-xs font-bold text-[#2563EC]">
                         {percent}%
                       </span>
                     </div>
 
                     <div className="h-2.5 overflow-hidden rounded-full bg-[#EAF4F7]">
                       <div
-                        className="h-full rounded-full bg-gradient-to-r from-[#14B8A6] to-[#38BDF8] transition-all duration-700"
+                        className="h-full rounded-full bg-gradient-to-r from-[#2563EC] to-[#2563EC] transition-all duration-700"
                         style={{
                           width: `${percent}%`,
                         }}
@@ -569,7 +569,7 @@ export default function DashboardOverview() {
                   </p>
                 </div>
 
-                <div className="rounded-lg bg-cyan-50 p-2 text-cyan-600">
+                <div className="rounded-lg bg-cyan-50 p-2 text-[#2563EC]">
                   <PackageCheck className="h-4 w-4" />
                 </div>
               </div>
@@ -611,8 +611,8 @@ export default function DashboardOverview() {
                           <span
                             className={`inline-flex whitespace-nowrap rounded-full px-2.5 py-1 text-[10px] font-semibold ${
                               shipment.status === "Delivered"
-                                ? "bg-emerald-50 text-emerald-700"
-                                : "bg-cyan-50 text-cyan-700"
+                                ? "bg-emerald-50 text-[#2563EC]"
+                                : "bg-cyan-50 text-[#2563EC]"
                             }`}
                           >
                             {shipment.status}
@@ -641,7 +641,7 @@ export default function DashboardOverview() {
                   </p>
                 </div>
 
-                <div className="rounded-lg bg-teal-50 p-2 text-teal-600">
+                <div className="rounded-lg bg-teal-50 p-2 text-[#2563EC]">
                   <PiggyBank className="h-4 w-4" />
                 </div>
               </div>
@@ -669,7 +669,7 @@ export default function DashboardOverview() {
                 <div className="w-full max-w-[220px] space-y-4">
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-2">
-                      <span className="h-2.5 w-2.5 rounded-full bg-teal-500" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#2563EC]" />
                       <span className="text-xs text-slate-500">
                         Actual Cost
                       </span>
@@ -682,7 +682,7 @@ export default function DashboardOverview() {
 
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-2">
-                      <span className="h-2.5 w-2.5 rounded-full bg-cyan-200" />
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#2563EC]" />
                       <span className="text-xs text-slate-500">
                         Saved
                       </span>
@@ -693,10 +693,10 @@ export default function DashboardOverview() {
                     </span>
                   </div>
 
-                  <div className="rounded-xl border border-teal-100 bg-gradient-to-r from-teal-50 to-cyan-50 p-3">
+                  <div className="rounded-xl border border-teal-100 bg-gradient-to-r from-teal-50 to-[#2563EC] p-3">
                     <div className="flex items-center gap-2">
-                      <TrendingUp className="h-4 w-4 text-teal-600" />
-                      <span className="text-xs font-semibold text-teal-700">
+                      <TrendingUp className="h-4 w-4 text-[#2563EC]" />
+                      <span className="text-xs font-semibold text-[#2563EC]">
                         Smarter Cost Control
                       </span>
                     </div>
@@ -717,8 +717,8 @@ export default function DashboardOverview() {
               ASD CargoMate • Intelligent Logistics Analytics
             </p>
 
-            <div className="flex items-center gap-2 text-xs font-semibold text-teal-600">
-              <span className="h-2 w-2 rounded-full bg-teal-500" />
+            <div className="flex items-center gap-2 text-xs font-semibold text-[#2563EC]">
+              <span className="h-2 w-2 rounded-full bg-[#2563EC]" />
               AI-Powered Insights
             </div>
           </div>

@@ -59,19 +59,41 @@ const sections = [
     "Applicable Indian law, jurisdiction and dispute-resolution mechanisms must be finalized following legal review.",
   ],
 ];
+// export default function TermsConditionsPage({ onNavigate }) {
+//   return (
+//     // <PolicyPage
+//     //   title="Terms & Conditions"
+//     //   subtitle="ASD CargoMate platform terms and use conditions"
+//     //   items={sections.map(([title, desc]) => ({ icon: FileText, title, desc }))}
+//     //   lastUpdated="Draft — legal review required"
+//     //   ctaQuestion="Questions about our Terms? Contact Support."
+//     //   onClose={() => onNavigate("Home")}
+//     // />
+//     <div>
+//     <PolicyPage title="Terms & Conditions" subtitle="ASD CargoMate platform terms and use conditions" items={sections.map(([title,desc])=>({icon:FileText,title,desc}))} lastUpdated="Draft — legal review required" ctaQuestion="Questions about our Terms? Contact Support." onClose={()=>onNavigate("Home")}/>
+//         <Footer onNavigate={onNavigate} />
+//         </div>
+//   );
+// }
+
 export default function TermsConditionsPage({ onNavigate }) {
   return (
-    // <PolicyPage
-    //   title="Terms & Conditions"
-    //   subtitle="ASD CargoMate platform terms and use conditions"
-    //   items={sections.map(([title, desc]) => ({ icon: FileText, title, desc }))}
-    //   lastUpdated="Draft — legal review required"
-    //   ctaQuestion="Questions about our Terms? Contact Support."
-    //   onClose={() => onNavigate("Home")}
-    // />
-    <div>
-    <PolicyPage title="Terms & Conditions" subtitle="ASD CargoMate platform terms and use conditions" items={sections.map(([title,desc])=>({icon:FileText,title,desc}))} lastUpdated="Draft — legal review required" ctaQuestion="Questions about our Terms? Contact Support." onClose={()=>onNavigate("Home")}/>
-        <Footer onNavigate={onNavigate} />
-        </div>
+    <div className="min-h-screen bg-white">
+      <PolicyPage
+        title="Terms & Conditions"
+        subtitle="ASD CargoMate platform terms and use conditions"
+        items={sections.map(([title, desc]) => ({
+          icon: FileText,
+          title,
+          desc,
+        }))}
+        lastUpdated="Draft — legal review required"
+        ctaQuestion="Questions about our Terms? Contact Support."
+        onClose={() => onNavigate?.("Home")}
+        onContactSupport={() => onNavigate?.("Contact Us")}
+      />
+
+      <Footer onNavigate={onNavigate} />
+    </div>
   );
 }

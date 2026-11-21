@@ -155,17 +155,17 @@ export default function PricingPlans({
     return (
       <article
         key={plan._id || plan.id || index}
-        className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-white/95 p-5 shadow-[0_8px_30px_rgba(8,71,96,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-teal-300 hover:shadow-[0_16px_40px_rgba(8,145,178,0.13)] sm:p-6 ${
+        className={`group relative flex h-full flex-col overflow-hidden rounded-2xl border bg-white/95 p-5 shadow-[0_8px_30px_rgba(8,71,96,0.06)] transition-all duration-300 hover:-translate-y-1 hover:border-[#2563EB] hover:shadow-[0_16px_40px_rgba(8,145,178,0.13)] sm:p-6 ${
           isFeatured
-            ? "border-teal-300 ring-1 ring-teal-100"
+            ? "border-[#2563EB] ring-1 ring-teal-100"
             : "border-[#D7EAF0]"
         }`}
       >
         {/* Decorative Glow */}
-        <div className="pointer-events-none absolute -right-20 -top-20 h-52 w-52 rounded-full bg-cyan-100/70 blur-3xl" />
+        <div className="pointer-events-none absolute -right-20 -top-20 h-52 w-52 rounded-full bg-[#2563EB]/70 blur-3xl" />
 
         {isFeatured && (
-          <div className="absolute right-0 top-0 rounded-bl-xl bg-gradient-to-r from-[#14B8A6] to-[#22D3EE] px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wide text-[#062337]">
+          <div className="absolute right-0 top-0 rounded-bl-xl bg-gradient-to-r from-[#2563EB] to-[#2563EB] px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-wide text-[#062337]">
             Featured
           </div>
         )}
@@ -173,11 +173,11 @@ export default function PricingPlans({
         <div className="relative z-10 flex flex-1 flex-col">
           {/* Plan Type */}
           <div className="flex items-center gap-2">
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-teal-100 bg-gradient-to-br from-[#DDF9F5] to-[#E0F2FE] text-teal-600">
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-teal-100 bg-gradient-to-br from-[#DDF9F5] to-[#E0F2FE] text-[#2563EB]">
               <Sparkles className="h-5 w-5" />
             </span>
 
-            <span className="rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-[10px] font-semibold text-teal-700">
+            <span className="rounded-full border border-[#2563EB] bg-teal-50 px-3 py-1 text-[10px] font-semibold text-[#2563EB]">
               {audience === "b2b"
                 ? "B2B Plan"
                 : "User Plan"}
@@ -196,7 +196,7 @@ export default function PricingPlans({
           {/* Price */}
           <div className="mt-5 border-b border-[#DCEEF2] pb-5">
             <div className="flex flex-wrap items-baseline gap-1">
-              <span className="bg-gradient-to-r from-[#0D9488] via-[#0891B2] to-[#0284C7] bg-clip-text text-3xl font-extrabold text-transparent sm:text-4xl">
+              <span className="bg-gradient-to-r from-[#2563EB] via-[#2563EB] to-[#2563EB] bg-clip-text text-3xl font-extrabold text-transparent sm:text-4xl">
                 ₹{formatPrice(price)}
               </span>
 
@@ -205,7 +205,7 @@ export default function PricingPlans({
               </span>
             </div>
 
-            <p className="mt-2 flex items-center gap-1.5 text-[11px] font-medium text-teal-700">
+            <p className="mt-2 flex items-center gap-1.5 text-[11px] font-medium text-[#2563EB]">
               <ShieldCheck className="h-3.5 w-3.5" />
               Transparent pricing
             </p>
@@ -213,7 +213,7 @@ export default function PricingPlans({
 
           {/* Features */}
           <div className="mt-5 flex-1">
-            <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[#16425B]">
+            <p className="mb-4 text-xs font-bold uppercase tracking-wider text-[#2563EB]">
               What's Included
             </p>
 
@@ -225,12 +225,12 @@ export default function PricingPlans({
                     className="flex items-start gap-2.5 text-xs leading-5 text-slate-600"
                   >
                     <span className="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-teal-100">
-                      <Check className="h-3 w-3 text-teal-700" />
+                      <Check className="h-3 w-3 text-[#2563EB]" />
                     </span>
 
                     <span>
                       {labels[key] || key}:{" "}
-                      <strong className="font-semibold text-[#102A43]">
+                      <strong className="font-semibold text-[#2563EB]">
                         {value}
                       </strong>
                       /month
@@ -249,7 +249,7 @@ export default function PricingPlans({
           <button
             type="button"
             onClick={() => onGetStarted?.(selectedPlan)}
-            className="mt-7 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#14B8A6] to-[#22D3EE] px-5 py-3 text-sm font-extrabold text-[#062337] shadow-[0_8px_22px_rgba(20,184,166,0.16)] transition-all duration-300 hover:from-[#2DD4BF] hover:to-[#67E8F9] hover:shadow-[0_12px_28px_rgba(20,184,166,0.25)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500"
+            className="mt-7 flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#5c8cf1] px-5 py-3 text-sm font-extrabold text-[#062337] shadow-[0_8px_22px_rgba(20,184,166,0.16)] transition-all duration-300 hover:from-[#2563EB] hover:to-[#a6c1fa]  hover:shadow-[0_12px_28px_rgba(20,184,166,0.25)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500"
           >
             Get Started
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -280,17 +280,17 @@ export default function PricingPlans({
 
         {/* Section Heading */}
         <div className="mx-auto max-w-2xl text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-teal-200 bg-white/80 px-4 py-2 shadow-sm">
-            <Zap className="h-3.5 w-3.5 text-teal-600" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#2563EB] bg-white/80 px-4 py-2 shadow-sm">
+            <Zap className="h-3.5 w-3.5 text-[#2563EB]" />
 
-            <span className="text-[11px] font-bold uppercase tracking-widest text-teal-700">
+            <span className="text-[11px] font-bold uppercase tracking-widest text-[#2563EB]">
               Flexible AI-Powered Plans
             </span>
           </div>
 
           <h2 className="mt-5 text-2xl font-extrabold tracking-tight text-[#102A43] sm:text-3xl lg:text-4xl">
             Choose the{" "}
-            <span className="bg-gradient-to-r from-[#0D9488] via-[#06B6D4] to-[#0284C7] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#2563EB] via-[#2563EB] to-[#0284C7] bg-clip-text text-transparent">
               Right Plan
             </span>{" "}
             for You
@@ -313,7 +313,7 @@ export default function PricingPlans({
                 aria-pressed={billing === period}
                 className={`rounded-full px-6 py-2.5 text-sm font-bold transition-all duration-300 ${
                   billing === period
-                    ? "bg-gradient-to-r from-[#14B8A6] to-[#22D3EE] text-[#062337] shadow-md"
+                    ? "bg-gradient-to-r from-[#2563EB] to-[#22D3EE] text-[#062337] shadow-md"
                     : "text-slate-500 hover:bg-teal-50 hover:text-teal-700"
                 }`}
               >
@@ -340,7 +340,7 @@ export default function PricingPlans({
                 <div key={audience} className="mt-12">
                   {/* Category Heading */}
                   <div className="mb-6 flex items-center gap-3">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-teal-200 bg-white text-teal-600 shadow-sm">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-teal-200 bg-white text-[#2563EB] shadow-sm">
                       <Icon className="h-5 w-5" />
                     </span>
 
@@ -393,7 +393,7 @@ export default function PricingPlans({
                   key={plan.id}
                   className="flex flex-col rounded-2xl border border-[#D7EAF0] bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-teal-300 hover:shadow-lg"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 text-teal-600">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 text-[#2563EB]">
                     <Sparkles className="h-5 w-5" />
                   </div>
 
@@ -422,7 +422,7 @@ export default function PricingPlans({
                   <button
                     type="button"
                     onClick={() => onGetStarted?.(plan)}
-                    className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-teal-400 to-cyan-300 px-4 py-3 text-sm font-bold text-[#062337] transition hover:from-teal-300 hover:to-cyan-200"
+                    className="mt-6 flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#2563EB] to-[#2563EB] px-4 py-3 text-sm font-bold text-[#062337] transition hover:from-[#2563EB] hover:to-[#2563EB]"
                   >
                     Get Started
                     <ArrowUpRight className="h-4 w-4" />
@@ -436,17 +436,17 @@ export default function PricingPlans({
         {/* Trust Highlights */}
         <div className="mt-12 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 border-t border-[#CFE7ED] pt-7">
           <span className="flex items-center gap-2 text-xs text-slate-500">
-            <ShieldCheck className="h-4 w-4 text-teal-600" />
+            <ShieldCheck className="h-4 w-4 text-[#2563EB]" />
             Transparent Pricing
           </span>
 
           <span className="flex items-center gap-2 text-xs text-slate-500">
-            <Check className="h-4 w-4 text-teal-600" />
+            <Check className="h-4 w-4 text-[#2563EB]" />
             AI-Powered Features
           </span>
 
           <span className="flex items-center gap-2 text-xs text-slate-500">
-            <Zap className="h-4 w-4 text-teal-600" />
+            <Zap className="h-4 w-4 text-[#2563EB]" />
             Built for Global Trade
           </span>
         </div>

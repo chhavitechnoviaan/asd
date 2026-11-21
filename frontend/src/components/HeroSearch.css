@@ -1,32 +1,442 @@
-/* ASD Home hero — scoped to avoid affecting dashboards */
-.asd-hero{background:radial-gradient(ellipse at 78% 38%,rgba(5,114,146,.27),transparent 42%),linear-gradient(115deg,#031526,#061a30 53%,#032b3c);color:white}
-.asd-hero-grid{background-image:linear-gradient(rgba(61,214,224,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(61,214,224,.055) 1px,transparent 1px);background-size:52px 52px}
-.asd-hero-eyebrow{color:#b4fcf6;background:rgba(16,185,166,.13);border:1px solid rgba(45,212,191,.36)}
-.asd-live-dot{box-shadow:0 0 0 5px rgba(45,212,191,.12),0 0 16px #2dd4bf}
-.asd-gradient-text{background:linear-gradient(105deg,#5eead4,#67e8f9 65%,#93c5fd);-webkit-background-clip:text;background-clip:text;color:transparent}
-.asd-primary-btn{background:linear-gradient(105deg,#5eead4,#67e8f9);box-shadow:0 10px 28px rgba(45,212,191,.16)}
-.asd-secondary-btn{background:rgba(255,255,255,.055);border:1px solid rgba(165,243,252,.29);backdrop-filter:blur(12px)}
-.asd-globe-stage{perspective:1100px;isolation:isolate}
-.asd-globe-ambient{width:88%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,.21),transparent 68%);filter:blur(29px)}
-.asd-globe-frame{width:min(80vw,465px);height:min(80vw,465px);border-radius:50%;transform-style:preserve-3d;animation:asd-globe-float 7s ease-in-out infinite;filter:drop-shadow(0 0 30px rgba(0,226,247,.3))}
-.asd-globe-img{border-radius:50%;animation:asd-globe-turn 24s linear infinite;transform-origin:center center;transform-style:preserve-3d;backface-visibility:visible;filter:saturate(1.15) contrast(1.06)}
-.asd-globe-halo{border-radius:50%;box-shadow:inset 0 0 40px rgba(12,223,245,.12),0 0 38px rgba(12,223,245,.15)}
-.asd-globe-shine{border-radius:50%;background:radial-gradient(circle at 30% 24%,rgba(255,255,255,.11),transparent 45%);}
-.asd-orbit{width:96%;aspect-ratio:1;border:1px solid rgba(45,212,191,.24);border-radius:50%;pointer-events:none;animation:asd-orbit-spin 24s linear infinite}
-.asd-orbit-one{transform:rotate(-30deg) scaleY(.58);animation-duration:22s;box-shadow:0 0 20px rgba(34,211,238,.08)}
-.asd-orbit-two{transform:rotate(55deg) scaleY(.75);animation-direction:reverse;animation-duration:30s;border-color:rgba(103,232,249,.23)}
-.asd-orbit-three{transform:rotate(85deg) scaleY(.88);animation-duration:36s;border-style:dashed;border-color:rgba(103,232,249,.15)}
-.asd-globe-floor{width:75%;height:54px;bottom:1%;border-radius:50%;border:2px solid rgba(34,211,238,.45);transform:perspective(130px) rotateX(62deg);box-shadow:0 0 35px rgba(34,211,238,.35),inset 0 0 25px rgba(34,211,238,.2)}
-.asd-float{background:rgba(3,27,48,.75);border:1px solid rgba(45,212,191,.4);backdrop-filter:blur(12px);box-shadow:0 10px 25px rgba(0,0,0,.2)}
-.asd-float-top{right:0;top:12%}.asd-float-bottom{left:0;bottom:18%}
-.asd-orbit-dot{width:9px;height:9px;border-radius:50%;background:#67e8f9;box-shadow:0 0 20px #22d3ee}.asd-orbit-dot-one{top:13%;left:16%}.asd-orbit-dot-two{bottom:22%;right:10%}
-.asd-feature-tile{background:rgba(255,255,255,.045);border:1px solid rgba(103,232,249,.14);backdrop-filter:blur(8px)}
-.asd-hero-bottom{border-top:1px solid rgba(103,232,249,.14)}
-@keyframes asd-globe-turn{from{transform:rotateY(0deg)}to{transform:rotateY(-360deg)}}
-@keyframes asd-globe-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-13px)}}
-@keyframes asd-orbit-spin{0%{rotate:0deg}100%{rotate:360deg}}
-@media(max-width:640px){.asd-globe-frame{width:min(74vw,330px);height:min(74vw,330px)}.asd-float{font-size:10px;padding:6px 8px}.asd-globe-floor{bottom:0}}
-@media(prefers-reduced-motion:reduce){.asd-globe-img,.asd-globe-frame,.asd-orbit{animation:none!important}}
 
-/* Stationary spherical outline; longitude rotates in the WebGL shader. */
-.asd-real-earth{display:block;border-radius:50%;filter:drop-shadow(0 0 22px rgba(34,211,238,.4))}
+/* ========================================
+   ASD CARGOMATE HERO
+   Royal Blue Screenshot Theme
+   Primary: #2563EB
+   Hover: #1D4ED8
+======================================== */
+
+/* Main Hero Background */
+.asd-hero {
+  position: relative;
+  color: #ffffff;
+
+  background:
+    radial-gradient(
+      ellipse at 0% 0%,
+      rgba(255, 255, 255, 0.78) 0%,
+      rgba(219, 234, 254, 0.48) 20%,
+      rgba(147, 197, 253, 0.18) 43%,
+      transparent 62%
+    ),
+    linear-gradient(
+      115deg,
+      #2563EB 0%,
+      #2563EB 58%,
+      #1D4ED8 100%
+    );
+}
+
+/* Digital Grid */
+.asd-hero-grid {
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px
+    );
+
+  background-size: 52px 52px;
+}
+
+/* Top Badge */
+.asd-hero-eyebrow {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(10px);
+}
+
+/* Live Indicator */
+.asd-live-dot {
+  background: #DBEAFE;
+  box-shadow:
+    0 0 0 5px rgba(255, 255, 255, 0.12),
+    0 0 16px rgba(255, 255, 255, 0.65);
+}
+
+/* Heading Gradient */
+.asd-gradient-text {
+  background: linear-gradient(
+    105deg,
+    #ffffff 0%,
+    #EFF6FF 50%,
+    #DBEAFE 100%
+  );
+
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Tagline */
+.asd-hero-tagline {
+  color: #DBEAFE;
+}
+
+/* Primary Button */
+.asd-primary-btn {
+  background: #ffffff;
+  color: #2563EB;
+
+  border: 1px solid #ffffff;
+
+  box-shadow:
+    0 10px 28px rgba(29, 78, 216, 0.22);
+}
+
+.asd-primary-btn:hover {
+  background: #1D4ED8;
+  color: #ffffff;
+  border-color: #1D4ED8;
+
+  box-shadow:
+    0 14px 34px rgba(29, 78, 216, 0.35);
+}
+
+/* Secondary Button */
+.asd-secondary-btn {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.12);
+
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(12px);
+}
+
+.asd-secondary-btn:hover {
+  background: #1D4ED8;
+  border-color: #DBEAFE;
+}
+
+/* ========================================
+   GLOBE
+======================================== */
+
+.asd-globe-stage {
+  perspective: 1100px;
+  isolation: isolate;
+}
+
+.asd-globe-ambient {
+  width: 88%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(219, 234, 254, 0.35),
+    rgba(37, 99, 235, 0.12) 45%,
+    transparent 70%
+  );
+
+  filter: blur(29px);
+}
+
+/* .asd-globe-frame {
+  width: min(80vw, 465px);
+  height: min(80vw, 465px);
+  border-radius: 50%;
+
+  transform-style: preserve-3d;
+  animation: asd-globe-float 7s ease-in-out infinite;
+
+  filter: drop-shadow(
+    0 0 30px rgba(219, 234, 254, 0.35)
+  );
+} */
+.asd-globe-frame {
+  width: min(80vw, 465px);
+  height: min(80vw, 465px);
+  border-radius: 50%;
+  transform-style: preserve-3d;
+  animation: asd-globe-float 7s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px rgba(64, 111, 238, 0.45));
+}
+.asd-globe-img {
+  border-radius: 50%;
+  animation: asd-globe-turn 24s linear infinite;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+  filter: saturate(1.15) contrast(1.06);
+}
+
+/* .asd-globe-halo {
+  border-radius: 50%;
+
+  box-shadow:
+    inset 0 0 40px rgba(219, 234, 254, 0.18),
+    0 0 38px rgba(147, 197, 253, 0.35);
+} */
+.asd-globe-halo {
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 30px rgba(120, 158, 240, 0.25),
+    0 0 38px rgba(147, 197, 253, 0.3);
+}
+/* .asd-globe-shine {
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle at 30% 24%,
+    rgba(255, 255, 255, 0.18),
+    transparent 45%
+  );
+} */
+.asd-globe-shine {
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 24%,
+    rgba(238, 232, 232, 0.12),
+    transparent 45%
+  );
+}
+/* Globe Orbits */
+.asd-orbit {
+  width: 96%;
+  aspect-ratio: 1;
+
+  border: 1px solid rgba(219, 234, 254, 0.35);
+  border-radius: 50%;
+
+  pointer-events: none;
+  animation: asd-orbit-spin 24s linear infinite;
+}
+
+.asd-orbit-one {
+  transform: rotate(-30deg) scaleY(0.58);
+  animation-duration: 22s;
+
+  box-shadow:
+    0 0 20px rgba(219, 234, 254, 0.18);
+}
+
+.asd-orbit-two {
+  transform: rotate(55deg) scaleY(0.75);
+  animation-direction: reverse;
+  animation-duration: 30s;
+
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.asd-orbit-three {
+  transform: rotate(85deg) scaleY(0.88);
+  animation-duration: 36s;
+
+  border-style: dashed;
+  border-color: rgba(219, 234, 254, 0.28);
+}
+
+/* Globe Floor */
+.asd-globe-floor {
+  width: 75%;
+  height: 54px;
+  bottom: 1%;
+  border-radius: 50%;
+
+  border: 2px solid rgba(219, 234, 254, 0.55);
+
+  transform: perspective(130px) rotateX(62deg);
+
+  box-shadow:
+    0 0 35px rgba(219, 234, 254, 0.4),
+    inset 0 0 25px rgba(37, 99, 235, 0.3);
+}
+
+/* Floating Labels */
+.asd-float {
+  color: #2563EB;
+  background: rgba(255, 255, 255, 0.94);
+
+  border: 1px solid #DBEAFE;
+  backdrop-filter: blur(12px);
+
+  box-shadow:
+    0 10px 25px rgba(29, 78, 216, 0.18);
+}
+
+.asd-float-top {
+  right: 0;
+  top: 12%;
+}
+
+.asd-float-bottom {
+  left: 0;
+  bottom: 18%;
+}
+
+.asd-float-icon {
+  color: #2563EB;
+}
+
+/* Orbit Dots */
+.asd-orbit-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+
+  background: #DBEAFE;
+
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.65);
+}
+
+.asd-orbit-dot-one {
+  top: 13%;
+  left: 16%;
+}
+
+.asd-orbit-dot-two {
+  bottom: 22%;
+  right: 10%;
+}
+
+/* ========================================
+   ASK / PLAN / SHIP CARDS
+======================================== */
+
+.asd-feature-tile {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #EFF6FF 100%
+  );
+
+  border: 1px solid #DBEAFE;
+
+  box-shadow:
+    0 12px 35px rgba(29, 78, 216, 0.12);
+
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.2s;
+}
+
+.asd-feature-tile:hover {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #DBEAFE 100%
+  );
+
+  border-color: #1D4ED8;
+
+  box-shadow:
+    0 16px 40px rgba(29, 78, 216, 0.22);
+
+  transform: translateY(-3px);
+}
+
+/* Feature Icon Container */
+.asd-feature-icon-box {
+  width: 54px;
+  height: 54px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 16px;
+  background: #EFF6FF;
+  border: 1px solid #DBEAFE;
+
+  transition:
+    background 0.3s,
+    transform 0.3s;
+}
+
+.asd-feature-icon {
+  color: #2563EB;
+}
+
+.asd-feature-tile:hover .asd-feature-icon-box {
+  background: #DBEAFE;
+  transform: scale(1.08);
+}
+
+/* Bottom Border */
+.asd-hero-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ========================================
+   ANIMATIONS
+======================================== */
+
+@keyframes asd-globe-turn {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(-360deg);
+  }
+}
+
+@keyframes asd-globe-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-13px);
+  }
+}
+
+@keyframes asd-orbit-spin {
+  0% {
+    rotate: 0deg;
+  }
+  100% {
+    rotate: 360deg;
+  }
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .asd-globe-frame {
+    width: min(74vw, 330px);
+    height: min(74vw, 330px);
+  }
+
+  .asd-float {
+    font-size: 10px;
+    padding: 6px 8px;
+  }
+
+  .asd-globe-floor {
+    bottom: 0;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .asd-globe-img,
+  .asd-globe-frame,
+  .asd-orbit {
+    animation: none !important;
+  }
+}
+
+/* Real Earth */
+/* .asd-real-earth {
+  display: block;
+  border-radius: 50%;
+
+  filter: drop-shadow(
+    0 0 22px rgba(60, 128, 218, 0.45)
+  );
+} */
+
+.asd-real-earth {
+  display: block;
+  border-radius: 50%;
+  filter:
+    drop-shadow(0 0 18px rgba(37, 99, 235, 0.45))
+    drop-shadow(0 0 30px rgba(147, 197, 253, 0.25));
+}

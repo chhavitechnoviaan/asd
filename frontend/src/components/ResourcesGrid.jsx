@@ -57,17 +57,17 @@ export default function ResourcesGrid({ onSelect }) {
         {/* Section heading */}
         <div className="mx-auto max-w-2xl text-center">
 
-          <div className="inline-flex items-center gap-2 rounded-full border border-teal-200 bg-white/80 px-4 py-2 shadow-sm">
-            <Sparkles className="h-4 w-4 text-teal-600" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#2563EB] bg-white/80 px-4 py-2 shadow-sm">
+            <Sparkles className="h-4 w-4 text-[#2563EB]" />
 
-            <span className="text-[11px] font-bold uppercase tracking-wider text-teal-700">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#2563EB]">
               Global Trade Knowledge Hub
             </span>
           </div>
 
           <h2 className="mt-5 text-2xl font-extrabold tracking-tight text-[#102A43] sm:text-3xl">
             Explore Our{" "}
-            <span className="bg-gradient-to-r from-[#0D9488] via-[#06B6D4] to-[#0284C7] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#2563EB] via-[#2563EB] to-[#0284C7] bg-clip-text text-transparent">
               Resources
             </span>
           </h2>
@@ -88,14 +88,14 @@ export default function ResourcesGrid({ onSelect }) {
             return (
               <article
                 key={card.id}
-                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[#D7EBF0] bg-white/90 p-6 shadow-[0_8px_30px_rgba(8,71,96,0.05)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-cyan-300 hover:shadow-[0_16px_38px_rgba(6,182,212,0.14)]"
+                className="group relative flex h-full flex-col overflow-hidden rounded-2xl border border-[#D7EBF0] bg-white/90 p-6 shadow-[0_8px_30px_rgba(8,71,96,0.05)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#2563EB] hover:shadow-[0_16px_38px_rgba(6,182,212,0.14)]"
               >
 
                 {/* Decorative glow */}
                 <div className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-cyan-200/20 blur-3xl transition-transform duration-500 group-hover:scale-150" />
 
                 {/* Icon */}
-                <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-teal-200 bg-gradient-to-br from-[#DDF9F5] via-[#E1FAFF] to-[#DDEFFF] text-[#089FAB] shadow-sm">
+                <div className="relative flex h-14 w-14 items-center justify-center rounded-2xl border border-teal-200 bg-gradient-to-br from-[#DDF9F5] via-[#E1FAFF] to-[#DDEFFF] text-[#2563EB] shadow-sm">
                   <Icon className="h-6 w-6" />
                 </div>
 
@@ -113,13 +113,13 @@ export default function ResourcesGrid({ onSelect }) {
                 <button
                   type="button"
                   onClick={() => onSelect?.(card)}
-                  className="relative mt-6 flex w-full items-center justify-between border-t border-[#E5F0F3] pt-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-500"
+                  className="relative mt-6 flex w-full items-center justify-between border-t border-[#E5F0F3] pt-4 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2563EB]"
                 >
-                  <span className="text-xs font-bold text-[#089FAB] transition-colors group-hover:text-teal-700">
+                  <span className="text-xs font-bold text-[#2563EB] transition-colors group-hover:text-[#2563EB]">
                     Explore Resources
                   </span>
 
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-teal-200 bg-teal-50 text-teal-600 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-teal-500 group-hover:to-cyan-500 group-hover:text-white">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#2563EB] bg-teal-50 text-[#2563EB] transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-[#2563EB] group-hover:to-[#2563EB] group-hover:text-white">
                     <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                   </span>
                 </button>

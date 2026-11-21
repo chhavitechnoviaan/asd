@@ -52,7 +52,7 @@ export default function NeedMoreHelpBanner({ onNavigate }) {
         />
 
         {/* Dark Overlay - Image Remains Visible */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#03182B]/95 via-[#05243A]/85 to-[#06384A]/35" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#2563EB]/95 via-[#05243A]/15 to-[#06384A]/35" />
       </div>
 
       {/* Decorative Glows */}
@@ -74,10 +74,10 @@ export default function NeedMoreHelpBanner({ onNavigate }) {
       <div className="relative z-10 mx-auto flex min-h-[300px] max-w-6xl flex-col justify-center px-5 py-12 sm:min-h-[340px] sm:px-8 lg:px-10">
 
         {/* Badge */}
-        <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-teal-400/30 bg-teal-400/10 px-4 py-2 backdrop-blur-sm">
-          <Sparkles className="h-3.5 w-3.5 text-teal-300" />
+        <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-[#2563EB]/30 bg-teal-400/10 px-4 py-2 backdrop-blur-sm">
+          <Sparkles className="h-3.5 w-3.5 text-[#ffffff]" />
 
-          <span className="text-[10px] font-bold uppercase tracking-wider text-teal-200">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-[#ffffff]">
             We're Here to Help
           </span>
         </div>
@@ -102,7 +102,7 @@ export default function NeedMoreHelpBanner({ onNavigate }) {
           <button
             type="button"
             onClick={() => onNavigate?.("Contact Us")}
-            className="group inline-flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-[#2DD4BF] to-[#67E8F9] px-6 py-3.5 text-sm font-bold text-[#06243A] shadow-[0_8px_28px_rgba(20,184,166,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(34,211,238,0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
+            className="group inline-flex items-center justify-center gap-3 rounded-xl bg-gradient-to-r from-[#ffffff] to-[#ffffff] px-6 py-3.5 text-sm font-bold text-[#06243A] shadow-[0_8px_28px_rgba(20,184,166,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(34,211,238,0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300"
           >
             <Headphones className="h-4 w-4" />
 

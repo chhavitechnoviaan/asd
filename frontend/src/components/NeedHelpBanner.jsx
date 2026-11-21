@@ -53,13 +53,13 @@ export default function NeedHelpBanner({ onNavigate }) {
       </div>
 
       {/* Decorative Glows */}
-      <div className="pointer-events-none absolute -left-20 -top-20 h-64 w-64 rounded-full bg-teal-400/15 blur-3xl" />
+      <div className="pointer-events-none absolute -left-20 -top-20 h-64 w-64 rounded-full bg-[#2563EB]/15 blur-3xl" />
 
-      <div className="pointer-events-none absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-cyan-400/20 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 bottom-0 h-72 w-72 rounded-full bg-[#2563EB] blur-3xl" />
 
       {/* Subtle Grid Pattern */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-20"
+        className="pointer-events-none absolute inset-0 opacity-80"
         style={{
           backgroundImage:
             "linear-gradient(rgba(34,211,238,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.12) 1px, transparent 1px)",
@@ -68,7 +68,7 @@ export default function NeedHelpBanner({ onNavigate }) {
       />
 
       {/* Top Accent Line */}
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#2563EB]/60 to-transparent" />
 
       {/* Main Content */}
       <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center justify-between gap-7 px-5 py-12 sm:flex-row sm:px-8 sm:py-14 lg:py-16">
@@ -78,9 +78,9 @@ export default function NeedHelpBanner({ onNavigate }) {
 
           {/* Badge */}
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-teal-400/30 bg-teal-400/10 px-3.5 py-1.5 backdrop-blur-sm">
-            <Sparkles className="h-3.5 w-3.5 text-[#5EEAD4]" />
+            <Sparkles className="h-3.5 w-3.5 text-[#ffffff]" />
 
-            <span className="text-[10px] font-bold uppercase tracking-wider text-[#99F6E4]">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#ffffff]">
               Expert Guidance
             </span>
           </div>
@@ -88,7 +88,7 @@ export default function NeedHelpBanner({ onNavigate }) {
           {/* Heading */}
           <h2 className="text-xl font-extrabold tracking-tight text-white sm:text-2xl lg:text-3xl">
             Need Help Choosing the{" "}
-            <span className="bg-gradient-to-r from-[#5EEAD4] via-[#67E8F9] to-[#93C5FD] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#2563EB] via-[#2563EB] to-[#93C5FD] bg-clip-text text-transparent">
               Right Module?
             </span>
           </h2>
@@ -100,7 +100,7 @@ export default function NeedHelpBanner({ onNavigate }) {
           </p>
 
           {/* Supporting Text */}
-          <div className="mt-4 inline-flex items-center gap-2 text-xs font-medium text-[#99F6E4]">
+          <div className="mt-4 inline-flex items-center gap-2 text-xs font-medium text-[#ffffff]">
             <Headset className="h-4 w-4" />
             Personalized guidance for smarter logistics
           </div>
@@ -111,7 +111,7 @@ export default function NeedHelpBanner({ onNavigate }) {
           <button
             type="button"
             onClick={handleTalkToExpert}
-            className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#5EEAD4] to-[#67E8F9] px-7 py-3.5 text-sm font-bold text-[#032337] shadow-[0_8px_25px_rgba(34,211,238,0.2)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(34,211,238,0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 sm:w-auto"
+            className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#ffffff] to-[#ffffff] px-7 py-3.5 text-sm font-bold text-[#032337] shadow-[0_8px_25px_rgba(34,211,238,0.2)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(34,211,238,0.35)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cyan-300 sm:w-auto"
           >
             Talk to an Expert
 

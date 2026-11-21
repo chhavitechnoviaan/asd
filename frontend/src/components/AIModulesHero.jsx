@@ -44,13 +44,13 @@ export default function AIModulesHero() {
         />
 
         {/* Dark gradient: text readable, image visible */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#031525]/95 via-[#06253B]/85 to-[#073A4A]/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#2563EB]/40 via-[#2563EB]/15 to-[#073A4A]/30" />
       </div>
 
       {/* Cyan & Teal Glows */}
-      <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-cyan-400/10 blur-3xl" />
+      <div className="pointer-events-none absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[#2563EB]/10 blur-3xl" />
 
-      <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-teal-400/20 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-[#2563EB]20 blur-3xl" />
 
       {/* Subtle Grid */}
       <div
@@ -66,10 +66,10 @@ export default function AIModulesHero() {
       <div className="relative z-10 mx-auto flex min-h-[310px] max-w-6xl flex-col justify-center px-5 py-12 sm:min-h-[350px] sm:px-8 md:min-h-[390px]">
 
         {/* Badge */}
-        <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-teal-400/30 bg-teal-400/10 px-3.5 py-1.5 backdrop-blur-sm">
-          <Sparkles className="h-3.5 w-3.5 text-[#5EEAD4]" />
+        <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-[#2563EB]/30 bg-teal-400/10 px-3.5 py-1.5 backdrop-blur-sm">
+          <Sparkles className="h-3.5 w-3.5 text-[#f0f1f5]" />
 
-          <span className="text-[11px] font-bold tracking-wide text-[#99F6E4]">
+          <span className="text-[11px] font-bold tracking-wide text-[#ebeeed]">
             AI-Powered Trade Intelligence
           </span>
         </div>
@@ -77,16 +77,16 @@ export default function AIModulesHero() {
         {/* Heading */}
         <h1 className="max-w-2xl text-3xl font-extrabold tracking-tight text-white sm:text-4xl md:text-5xl">
           AI{" "}
-          <span className="bg-gradient-to-r from-[#5EEAD4] via-[#67E8F9] to-[#93C5FD] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#ffffff] via-[#ffffff] to-[#ffffff] bg-clip-text text-transparent">
             Modules
           </span>
         </h1>
 
         {/* Subtitle */}
         <div className="mt-4 flex items-center gap-2">
-          <Globe2 className="h-5 w-5 shrink-0 text-[#5EEAD4]" />
+          <Globe2 className="h-5 w-5 shrink-0 text-[#f1f5f4]" />
 
-          <p className="text-base font-bold text-[#C4F5F4] sm:text-lg">
+          <p className="text-base font-bold text-[#f4f8f8] sm:text-lg">
             Smarter Tools. Intelligent Trade.
           </p>
         </div>

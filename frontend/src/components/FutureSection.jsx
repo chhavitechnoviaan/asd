@@ -373,9 +373,9 @@ export default function FutureSection({
     <section className="relative isolate overflow-hidden bg-gradient-to-b from-[#F2FBFD] via-[#F8FCFF] to-[#EAF8FC]">
 
       {/* Background Glow */}
-      <div className="pointer-events-none absolute -left-28 top-10 h-72 w-72 rounded-full bg-teal-200/30 blur-3xl" />
+      <div className="pointer-events-none absolute -left-28 top-10 h-72 w-72 rounded-full bg-[#1677C8]200/30 blur-3xl" />
 
-      <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-cyan-200/30 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full bg-[#1677C8]/30 blur-3xl" />
 
       {/* Main Container */}
       <div className="relative z-10 mx-auto max-w-6xl px-5 py-14 sm:px-8 sm:py-20">
@@ -383,17 +383,17 @@ export default function FutureSection({
         {/* Section Header */}
         <div className="text-center">
 
-          <div className="inline-flex items-center gap-2 rounded-full border border-teal-200 bg-white/80 px-4 py-2 shadow-sm">
-            <Sparkles className="h-3.5 w-3.5 text-teal-600" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-[#1677C8] bg-white/80 px-4 py-2 shadow-sm">
+            <Sparkles className="h-3.5 w-3.5 text-[#1677C8]" />
 
-            <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#089FAB]">
+            <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-[#1677C8]">
               Future Ready
             </span>
           </div>
 
           <h2 className="mt-5 text-2xl font-extrabold tracking-tight text-[#102A43] sm:text-3xl lg:text-4xl">
             Building the Future of{" "}
-            <span className="bg-gradient-to-r from-[#14B8A6] via-[#06B6D4] to-[#38BDF8] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#1677C8] via-[#1677C8] to-[#38BDF8] bg-clip-text text-transparent">
               Logistics
             </span>
           </h2>
@@ -416,16 +416,16 @@ export default function FutureSection({
             }) => (
               <div
                 key={label}
-                className="group relative overflow-hidden rounded-2xl border border-[#D7EDF1] bg-white/85 p-5 text-center shadow-[0_8px_30px_rgba(8,71,96,0.05)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-teal-300 hover:shadow-[0_16px_35px_rgba(6,182,212,0.12)] sm:p-6"
+                className="group relative overflow-hidden rounded-2xl border border-[#D7EDF1] bg-white/85 p-5 text-center shadow-[0_8px_30px_rgba(8,71,96,0.05)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#1677C8] hover:shadow-[0_16px_35px_rgba(6,182,212,0.12)] sm:p-6"
               >
 
                 {/* Icon */}
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-teal-100 bg-gradient-to-br from-[#DDF9F5] to-[#E0F2FE] text-[#089FAB] transition-transform duration-300 group-hover:scale-110">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl border border-teal-100 bg-gradient-to-br from-[#DDF9F5] to-[#E0F2FE] text-[#1677C8] transition-transform duration-300 group-hover:scale-110">
                   <Icon className="h-6 w-6" />
                 </div>
 
                 {/* Value */}
-                <p className="mt-5 bg-gradient-to-r from-[#0D9488] to-[#0284C7] bg-clip-text text-2xl font-extrabold text-transparent sm:text-3xl">
+                <p className="mt-5 bg-gradient-to-r from-[#1677C8] to-[#0284C7] bg-clip-text text-2xl font-extrabold text-transparent sm:text-3xl">
                   {value}
                 </p>
 
@@ -440,7 +440,7 @@ export default function FutureSection({
                 </p>
 
                 {/* Bottom Hover Line */}
-                <div className="absolute bottom-0 left-0 h-[3px] w-0 bg-gradient-to-r from-teal-400 to-cyan-400 transition-all duration-300 group-hover:w-full" />
+                <div className="absolute bottom-0 left-0 h-[3px] w-0 bg-gradient-to-r from-[#1677C8] to-[#1677C8] transition-all duration-300 group-hover:w-full" />
               </div>
             )
           )}
@@ -448,7 +448,7 @@ export default function FutureSection({
 
         {/* CTA Banner */}
       
-<div className="relative mt-10 overflow-hidden rounded-3xl border border-cyan-500/25 bg-gradient-to-br from-[#031525] via-[#06253B] to-[#073A4A] p-6 shadow-[0_20px_60px_rgba(0,20,40,0.22)] sm:p-8 lg:p-10">
+<div className="relative mt-10 overflow-hidden rounded-3xl border border-cyan-500/25 bg-gradient-to-br from-[#031525] via-[#1677C8] to-[#28c0ee] p-6 shadow-[0_20px_60px_rgba(0,20,40,0.22)] sm:p-8 lg:p-10">
 
   {/* Subtle Grid Background */}
   <div
@@ -476,9 +476,9 @@ export default function FutureSection({
 
       {/* Badge */}
       <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-teal-400/30 bg-teal-400/10 px-3.5 py-1.5 backdrop-blur-sm">
-        <Sparkles className="h-3.5 w-3.5 text-[#5EEAD4]" />
+        <Sparkles className="h-3.5 w-3.5 text-[#f6f7f8]" />
 
-        <span className="text-[10px] font-bold uppercase tracking-wider text-[#99F6E4]">
+        <span className="text-[10px] font-bold uppercase tracking-wider text-[#f0f2f5]">
           AI-Powered Global Logistics
         </span>
       </div>
@@ -486,7 +486,7 @@ export default function FutureSection({
       {/* Heading */}
       <h3 className="text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
         Ready to{" "}
-        <span className="bg-gradient-to-r from-[#5EEAD4] via-[#67E8F9] to-[#93C5FD] bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-[#09090a] via-[#0b0d0e] to-[#0f1113] bg-clip-text text-transparent">
           Ship Smarter?
         </span>
       </h3>
@@ -505,7 +505,7 @@ export default function FutureSection({
       <button
         type="button"
         onClick={() => setShowDemo(true)}
-        className="group inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#5EEAD4] to-[#67E8F9] px-6 py-3 text-sm font-bold text-[#032337] shadow-[0_8px_25px_rgba(34,211,238,0.2)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(34,211,238,0.35)]"
+        className="group inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#fafbfc] to-[#f0f2f5] px-6 py-3 text-sm font-bold text-[#032337] shadow-[0_8px_25px_rgba(34,211,238,0.2)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(34,211,238,0.35)]"
       >
         Request Demo
 

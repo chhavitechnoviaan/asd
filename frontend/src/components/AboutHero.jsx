@@ -32,7 +32,7 @@ import portMapImage from "../assets/port-map.jpg";
 
 export default function AboutHero() {
   return (
-    <section className="relative isolate w-full overflow-hidden border-b border-cyan-100 bg-[#EAF9FC]">
+    <section className="relative isolate w-full overflow-hidden border-b border-[#2563EB] bg-[#2563EB]">
 
       {/* Background Image - Full Visibility */}
       <img
@@ -51,10 +51,10 @@ export default function AboutHero() {
       <div className="relative z-10 mx-auto flex min-h-[320px] max-w-6xl flex-col justify-center px-5 py-12 sm:px-8 md:min-h-[370px] lg:px-10">
 
         {/* Badge */}
-        <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-teal-200 bg-white/80 px-4 py-2 shadow-sm backdrop-blur-sm">
-          <Sparkles className="h-3.5 w-3.5 text-[#0B9DAA]" />
+        <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-[#2563EB] bg-white/80 px-4 py-2 shadow-sm backdrop-blur-sm">
+          <Sparkles className="h-3.5 w-3.5 text-[#2563EB]" />
 
-          <span className="text-[11px] font-semibold text-[#087E8B]">
+          <span className="text-[11px] font-semibold text-[#2563EB]">
             AI-POWERED GLOBAL LOGISTICS
           </span>
         </div>
@@ -62,7 +62,7 @@ export default function AboutHero() {
         {/* Heading */}
         <h1 className="text-3xl font-extrabold tracking-tight text-[#102A43] sm:text-4xl md:text-5xl">
           About{" "}
-          <span className="bg-gradient-to-r from-[#14B8A6] via-[#06B6D4] to-[#60A5FA] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#2563EB] via-[#2563EB] to-[#60A5FA] bg-clip-text text-transparent">
             ASD CargoMate
           </span>
         </h1>
@@ -84,9 +84,9 @@ export default function AboutHero() {
 
         {/* Bottom Tagline */}
         <div className="mt-5 flex items-center gap-2">
-          <Globe2 className="h-4 w-4 text-[#0AA6B5]" />
+          <Globe2 className="h-4 w-4 text-[#2563EB]" />
 
-          <span className="text-xs font-semibold text-[#087E8B] sm:text-sm">
+          <span className="text-xs font-semibold text-[#2563EB] sm:text-sm">
             Ask smarter. Plan better. Ship globally.
           </span>
         </div>

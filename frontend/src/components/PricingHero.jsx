@@ -48,22 +48,22 @@ export default function PricingHero() {
         <img
           src={pricingHeroImage}
           alt="Global logistics network"
-          className="absolute inset-0 h-full w-full object-cover object-center opacity-80"
+          className="absolute inset-0 h-full w-full object-cover object-center opacity-95"
         />
 
         {/* Dark Overlay for Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#03182B]/95 via-[#05243A]/85 to-[#06334A]/25" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#2563EB]/65 via-[#ffff]/15 to-[#06334A]/25" />
 
         {/* Subtle Navy Tint */}
         <div className="absolute inset-0 bg-[#001426]/10" />
       </div>
 
       {/* Decorative Neon Glows */}
-      <div className="pointer-events-none absolute -left-32 -top-32 h-80 w-80 rounded-full bg-teal-400/10 blur-3xl" />
+      <div className="pointer-events-none absolute -left-32 -top-32 h-80 w-80 rounded-full bg-[#2563EB]/10 blur-3xl" />
 
-      <div className="pointer-events-none absolute -right-24 top-0 h-96 w-96 rounded-full bg-cyan-400/15 blur-3xl" />
+      <div className="pointer-events-none absolute -right-24 top-0 h-96 w-96 rounded-full bg-[#2563EB]/15 blur-3xl" />
 
-      <div className="pointer-events-none absolute bottom-0 right-1/4 h-48 w-72 rounded-full bg-blue-500/10 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 right-1/4 h-48 w-72 rounded-full bg-[#2563EB]/10 blur-3xl" />
 
       {/* Grid Pattern */}
       <div
@@ -81,11 +81,11 @@ export default function PricingHero() {
         {/* Badge */}
         <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-teal-400/35 bg-teal-400/10 px-4 py-2 shadow-[0_0_20px_rgba(20,184,166,0.08)] backdrop-blur-md">
 
-          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-teal-400/15">
-            <Sparkles className="h-3.5 w-3.5 text-teal-300" />
+          <span className="flex h-6 w-6 items-center justify-center rounded-full bg-[#2563EB]/15">
+            <Sparkles className="h-3.5 w-3.5 text-[#ffffff]" />
           </span>
 
-          <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-teal-100 sm:text-[11px]">
+          <span className="text-[10px] font-bold uppercase tracking-[0.12em] text-[#ffffff] sm:text-[11px]">
             Flexible Plans for Global Trade
           </span>
         </div>
@@ -96,7 +96,7 @@ export default function PricingHero() {
           Simple, Transparent
           <br />
 
-          <span className="bg-gradient-to-r from-[#5EEAD4] via-[#67E8F9] to-[#93C5FD] bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-[#2563EB] via-[#2563EB] to-[#2563EB] bg-clip-text text-transparent">
             Pricing
           </span>
 
@@ -120,7 +120,7 @@ export default function PricingHero() {
           <div className="group inline-flex items-center gap-2.5 rounded-xl border border-cyan-400/25 bg-[#082C43]/75 px-4 py-2.5 shadow-[0_4px_20px_rgba(0,0,0,0.12)] backdrop-blur-md transition-all duration-300 hover:border-cyan-300/60 hover:bg-cyan-400/10">
 
             <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-teal-400/15">
-              <Ban className="h-4 w-4 text-teal-300" />
+              <Ban className="h-4 w-4 text-[#2563EB]" />
             </span>
 
             <span className="text-xs font-semibold text-slate-100">
@@ -132,7 +132,7 @@ export default function PricingHero() {
           <div className="group inline-flex items-center gap-2.5 rounded-xl border border-cyan-400/25 bg-[#082C43]/75 px-4 py-2.5 shadow-[0_4px_20px_rgba(0,0,0,0.12)] backdrop-blur-md transition-all duration-300 hover:border-cyan-300/60 hover:bg-cyan-400/10">
 
             <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-cyan-400/15">
-              <Bookmark className="h-4 w-4 text-cyan-300" />
+              <Bookmark className="h-4 w-4 text-[#2563EB]" />
             </span>
 
             <span className="text-xs font-semibold text-slate-100">
