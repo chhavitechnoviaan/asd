@@ -440,3 +440,27 @@
     drop-shadow(0 0 18px rgba(37, 99, 235, 0.45))
     drop-shadow(0 0 30px rgba(147, 197, 253, 0.25));
 }
+
+/* Realistic Earth: keep the satellite globe crisp against the blue hero. */
+.asd-real-earth { display:block; width:100%; height:100%; border-radius:50%; filter:saturate(1.12) contrast(1.06); animation:none; }
+.asd-globe-frame { filter:drop-shadow(0 0 22px rgba(147,197,253,.35)) drop-shadow(0 0 45px rgba(37,99,235,.22)); }
+.asd-globe-halo { border-radius:50%; box-shadow:inset 0 0 18px rgba(147,197,253,.20),0 0 28px rgba(147,197,253,.32); }
+@media (prefers-reduced-motion:reduce) { .asd-globe-frame { animation:none !important; } }
+
+/* Brighter realistic Earth, without washing out its natural texture */
+.asd-real-earth { filter: saturate(1.16) brightness(1.10) contrast(1.02); }
+.asd-globe-shine { background: radial-gradient(circle at 28% 22%, rgba(255,255,255,0.08), transparent 45%); }
+
+/* Screenshot-matched bright natural Earth (homepage) */
+.asd-real-earth {
+  filter: saturate(1.18) brightness(1.16) contrast(1.02);
+}
+.asd-globe-frame {
+  filter: drop-shadow(0 0 22px rgba(191,219,254,.55))
+          drop-shadow(0 0 54px rgba(96,165,250,.35));
+}
+.asd-globe-halo {
+  border-radius: 50%;
+  box-shadow: inset 0 0 16px rgba(191,219,254,.22),
+              0 0 32px rgba(147,197,253,.42);
+}

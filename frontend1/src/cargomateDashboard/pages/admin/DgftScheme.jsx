@@ -317,7 +317,8 @@
 //   );
 // }
 
-// export default function DGFTSchemes() {
+// export default function DGFTSchemes({ permissions = null }) {
+  const can = (action) => permissions === null || permissions?.[action] === true;
 //   const [schemes, setSchemes] = useState([]);
 //   const [showModal, setShowModal] = useState(false);
 
@@ -635,7 +636,8 @@ function SchemeModal({ mode, scheme, onClose, onSaved }) {
   );
 }
 
-function SchemeCard({ scheme, onView, onEdit, onDelete, deleting }) {
+function SchemeCard({ scheme, onView, onEdit, onDelete, deleting, permissions }) {
+  const can = (action) => permissions === null || permissions?.[action] === true;
   const active = scheme.active === true;
   const benefits = Array.isArray(scheme.key_benefits) ? scheme.key_benefits : [];
   return (
@@ -660,15 +662,16 @@ function SchemeCard({ scheme, onView, onEdit, onDelete, deleting }) {
         <p className="text-xs text-gray-500">Applicants: <span className="font-semibold text-gray-700">{scheme.applicants_count ?? 0}</span></p>
         <div className="flex items-center flex-wrap gap-3">
           <button type="button" onClick={() => onView(scheme)} className="flex items-center gap-1.5 text-xs text-teal-500 hover:text-teal-600 font-medium">View Details <FaArrowUpRightFromSquare className="text-xs" /></button>
-          <button type="button" onClick={() => onEdit(scheme)} className="text-xs font-medium text-sky-600 hover:text-sky-700">Edit</button>
-          <button type="button" disabled={deleting} onClick={() => onDelete(scheme)} className="text-xs font-medium text-red-600 hover:text-red-700 disabled:opacity-50">{deleting ? "Deleting..." : "Delete"}</button>
+          {can("edit") && <button type="button" onClick={() => onEdit(scheme)} className="text-xs font-medium text-sky-600 hover:text-sky-700">Edit</button>}
+          {can("delete") && <button type="button" disabled={deleting} onClick={() => onDelete(scheme)} className="text-xs font-medium text-red-600 hover:text-red-700 disabled:opacity-50">{deleting ? "Deleting..." : "Delete"}</button>}
         </div>
       </div>
     </div>
   );
 }
 
-export default function DGFTSchemes() {
+export default function DGFTSchemes({ permissions = null }) {
+  const can = (action) => permissions === null || permissions?.[action] === true;
   const [schemes, setSchemes] = useState([]);
   const [modal, setModal] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -696,6 +699,7 @@ export default function DGFTSchemes() {
   useEffect(() => { fetchSchemes(); }, [fetchSchemes]);
 
   const deleteScheme = async (scheme) => {
+    if (!can("delete")) return;
     const id = getId(scheme);
     if (!id) { setError("Scheme ID missing; cannot delete this scheme."); return; }
     if (!window.confirm(`Delete scheme \"${scheme.scheme_name || scheme.scheme_code}\"? This action cannot be undone.`)) return;
@@ -719,10 +723,10 @@ export default function DGFTSchemes() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-1 sm:p-1">
-      {modal && <SchemeModal key={`${modal.mode}-${getId(modal.scheme) || "new"}`} mode={modal.mode} scheme={modal.scheme} onClose={() => setModal(null)} onSaved={fetchSchemes} />}
+      {modal && (modal.mode === "view" || can(modal.mode === "edit" ? "edit" : "add")) && <SchemeModal key={`${modal.mode}-${getId(modal.scheme) || "new"}`} mode={modal.mode} scheme={modal.scheme} onClose={() => setModal(null)} onSaved={fetchSchemes} />}
       <div className="max-w-6xl mx-auto">
         <div className="mb-6 flex w-full items-center justify-end">
-          <button type="button" onClick={() => setModal({ mode: "add" })} className="flex items-center gap-2 bg-teal-500 hover:bg-teal-600 text-white px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors shadow-sm whitespace-nowrap"><FaPlus className="text-xs" /> Add Schemes</button>
+          {can("add") && <button type="button" onClick={() => setModal({ mode: "add" })} className="flex items-center gap-2 bg-teal-500 hover:bg-teal-600 text-white px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors shadow-sm whitespace-nowrap"><FaPlus className="text-xs" /> Add Schemes</button>}
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
           {[
@@ -743,7 +747,7 @@ export default function DGFTSchemes() {
         {loading ? <p className="py-8 text-center text-sm text-gray-500">Loading DGFT Schemes...</p> : schemes.length === 0 ? <p className="py-8 text-center text-sm text-gray-500">No schemes found.</p> : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
             {schemes.map((scheme, index) => (
-              <SchemeCard key={getId(scheme) || `${scheme.scheme_code}-${index}`} scheme={scheme} onView={(item) => setModal({ mode: "view", scheme: item })} onEdit={(item) => setModal({ mode: "edit", scheme: item })} onDelete={deleteScheme} deleting={deletingId === String(getId(scheme))} />
+              <SchemeCard permissions={permissions} key={getId(scheme) || `${scheme.scheme_code}-${index}`} scheme={scheme} onView={(item) => setModal({ mode: "view", scheme: item })} onEdit={(item) => setModal({ mode: "edit", scheme: item })} onDelete={deleteScheme} deleting={deletingId === String(getId(scheme))} />
             ))}
           </div>
         )}

@@ -1,3 +1,4 @@
+import PortAutocomplete from "./PortAutocomplete.jsx";
 // // // import { consumeShipmentPrefill } from "../utils/shipmentPrefill";
 // // // import CountryAutocomplete from "../../components/CountryAutocomplete";
 // // // // // // mahima code //
@@ -17799,10 +17800,11 @@ function Input({
   required = true,
   disabled = false,
 }) {
+  const FieldComponent = /port|airport|icd/i.test(label) ? PortAutocomplete : "input";
   return (
     <div className="w-full">
       <Label required={required}>{label}</Label>
-      <input
+      <FieldComponent
         type="text"
         name={name}
         value={value || ""}

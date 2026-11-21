@@ -1,0 +1,3 @@
+/* RBAC: visually distinguish actions unavailable to the current staff role. */
+button:disabled { cursor: not-allowed !important; opacity: .38 !important; filter: grayscale(.65); }
+button:disabled:hover { transform: none !important; }

@@ -1,6 +1,6 @@
 import { Camera, CheckCircle2, Share2, ShieldCheck, UserCheck2, FileEdit } from "lucide-react";
 import PolicyPage from "../components/PolicyPage";
-
+import Footer from "../components/Footer";
 const items = [
   {
     icon: Camera,
@@ -34,15 +34,47 @@ const items = [
   },
 ];
 
+// export default function PrivacyPolicyPage({ onNavigate }) {
+//   return (
+//     // <PolicyPage
+//     //   title="Privacy Policy"
+//     //   subtitle="We value your privacy and are committed to protecting your personal information."
+//     //   items={items}
+//     //   lastUpdated="May 16, 2025"
+//     //   ctaQuestion="Have questions about your privacy? We're here to help."
+//     //   onClose={() => onNavigate("Home")}
+//     // />
+// <div>
+// <PolicyPage
+//   title="Privacy Policy"
+//   subtitle="We value your privacy and are committed to protecting your personal information."
+//   items={items}
+//   lastUpdated="May 16, 2025"
+//   ctaQuestion="Have questions about your privacy? We're here to help."
+//   onClose={() => onNavigate?.("Home")}
+//   onContactSupport={() => onNavigate?.("Contact Us")}
+// />
+// <Footer onNavigate={onNavigate} />
+// </div>
+//   );
+// }
+
+
 export default function PrivacyPolicyPage({ onNavigate }) {
   return (
-    <PolicyPage
-      title="Privacy Policy"
-      subtitle="We value your privacy and are committed to protecting your personal information."
-      items={items}
-      lastUpdated="May 16, 2025"
-      ctaQuestion="Have questions about your privacy? We're here to help."
-      onClose={() => onNavigate("Home")}
-    />
+    <div className="min-h-screen bg-white">
+      <PolicyPage
+        title="Privacy Policy"
+        subtitle="We value your privacy and are committed to protecting your personal information."
+        items={items}
+        lastUpdated="May 16, 2025"
+        ctaQuestion="Have questions about your privacy? We're here to help."
+        onClose={() => onNavigate?.("Home")}
+        onContactSupport={() => onNavigate?.("Contact Us")}
+      />
+
+      <Footer onNavigate={onNavigate} />
+    </div>
   );
 }
+

@@ -83,7 +83,7 @@ const relatedCodes = [
   { code: "099889990", name: "Coffee, Decaffeinated", match: "88% match" },
 ];
 
-function HSRulesPage({ onAddClick, refreshKey }) {
+function HSRulesPage({ permissions, onAddClick, refreshKey }) {
   const [search, setSearch] = useState("");
   const [searchError, setSearchError] = useState("");
   const [rows, setRows] = useState([]);
@@ -129,8 +129,8 @@ const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
             <h1 className="text-xl sm:text-2xl font-bold text-gray-800">HS Rules</h1>
             <p className="text-xs sm:text-sm text-gray-400 mt-1">Product classification rules and import/export guidelines</p>
           </div> */}
-          <button onClick={onAddClick}
-            className="flex items-center gap-2 bg-teal-500 hover:bg-teal-600 text-white px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors shadow-sm whitespace-nowrap">
+          <button disabled={permissions !== null && permissions?.add !== true} title={permissions !== null && permissions?.add !== true ? "Add permission required" : "Add HS Code"} onClick={() => { if (permissions === null || permissions?.add === true) onAddClick?.(); }}
+            className="flex items-center gap-2 bg-teal-500 hover:bg-teal-600 text-white px-3 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-medium transition-colors shadow-sm whitespace-nowrap disabled:opacity-40 disabled:cursor-not-allowed">
             <FaPlus className="text-xs" /> Add HS Code
           </button>
         </div>
@@ -178,9 +178,9 @@ const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
                       </span>
                     </td>
                     <td className="text-center px-3 py-3">
-                    <button
-  onClick={() => onAddClick(row)}
-  className="text-teal-500"
+                    <button disabled={permissions !== null && permissions?.edit !== true} title={permissions !== null && permissions?.edit !== true ? "Edit permission required" : "Edit HS Code"}
+  onClick={() => { if (permissions === null || permissions?.edit === true) onAddClick?.(row); }}
+  className="text-teal-500 disabled:opacity-40 disabled:cursor-not-allowed"
 >
   Edit
 </button>
@@ -684,14 +684,15 @@ console.log("FOUND INDUSTRY CATEGORY:", industryCategory);// ✅ CHECK
   );
 }
 
-export default function HSRules() {
+export default function HSRules({ permissions = null }) {
+  const can = (action) => permissions === null || permissions?.[action] === true;
   const [showAdd, setShowAdd] = useState(false);
   const [editData, setEditData] = useState(null);
   const [refreshKey, setRefreshKey] = useState(0);
 
   const refresh = () => setRefreshKey(prev => prev + 1);
 
-  return showAdd ? (
+  return showAdd && (editData ? can("edit") : can("add")) ? (
     <AddHSCodePage
     editData={editData}
     onCancel={() => {
@@ -702,8 +703,10 @@ export default function HSRules() {
   />
   ) : (
     <HSRulesPage
+      permissions={permissions}
       refreshKey={refreshKey}
       onAddClick={(data) => {
+        if (!can(data ? "edit" : "add")) return;
         setEditData(data || null);
         setShowAdd(true);
       }}

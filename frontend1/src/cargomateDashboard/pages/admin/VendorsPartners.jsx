@@ -2469,8 +2469,7 @@ export default function VendorsPartners({ permissions=null }) {
       );
 
       setError(
-        err.response?.data?.message || err.response?.data?.msg ||
-          (err.response?.status === 403 ? "Vendors view permission denied. Ask Main Admin to save vendors.view on your assigned role, then sign in again." : err.message) ||
+        (err.response?.status === 403 ? "Access denied by backend (vendors.view). Check the logged-in sub-admin’s assigned role in Sub-admin Management; it must match the role edited under Roles & Permissions. Then save permissions and reload." : err.response?.data?.message || err.response?.data?.msg || err.message) ||
           "Failed to fetch B2B users"
       );
     } finally {

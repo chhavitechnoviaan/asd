@@ -18,8 +18,10 @@ const footerLinks = {
       { label: "Contact", path: "/contact" },
     ],
     Legal: [
+      { label: "Refund Policy", path: "/refund-policy" },
       { label: "Privacy Policy", path: "/privacy-policy" },
-      { label: "Terms of Service", path: "/terms-of-service" },
+      { label: "Terms & Conditions", path: "/terms-and-conditions" },
+      { label: "Terms of Service", path: "/terms-and-conditions" },
       { label: "Cookie Policy", path: "/cookie-policy" },
       { label: "GDPR", path: "/gdpr" },
       { label: "Compliance", path: "/compliance" },
@@ -35,7 +37,7 @@ const footerLinks = {
 
 const bottomLinks = [
   { label: "Privacy", path: "/privacy-policy" },
-  { label: "Terms", path: "/terms-of-service" },
+  { label: "Terms", path: "/terms-and-conditions" },
   { label: "Security", path: "/security" },
 ];
 
