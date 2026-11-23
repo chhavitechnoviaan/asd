@@ -517,6 +517,12 @@ export default function ContactPage({ onNavigate }) {
             </span>
             <h3 className="font-bold text-[#102A43]">Email Support</h3>
             <a
+              href="mailto:care@asdcargomate.com"
+              className="mt-2 block break-all text-xs leading-6 text-slate-500 hover:text-teal-600"
+            >
+              care@asdcargomate.com
+            </a>
+            <a
               href="mailto:support@asdcargomate.com"
               className="mt-2 block break-all text-xs leading-6 text-slate-500 hover:text-teal-600"
             >
@@ -532,7 +538,7 @@ export default function ContactPage({ onNavigate }) {
               href="tel:+9118001234567"
               className="mt-2 block text-xs leading-6 text-slate-500 hover:text-teal-600"
             >
-              +91 1800 123 4567
+              +91 40-48506814
             </a>
             <p className="mt-1 text-xs leading-6 text-slate-500">
               Mon–Sat · 9:00 AM – 6:00 PM

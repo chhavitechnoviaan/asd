@@ -755,7 +755,7 @@
 // // //       <section className="relative flex h-full min-w-0 overflow-hidden rounded-xl border border-gray-200 bg-white p-5">
 // // //         {/* <div className="relative z-10 min-w-0 max-w-[68%]"> */}
 // // //         <NeedHelp
-// // //           mobile={"+91 22 1234 5678"}
+// // //           mobile={"+91 40-48506814"}
 // // //           para={"Our trade experts are here to help you."}
 // // //           heading={"Need help?"}
 // // //         />
@@ -1878,7 +1878,7 @@
 // //       <section className="relative flex h-full min-w-0 overflow-hidden rounded-xl border border-gray-200 bg-white p-5">
 // //         {/* <div className="relative z-10 min-w-0 max-w-[68%]"> */}
 // //         <NeedHelp
-// //           mobile={"+91 22 1234 5678"}
+// //           mobile={"+91 40-48506814"}
 // //           para={"Our trade experts are here to help you."}
 // //           heading={"Need help?"}
 // //         />
@@ -3039,7 +3039,7 @@
 //       <section className="relative flex h-full min-w-0 overflow-hidden rounded-xl border border-gray-200 bg-white p-5">
 //         {/* <div className="relative z-10 min-w-0 max-w-[68%]"> */}
 //         <NeedHelp
-//           mobile={"+91 22 1234 5678"}
+//           mobile={"+91 40-48506814"}
 //           para={"Our trade experts are here to help you."}
 //           heading={"Need help?"}
 //         />
@@ -4222,7 +4222,7 @@ function PageFooter() {
       <section className="relative flex h-full min-w-0 overflow-hidden rounded-xl border border-gray-200 bg-white p-5">
         {/* <div className="relative z-10 min-w-0 max-w-[68%]"> */}
         <NeedHelp
-          mobile={"+91 22 1234 5678"}
+          mobile={"+91 40-48506814"}
           para={"Our trade experts are here to help you."}
           heading={"Need help?"}
         />

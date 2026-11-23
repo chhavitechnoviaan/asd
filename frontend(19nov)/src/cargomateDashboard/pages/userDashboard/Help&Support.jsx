@@ -385,7 +385,7 @@ export default function HelpSupportDashboard({ role = "user" }) {
                 </div>
                 <div>
                   <span className="text-sm font-bold text-slate-700 block">Phone Support</span>
-                  <span className="text-xs text-slate-500 block mt-0.5 font-medium">+91 22 1234 5678</span>
+                  <span className="text-xs text-slate-500 block mt-0.5 font-medium">+91 40-48506814</span>
                 </div>
               </div>
 

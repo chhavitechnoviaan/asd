@@ -19360,24 +19360,24 @@ function Header({
   );
 }
 
-function Footer() {
-  return (
-    <div className="border-t border-slate-200/80 mt-10 pt-6 pb-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
-      <p>© 2025 ASC CargoMatrix Logistics Hub. All rights reserved.</p>
-      <div className="flex items-center gap-5">
-        <span className="hover:text-slate-600 cursor-pointer transition-colors">
-          Privacy Policy
-        </span>
-        <span className="hover:text-slate-600 cursor-pointer transition-colors">
-          Terms of Operations
-        </span>
-        <span className="hover:text-slate-600 cursor-pointer transition-colors">
-          Customs Support
-        </span>
-      </div>
-    </div>
-  );
-}
+// function Footer() {
+//   return (
+//     <div className="border-t border-slate-200/80 mt-10 pt-6 pb-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-400">
+//       <p>© 2025 ASC CargoMatrix Logistics Hub. All rights reserved.</p>
+//       <div className="flex items-center gap-5">
+//         <span className="hover:text-slate-600 cursor-pointer transition-colors">
+//           Privacy Policy
+//         </span>
+//         <span className="hover:text-slate-600 cursor-pointer transition-colors">
+//           Terms of Operations
+//         </span>
+//         <span className="hover:text-slate-600 cursor-pointer transition-colors">
+//           Customs Support
+//         </span>
+//       </div>
+//     </div>
+//   );
+// }
 
 /* ==========================================================================
    MAIN EXPORT COMPONENT
@@ -20163,7 +20163,7 @@ additionalInformation: {
         />
 
         {/* FOOTER */}
-        <Footer />
+        {/* <Footer /> */}
       </div>
     </div>
   );

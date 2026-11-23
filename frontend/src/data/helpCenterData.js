@@ -47,7 +47,7 @@ export const previewTraining = trainingItems.slice(0, 4);
 export const supportOptions = [
   { id: 1, title: "Raise a Ticket", description: "Submit a support ticket and our team will get back to you." },
   { id: 2, title: "Live Chat", description: "Chat with our support team in real-time." },
-  { id: 3, title: "Call Us", description: "+91 90000 00000\nMon\u2013Sat 9:00 AM \u2013 6:00 PM" },
+  { id: 3, title: "Call Us", description: "+91 40-48506814\nMon\u2013Sat 9:00 AM \u2013 6:00 PM" },
   { id: 4, title: "Feedback", description: "Share your feedback to help us improve." },
 ];
 

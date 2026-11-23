@@ -14455,8 +14455,7 @@ import CountryAutocomplete from "../../../components/CountryAutocomplete";
                       Our trade experts are here to help you.
                     </p>
                     <div className="flex items-center gap-1.5 text-xs pt-2 text-gray-600 mb-1">
-                      <FiPhone size={11} className="text-teal-500 " /> +91 22 1234
-                      5678
+                      <FiPhone size={11} className="text-teal-500 " /> +91 40-48506814
                     </div>
                     <div className="flex items-center gap-1.5 text-xs pt-2 text-gray-600 mb-3">
                       <FiMail size={11} className="text-teal-500" />{" "}

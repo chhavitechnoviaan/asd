@@ -11,7 +11,7 @@ export default function ProfileSettingsDashboard() {
   const [formData, setFormData] = useState({
     fullName: 'Arjun Soni',
     email: 'arjun.soni@asdcargomate.com',
-    phone: '+91 22 1234 5678',
+    phone: '+91 40-48506814',
     designation: 'Exporter',
     companyName: 'IndiGo Cargo',
     gstin: '27ABCDE1234F1Z5',

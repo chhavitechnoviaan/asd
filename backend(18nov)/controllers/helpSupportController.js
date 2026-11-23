@@ -271,7 +271,7 @@ exports.getDashboard = async (req, res) => {
         categories,
         popularArticles,
         contactSupport: {
-          phone: "+91 22 1234 5678",
+          phone: "+91 40-48506814",
           email: "support@asdcargomate.com",
           workingHours: "Mon - Sat | 9:00 AM - 6:00 PM"
         }
@@ -685,7 +685,7 @@ exports.searchKnowledgeBase = async (req, res) => {
 //           popularArticles,
   
 //           contactSupport: {
-//             phone: "+91 22 1234 5678",
+//             phone: "+91 40-48506814",
 //             email: "support@asdcargomate.com",
 //             liveChat: "Available Now",
 //             workingHours: "Mon-Sat | 9AM - 6PM"
