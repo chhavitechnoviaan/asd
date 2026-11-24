@@ -736,12 +736,12 @@ const supportTicketSchema = new mongoose.Schema({
             "Shipment",
             "Documents",
             "Document",
+            "Data Request",
             "HS Codes",
             "HS Code",
             "Freight & Costs",
             "Freight",
             "Payment",
-            "Data Request",
             "Other"
         ],
         default: "Shipment"
