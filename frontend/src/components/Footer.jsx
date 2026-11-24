@@ -2028,7 +2028,7 @@ export default function Footer({ onNavigate }) {
             <button type="button" onClick={() => onNavigate?.("Home")} aria-label="Go to ASD CargoMate home" className="inline-flex max-w-full items-center rounded-lg text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-500">
               <img src={Logo} alt="ASD CargoMate" className="h-auto max-h-24 w-auto max-w-[270px] object-contain object-left sm:max-w-[320px]" />
             </button>
-            <p className="mt-4 max-w-sm text-sm leading-6 text-slate-600">AI-powered logistics intelligence for smarter global shipping.</p>
+            <p className="mt-4 max-w-sm text-sm leading-6 text-slate-600">ASDCargoMate described as an initiative developed by ASD Logistics Pvt Ltd.</p>
           </div>
           <nav aria-label="Footer navigation" className="grid grid-cols-2 gap-x-5 gap-y-8 sm:grid-cols-4 sm:gap-x-7">
             {Object.entries(footerLinks).map(([heading, links]) => (
@@ -2096,7 +2096,7 @@ export default function Footer({ onNavigate }) {
         </div>
 
         <div className="mt-7 flex flex-col items-center justify-between gap-4 border-t border-[#d9e8f7] pt-5 text-center sm:flex-row sm:text-left">
-          <p className="text-xs leading-5 text-slate-500">© {new Date().getFullYear()} ASD CargoMate. A product of ASD Logistics (MSME). All rights reserved.</p>
+          <p className="text-xs leading-5 text-slate-500">© {new Date().getFullYear()} © 2026 ASD CargoMate. A product of ASD Logistics (MSME). All rights reserved.</p>
           <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
             {bottomLinks.map(({ label, page }) => (
               <button key={page} type="button" onClick={() => onNavigate?.(page)} className="text-xs text-slate-600 transition-colors hover:text-[#1677C8]">{label}</button>
