@@ -2041,7 +2041,7 @@ const Toggle = ({ checked, onChange }) => (
 const moduleMap = {
   Dashboard: "dashboard",
   Users: "users",
-  "Vendors / Partners": "vendors",
+  "Partners": "vendors",
   "Plans / Subscription": "plans",
   "Master Data": "masterData",
   "HS Rules": "hsRules",
@@ -2055,11 +2055,11 @@ const moduleMap = {
   Notifications: "notifications",
 };
 const modules = Object.keys(moduleMap);
-const permKeys = ["view", "add", "edit", "delete", "approve", "reject"];
+const permKeys = ["view", "add", "edit", "delete", "approve", "reject", "changePlan"];
 const applicableActions = {
   Dashboard: ["view", "add"],
-  Users: ["view", "edit", "delete"],
-  "Vendors / Partners": ["view", "edit", "delete"],
+  Users: ["view", "edit", "delete", "changePlan"],
+  "Partners": ["view", "edit", "delete", "changePlan"],
   "Master Data": ["view", "add", "delete"],
   "HS Rules": ["view", "add", "edit"],
   Notifications: ["view"],
@@ -2461,7 +2461,7 @@ export default function RolesPermission({ openCreateIntent = 0 }) {
                           key={k}
                           className="text-left text-sm font-semibold text-[#0D9488] px-4 py-3 uppercase"
                         >
-                          {k}
+                          {k === "changePlan" ? "Change Plan" : k}
                         </th>
                       ))}
                     </tr>
@@ -2502,9 +2502,7 @@ export default function RolesPermission({ openCreateIntent = 0 }) {
                     Permission changes:{" "}
                   </span>
                   Saved updates apply on the next protected backend request.
-                  Sub-admin permissions do not change customer subscription
-                  quotas. Other operations remain restricted until their API
-                  permission checks are implemented.
+                  Change Plan grants manual subscription assignment only for the selected customer module. View permission is also required. Plan catalog permissions remain separate.
                 </p>
               </div>
             </div>

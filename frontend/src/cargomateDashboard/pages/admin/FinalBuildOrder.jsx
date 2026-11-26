@@ -28,7 +28,7 @@ const steps = [
   {
     number: 5,
     icon: Cloud,
-    title: "B2B Bulk Upload",
+    title: "Partner Bulk Upload",
     desc: "Bulk upload, validation, mapping & processing.",
   },
   {

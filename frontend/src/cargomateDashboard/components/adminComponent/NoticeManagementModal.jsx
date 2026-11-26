@@ -342,7 +342,7 @@ export default function NoticeManagementModal({ isOpen, onClose }) {
                 >
                   <option value="all">All (Users & Dealers)</option>
                   <option value="user">User / Customer Only</option>
-                  <option value="dealer">Dealer / B2B Only</option>
+                  <option value="dealer">Dealer / Partner Only</option>
                 </select>
               </div>
             </div>

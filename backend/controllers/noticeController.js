@@ -127,6 +127,7 @@ exports.createNotice = async (req, res) => {
       createdBy: req.user?._id || req.user?.id
     });
 
+    await require("../services/noticeNotification").publishNotice(notice);
     return res.json({
       status: 1,
       message: "Notice created successfully",
@@ -164,6 +165,7 @@ exports.updateNotice = async (req, res) => {
 
     await notice.save();
 
+    await require("../services/noticeNotification").publishNotice(notice);
     return res.json({
       status: 1,
       message: "Notice updated successfully",
@@ -202,6 +204,7 @@ exports.toggleNoticeStatus = async (req, res) => {
     notice.status = notice.isActive ? "published" : "draft";
     await notice.save();
 
+    await require("../services/noticeNotification").publishNotice(notice);
     return res.json({
       status: 1,
       message: `Notice ${notice.isActive ? 'published' : 'unpublished'} successfully`,

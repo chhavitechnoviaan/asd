@@ -1,5 +1,6 @@
 import { getSession, clearSession } from "../../lib/auth";
 import React from "react";
+import API from "../api/axios";
 import { useState, useRef, useCallback } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
@@ -17,7 +18,8 @@ const Navbar = ({show, setShow}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
  
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try { await API.post("/auth/logout", {}, {timeout:5000}); } catch (e) { console.warn("Logout audit unavailable"); }
     clearSession();
     navigate("/login");
     setOpen(false);
@@ -74,7 +76,7 @@ const Navbar = ({show, setShow}) => {
             <div className="flex items-center gap-2 sm:gap-3">
             {/* {!isLoggedIn && ( */}
                 <NavLink
-                  to="/admin-login"
+                  to="/login"
                   className="hidden sm:block px-4 py-2  hover:bg-[#0A2540] hover:text-white border border-[#0A2540]   text-[#0A2540]  rounded-lg cursor-pointer "
                 >
                   Login
@@ -193,7 +195,7 @@ const Navbar = ({show, setShow}) => {
                   onClick={() => {
                     setMobileMenuOpen((prev) => !prev);
                   }}
-                  to="/admin-login"
+                  to="/login"
                   className="sm:hidden w-40 px-4 py-2  hover:bg-[#0A2540] hover:text-white border border-[#0A2540]   text-[#0A2540]  rounded-lg cursor-pointer "
                 >
                   Login

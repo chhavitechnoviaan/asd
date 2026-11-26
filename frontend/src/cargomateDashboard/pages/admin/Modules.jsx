@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 import { useState, useRef } from "react";
 import { FiTrash2, FiUpload, FiSearch, FiX, FiPackage } from "react-icons/fi";
 import { FaStar } from "react-icons/fa";
@@ -19,7 +20,7 @@ function Toggle({ checked, onChange }) {
 const initialModules = [
   { id: 1, name: "Shipment Tracking", desc: "Real Time Shipment tracking and notification", enabled: false },
   { id: 2, name: "Invoice Managment", desc: "Real Time Shipment tracking and notification", enabled: false },
-  { id: 3, name: "Vendor Management", desc: "Real Time Shipment tracking and notification", enabled: false },
+  { id: 3, name: "Partner Management", desc: "Real Time Shipment tracking and notification", enabled: false },
   { id: 4, name: "Ads Module", desc: "Real Time Shipment tracking and notification", enabled: true },
   { id: 5, name: "AI Chatbot", desc: "Real Time Shipment tracking and notification", enabled: true },
   { id: 6, name: "Reports & Analytics", desc: "Real Time Shipment tracking and notification", enabled: false },
@@ -87,7 +88,7 @@ export default function Modules() {
   const handleUploadModule = async () => {
     try {
       if (!uploadForm.name) {
-        alert("Module name required");
+        appAlert("Module name required");
         return;
       }
   
@@ -117,7 +118,7 @@ export default function Modules() {
       }
     } catch (err) {
       console.log(err);
-      alert("Upload failed");
+      appAlert("Upload failed");
     }
   };
 

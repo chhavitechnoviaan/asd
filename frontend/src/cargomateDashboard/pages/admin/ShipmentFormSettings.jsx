@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 
 
 
@@ -446,8 +447,8 @@ export default function ShipmentFormSettings() {
     setEditingField(null);
   };
 
-  const deleteField = (key) => {
-    if (!window.confirm("Are you sure you want to delete this field?")) return;
+  const deleteField = async (key) => {
+    if (!await appConfirm("Are you sure you want to delete this field?")) return;
 
     setSection((prev) => ({
       ...prev,
@@ -499,7 +500,7 @@ export default function ShipmentFormSettings() {
   };
 
   const handleReset = async () => {
-    if (!window.confirm("Reset all shipment form settings to default?")) return;
+    if (!await appConfirm("Reset all shipment form settings to default?")) return;
 
     setResetting(true);
     try {

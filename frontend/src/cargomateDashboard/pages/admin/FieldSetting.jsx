@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 // import { useState } from "react";
 // import { Pencil, Trash2 } from "lucide-react";
 // import AddNewField from "./AddNewField";
@@ -482,7 +483,7 @@ const res = await API.put(apiEndpoint, payload);
   
   // Reset settings
   const handleReset = async () => {
-    const confirmed = window.confirm(
+    const confirmed = await appConfirm(
       "Are you sure you want to reset document settings to default?"
     );
 
@@ -582,7 +583,7 @@ const res = await API.put(apiEndpoint, payload);
               Shared document requirements
             </p>
             <p className="mt-0.5 text-xs leading-relaxed text-blue-800">
-              Changes saved here apply to all B2B and Normal User shipment forms.
+              Changes saved here apply to all Partner and Normal User shipment forms.
               Enabled document fields will be shown to both user types.
             </p>
           </div>

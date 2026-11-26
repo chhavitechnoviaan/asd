@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 // // import React, { useEffect, useMemo, useState } from "react";
 // // import {
 // //   Megaphone,
@@ -37,7 +38,7 @@
 // //     options: [["B2B Dashboard - Dashboard", "Dashboard"]],
 // //   },
 // //   {
-// //     label: "B2B Dashboard - Intelligence",
+// //     label: "Partner Dashboard - Intelligence",
 // //     options: [
 // //       ["B2B Dashboard - AI Chatbot", "AI Chatbot"],
 // //       ["B2B Dashboard - Import Intelligence", "Import Intelligence"],
@@ -49,7 +50,7 @@
 // //     ],
 // //   },
 // //   {
-// //     label: "B2B Dashboard - Manage",
+// //     label: "Partner Dashboard - Manage",
 // //     options: [
 // //       ["B2B Dashboard - Shipments", "Shipments"],
 // //       ["B2B Dashboard - Documents", "Documents"],
@@ -57,14 +58,14 @@
 // //     ],
 // //   },
 // //   {
-// //     label: "B2B Dashboard - Reports & Tools",
+// //     label: "Partner Dashboard - Reports & Tools",
 // //     options: [
 // //       ["B2B Dashboard - Reports", "Reports"],
 // //       ["B2B Dashboard - Alert Notifications", "Alert Notifications"],
 // //     ],
 // //   },
 // //   {
-// //     label: "B2B Dashboard - System",
+// //     label: "Partner Dashboard - System",
 // //     options: [["B2B Dashboard - Settings", "Settings"]],
 // //   },
 // // ];
@@ -621,7 +622,7 @@
 //     options: [["B2B Dashboard - Dashboard", "Dashboard"]],
 //   },
 //   {
-//     label: "B2B Dashboard - Intelligence",
+//     label: "Partner Dashboard - Intelligence",
 //     options: [
 //       ["B2B Dashboard - AI Chatbot", "AI Chatbot"],
 //       ["B2B Dashboard - Import Intelligence", "Import Intelligence"],
@@ -633,7 +634,7 @@
 //     ],
 //   },
 //   {
-//     label: "B2B Dashboard - Manage",
+//     label: "Partner Dashboard - Manage",
 //     options: [
 //       ["B2B Dashboard - Shipments", "Shipments"],
 //       ["B2B Dashboard - Documents", "Documents"],
@@ -641,14 +642,14 @@
 //     ],
 //   },
 //   {
-//     label: "B2B Dashboard - Reports & Tools",
+//     label: "Partner Dashboard - Reports & Tools",
 //     options: [
 //       ["B2B Dashboard - Reports", "Reports"],
 //       ["B2B Dashboard - Alert Notifications", "Alert Notifications"],
 //     ],
 //   },
 //   {
-//     label: "B2B Dashboard - System",
+//     label: "Partner Dashboard - System",
 //     options: [["B2B Dashboard - Settings", "Settings"]],
 //   },
 // ];
@@ -1203,11 +1204,11 @@ const AD_LOCATIONS = [
     ],
   },
   {
-    label: "B2B Dashboard",
+    label: "Partner Dashboard",
     options: [["B2B Dashboard - Dashboard", "Dashboard"]],
   },
   {
-    label: "B2B Dashboard - Intelligence",
+    label: "Partner Dashboard - Intelligence",
     options: [
       ["B2B Dashboard - AI Chatbot", "AI Chatbot"],
       ["B2B Dashboard - Import Intelligence", "Import Intelligence"],
@@ -1219,7 +1220,7 @@ const AD_LOCATIONS = [
     ],
   },
   {
-    label: "B2B Dashboard - Manage",
+    label: "Partner Dashboard - Manage",
     options: [
       ["B2B Dashboard - Shipments", "Shipments"],
       ["B2B Dashboard - Documents", "Documents"],
@@ -1227,14 +1228,14 @@ const AD_LOCATIONS = [
     ],
   },
   {
-    label: "B2B Dashboard - Reports & Tools",
+    label: "Partner Dashboard - Reports & Tools",
     options: [
       ["B2B Dashboard - Reports", "Reports"],
       ["B2B Dashboard - Alert Notifications", "Alert Notifications"],
     ],
   },
   {
-    label: "B2B Dashboard - System",
+    label: "Partner Dashboard - System",
     options: [["B2B Dashboard - Settings", "Settings"]],
   },
 ];
@@ -1568,7 +1569,7 @@ export default function AdManagement({ permissions = null }) {
   }, []);
 
   const handleDelete = async (ad) => {
-    if (!window.confirm("Delete this ad? This action cannot be undone."))
+    if (!await appConfirm("Delete this ad? This action cannot be undone."))
       return;
     try {
       await API.delete(`/ads/${ad._id}`);

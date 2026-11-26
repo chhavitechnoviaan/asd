@@ -922,7 +922,7 @@ const FEATURE_NAMES = {
   shipmentCost: "Shipment Cost Analysis",
   governmentSchemes: "Government Schemes",
   countryRules: "Country Rules",
-  tradeResearch: "B2B Trade Research",
+  tradeResearch: "Partner Trade Research",
 };
 
 const TIER_THEME = {
@@ -1289,7 +1289,7 @@ function PlanEditor({ form, setForm, editing, saving, onSubmit, onClose }) {
                   onChange={(e) => change("audience", e.target.value)}
                 >
                   <option value="user">User</option>
-                  <option value="b2b">B2B</option>
+                  <option value="b2b">Partner</option>
                 </select>
               </label>
               <label className={labelClass}>
@@ -1621,7 +1621,7 @@ export default function PlanSection({
                   Subscription Plans
                 </h1>
                 <p className="mt-1 text-sm text-white/70">
-                  Create and manage User & B2B plan pricing, limits and
+                  Create and manage User & Partner plan pricing, limits and
                   features.
                 </p>
               </div>
@@ -1647,7 +1647,7 @@ export default function PlanSection({
             >
               {[
                 ["user", "User Plans"],
-                ["b2b", "B2B Plans"],
+                ["b2b", "Partner Plans"],
               ].map(([value, label]) => (
                 <button
                   key={value}
@@ -1690,7 +1690,7 @@ export default function PlanSection({
 
         <div>
           <h2 className="text-xl font-extrabold text-[#002259]">
-            {audience === "b2b" ? "B2B Panel Plans" : "User Panel Plans"}
+            {audience === "b2b" ? "Partner Panel Plans" : "User Panel Plans"}
           </h2>
           <p className="mt-1 text-sm text-[#7185A0]">
             Plans shown to{" "}

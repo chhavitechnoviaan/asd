@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 // // // import React, { useState, useMemo } from "react";
 // // // import ReactCountryFlag from "react-country-flag";
 // // // import Swal from "sweetalert2";
@@ -4356,7 +4357,7 @@ const MasterData = ({ permissions = null }) => {
   // ============================================
   const handleDeleteBatch = async (batchId, fileName) => {
     if (!can("delete")) return;
-    const confirmed = window.confirm(
+    const confirmed = await appConfirm(
       `Are you sure you want to delete "${fileName}"?\n\nAll records uploaded through this CSV will be permanently deleted.`
     );
 

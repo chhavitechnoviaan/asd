@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import API from "../api/axios";
 
-const names = { aiChatbot:"AI Chatbot", hsLookup:"HS Code Lookup", incentiveChecker:"Incentive Checker", shipmentPlanning:"Shipment Planning", shipmentCost:"Shipment Cost Analysis", governmentSchemes:"Government Schemes", countryRules:"Country Rules", tradeResearch:"B2B Trade Research" };
+const names = { aiChatbot:"AI Chatbot", hsLookup:"HS Code Lookup", incentiveChecker:"Incentive Checker", shipmentPlanning:"Shipment Planning", shipmentCost:"Shipment Cost Analysis", governmentSchemes:"Government Schemes", countryRules:"Country Rules", tradeResearch:"Partner Trade Research" };
 
 export function useSubscriptionQuotas() {
   const [data, setData] = useState(null);

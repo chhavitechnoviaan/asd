@@ -99,7 +99,8 @@ exports.getUsers = async (req, res) => {
       user.accountStatus="Inactive";
       user.sessionVersion=Number(user.sessionVersion||0)+1;
       await user.save();
-      res.json({status:1,message:"Customer deactivated; records retained for audit"});
+      await require('../services/businessNotification').business(req,{userId:user._id,title:'Account deactivated',message:`Your account has been deactivated.`,type:'User',admin:true});
+res.json({status:1,message:"Customer deactivated; records retained for audit"});
   
     } catch (err) {
       res.status(500).json({
@@ -134,7 +135,8 @@ exports.getUsers = async (req, res) => {
         { new: true }
       ).select("-password");
   
-      res.json({
+      await require('../services/businessNotification').business(req,{userId:updated?._id,title:'Account updated',message:`Your account details have been updated.`,type:'User',admin:true});
+res.json({
         status: 1,
         message: "User updated successfully",
         data: updated
@@ -181,7 +183,8 @@ exports.getUsers = async (req, res) => {
       user.status = user.status === "active" ? "inactive" : "active";
       await user.save();
   
-      res.json({
+      await require('../services/businessNotification').business(req,{userId:user._id,title:'Account status changed',message:`Your account status is now ${user.status}.`,type:'User',admin:true});
+res.json({
         status: 1,
         message: "User status updated",
         data: user
@@ -221,7 +224,8 @@ exports.resetUserPassword = async (req, res) => {
       password: hashed
     });
 
-    res.json({
+    await require('../services/businessNotification').business(req,{userId:req.params.id,title:'Password reset',message:`Your password was reset by staff. Contact support if unexpected.`,type:'User',admin:true});
+res.json({
       status: 1,
       message: "Password reset successfully"
     });

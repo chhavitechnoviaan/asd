@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../lib/dialogs";
 // // // import PortAutocomplete from "./PortAutocomplete.jsx";
 // // // // // // import { consumeShipmentPrefill } from "../utils/shipmentPrefill";
 // // // // // // import CountryAutocomplete from "../../components/CountryAutocomplete";
@@ -27307,7 +27308,7 @@ export default function Shipment({
         }));
       } catch (error) {
         console.error("Load draft for editing failed:", error);
-        alert(error?.response?.data?.message || "Unable to load this draft.");
+        appAlert(error?.response?.data?.message || "Unable to load this draft.");
       } finally {
         if (active) setLoading(false);
       }
@@ -27501,10 +27502,10 @@ additionalInformation: {
       const id = await saveAllSteps();
       await saveDraft(id);
       setCurrentStatus("Draft");
-      alert("Draft saved successfully!");
+      appAlert("Draft saved successfully!");
     } catch (err) {
       console.error("Save Draft Error:", err);
-      alert(err.response?.data?.message || "Failed to save draft.");
+      appAlert(err.response?.data?.message || "Failed to save draft.");
     } finally {
       setLoading(false);
     }
@@ -27519,10 +27520,10 @@ additionalInformation: {
       const data = res.data?.data || res.data;
       setAnalysis(data);
       setCurrentStatus("AI Analyzed");
-      alert("Shipment analyzed successfully!");
+      appAlert("Shipment analyzed successfully!");
     } catch (err) {
       console.error("Analyze Error:", err);
-      alert(err.response?.data?.message || "Failed to analyze shipment.");
+      appAlert(err.response?.data?.message || "Failed to analyze shipment.");
     } finally {
       setLoading(false);
     }
@@ -27625,11 +27626,11 @@ additionalInformation: {
       await submitShipment(id);
       setCurrentStatus("Submitted");
       if (isNormalUser) setSubmittedLocked(true);
-      alert("Shipment submitted to admin successfully!");
+      appAlert("Shipment submitted to admin successfully!");
       if (onSaved) onSaved();
     } catch (err) {
       console.error("Submit Error:", err);
-      alert(err.response?.data?.message || "Failed to submit shipment.");
+      appAlert(err.response?.data?.message || "Failed to submit shipment.");
     } finally {
       setLoading(false);
     }
@@ -27658,21 +27659,21 @@ additionalInformation: {
         },
       }));
 
-      alert("Uploaded Successfully");
+      appAlert("Uploaded Successfully");
     } catch (err) {
       console.log(err);
-      alert(err.response?.data?.message || "Upload Failed");
+      appAlert(err.response?.data?.message || "Upload Failed");
     }
   };
 
   const handleDeleteDocument = async (documentKey, document) => {
     if (!document?._id) {
-      alert(
+      appAlert(
         "Document record ID is missing. Please refresh the shipment and try again.",
       );
       return;
     }
-    const confirmed = window.confirm(
+    const confirmed = await appConfirm(
       "Are you sure you want to delete this uploaded document?",
     );
     if (!confirmed) return;
@@ -27686,10 +27687,10 @@ additionalInformation: {
         return next;
       });
       if (previewDocument?._id === document._id) setPreviewDocument(null);
-      alert("Document deleted successfully.");
+      appAlert("Document deleted successfully.");
     } catch (error) {
       console.error("Delete shipment document failed:", error);
-      alert(error?.response?.data?.message || "Unable to delete document.");
+      appAlert(error?.response?.data?.message || "Unable to delete document.");
     } finally {
       setDeletingDocumentKey("");
     }

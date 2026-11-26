@@ -769,7 +769,7 @@ export default function CompareFeaturesTable({
                             {/* Audience */}
                             <span className="rounded-full border border-white/25 bg-white/15 px-3 py-1 text-[10px] font-semibold text-white">
                               {plan.audience === "b2b"
-                                ? "B2B Plan"
+                                ? "Partner Plan"
                                 : "User Plan"}
                             </span>
 

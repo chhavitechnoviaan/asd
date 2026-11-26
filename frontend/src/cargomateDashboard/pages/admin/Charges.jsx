@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 // import { useState } from "react";
 // import { DollarSign, Pencil, Trash2, Check } from "lucide-react";
 
@@ -368,7 +369,7 @@ export default function Charges({
   // DELETE CHARGE
   // ==========================================
   const deleteCharge = async (id) => {
-    const confirmed = window.confirm(
+    const confirmed = await appConfirm(
       "Are you sure you want to delete this quotation charge?"
     );
 

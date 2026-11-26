@@ -1,3 +1,5 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
+import { createdDate, createdTime } from "../../../lib/accountCreated";
 // // import { useEffect, useState } from "react";
 // // import API from "../../api/axios";
 // // import {glassSuccess,glassError} from "../../utils/glassAlert";
@@ -454,7 +456,7 @@
 // //         {/* <div className="flex items-start justify-between mb-6 gap-3">
 // //           <div>
 // //             <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
-// //               Vendors/Partners
+// //               Partners
 // //             </h1>
 
 // //             <p className="text-xs sm:text-sm text-gray-400 mt-1">
@@ -935,7 +937,7 @@
 // //                    ["Address",vendorEdit.address],
 // //                    ["Email Verified",vendorEdit.emailVerified?"Yes":"No"],
 // //                    ["Phone Verified",vendorEdit.phoneVerified?"Yes":"No"],
-// //                    ["Joined",vendorEdit.createdAt ? new Date(vendorEdit.createdAt).toLocaleDateString("en-IN") : "—"]
+// //                    ["Created On (Date)",createdDate(vendorEdit.createdAt)], ["Created On (Time)",createdTime(vendorEdit.createdAt)]
 // //                 ].map(([label,value])=><div key={label}><p className="text-slate-400">{label}</p><p className="mt-1 font-semibold break-words">{value||"—"}</p></div>)}
 // //               </div>
 // //               <div className="rounded-xl bg-[#F0FAF8] border border-teal-100 p-4 text-sm space-y-3"><div className="flex items-center justify-between"><b className="text-[#075F5A]">KYC verification</b><KycBadge status={vendorEdit.kycStatus}/></div><p className="text-xs text-slate-600">Current workflow status: {vendorEdit.kycStatus||"Not Submitted"}. Verification is managed through the existing review and rejection APIs.</p>{vendorEdit.kycRejectionNote && <p className="text-xs text-red-600">Last rejection: {vendorEdit.kycRejectionNote}</p>}{canKyc && <button type="button" onClick={()=>{setSelectedVendor({...vendorEdit});setShowDetail(false);setVendorEdit(null);setKycVerify(true)}} className="w-full rounded-xl bg-gradient-to-r from-[#0A8981] to-[#14B8A6] px-4 py-2.5 text-sm font-semibold text-white">Review / Update KYC</button>}</div>
@@ -1597,7 +1599,7 @@
 //         {/* <div className="flex items-start justify-between mb-6 gap-3">
 //           <div>
 //             <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
-//               Vendors/Partners
+//               Partners
 //             </h1>
 
 //             <p className="text-xs sm:text-sm text-gray-400 mt-1">
@@ -2078,7 +2080,7 @@
 //                    ["Address",vendorEdit.address],
 //                    ["Email Verified",vendorEdit.emailVerified?"Yes":"No"],
 //                    ["Phone Verified",vendorEdit.phoneVerified?"Yes":"No"],
-//                    ["Joined",vendorEdit.createdAt ? new Date(vendorEdit.createdAt).toLocaleDateString("en-IN") : "—"]
+//                    ["Created On (Date)",createdDate(vendorEdit.createdAt)], ["Created On (Time)",createdTime(vendorEdit.createdAt)]
 //                 ].map(([label,value])=><div key={label}><p className="text-slate-400">{label}</p><p className="mt-1 font-semibold break-words">{value||"—"}</p></div>)}
 //               </div>
 //               <div className="rounded-xl bg-[#F0FAF8] border border-teal-100 p-4 text-sm space-y-3"><div className="flex items-center justify-between"><b className="text-[#075F5A]">KYC verification</b><KycBadge status={vendorEdit.kycStatus}/></div><p className="text-xs text-slate-600">Current workflow status: {vendorEdit.kycStatus||"Not Submitted"}. Verification is managed through the existing review and rejection APIs.</p>{vendorEdit.kycRejectionNote && <p className="text-xs text-red-600">Last rejection: {vendorEdit.kycRejectionNote}</p>}{canKyc && <button type="button" onClick={()=>{setSelectedVendor({...vendorEdit});setShowDetail(false);setVendorEdit(null);setKycVerify(true)}} className="w-full rounded-xl bg-gradient-to-r from-[#0A8981] to-[#14B8A6] px-4 py-2.5 text-sm font-semibold text-white">Review / Update KYC</button>}</div>
@@ -2305,7 +2307,7 @@
 
 
 
-import AdminCustomerPlanEditor from "./AdminCustomerPlanEditor";
+import { CustomerPlanDialog } from "./AdminCustomerPlanEditor";
 import VendorPasswordReset from "./VendorPasswordReset";
 import { useEffect, useState } from "react";
 import API from "../../api/axios";
@@ -2416,6 +2418,8 @@ function DetailField({
 export default function VendorsPartners({ permissions=null }) {
   const canView = permissions === null || permissions?.view === true;
   const canEdit = permissions === null || permissions?.edit === true;
+  const canChangePlan = permissions === null || (permissions?.view === true && permissions?.changePlan === true);
+  const [planCustomer, setPlanCustomer] = useState(null);
   const canDelete = permissions === null || permissions?.delete === true;
   // KYC action requires a separate backend permission; edit does not grant approval.
   const canKyc = permissions === null || permissions?.kycApprove === true;
@@ -2451,8 +2455,8 @@ export default function VendorsPartners({ permissions=null }) {
     useState(false);
 
   const [vendorEdit,setVendorEdit]=useState(null);
-  const saveVendor=async()=>{if(!canEdit)return;try{await API.put(`/vendors/${vendorEdit._id}`,{name:vendorEdit.name||"",phone:vendorEdit.phone||"",companyName:vendorEdit.companyName||"",status:vendorEdit.status||"active"});setVendorEdit(null);await fetchB2BUsers();await glassSuccess("Vendor updated");}catch(e){await glassError(e.response?.data?.message||"Unable to update vendor");}};
-  const deactivateVendor=async(vendor)=>{if(!canDelete)return;const result=await Swal.fire({title:"Deactivate B2B account?",text:"The account loses access; invoices and shipment history are retained.",icon:"warning",showCancelButton:true,confirmButtonColor:"#14B8A6"});if(!result.isConfirmed)return;try{await API.delete(`/vendors/${vendor._id}`);await fetchB2BUsers();await glassSuccess("Vendor deactivated");}catch(e){await glassError(e.response?.data?.message||"Unable to deactivate vendor");}};
+  const saveVendor=async()=>{if(!canEdit)return;try{await API.put(`/vendors/${vendorEdit._id}`,{name:vendorEdit.name||"",phone:vendorEdit.phone||"",companyName:vendorEdit.companyName||"",status:vendorEdit.status||"active"});setVendorEdit(null);await fetchB2BUsers();await glassSuccess("Partner updated");}catch(e){await glassError(e.response?.data?.message||"Unable to update vendor");}};
+  const deactivateVendor=async(vendor)=>{if(!canDelete)return;const result=await Swal.fire({title:"Deactivate Partner account?",text:"The account loses access; invoices and shipment history are retained.",icon:"warning",showCancelButton:true,confirmButtonColor:"#14B8A6"});if(!result.isConfirmed)return;try{await API.delete(`/vendors/${vendor._id}`);await fetchB2BUsers();await glassSuccess("Partner deactivated");}catch(e){await glassError(e.response?.data?.message||"Unable to deactivate vendor");}};
 
   const fetchB2BUsers = async () => {
     try {
@@ -2470,7 +2474,7 @@ export default function VendorsPartners({ permissions=null }) {
 
       setError(
         (err.response?.status === 403 ? "Access denied by backend (vendors.view). Check the logged-in sub-admin’s assigned role in Sub-admin Management; it must match the role edited under Roles & Permissions. Then save permissions and reload." : err.response?.data?.message || err.response?.data?.msg || err.message) ||
-          "Failed to fetch B2B users"
+          "Failed to fetch Partner users"
       );
     } finally {
       setLoading(false);
@@ -2601,7 +2605,7 @@ export default function VendorsPartners({ permissions=null }) {
             vendor.createdAt
           );
 
-          if (!canView) return <div role="alert" className="p-6 text-slate-600">You do not have permission to view vendors.</div>;
+          if (!canView) return <div role="alert" className="p-6 text-slate-600">You do not have permission to view partners.</div>;
 
   return (
             vendorDate.getMonth() ===
@@ -2719,7 +2723,7 @@ export default function VendorsPartners({ permissions=null }) {
         err
       );
 
-      alert(
+      appAlert(
         err.response?.data?.message ||
           err.message ||
           "Failed to suspend user"
@@ -2743,7 +2747,7 @@ export default function VendorsPartners({ permissions=null }) {
         {/* <div className="flex items-start justify-between mb-6 gap-3">
           <div>
             <h1 className="text-xl sm:text-2xl font-bold text-gray-800">
-              Vendors/Partners
+              Partners
             </h1>
 
             <p className="text-xs sm:text-sm text-gray-400 mt-1">
@@ -2756,21 +2760,21 @@ export default function VendorsPartners({ permissions=null }) {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <StatCard
-            label="Total B2B Users"
+            label="Total Partner Users"
             value={stats.totalUsers}
-            sub="All registered B2B users"
+            sub="All registered Partner users"
           />
 
           <StatCard
             label="Active Users"
             value={stats.activeUsers}
-            sub="Active B2B accounts"
+            sub="Active Partner accounts"
           />
 
           <StatCard
             label="Total Shipments"
             value={stats.totalShipments}
-            sub="Created by B2B users"
+            sub="Created by Partner users"
           />
 
           <StatCard
@@ -2785,7 +2789,7 @@ export default function VendorsPartners({ permissions=null }) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-8">
           <div className="bg-white border border-gray-200 rounded-2xl p-6 min-h-[300px]">
             <h3 className="text-lg font-medium text-gray-700 mb-4">
-              Plan type vendor
+              Plan type partner
             </h3>
 
             <div className="flex flex-col sm:flex-row items-center gap-6">
@@ -2893,7 +2897,7 @@ export default function VendorsPartners({ permissions=null }) {
 
           <div className="bg-white border border-gray-200 rounded-2xl p-6 min-h-[300px]">
             <h3 className="text-lg font-medium text-gray-700 mb-4">
-              Vendor Registration
+              Partner Registration
             </h3>
 
             <div className="h-[220px]">
@@ -2943,7 +2947,7 @@ export default function VendorsPartners({ permissions=null }) {
 
           <div className="bg-white border border-gray-200 rounded-2xl p-6 min-h-[300px]">
             <h3 className="text-lg font-medium text-gray-700 mb-2">
-              Vendor by Status
+              Partner by Status
             </h3>
 
             <div className="relative h-[190px]">
@@ -3056,7 +3060,7 @@ export default function VendorsPartners({ permissions=null }) {
 
             <input
               className="flex-1 text-sm outline-none bg-transparent"
-              placeholder="Search Vendors"
+              placeholder="Search Partners"
               value={search}
               onChange={(e) =>
                 setSearch(e.target.value)
@@ -3093,7 +3097,7 @@ export default function VendorsPartners({ permissions=null }) {
 
         {loading ? (
           <div className="text-center py-16 text-gray-400 text-sm">
-            Loading B2B users...
+            Loading Partner users...
           </div>
         ) : error ? (
           <div className="text-center py-16 text-red-500 text-sm">
@@ -3101,7 +3105,7 @@ export default function VendorsPartners({ permissions=null }) {
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-16 text-gray-400 text-sm">
-            No B2B users found
+            No Partner users found
           </div>
         ) : (
           <div className="w-full overflow-x-auto rounded-xl border border-gray-100 bg-white px-6 py-4">
@@ -3132,6 +3136,8 @@ export default function VendorsPartners({ permissions=null }) {
                     Shipments
                   </th>
 
+                  <th className="text-left py-3">Created On (Date)</th>
+                  <th className="text-left py-3">Created On (Time)</th>
                   <th className="text-left py-3">
                     Status
                   </th>
@@ -3185,6 +3191,8 @@ export default function VendorsPartners({ permissions=null }) {
                       {user.shipmentCount || 0}
                     </td>
 
+                    <td className="py-3 whitespace-nowrap">{createdDate(user.createdAt)}</td>
+                    <td className="py-3 whitespace-nowrap">{createdTime(user.createdAt)}</td>
                     <td className="py-3">
                       <StatusBadge
                         status={user.status}
@@ -3198,7 +3206,7 @@ export default function VendorsPartners({ permissions=null }) {
                     </td>
 
                     <td className="py-3 text-right">
-                      <div className="flex justify-end gap-2">{canEdit && <button onClick={()=>{setShowDetail(false);setVendorEdit({...user})}} className="inline-flex items-center gap-1 text-[#0D9488] text-xs border px-2 py-1 rounded-lg" title="Edit B2B profile"><FiEdit size={12}/> Edit</button>}{canDelete && <button onClick={()=>deactivateVendor(user)} className="text-red-600 text-xs border px-2 py-1 rounded-lg" title="Deactivate account">Deactivate</button>}{!canEdit && !canDelete && <span className="text-xs text-slate-500">View only</span>}</div>
+                      <div className="flex justify-end gap-2">{canEdit && <button onClick={()=>{setShowDetail(false);setVendorEdit({...user})}} className="inline-flex items-center gap-1 text-[#0D9488] text-xs border px-2 py-1 rounded-lg" title="Edit Partner profile"><FiEdit size={12}/> Edit</button>}{canDelete && <button onClick={()=>deactivateVendor(user)} className="text-red-600 text-xs border px-2 py-1 rounded-lg" title="Deactivate account">Deactivate</button>}<button type="button" disabled={!canChangePlan} title={canChangePlan ? "Change Plan" : "Change Plan permission required"} onClick={()=>setPlanCustomer(user)} className="rounded-lg border border-teal-200 px-2 py-1 text-xs text-teal-700 disabled:opacity-40 disabled:cursor-not-allowed">Change Plan</button>{!canEdit && !canDelete && !canChangePlan && <span className="text-xs text-slate-500">View only</span>}</div>
                     </td>
                   </tr>
                 ))}
@@ -3209,15 +3217,16 @@ export default function VendorsPartners({ permissions=null }) {
 
         {/* DETAILS SECTION - TABLE KE BAHAR AUR NEECHAY */}
 
+        {canChangePlan && planCustomer && <CustomerPlanDialog customer={planCustomer} audience="b2b" onClose={()=>setPlanCustomer(null)} onUpdated={fetchB2BUsers} />}
         {canEdit && vendorEdit && <div className="fixed inset-0 z-[80] bg-[#002259]/40 backdrop-blur-[5px] flex justify-end" onClick={()=>setVendorEdit(null)}>
           <aside onClick={e=>e.stopPropagation()} className="h-screen w-full sm:w-[485px] overflow-y-auto bg-gradient-to-b from-teal-50 via-white to-white border-l border-teal-100 p-7 shadow-2xl">
-            <div className="flex items-start justify-between mb-6"><div><p className="text-xs font-bold uppercase tracking-widest text-teal-600">B2B ACCOUNT MANAGEMENT</p><h2 className="text-2xl font-bold text-[#002259]">Edit Vendor</h2><p className="text-sm text-slate-500">Update account details and status</p></div><button type="button" onClick={()=>setVendorEdit(null)} className="rounded-xl bg-white border p-2 text-slate-700">✕</button></div>
+            <div className="flex items-start justify-between mb-6"><div><p className="text-xs font-bold uppercase tracking-widest text-teal-600">Partner ACCOUNT MANAGEMENT</p><h2 className="text-2xl font-bold text-[#002259]">Edit Partner</h2><p className="text-sm text-slate-500">Update account details and status</p></div><button type="button" onClick={()=>setVendorEdit(null)} className="rounded-xl bg-white border p-2 text-slate-700">✕</button></div>
             <div className="space-y-4 rounded-2xl bg-white/90 p-5 border border-teal-100 shadow-sm">
-              {[ ["name","Vendor name"],["companyName","Company name"],["phone","Phone number"]].map(([key,label])=><label key={key} className="block text-sm font-medium text-slate-600">{label}<input className="mt-1 block w-full rounded-xl border border-slate-200 p-3 focus:border-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-100" value={vendorEdit[key]||""} onChange={e=>setVendorEdit(prev=>({...prev,[key]:e.target.value}))}/></label>)}
+              {[ ["name","Partner name"],["companyName","Company name"],["phone","Phone number"]].map(([key,label])=><label key={key} className="block text-sm font-medium text-slate-600">{label}<input className="mt-1 block w-full rounded-xl border border-slate-200 p-3 focus:border-teal-400 focus:outline-none focus:ring-2 focus:ring-teal-100" value={vendorEdit[key]||""} onChange={e=>setVendorEdit(prev=>({...prev,[key]:e.target.value}))}/></label>)}
               <label className="block text-sm font-medium text-slate-600">Email<input readOnly value={vendorEdit.email||""} className="mt-1 w-full rounded-xl bg-slate-50 p-3 border"/></label>
               <label className="block text-sm font-medium text-slate-600">Account status<select value={String(vendorEdit.status||"active").toLowerCase()} onChange={e=>setVendorEdit(prev=>({...prev,status:e.target.value}))} className="mt-1 w-full p-3 border rounded-xl"><option value="active">Active</option><option value="inactive">Inactive</option></select></label>
               <p className="text-sm text-slate-600">Current purchased subscription: <strong>{vendorEdit.purchasedPlan ?? "No active purchased plan"}</strong></p>
-              <AdminCustomerPlanEditor customer={vendorEdit} audience="b2b" onUpdated={fetchB2BUsers} />
+              
               <VendorPasswordReset key={vendorEdit._id || vendorEdit.id} vendorId={vendorEdit._id || vendorEdit.id} />
               <div className="grid grid-cols-2 gap-3 rounded-xl bg-[#F4FBFA] p-4 text-xs text-slate-700">
                 {[ ["GST Number",vendorEdit.gstNumber||vendorEdit.gstin],["IEC Code",vendorEdit.importExportId?"Configured":"Not supplied"],
@@ -3226,7 +3235,7 @@ export default function VendorsPartners({ permissions=null }) {
                    ["Address",vendorEdit.address],
                    ["Email Verified",vendorEdit.emailVerified?"Yes":"No"],
                    ["Phone Verified",vendorEdit.phoneVerified?"Yes":"No"],
-                   ["Joined",vendorEdit.createdAt ? new Date(vendorEdit.createdAt).toLocaleDateString("en-IN") : "—"]
+                   ["Created On (Date)",createdDate(vendorEdit.createdAt)], ["Created On (Time)",createdTime(vendorEdit.createdAt)]
                 ].map(([label,value])=><div key={label}><p className="text-slate-400">{label}</p><p className="mt-1 font-semibold break-words">{value||"—"}</p></div>)}
               </div>
               <div className="rounded-xl bg-[#F0FAF8] border border-teal-100 p-4 text-sm space-y-3"><div className="flex items-center justify-between"><b className="text-[#075F5A]">KYC verification</b><KycBadge status={vendorEdit.kycStatus}/></div><p className="text-xs text-slate-600">Current workflow status: {vendorEdit.kycStatus||"Not Submitted"}. Verification is managed through the existing review and rejection APIs.</p>{vendorEdit.kycRejectionNote && <p className="text-xs text-red-600">Last rejection: {vendorEdit.kycRejectionNote}</p>}{canKyc && <button type="button" onClick={()=>{setSelectedVendor({...vendorEdit});setShowDetail(false);setVendorEdit(null);setKycVerify(true)}} className="w-full rounded-xl bg-gradient-to-r from-[#0A8981] to-[#14B8A6] px-4 py-2.5 text-sm font-semibold text-white">Review / Update KYC</button>}</div>
@@ -3238,7 +3247,7 @@ export default function VendorsPartners({ permissions=null }) {
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
               <div>
                 <h2 className="font-semibold text-gray-900 text-lg">
-                  Vendor Details
+                  Partner Details
                 </h2>
 
                 <p className="text-sm text-gray-400 mt-1">
@@ -3272,6 +3281,8 @@ export default function VendorsPartners({ permissions=null }) {
                 </p>
 
                 <div className="space-y-3">
+                  <DetailField label="Created On (Date)" value={createdDate(selectedVendor.createdAt)} />
+                  <DetailField label="Created On (Time)" value={createdTime(selectedVendor.createdAt)} />
                   <DetailField
                     label="Contact Person"
                     value={selectedVendor.name}

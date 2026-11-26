@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 
 
 
@@ -683,7 +684,7 @@ export default function ViewInvoiceModal({ invoice, onClose }) {
     const printWindow = window.open("", "_blank", "width=1100,height=850");
 
     if (!printWindow) {
-      alert("Please allow pop-ups for this site to print the invoice.");
+      appAlert("Please allow pop-ups for this site to print the invoice.");
       return;
     }
 

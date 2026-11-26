@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 // // // // import React, { useState, useEffect, useMemo } from "react";
 // // // // import ReactCountryFlag from "react-country-flag";
 // // // // import axios from "axios";
@@ -465,7 +466,7 @@
 // // // //   };
 
 // // // //   // Only remove from the current UI list; do not claim to delete on server.
-// // // //   const handleRemoveFromView = (id) => {
+// // // //   const handleRemoveFromView = async (id) => {
 // // // //     if (window.confirm("Remove this shipment from the current list? (Not deleted from server)")) {
 // // // //       setShipments((prev) => prev.filter((item) => item._id !== id));
 // // // //     }
@@ -2176,7 +2177,7 @@
 // // //   };
 
 // // //   // Only remove from the current UI list; do not claim to delete on server.
-// // //   const handleRemoveFromView = (id) => {
+// // //   const handleRemoveFromView = async (id) => {
 // // //     if (window.confirm("Remove this shipment from the current list? (Not deleted from server)")) {
 // // //       setShipments((prev) => prev.filter((item) => item._id !== id));
 // // //     }
@@ -3894,7 +3895,7 @@
 // //   };
 
 // //   // Only remove from the current UI list; do not claim to delete on server.
-// //   const handleRemoveFromView = (id) => {
+// //   const handleRemoveFromView = async (id) => {
 // //     if (window.confirm("Remove this shipment from the current list? (Not deleted from server)")) {
 // //       setShipments((prev) => prev.filter((item) => item._id !== id));
 // //     }
@@ -5613,7 +5614,7 @@
 //   };
 
 //   // Only remove from the current UI list; do not claim to delete on server.
-//   const handleRemoveFromView = (id) => {
+//   const handleRemoveFromView = async (id) => {
 //     if (window.confirm("Remove this shipment from the current list? (Not deleted from server)")) {
 //       setShipments((prev) => prev.filter((item) => item._id !== id));
 //     }
@@ -7321,8 +7322,8 @@ export default function Shipment({
   };
 
   // Only remove from the current UI list; do not claim to delete on server.
-  const handleRemoveFromView = (id) => {
-    if (window.confirm("Remove this shipment from the current list? (Not deleted from server)")) {
+  const handleRemoveFromView = async (id) => {
+    if (await appConfirm("Remove this shipment from the current list? (Not deleted from server)")) {
       setShipments((prev) => prev.filter((item) => item._id !== id));
     }
   };
@@ -7556,7 +7557,7 @@ export default function Shipment({
   }, []);
 
   const handleViewQuotation = async (shipmentData) => {
-    if (!shipmentData?._id) return window.alert("Shipment ID not found");
+    if (!shipmentData?._id) return appAlert("Shipment ID not found");
     setQuotationLoading(true);
     try {
       const response = await getQuotationByShipment(shipmentData._id);
@@ -7574,14 +7575,14 @@ export default function Shipment({
           : null;
 
       if (!quotation) {
-        window.alert("No quotation has been sent for this shipment yet.");
+        appAlert("No quotation has been sent for this shipment yet.");
         return;
       }
       setSelectedShipment(shipmentData);
       setSelectedQuotation(quotation);
       setShowQuotation(true);
     } catch (error) {
-      window.alert(error?.response?.data?.message || "Unable to fetch quotation");
+      appAlert(error?.response?.data?.message || "Unable to fetch quotation");
     } finally {
       setQuotationLoading(false);
     }
@@ -7594,9 +7595,9 @@ export default function Shipment({
       const updated = response.data?.data?.quotation ?? response.data?.data;
       setSelectedQuotation(updated?._id ? updated : (old) => ({ ...old, status: "Accepted" }));
       await fetchShipments();
-      window.alert(response.data?.message || "Quotation accepted successfully");
+      appAlert(response.data?.message || "Quotation accepted successfully");
     } catch (error) {
-      window.alert(error?.response?.data?.message || "Unable to accept quotation");
+      appAlert(error?.response?.data?.message || "Unable to accept quotation");
       throw error;
     }
   };
@@ -7608,9 +7609,9 @@ export default function Shipment({
       const updated = response.data?.data?.quotation ?? response.data?.data;
       setSelectedQuotation(updated?._id ? updated : (old) => ({ ...old, status: "Rejected" }));
       await fetchShipments();
-      window.alert(response.data?.message || "Quotation rejected successfully");
+      appAlert(response.data?.message || "Quotation rejected successfully");
     } catch (error) {
-      window.alert(error?.response?.data?.message || "Unable to reject quotation");
+      appAlert(error?.response?.data?.message || "Unable to reject quotation");
       throw error;
     }
   };

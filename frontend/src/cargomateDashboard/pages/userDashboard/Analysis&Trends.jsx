@@ -97,7 +97,7 @@ const insights = [
   { color: "bg-red-100", iconColor: "text-red-500", title: "10 shipments were delayed.", sub: "Check delay reasons in Shipment Tracking.", icon: <MdOutlineWarning size={18} /> },
 ];
 
-const tabs = ["Overview", "Shipments", "Spend & Cost", "Vendors", "Performance", "Compliance"];
+const tabs = ["Overview", "Shipments", "Spend & Cost", "Partners", "Performance", "Compliance"];
 
 const statCards = [
   { label: "Total Shipments", value: "156", change: "+18.5%", up: true, sub: "vs 18 - 24 Apr 2025", icon: <MdOutlineLocalShipping size={20} className="text-blue-500" />, bg: "bg-blue-50", changeColor: "text-green-600" },
@@ -105,7 +105,7 @@ const statCards = [
   { label: "On-Time Delivery", value: "92.6%", change: "+4.3%", up: true, sub: "vs 18 - 24 Apr 2025", icon: <MdOutlineAccessTime size={20} className="text-purple-500" />, bg: "bg-purple-50", changeColor: "text-green-600" },
   { label: "Avg Transit Time", value: "4.2 Days", change: "+0.8 Days", up: true, sub: "vs 18 - 24 Apr", icon: <MdOutlineDirectionsCar size={20} className="text-orange-400" />, bg: "bg-orange-50", changeColor: "text-orange-500" },
   { label: "Cost per Shipment", value: "₹15,938", change: "-6.4%", up: false, sub: "vs 18 - 24 Apr 2025", icon: <MdOutlineCurrencyRupee size={20} className="text-blue-400" />, bg: "bg-blue-50", changeColor: "text-red-500" },
-  { label: "Active Vendors", value: "24", change: "+14.3%", up: true, sub: "vs 18 - 24 Apr 2025", icon: <MdOutlinePeople size={20} className="text-pink-500" />, bg: "bg-pink-50", changeColor: "text-green-600" },
+  { label: "Active Partners", value: "24", change: "+14.3%", up: true, sub: "vs 18 - 24 Apr 2025", icon: <MdOutlinePeople size={20} className="text-pink-500" />, bg: "bg-pink-50", changeColor: "text-green-600" },
 ];
 
 function Card({ children, className = "" }) {

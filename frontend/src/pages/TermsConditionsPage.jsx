@@ -27,8 +27,8 @@ const sections = [
     "Freight results must be labelled LIVE RATE, CONTRACT RATE or ESTIMATED RATE. Final rates depend on carrier/vendor confirmation, capacity, routing, surcharges, taxes and shipment conditions.",
   ],
   [
-    "Vendor Marketplace",
-    "CargoMate may introduce customers to freight forwarders, customs brokers, transporters, warehouses and service providers. Vendors are responsible for quotations, valid licences, service delivery, regulatory compliance, documentation, taxes and applicable insurance. CargoMate is not necessarily the contracted logistics provider.",
+    "Partner Marketplace",
+    "CargoMate may introduce customers to freight forwarders, customs brokers, transporters, warehouses and service providers. Partners are responsible for quotations, valid licences, service delivery, regulatory compliance, documentation, taxes and applicable insurance. CargoMate is not necessarily the contracted logistics provider.",
   ],
   [
     "Subscriptions",

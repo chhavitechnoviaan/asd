@@ -107,8 +107,8 @@ function DonutChart({ segments, centerTop, centerBottom, size = 160 }) {
 
 export default function VendorInsightsDetailedAnalytics({ onClose }) {
   const columns = [
-    { key: "name", label: "Vendor Name", align: "left", render: (v) => <span className="font-medium text-gray-900">{v}</span> },
-    { key: "type", label: "Vendor Type", align: "left", render: (v) => <span className={`px-2 py-1 rounded-full text-xs font-medium ${typeStyle[v]}`}>{v}</span> },
+    { key: "name", label: "Partner Name", align: "left", render: (v) => <span className="font-medium text-gray-900">{v}</span> },
+    { key: "type", label: "Partner Type", align: "left", render: (v) => <span className={`px-2 py-1 rounded-full text-xs font-medium ${typeStyle[v]}`}>{v}</span> },
     { key: "shipment", label: "shipment", align: "center" },
     { key: "onTime", label: "On-Time Delivery", align: "center" },
     { key: "transit", label: "Avg. Transit Time", align: "center" },
@@ -125,8 +125,8 @@ export default function VendorInsightsDetailedAnalytics({ onClose }) {
               <FiUsers className="text-emerald-500" size={20} />
             </div>
             <div className="min-w-0">
-              <h2 className="text-base sm:text-lg font-medium text-gray-900">Vendor Insights - Detailed Analytics</h2>
-              <p className="text-xs sm:text-sm text-gray-500 mt-0.5">Comprehensive performance insights of your vendor</p>
+              <h2 className="text-base sm:text-lg font-medium text-gray-900">Partner Insights - Detailed Analytics</h2>
+              <p className="text-xs sm:text-sm text-gray-500 mt-0.5">Comprehensive performance insights of your partner</p>
             </div>
           </div>
           <div className="flex items-center gap-2 sm:gap-3 shrink-0 flex-wrap">
@@ -144,7 +144,7 @@ export default function VendorInsightsDetailedAnalytics({ onClose }) {
 
         <div className="p-4 sm:p-6 space-y-5 overflow-y-auto">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <StatCard bg="bg-blue-50" icon={<FiUsers className="text-blue-500" />} label="Total Vendors" value="24" sub="Active in this period" />
+            <StatCard bg="bg-blue-50" icon={<FiUsers className="text-blue-500" />} label="Total Partners" value="24" sub="Active in this period" />
             <StatCard bg="bg-purple-50" icon={<FiPackage className="text-purple-500" />} label="Total Shipment" value="48" sub="Handled by vendors" />
             <StatCard bg="bg-emerald-50" icon={<FiClock className="text-emerald-500" />} label="On-Time Delivery" value="87%" sub="42 On-time shipment" up />
             <StatCard bg="bg-orange-50" icon={<FiAlertTriangle className="text-orange-500" />} label="Issue Rate" value="13%" sub="6 shipments with issues" down />
@@ -152,12 +152,12 @@ export default function VendorInsightsDetailedAnalytics({ onClose }) {
 
           <div className="grid grid-cols-1 lg:grid-cols-[40%_60%] gap-4">
             <div className="border border-gray-100 rounded-lg p-4 sm:p-5">
-              <h3 className="font-medium text-gray-900 mb-4">Vendor Distribution</h3>
+              <h3 className="font-medium text-gray-900 mb-4">Partner Distribution</h3>
               <div className="flex items-center gap-6 flex-wrap justify-center sm:justify-start">
                 <DonutChart
                   size={140}
                   centerTop="Total"
-                  centerBottom="24 Vendors"
+                  centerBottom="24 Partners"
                   segments={distribution.map((d) => ({ value: d.vendors, color: vendorTypeColors[d.type] }))}
                 />
                 <ul className="space-y-2">
@@ -177,8 +177,8 @@ export default function VendorInsightsDetailedAnalytics({ onClose }) {
               <table className="w-full text-sm" style={{ minWidth: "500px" }}>
                 <thead>
                   <tr className="text-gray-500 text-xs">
-                    <th className="text-left font-medium pb-2">Vendor Type</th>
-                    <th className="text-center font-medium pb-2">Vendor</th>
+                    <th className="text-left font-medium pb-2">Partner Type</th>
+                    <th className="text-center font-medium pb-2">Partner</th>
                     <th className="text-center font-medium pb-2">Shipments</th>
                     <th className="text-center font-medium pb-2">On-Time Delivery</th>
                     <th className="text-right font-medium pb-2">Issue Rate</th>
@@ -214,13 +214,13 @@ export default function VendorInsightsDetailedAnalytics({ onClose }) {
 
           <div className="grid grid-cols-1 lg:grid-cols-[66%_34%] gap-4">
             <div className="border border-gray-100 rounded-lg p-4 sm:p-5">
-              <h3 className="font-medium text-gray-900 mb-4">Vendor Distribution</h3>
+              <h3 className="font-medium text-gray-900 mb-4">Partner Distribution</h3>
               <DataTable columns={columns} rows={vendors} minWidth="600px" />
             </div>
             <div className="border border-gray-100 rounded-lg p-4 sm:p-5">
               <h3 className="font-medium text-gray-900 mb-4">Insights &amp; Highlights</h3>
               <ul className="space-y-4">
-                <Insight icon={<FiCheckCircle className="text-emerald-500" />} bg="bg-emerald-50" title="Freight Forwarders handel 50% of all shipments." sub="12 Vendors in this category" />
+                <Insight icon={<FiCheckCircle className="text-emerald-500" />} bg="bg-emerald-50" title="Freight Forwarders handel 50% of all shipments." sub="12 Partners in this category" />
                 <Insight icon={<FiAward className="text-purple-500" />} bg="bg-purple-50" title="Best Performance by Customs brokers with 90%" sub="on-time delivery" />
                 <Insight icon={<FiTruck className="text-orange-500" />} bg="bg-orange-50" title="Transport (local) have the" sub="highest issue rate at 17%" />
                 <Insight icon={<FiUsers className="text-blue-500" />} bg="bg-blue-50" title="Oceanic logistics is the top performer with 90%" sub="on-time delivery" />
@@ -231,7 +231,7 @@ export default function VendorInsightsDetailedAnalytics({ onClose }) {
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-emerald-50 rounded-lg p-4">
             <p className="flex items-start gap-2 text-sm text-gray-700">
               <FiInfo className="text-emerald-600 shrink-0 mt-0.5" />
-              Tip: Work more with top- performing vendors like Oceanic Logistics and SafeWay Customs for better reliability
+              Tip: Work more with top- performing partners like Oceanic Logistics and SafeWay Customs for better reliability
             </p>
             <div className="flex items-center gap-3 shrink-0">
               <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-sm text-gray-700 whitespace-nowrap">

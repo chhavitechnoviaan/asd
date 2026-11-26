@@ -98,6 +98,7 @@ const notificationSchema = new mongoose.Schema({
             "Shipment",
             "Compliance",
             "Finance",
+            "Sub-admin Activity",
             "System"
         ]
     },

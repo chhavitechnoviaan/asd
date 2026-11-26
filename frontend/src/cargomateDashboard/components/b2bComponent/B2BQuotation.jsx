@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 
 import React, { useMemo, useState } from "react";
 import {
@@ -181,17 +182,17 @@ export default function B2BQuotation({ shipment, quotation, onClose, onAccept, o
       setLoading(true);
       if (onAccept) await onAccept();
     } catch (err) {
-      alert(err?.response?.data?.message || "Failed to accept quotation");
+      appAlert(err?.response?.data?.message || "Failed to accept quotation");
     } finally { setLoading(false); }
   };
 
   const handleReject = async () => {
-    if (!rejectReason.trim()) { alert("Please enter rejection reason"); return; }
+    if (!rejectReason.trim()) { appAlert("Please enter rejection reason"); return; }
     try {
       setLoading(true);
       if (onReject) await onReject(rejectReason.trim());
     } catch (err) {
-      alert(err?.response?.data?.message || "Failed to reject quotation");
+      appAlert(err?.response?.data?.message || "Failed to reject quotation");
     } finally { setLoading(false); }
   };
 

@@ -52,7 +52,7 @@ export default function B2BLogin({ onBack, onSignUp }) {
             Welcome Back!
           </h1>
           <p className="mt-1 text-sm text-gray-500 text-center">
-            Log in into your B2B account
+            Log in into your Partner account
           </p>
         </div>
 

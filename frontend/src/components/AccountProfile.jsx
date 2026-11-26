@@ -165,7 +165,7 @@ export function AccountBadge(){
   },[open]);
   useEffect(()=>{let current=true;const reload=()=>accountRequest("/").then(d=>{if(current)setUser(d.user)}).catch(()=>{});reload();window.addEventListener("cargomate:profile-updated",reload);return()=>{current=false;window.removeEventListener("cargomate:profile-updated",reload)}},[]);
   useEffect(()=>{if(role!=="b2b")return;let mounted=true;getAccountSummary().then(res=>{const status=res?.data?.data?.user?.kycStatus; if(mounted)setServerKycStatus(status ?? null);}).catch(()=>{});return()=>{mounted=false};},[role]);
-  const logout=()=>{clearSession();nav("/login",{replace:true})};
+  const logout=async()=>{try{await (await import("../cargomateDashboard/api/axios")).default.post("/auth/logout",{}, {timeout:5000});}catch(e){console.warn("Logout audit unavailable");}clearSession();nav("/login",{replace:true})};
   return <div ref={triggerRef} className="relative group" onMouseEnter={()=>setOpen(true)}>
     <button type="button" aria-expanded={open} onClick={()=>setOpen(v=>!v)} onFocus={()=>setOpen(true)} className="flex items-center gap-2 px-2 py-1 text-left rounded-xl hover:bg-teal-50 focus-visible:outline focus-visible:outline-teal-500" title="Open account menu">
       {user?.profileImage?<img src={profileSrc(user.profileImage)} alt="Profile" onError={e=>{e.currentTarget.style.display="none"}} className="w-10 h-10 rounded-full object-cover"/>:<span className="w-10 h-10 rounded-full bg-gradient-to-br from-[#14B8A6] to-[#0D9488] text-white flex items-center justify-center font-bold">{(user?.name||role)[0].toUpperCase()}</span>}
@@ -254,7 +254,7 @@ export default function AccountProfile({ embedded=false }) {
               <input type="password" placeholder="Current password" value={oldPassword} onChange={e=>setOldPassword(e.target.value)} className="w-full border rounded-xl px-4 py-3"/>
               <input type="password" placeholder="New password (8+ characters)" value={newPassword} onChange={e=>setNewPassword(e.target.value)} className="w-full border rounded-xl px-4 py-3"/>
               <button disabled={busy} onClick={changePassword} className="w-full rounded-xl bg-[#002259] px-4 py-3 text-sm font-semibold text-white hover:bg-[#123C73] disabled:opacity-60">Change password</button>
-              <button onClick={()=>{clearSession();nav("/login",{replace:true})}} className="w-full text-left text-sm font-medium text-red-600 py-2 hover:underline">Sign out</button>
+              <button onClick={async()=>{try{await (await import("../cargomateDashboard/api/axios")).default.post("/auth/logout",{}, {timeout:5000});}catch(e){console.warn("Logout audit unavailable");}clearSession();nav("/login",{replace:true})}} className="w-full text-left text-sm font-medium text-red-600 py-2 hover:underline">Sign out</button>
             </div>
           </section>
         </div>

@@ -285,7 +285,7 @@ const rules = [
   [/^\/api\/trade-invoices(?:\/|$)/, (m)=>['shipment',read(m)?'view':'edit']],
 ];
 const personal = [
-  /^\/api\/auth\/me(?:\/|$)/,
+  /^\/api\/auth\/(?:me|logout)(?:\/|$)/,
   /^\/api\/profile(?:\/|$)/,
   /^\/api\/notifications(?:\/|$)/,
   /^\/api\/alerts-notifications\/notifications(?:\/|$)/,
@@ -293,6 +293,11 @@ const personal = [
 function allowedForStaff(user, method, url) {
   const path = url.split('?')[0];
   if (personal.some((r)=>r.test(path))) return { ok: true, personal: true };
+  // Exact assignment endpoint: controller checks the target customer's actual role.
+  if (method === 'POST' && /^\/api\/ai-subscription\/admin\/customers\/[^/]+\/plan\/?$/.test(path)) {
+    const ok = ['users','vendors'].some(module => hasPermission(user,module,'view') && hasPermission(user,module,'changePlan'));
+    return {ok, reason:'Permission denied: customer changePlan'};
+  }
   const found = rules.find(([regex])=>regex.test(path));
   if (!found) return {ok:false,reason:`Staff API route is not mapped to a module: ${method} ${path}`};
   const requirement = found[1](method,path);

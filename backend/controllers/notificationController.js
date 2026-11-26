@@ -48,8 +48,16 @@ exports.getNotifications = async (req, res) => {
       };
     }
 
-    const notifications = await Notification.find(query)
-      .sort({ createdAt: -1 });
+    const notifications = await Notification.find(query).sort({ createdAt: -1 }).lean();
+    require('../services/notificationMail');
+    const Job=require('mongoose').model('NotificationMailJob');
+    const keys=notifications.map(n=>String(n._id));
+    const mainAdmin=req.user.roleName==='admin'&&!req.user.isInternalStaff;
+    const adminKey=n=>mainAdmin&&n.eventKey?.includes(':admin:')?n.eventKey.slice(n.eventKey.indexOf(':admin:')+1):null;
+    if(mainAdmin)keys.push(...notifications.map(adminKey).filter(Boolean));
+    const jobs=await Job.find({key:{$in:keys}}).select('key state').lean();
+    const states=new Map(jobs.map(j=>[j.key,j.state]));
+    for(const n of notifications)n.emailStatus=states.get(String(n._id))||states.get(adminKey(n))||'not queued';
 
     res.json({
       status: 1,

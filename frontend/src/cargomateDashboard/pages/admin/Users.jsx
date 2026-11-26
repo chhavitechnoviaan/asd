@@ -1,3 +1,4 @@
+import { createdDate, createdTime } from "../../../lib/accountCreated";
 // // import Swal from "sweetalert2";
 // // import { glassSuccess, glassError } from "../../utils/glassAlert";
 // // import { useEffect, useMemo, useState } from "react";
@@ -146,7 +147,8 @@
 // //           onSubmit={handleSubmit}
 // //           className="space-y-5"
 // //         >
-// //           {/* Basic Information */}
+// //           <div className="grid grid-cols-2 gap-3 rounded-xl bg-slate-50 p-4 text-sm"><div><p className="text-slate-500">Created On (Date)</p><strong>{createdDate(user.createdAt)}</strong></div><div><p className="text-slate-500">Created On (Time)</p><strong>{createdTime(user.createdAt)}</strong></div></div>
+          {/* Basic Information */}
 // //           <div className="border-t pt-4">
 // //             <p className="text-sm font-medium mb-3">
 // //               Basic Information
@@ -828,7 +830,9 @@
 // //                   Subscription (Plan)
 // //                 </th>
 
-// //                 <th>Status</th>
+// //                 <th>Created On (Date)</th>
+//                 <th>Created On (Time)</th>
+//                 <th>Status</th>
 
 // //                 <th>Actions</th>
 // //               </tr>
@@ -838,7 +842,7 @@
 // //               {loading ? (
 // //                 <tr>
 // //                   <td
-// //                     colSpan="6"
+// //                     colSpan="8"
 // //                     className="text-center py-10 text-gray-400"
 // //                   >
 // //                     Loading users...
@@ -848,7 +852,7 @@
 // //                 0 ? (
 // //                 <tr>
 // //                   <td
-// //                     colSpan="6"
+// //                     colSpan="8"
 // //                     className="text-center py-10 text-gray-400"
 // //                   >
 // //                     No users found
@@ -1806,6 +1810,8 @@
 //                   Subscription (Plan)
 //                 </th>
 
+//                 <th>Created On (Date)</th>
+//                 <th>Created On (Time)</th>
 //                 <th>Status</th>
 
 //                 <th>Actions</th>
@@ -1816,7 +1822,7 @@
 //               {loading ? (
 //                 <tr>
 //                   <td
-//                     colSpan="6"
+//                     colSpan="8"
 //                     className="text-center py-10 text-gray-400"
 //                   >
 //                     Loading users...
@@ -1826,7 +1832,7 @@
 //                 0 ? (
 //                 <tr>
 //                   <td
-//                     colSpan="6"
+//                     colSpan="8"
 //                     className="text-center py-10 text-gray-400"
 //                   >
 //                     No users found
@@ -1963,7 +1969,7 @@ import { FiSearch, FiEdit, FiActivity, FiTrash2 } from "react-icons/fi";
 import { RxCross1 } from "react-icons/rx";
 import { toast } from "react-toastify";
 import API from "../../api/axios";
-import AdminCustomerPlanEditor from "./AdminCustomerPlanEditor";
+import { CustomerPlanDialog } from "./AdminCustomerPlanEditor";
 
 const ITEMS_PER_PAGE = 5;
 
@@ -2106,6 +2112,7 @@ function EditDrawer({
           onSubmit={handleSubmit}
           className="space-y-5"
         >
+          <div className="grid grid-cols-2 gap-3 rounded-xl bg-slate-50 p-4 text-sm"><div><p className="text-slate-500">Created On (Date)</p><strong>{createdDate(user.createdAt)}</strong></div><div><p className="text-slate-500">Created On (Time)</p><strong>{createdTime(user.createdAt)}</strong></div></div>
           {/* Basic Information */}
           <div className="border-t pt-4">
             <p className="text-sm font-medium mb-3">
@@ -2191,7 +2198,7 @@ function EditDrawer({
             </p>
 
             <p className="text-sm text-slate-600">Current: {user.purchasedPlan ?? "No active purchased plan"}</p>
-            <p className="mt-1 text-xs text-slate-500">Select an eligible User plan below to apply it.</p>
+            <p className="mt-1 text-xs text-slate-500">Use the separate Change Plan action to update the subscription.</p>
           </div>
 
           <button
@@ -2204,7 +2211,7 @@ function EditDrawer({
               : "Save Changes"}
           </button>
         </form>
-        <AdminCustomerPlanEditor customer={user} audience="user" onUpdated={onPlanUpdated} />
+        
       </div>
     </div>
   );
@@ -2213,6 +2220,8 @@ function EditDrawer({
 export default function UsersSection({permissions=null}) {
   const canView = permissions === null || permissions?.view === true;
   const canEdit = permissions === null || permissions?.edit === true;
+  const canChangePlan = permissions === null || (permissions?.view === true && permissions?.changePlan === true);
+  const [planCustomer, setPlanCustomer] = useState(null);
   const canDelete = permissions === null || permissions?.delete === true;
   const [allUsers, setAllUsers] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -2788,6 +2797,8 @@ export default function UsersSection({permissions=null}) {
                   Subscription (Plan)
                 </th>
 
+                <th>Created On (Date)</th>
+                <th>Created On (Time)</th>
                 <th>Status</th>
 
                 <th>Actions</th>
@@ -2798,7 +2809,7 @@ export default function UsersSection({permissions=null}) {
               {loading ? (
                 <tr>
                   <td
-                    colSpan="6"
+                    colSpan="8"
                     className="text-center py-10 text-gray-400"
                   >
                     Loading users...
@@ -2808,7 +2819,7 @@ export default function UsersSection({permissions=null}) {
                 0 ? (
                 <tr>
                   <td
-                    colSpan="6"
+                    colSpan="8"
                     className="text-center py-10 text-gray-400"
                   >
                     No users found
@@ -2843,6 +2854,8 @@ export default function UsersSection({permissions=null}) {
                         {user.purchasedPlan || "Free"}
                       </td>
 
+                      <td className="whitespace-nowrap">{createdDate(user.createdAt)}</td>
+                      <td className="whitespace-nowrap">{createdTime(user.createdAt)}</td>
                       <td>
                         <span
                           className={`px-2 py-1 rounded-full text-xs ${
@@ -2857,7 +2870,7 @@ export default function UsersSection({permissions=null}) {
                       </td>
 
                       <td>
-                        <div className="flex items-center gap-3">{canEdit && <button title="Edit User" onClick={()=>setEditUser(user)}><FiEdit className="text-teal-600 text-lg"/></button>}{canDelete && <button title="Deactivate User" onClick={()=>deactivateUser(user)}><FiTrash2 className="text-red-500 text-lg"/></button>}{!canEdit && !canDelete && <span className="text-xs text-slate-500">View only</span>}</div>
+                        <div className="flex items-center gap-3">{canEdit && <button title="Edit User" onClick={()=>setEditUser(user)}><FiEdit className="text-teal-600 text-lg"/></button>}{canDelete && <button title="Deactivate User" onClick={()=>deactivateUser(user)}><FiTrash2 className="text-red-500 text-lg"/></button>}<button type="button" disabled={!canChangePlan} title={canChangePlan ? "Change Plan" : "Change Plan permission required"} onClick={()=>setPlanCustomer(user)} className="rounded-lg border border-teal-200 px-2 py-1 text-xs text-teal-700 disabled:opacity-40 disabled:cursor-not-allowed">Change Plan</button>{!canEdit && !canDelete && !canChangePlan && <span className="text-xs text-slate-500">View only</span>}</div>
                       </td>
                     </tr>
                   )
@@ -2920,6 +2933,7 @@ export default function UsersSection({permissions=null}) {
 
       {/* EDIT DRAWER */}
 
+      {canChangePlan && planCustomer && <CustomerPlanDialog customer={planCustomer} audience="user" onClose={()=>setPlanCustomer(null)} onUpdated={fetchUsers} />}
       {canEdit && editUser && (
         <EditDrawer
           user={editUser}

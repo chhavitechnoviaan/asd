@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 import { useState } from "react";
 import API from "../../api/axios";
 import {
@@ -75,7 +76,7 @@ export default function RejectKYCModal({
   } catch (err) {
     console.error("Reject KYC failed", err);
 
-    alert(
+    appAlert(
       err?.response?.data?.message ||
         err?.message ||
         "Failed to reject KYC"

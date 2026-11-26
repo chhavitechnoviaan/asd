@@ -901,7 +901,8 @@ exports.uploadKYCDocuments = async (req, res) => {
    
     await user.save();
 
-    res.json({
+    await require('../services/businessNotification').business(req,{userId:user._id,title:'KYC documents updated',message:'Your KYC documents were uploaded or updated.',type:'User'});
+res.json({
       status: 1,
       message: "KYC documents uploaded successfully",
       data: {
@@ -966,7 +967,8 @@ exports.submitKYC = async (req, res) => {
 
     await user.save();
 
-    res.json({
+    await require('../services/businessNotification').business(req,{userId:user._id,title:'KYC submitted',message:'Your KYC documents are now under review.',type:'User'});
+res.json({
       status: 1,
       message: "KYC submitted successfully. Your documents are now under review.",
       data: {

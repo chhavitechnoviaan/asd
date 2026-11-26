@@ -4,7 +4,7 @@ import { ArrowLeft, Eye, EyeOff, ShieldCheck, UserRound, Building2, Ship } from 
 
 const DEMO_ACCOUNTS = [
   { role: "User", email: "demo.user@cargomate.com", password: "User@123", path: "/user-dashboard", icon: UserRound, color: "blue", description: "Explore trade tools and user features" },
-  { role: "B2B", email: "demo.b2b@cargomate.com", password: "B2B@123", path: "/b2b-dashboard", icon: Building2, color: "teal", description: "Access business and B2B features" },
+  { role: "B2B", email: "demo.b2b@cargomate.com", password: "B2B@123", path: "/b2b-dashboard", icon: Building2, color: "teal", description: "Access business and Partner features" },
   { role: "Admin", email: "demo.admin@cargomate.com", password: "Admin@123", path: "/admin-dashboard", icon: ShieldCheck, color: "violet", description: "Open the admin management dashboard" },
 ];
 
@@ -45,7 +45,7 @@ export default function DemoLoginPage() {
             <Ship className="h-4 w-4" /> CargoMate demo access
           </div>
           <h1 className="max-w-xl text-5xl font-bold leading-tight tracking-tight">One platform.<br /><span className="text-teal-300">Three ways to work.</span></h1>
-          <p className="mt-5 max-w-lg text-lg leading-8 text-slate-300">Sign in with a demo account to preview the User, B2B, or Admin dashboard. No backend integration is used.</p>
+          <p className="mt-5 max-w-lg text-lg leading-8 text-slate-300">Sign in with a demo account to preview the User, Partner, or Admin dashboard. No backend integration is used.</p>
           <div className="mt-10 flex flex-wrap gap-3 text-sm text-slate-300">
             <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2">Frontend-only demo</span>
             <span className="rounded-full border border-white/10 bg-white/5 px-4 py-2">No API requests</span>
@@ -71,7 +71,7 @@ export default function DemoLoginPage() {
                   <button key={account.role} type="button" onClick={() => chooseAccount(account)}
                     className={`rounded-2xl border p-3 text-left transition hover:-translate-y-0.5 hover:shadow-md ${selected ? "border-teal-500 bg-teal-50 ring-2 ring-teal-100" : "border-slate-200 bg-white hover:border-slate-300"}`}>
                     <div className={`mb-3 flex h-9 w-9 items-center justify-center rounded-xl ${account.color === "blue" ? "bg-blue-100 text-blue-700" : account.color === "teal" ? "bg-teal-100 text-teal-700" : "bg-violet-100 text-violet-700"}`}><Icon className="h-5 w-5" /></div>
-                    <div className="font-semibold text-slate-900">{account.role}</div>
+                    <div className="font-semibold text-slate-900">{account.role === "B2B" ? "Partner" : account.role}</div>
                     <div className="mt-1 text-xs leading-5 text-slate-500">{account.description}</div>
                   </button>
                 );

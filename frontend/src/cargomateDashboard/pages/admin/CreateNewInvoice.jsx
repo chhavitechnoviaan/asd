@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 
 // mahima code //
 
@@ -385,17 +386,17 @@ export default function CreateNewInvoice({
 
   const saveEdit = (id) => {
     if (!editValues.name?.trim()) {
-      alert("Please enter Charge Name.");
+      appAlert("Please enter Charge Name.");
       return;
     }
   
     if (toNumber(editValues.qty) <= 0) {
-      alert("Quantity must be greater than 0.");
+      appAlert("Quantity must be greater than 0.");
       return;
     }
   
     if (toNumber(editValues.unitPrice) <= 0) {
-      alert("Rate must be greater than 0.");
+      appAlert("Rate must be greater than 0.");
       return;
     }
   
@@ -572,7 +573,7 @@ export default function CreateNewInvoice({
     const validationErrors = validateInvoice();
   
     if (validationErrors.length > 0) {
-      alert(
+      appAlert(
         "Please complete the following required fields:\n\n" +
         validationErrors.map((field, index) => `${index + 1}. ${field}`).join("\n")
       );
@@ -602,13 +603,13 @@ export default function CreateNewInvoice({
   
       if (!shipmentId) {
         console.error("Shipment ID missing:", shipment);
-        alert("Shipment ID not found");
+        appAlert("Shipment ID not found");
         return;
       }
   
       if (!quotationId) {
         console.error("Quotation ID missing:", quotation);
-        alert("Quotation ID not found");
+        appAlert("Quotation ID not found");
         return;
       }
   
@@ -714,7 +715,7 @@ export default function CreateNewInvoice({
   
       console.log("INVOICE CREATED:", response.data);
   
-      alert("Invoice created successfully");
+      appAlert("Invoice created successfully");
   
       if (onSuccess) {
         onSuccess(response.data);
@@ -725,7 +726,7 @@ export default function CreateNewInvoice({
     } catch (error) {
       console.error("CREATE INVOICE ERROR:", error);
   
-      alert(
+      appAlert(
         error?.response?.data?.message ||
         "Failed to create invoice"
       );

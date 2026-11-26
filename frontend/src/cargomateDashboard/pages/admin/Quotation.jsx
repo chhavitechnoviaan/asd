@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 import React, { useMemo, useState } from "react";
 import {
   LuFileText,
@@ -265,7 +266,7 @@ All disputes are subject to applicable jurisdiction.`,
       console.log("FULL SHIPMENT OBJECT:", shipment);
       console.log("NORMALIZED SHIPMENT DATA:", shipmentData);
   
-      alert(
+      appAlert(
         "Shipment MongoDB ID not found. Please check shipment data."
       );
   
@@ -277,7 +278,7 @@ All disputes are subject to applicable jurisdiction.`,
     // ============================
   
     if (!formData.validUntil) {
-      alert("Please select valid until date");
+      appAlert("Please select valid until date");
       return;
     }
   
@@ -293,7 +294,7 @@ All disputes are subject to applicable jurisdiction.`,
     );
   
     if (!validCharges.length) {
-      alert("Please add at least one valid charge");
+      appAlert("Please add at least one valid charge");
       return;
     }
   
@@ -374,7 +375,7 @@ All disputes are subject to applicable jurisdiction.`,
   
       setCreatedQuotation(quotation);
   
-      alert("Quotation created successfully");
+      appAlert("Quotation created successfully");
   
       if (onSuccess) {
         onSuccess(quotation);
@@ -391,7 +392,7 @@ All disputes are subject to applicable jurisdiction.`,
         error?.response?.data
       );
   
-      alert(
+      appAlert(
         error?.response?.data?.message ||
         "Failed to create quotation"
       );
@@ -407,12 +408,12 @@ All disputes are subject to applicable jurisdiction.`,
 
   const handleShareQuotation = async () => {
     if (!shipmentMongoId) {
-      alert("Shipment ID not found");
+      appAlert("Shipment ID not found");
       return;
     }
   
     if (!formData.validUntil) {
-      alert("Please select valid until date");
+      appAlert("Please select valid until date");
       return;
     }
   
@@ -424,7 +425,7 @@ All disputes are subject to applicable jurisdiction.`,
     );
   
     if (!validCharges.length) {
-      alert("Please add at least one valid charge");
+      appAlert("Please add at least one valid charge");
       return;
     }
   
@@ -524,8 +525,8 @@ All disputes are subject to applicable jurisdiction.`,
         shareResponse.data?.quotation ||
         shareResponse.data;
   
-      alert(
-        "Quotation shared successfully with B2B"
+      appAlert(
+        "Quotation shared successfully with Partner"
       );
   
       if (onSuccess) {
@@ -546,7 +547,7 @@ All disputes are subject to applicable jurisdiction.`,
         error?.response?.data
       );
   
-      alert(
+      appAlert(
         error?.response?.data?.message ||
         error?.message ||
         "Failed to share quotation"
@@ -794,7 +795,7 @@ const approvedDate = getValue(
                   </span>
                 </div>
                 <p className="mt-1 text-xs text-blue-100/80 sm:text-sm">
-                  Prepare freight charges, review shipment information and share with your B2B customer.
+                  Prepare freight charges, review shipment information and share with your Partner customer.
                 </p>
                 <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-[11px] text-blue-100/75">
                   <span className="inline-flex items-center gap-1.5"><LuFileText size={13} /> Quote {formData.quoteVersion || "V.1"}</span>

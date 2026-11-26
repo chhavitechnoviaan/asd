@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 // // // // // // import ModuleHero from "../../components/ModuleHero";
 // // // // // // import { usePublicConfig } from "../../../lib/publicConfig";
 // // // // // // import FeatureQuotaGate, {
@@ -10269,7 +10270,7 @@ function SubmittedShipmentsTable({ shipments, loading, error, onRefresh }) {
   const downloadDocument = async (document, index = 0) => {
     const meta = getDocumentMeta(document, index);
     if (!meta.url) {
-      window.alert("Document URL is missing in the saved document record.");
+      appAlert("Document URL is missing in the saved document record.");
       return;
     }
     try {
@@ -10290,7 +10291,7 @@ function SubmittedShipmentsTable({ shipments, loading, error, onRefresh }) {
       URL.revokeObjectURL(objectUrl);
     } catch (error) {
       console.error("SHIPMENT DOCUMENT DOWNLOAD ERROR:", error);
-      window.alert(
+      appAlert(
         error?.response?.data?.message ||
         "Download failed. Please verify that the backend file URL is accessible."
       );

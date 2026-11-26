@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 import { useEffect, useMemo, useState } from "react";
 import API from "../../api/axios";
 import {
@@ -143,7 +144,7 @@ export default function KYCVerificationModal({
       onApprove(updatedUser);
     }
 
-    alert(
+    appAlert(
       response.data?.message ||
         "KYC approved successfully"
     );
@@ -155,7 +156,7 @@ export default function KYCVerificationModal({
       err.response?.data || err
     );
 
-    alert(
+    appAlert(
       err.response?.data?.message ||
         err.message ||
         "Failed to approve KYC"
@@ -247,7 +248,7 @@ export default function KYCVerificationModal({
                 </h3>
 
                 <span className="bg-indigo-100 text-indigo-700 text-xs font-semibold px-2.5 py-1 rounded-full">
-                  B2B USER
+                  Partner USER
                 </span>
               </div>
 

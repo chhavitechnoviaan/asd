@@ -67,7 +67,7 @@ const dataSources = [
   "My Shipments",
   "Shipment Tracking",
   "Cost Breakdown",
-  "Vendor Recommendations",
+  "Partner Recommendations",
   "Documents Center",
 ];
 

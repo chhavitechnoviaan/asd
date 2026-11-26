@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 import { useState, useRef, useEffect } from "react";
 import { FiX, FiPlus, FiChevronDown, FiPhone, FiMessageSquare, FiCheckCircle, FiStar, FiZap } from "react-icons/fi";
 import { BsCalendar2Check, BsPerson, BsFileText,  } from "react-icons/bs";
@@ -83,7 +84,7 @@ export default function WhatsappBot({showBot, setShowBot, fabOpen, setFabOpen}) 
 
   const handleSaveConfigure = (e) => {
     e.preventDefault();
-    alert("Configuration saved!");
+    appAlert("Configuration saved!");
   };
 
   const handleTestWebhook = () => {
@@ -99,8 +100,8 @@ export default function WhatsappBot({showBot, setShowBot, fabOpen, setFabOpen}) 
 
   
 
-  const addIntent = () => {
-    const name = prompt("Enter intent name:");
+  const addIntent = async () => {
+    const name = await appPrompt("Enter intent name:");
     if (name) setIntents((p) => [...p, { name, active: true }]);
   };
 

@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 // // // // // // import React, { useState, useMemo, useEffect } from "react";
 // // // // // // import {
 // // // // // //   getDashboard,
@@ -8068,7 +8069,7 @@ export default function ShipmentDatabase() {
       const rows = getRecordArray(getResponseData(res));
 
       if (!rows.length) {
-        alert("No records available to export.");
+        appAlert("No records available to export.");
         return;
       }
 
@@ -8121,7 +8122,7 @@ export default function ShipmentDatabase() {
       URL.revokeObjectURL(url);
     } catch (error) {
       console.error("Export error:", error);
-      alert("Unable to export shipment report.");
+      appAlert("Unable to export shipment report.");
     } finally {
       setExporting(false);
     }

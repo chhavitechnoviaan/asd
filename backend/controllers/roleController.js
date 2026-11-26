@@ -728,7 +728,9 @@ exports.updateRole = async (req, res) => {
     }
     const updated = await Role.findByIdAndUpdate(req.params.id, { $set: updates }, { new: true, runValidators: true });
 
-    res.json({
+    await require('../services/businessNotification').business(req,{title:'Role permissions updated',message:`Role ${updated.name} was updated.`});
+try { for(const staff of await User.find({roleId:updated._id,isInternalStaff:true}).select('_id').lean()) await require('../services/actionNotification').notifyAction({userId:staff._id,title:'Role permissions updated',message:'Your assigned role permissions or status have changed.'}); } catch(e){console.error('Role notification:',e.message);}
+res.json({
       status: 1,
       message: "Role updated successfully",
       data: updated
@@ -748,7 +750,8 @@ exports.deleteRole = async (req, res) => {
     if (await User.exists({roleId:req.params.id})) return res.status(409).json({status:0,message:"Reassign sub-admins before deleting role"});
     await Role.findByIdAndDelete(req.params.id);
 
-    res.json({
+    await require('../services/businessNotification').business(req,{title:'Role deleted',message:`Role ${existing.name} was deleted.`});
+res.json({
       status: 1,
       message: "Role deleted successfully"
     });

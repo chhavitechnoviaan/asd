@@ -3011,7 +3011,7 @@ export default function NoticesSection({ mode: parentMode, setMode: setParentMod
                   {[
                     { id: "all", label: "All Users & Dealers", desc: "Visible to everyone", icon: FiGlobe },
                     { id: "customers", label: "Customers Only", desc: "Exporters & Importers", icon: FiUsers },
-                    { id: "dealers", label: "Dealers / Vendors", desc: "B2B Partner network", icon: FiRadio },
+                    { id: "dealers", label: "Dealers / Partners", desc: "Partner Partner network", icon: FiRadio },
                   ].map((aud) => {
                     const Icon = aud.icon;
                     const isSelected = form.targetAudience === aud.id;

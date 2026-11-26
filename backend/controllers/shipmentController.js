@@ -10948,7 +10948,8 @@ exports.approveShipment = async (req, res) => {
     });
 
     await shipmentNotify({userId:shipment.userId,title:"Shipment approved",message:`Shipment ${shipment._id}: ${shipment.shipmentStatus}`,type:"Shipment",category:"Shipment",relatedId:shipment._id,eventKey:`shipment:${shipment._id}:approveShipment:${shipment.lastStatusUpdatedAt}`});
-await shipmentAdminNotify({title:"Shipment approved",message:`Shipment ${shipment._id}: ${shipment.shipmentStatus}`,type:"Shipment",module:"shipment",relatedId:shipment._id,eventKey:`shipment:${shipment._id}:approveShipment:${shipment.lastStatusUpdatedAt}`});
+await shipmentAdminNotify({...{title:"Shipment approved",message:`Shipment ${shipment._id}: ${shipment.shipmentStatus}`,type:"Shipment",module:"shipment",relatedId:shipment._id,eventKey:`shipment:${shipment._id}:approveShipment:${shipment.lastStatusUpdatedAt}`},...(req.user.isInternalStaff?{category:"Sub-admin Activity",mainAdminOnly:true,message:`Shipment ${shipment._id}: ${shipment.shipmentStatus} | Performed by: ${req.user.name} | Role: ${req.user.roleId?.name}`}: {})});
+if(req.user.isInternalStaff)req.staffAlertHandled=true;
     return res.json({
       status: 1,
       message: "Shipment approved successfully.",
@@ -11013,7 +11014,8 @@ exports.rejectShipment = async (req, res) => {
     });
 
     await shipmentNotify({userId:shipment.userId,title:"Shipment rejected",message:`Shipment ${shipment._id}: ${shipment.shipmentStatus}`,type:"Shipment",category:"Shipment",relatedId:shipment._id,eventKey:`shipment:${shipment._id}:rejectShipment:${shipment.lastStatusUpdatedAt}`});
-await shipmentAdminNotify({title:"Shipment rejected",message:`Shipment ${shipment._id}: ${shipment.shipmentStatus}`,type:"Shipment",module:"shipment",relatedId:shipment._id,eventKey:`shipment:${shipment._id}:rejectShipment:${shipment.lastStatusUpdatedAt}`});
+await shipmentAdminNotify({...{title:"Shipment rejected",message:`Shipment ${shipment._id}: ${shipment.shipmentStatus}`,type:"Shipment",module:"shipment",relatedId:shipment._id,eventKey:`shipment:${shipment._id}:rejectShipment:${shipment.lastStatusUpdatedAt}`},...(req.user.isInternalStaff?{category:"Sub-admin Activity",mainAdminOnly:true,message:`Shipment ${shipment._id}: ${shipment.shipmentStatus} | Performed by: ${req.user.name} | Role: ${req.user.roleId?.name}`}: {})});
+if(req.user.isInternalStaff)req.staffAlertHandled=true;
     return res.json({
       status: 1,
       message: "Shipment rejected successfully.",
@@ -11754,7 +11756,8 @@ exports.deleteShipmentDocument = async (req, res) => {
       message: `${document.documentName || "Document"} deleted successfully.`
     });
 
-    return res.json({
+    await require('../services/businessNotification').business(req,{userId:shipment.userId,title:'Shipment document deleted',message:'A document was removed from your shipment.',type:'Document'});
+return res.json({
       status: 1,
       message: "Document deleted successfully.",
       data: { documentId: document._id }
@@ -12093,7 +12096,8 @@ exports.updateShipmentStatus = async (req, res) => {
     });
 
     await shipmentNotify({userId:shipment.userId,title:"Shipment status updated",message:`Shipment ${shipment._id}: ${shipment.shipmentStatus}`,type:"Shipment",category:"Shipment",relatedId:shipment._id,eventKey:`shipment:${shipment._id}:updateShipmentStatus:${shipment.lastStatusUpdatedAt}`});
-await shipmentAdminNotify({title:"Shipment status updated",message:`Shipment ${shipment._id}: ${shipment.shipmentStatus}`,type:"Shipment",module:"shipment",relatedId:shipment._id,eventKey:`shipment:${shipment._id}:updateShipmentStatus:${shipment.lastStatusUpdatedAt}`});
+await shipmentAdminNotify({...{title:"Shipment status updated",message:`Shipment ${shipment._id}: ${shipment.shipmentStatus}`,type:"Shipment",module:"shipment",relatedId:shipment._id,eventKey:`shipment:${shipment._id}:updateShipmentStatus:${shipment.lastStatusUpdatedAt}`},...(req.user.isInternalStaff?{category:"Sub-admin Activity",mainAdminOnly:true,message:`Shipment ${shipment._id}: ${shipment.shipmentStatus} | Performed by: ${req.user.name} | Role: ${req.user.roleId?.name}`}: {})});
+if(req.user.isInternalStaff)req.staffAlertHandled=true;
     return res.json({
       status: 1,
       message: "Shipment status updated.",
@@ -12484,7 +12488,8 @@ await shipment.save();
   
       });
   
-      res.status(200).json({
+      await require('../services/businessNotification').business(req,{userId:shipment.userId,title:'Shipment tracking updated',message:`Your shipment tracking status is now ${status}.`,type:'Shipment',admin:true});
+res.status(200).json({
         status: 1,
         message: "Tracking updated successfully",
         data: tracking
@@ -12745,6 +12750,7 @@ console.log("========== CARGO DATABASE SAVE CHECK ==========");
 console.log(JSON.stringify(updatedShipment?.cargo, null, 2));
 console.log("================================================");
 
+await require('../services/businessNotification').business(req,{userId:shipment.userId,title:'Shipment updated',message:'Shipment details have been updated.',type:'Shipment',admin:true});
 return res.status(200).json({
   success: true,
   status: 1,

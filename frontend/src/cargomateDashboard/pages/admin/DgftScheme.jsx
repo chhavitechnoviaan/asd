@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 // import { useState } from "react";
 // import {
 //   FaPlus,
@@ -702,7 +703,7 @@ export default function DGFTSchemes({ permissions = null }) {
     if (!can("delete")) return;
     const id = getId(scheme);
     if (!id) { setError("Scheme ID missing; cannot delete this scheme."); return; }
-    if (!window.confirm(`Delete scheme \"${scheme.scheme_name || scheme.scheme_code}\"? This action cannot be undone.`)) return;
+    if (!await appConfirm(`Delete scheme \"${scheme.scheme_name || scheme.scheme_code}\"? This action cannot be undone.`)) return;
     try {
       setDeletingId(String(id));
       setError("");

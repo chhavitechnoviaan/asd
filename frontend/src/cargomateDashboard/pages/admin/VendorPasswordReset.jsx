@@ -28,12 +28,12 @@ export default function VendorPasswordReset({vendorId}) {
     });
     if (!confirmation.isConfirmed) return;
     setBusy(true);
-    try { await API.patch(`/vendors/${vendorId}/password`,{newPassword:password});setPassword("");setConfirm("");setMessage("Password reset successfully");await Swal.fire({icon:"success",title:"Password updated",text:"Vendor password reset successfully. Existing sessions have been invalidated.",confirmButtonColor:"#14B8A6",background:"#ffffff",color:"#002259",customClass:{popup:"rounded-2xl"}}); }
+    try { await API.patch(`/vendors/${vendorId}/password`,{newPassword:password});setPassword("");setConfirm("");setMessage("Password reset successfully");await Swal.fire({icon:"success",title:"Password updated",text:"Partner password reset successfully. Existing sessions have been invalidated.",confirmButtonColor:"#14B8A6",background:"#ffffff",color:"#002259",customClass:{popup:"rounded-2xl"}}); }
     catch(e){const msg=e.response?.data?.message||"Password reset failed";setError(msg);await Swal.fire({icon:"error",title:"Password reset failed",text:msg,confirmButtonColor:"#002259",background:"#ffffff",color:"#002259",customClass:{popup:"rounded-2xl"}});}
     finally{setBusy(false);}
   };
   return <form onSubmit={save} className="mt-4 space-y-3 rounded-xl border border-teal-100 bg-white p-4">
-    <h4 className="text-sm font-semibold text-[#002259]">Change Vendor Password</h4>
+    <h4 className="text-sm font-semibold text-[#002259]">Change Partner Password</h4>
     <p className="text-xs text-slate-500">Main Admin only. Password is never displayed and current sessions will be invalidated.</p>
     <label className="block text-xs font-semibold">New Password<input required autoComplete="new-password" minLength={12} maxLength={128} type={visible?"text":"password"} value={password} onChange={e=>setPassword(e.target.value)} className="mt-1 w-full rounded-lg border p-2" /></label>
     <label className="block text-xs font-semibold">Confirm Password<input required autoComplete="new-password" type={visible?"text":"password"} value={confirm} onChange={e=>setConfirm(e.target.value)} className="mt-1 w-full rounded-lg border p-2" /></label>

@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 // // import { useState } from "react";
 // // import { Copy } from "lucide-react";
 
@@ -497,7 +498,7 @@ export default function Documents({ shipment }) {
     const name = getDocumentName(doc);
   
     if (!url) {
-      alert("Document URL is missing.");
+      appAlert("Document URL is missing.");
       return;
     }
   
@@ -505,7 +506,7 @@ export default function Documents({ shipment }) {
     const newWindow = window.open(url, "_blank", "noopener,noreferrer");
   
     if (!newWindow) {
-      alert("Please allow popups for this website.");
+      appAlert("Please allow popups for this website.");
     }
   };
 

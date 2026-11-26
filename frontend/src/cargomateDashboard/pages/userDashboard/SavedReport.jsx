@@ -15,7 +15,7 @@ const categories = [
   { name: "All Reports", count: 42 },
   { name: "Shipment Reports", count: 18 },
   { name: "Cost & Finance Reports", count: 10 },
-  { name: "Vendor Reports", count: 6 },
+  { name: "Partner Reports", count: 6 },
   { name: "Compliance Reports", count: 4 },
   { name: "Document Reports", count: 3 },
   { name: "Performance Reports", count: 1 },
@@ -31,7 +31,7 @@ const quickAccess = [
 const categoryBadgeColors = {
   "Shipment Reports": "text-blue-600 bg-blue-50 border border-blue-200",
   "Cost & Finance Reports": "text-orange-600 bg-orange-50 border border-orange-200",
-  "Vendor Reports": "text-purple-600 bg-purple-50 border border-purple-200",
+  "Partner Reports": "text-purple-600 bg-purple-50 border border-purple-200",
   "Compliance Reports": "text-green-600 bg-green-50 border border-green-200",
   "Analytics & Trends": "text-teal-600 bg-teal-50 border border-teal-200",
   "Performance Reports": "text-pink-600 bg-pink-50 border border-pink-200",
@@ -41,7 +41,7 @@ const reports = [
   { id: 1, name: "Shipment Performance Overview", desc: "Overview of shipments with transit time and cost", category: "Shipment Reports", source: "My Shipments", createdBy: "Me", modified: "24 Apr 2025, 09:25 AM", frequency: "-", starred: true },
   { id: 2, name: "Monthly Export Summary", desc: "Detailed report summary and analysis", category: "Shipment Reports", source: "Shipment Tracking", createdBy: "Me", modified: "23 Apr 2025, 04:10 PM", frequency: "Monthly", starred: true },
   { id: 3, name: "Cost Analysis - Apr 2025", desc: "Detailed report summary and analysis", category: "Cost & Finance Reports", source: "Cost Breakdown", createdBy: "Me", modified: "23 Apr 2025, 11:30 AM", frequency: "-", starred: true },
-  { id: 4, name: "Top Vendors by Performance", desc: "Overview of shipments with transit time and cost", category: "Vendor Reports", source: "Vendor Recommendations", createdBy: "Me", modified: "22 Apr 2025, 03:45 PM", frequency: "Weekly", starred: true },
+  { id: 4, name: "Top Partners by Performance", desc: "Overview of shipments with transit time and cost", category: "Partner Reports", source: "Partner Recommendations", createdBy: "Me", modified: "22 Apr 2025, 03:45 PM", frequency: "Weekly", starred: true },
   { id: 5, name: "Compliance Document Status", desc: "Detailed report summary and analysis", category: "Compliance Reports", source: "Documents Center", createdBy: "Me", modified: "22 Apr 2025, 10:20 AM", frequency: "-", starred: true },
   { id: 6, name: "HS Code Usage Report", desc: "Detailed report summary and analysis", category: "Analytics & Trends", source: "HS Code Lookup", createdBy: "Me", modified: "21 Apr 2025, 06:15 PM", frequency: "Monthly", starred: true },
   { id: 7, name: "Pending Invoice Report", desc: "Detailed report summary and analysis", category: "Cost & Finance Reports", source: "My Shipments", createdBy: "Rohit Verma\nShared", modified: "20 Apr 2025, 02:40 PM", frequency: "Weekly", starred: true },
@@ -52,7 +52,7 @@ const reports = [
 
 const scheduled = [
   { name: "Monthly Export Summary", freq: "Monthly", next: "Next run: 01 May 2025, 09:00 AM", email: "arjun.soni@asdcargomate.com", enabled: true },
-  { name: "Top Vendors by Performance", freq: "Weekly", next: "Next run: 29 Apr 2025, 09:00 AM", email: "arjun.soni@asdcargomate.com", enabled: true },
+  { name: "Top Partners by Performance", freq: "Weekly", next: "Next run: 29 Apr 2025, 09:00 AM", email: "arjun.soni@asdcargomate.com", enabled: true },
   { name: "Document Expiry Alert", freq: "Daily", next: "Next run: 26 Apr 2025, 09:00 AM", email: "arjun.soni@asdcargomate.com", enabled: true },
   { name: "Cost Analysis - Apr 2025", freq: "Weekly", next: "Next run: 29 Apr 2025, 09:00 AM", email: "arjun.soni@asdcargomate.com", enabled: true },
 ];

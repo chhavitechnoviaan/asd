@@ -293,7 +293,8 @@ exports.deleteDocument = async (req, res) => {
     if (!document) return res.status(404).json({ status: 0, message: "Document not found" });
     if (fs.existsSync(document.fileUrl)) fs.unlinkSync(document.fileUrl);
     await ShipmentDocument.findByIdAndDelete(req.params.id);
-    return res.json({ status: 1, message: "Document deleted" });
+    await require('../services/businessNotification').business(req,{userId:document.uploadedBy,title:'Document deleted',message:'A document associated with your account was deleted.',type:'Document',admin:true});
+return res.json({ status: 1, message: "Document deleted" });
   } catch (err) {
     return res.status(500).json({ status: 0, message: err.message });
   }

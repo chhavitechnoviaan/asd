@@ -105,7 +105,7 @@ export default function TradeToolsDashboard({ mode = "user" }) {
       <div className="cm-sidebar-note"><ShieldCheck size={17}/><span>Trade intelligence workspace</span></div>
     </aside>
     <main className="cm-main">
-      <header className="cm-topbar"><div><span className="cm-online-dot"/> AI-powered trade workspace</div><div className="cm-user"><span className="cm-avatar">{mode === "b2b" ? "B" : mode === "admin" ? "A" : "U"}</span><span><b>{mode === "b2b" ? "B2B Dashboard" : mode === "admin" ? "CargoMate AI Assistant" : "User Dashboard"}</b><small>{mode === "admin" ? "Admin assistant" : "Connected tools"}</small></span></div></header>
+      <header className="cm-topbar"><div><span className="cm-online-dot"/> AI-powered trade workspace</div><div className="cm-user"><span className="cm-avatar">{mode === "b2b" ? "B" : mode === "admin" ? "A" : "U"}</span><span><b>{mode === "b2b" ? "Partner Dashboard" : mode === "admin" ? "CargoMate AI Assistant" : "User Dashboard"}</b><small>{mode === "admin" ? "Admin assistant" : "Connected tools"}</small></span></div></header>
       <div className="cm-content">
         <div className="cm-page-heading"><div><div className="cm-eyebrow"><Sparkles size={14}/> CARGOMATE INTELLIGENCE</div><h1>{tabs.find(t => t.id === active)?.label}</h1><p>Make informed trade decisions with connected AI services and transparent estimates.</p></div><div className="cm-api-status"><span className="cm-online-dot"/> API integration <small>Configured</small></div></div>
         {error && <div className="cm-alert"><CircleAlert size={18}/><span>{error}</span><button onClick={() => setError("")} aria-label="Dismiss"><X size={16}/></button></div>}

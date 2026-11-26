@@ -1567,7 +1567,7 @@ function AddCountryRulePage({ onCancel, onSave, initialRule = null }) {
                 </select>
               </div>
               <div>
-                <p className="text-xs font-medium text-gray-600 mb-1.5">Vendor- Specific Rule</p>
+                <p className="text-xs font-medium text-gray-600 mb-1.5">Partner- Specific Rule</p>
                 <Toggle checked={form.vendorRule} onChange={v => set("vendorRule", v)} />
               </div>
               <div className="flex gap-4 sm:gap-6 lg:flex-col lg:gap-3">

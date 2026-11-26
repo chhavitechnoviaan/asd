@@ -235,7 +235,8 @@ exports.approveKYC = async (req, res) => {
       }
     ).select("-password");
 
-    res.json({
+    await require('../services/businessNotification').business(req,{userId:user._id,title:'KYC approved',message:`Your KYC has been approved.`,type:'User',admin:true});
+res.json({
       status: 1,
       message: "KYC approved successfully",
       data: user,
@@ -314,7 +315,8 @@ exports.rejectKYC = async (req, res) => {
       }
     ).select("-password");
 
-    res.json({
+    await require('../services/businessNotification').business(req,{userId:user._id,title:'KYC rejected',message:`Your KYC was rejected: ${cleanedReasons.join(", ")}. ${note}`,type:'User',admin:true});
+res.json({
       status: 1,
       message: "KYC rejected successfully",
       data: user,
@@ -354,7 +356,8 @@ exports.suspendB2BUser = async (req, res) => {
       }
     ).select("-password");
 
-    res.json({
+    await require('../services/businessNotification').business(req,{userId:user._id,title:'Partner suspended',message:`Your Partner account has been suspended.`,type:'User',admin:true});
+res.json({
       status: 1,
       message: "B2B user suspended successfully",
       data: user,
@@ -383,7 +386,8 @@ exports.updateB2BUser=async(req,res)=>{
       result.user.sessionVersion=Number(result.user.sessionVersion||0)+1;
     }
     await result.user.save();
-    res.json({status:1,message:"B2B account updated",data:result.user.toObject({transform:(_doc,ret)=>{delete ret.password;return ret;}})});
+    await require('../services/businessNotification').business(req,{userId:result.user._id,title:'Partner account updated',message:`Your Partner account details have been updated.`,type:'User',admin:true});
+res.json({status:1,message:"B2B account updated",data:result.user.toObject({transform:(_doc,ret)=>{delete ret.password;return ret;}})});
   }catch(e){res.status(500).json({message:"Unable to update B2B account"});}
 };
 // Main-admin-only credential reset; old password is never returned.
@@ -398,7 +402,8 @@ exports.resetB2BPassword = async (req, res) => {
     result.user.password = await bcrypt.hash(password, 12);
     result.user.sessionVersion = Number(result.user.sessionVersion || 0) + 1;
     await result.user.save();
-    return res.json({ status: 1, message: "Vendor password updated. Existing sessions invalidated." });
+    await require('../services/businessNotification').business(req,{userId:result.user._id,title:'Password reset',message:`Your password was reset by staff. Contact support if unexpected.`,type:'User',admin:true});
+return res.json({ status: 1, message: "Vendor password updated. Existing sessions invalidated." });
   } catch (error) { return res.status(500).json({ message: "Unable to reset vendor password" }); }
 };
 exports.deleteB2BUser=async(req,res)=>{
@@ -410,6 +415,7 @@ exports.deleteB2BUser=async(req,res)=>{
     result.user.accountStatus="Inactive";
     result.user.sessionVersion=Number(result.user.sessionVersion||0)+1;
     await result.user.save();
-    res.json({status:1,message:"B2B account deactivated; records retained for audit"});
+    await require('../services/businessNotification').business(req,{userId:result.user._id,title:'Partner deactivated',message:`Your Partner account has been deactivated.`,type:'User',admin:true});
+res.json({status:1,message:"B2B account deactivated; records retained for audit"});
   }catch(e){res.status(500).json({message:"Unable to deactivate B2B account"});}
 };

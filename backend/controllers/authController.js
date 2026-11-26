@@ -889,21 +889,14 @@ if (!isValidPassword(password)) {
       const internalStaff = Boolean(user.isInternalStaff);
       if (!internalStaff && !["admin", "user", "b2b"].includes(actualRole)) return res.status(403).json({msg:"Invalid account role"});
       if (user.status === "inactive" || user.accountStatus === "Inactive" || user.roleId.status === "inactive") return res.status(403).json({msg:"Account or role is inactive"});
-      if (internalStaff ? type !== "admin" : type !== actualRole) {
-        if(type === "user" || type === "b2b") {
-          const label=type === "b2b" ? "B2B" : "User";
-          return res.status(404).json({
-            msg:`No ${label} account exists for this email. Please open ${label} Sign Up.`,
-            code:"ROLE_SIGNUP_REQUIRED", email: user.email, emailAlreadyRegistered:true
-          });
-        }
-        return res.status(403).json({msg:"Administrator access required"});
+      const loginRole = internalStaff ? "admin" : actualRole;
+      if (loginRole !== "admin" && type !== loginRole) {
+        return res.status(403).json({
+          msg: `Please use the ${loginRole === "b2b" ? "Partner" : "User"} login page for this account.`,
+          code: "ACCOUNT_TYPE_MISMATCH"
+        });
       }
-  
-      if (type === "user" && user.roleId.name !== "user") {
-        return res.status(403).json({ msg: "User access only" });
-      }
-  
+
       const token = jwt.sign(
         {
           id: user._id,
@@ -916,9 +909,10 @@ if (!isValidPassword(password)) {
   
       user.password = undefined;
       const safeUser = user.toObject();
-      if (internalStaff) safeUser.role = "admin";
+      safeUser.role = loginRole;
       safeUser.isInternalStaff = internalStaff;
-      res.json({ msg: "Login success", token, user: safeUser });
+      if(internalStaff) await require('../services/staffNotification').staffAlert({...req,user},200,'Login');
+res.json({ msg: "Login success", token, user: safeUser });
   
     } catch (err) {
       res.status(500).json({ error: err.message });
@@ -979,7 +973,8 @@ if (!isValidPassword(password)) {
       user.passwordResetVerifiedAt=undefined;user.passwordResetAttempts=0;
       user.sessionVersion=(user.sessionVersion||0)+1;
       await user.save();
-      return res.json({msg:"Password reset successful"});
+      await require('../services/businessNotification').business(req,{userId:user._id,title:'Password reset',message:'Your password was reset. Contact support if unexpected.',type:'User',admin:false});
+return res.json({msg:"Password reset successful"});
     }catch(err){return res.status(500).json({msg:"Unable to reset password"});}
   };
 

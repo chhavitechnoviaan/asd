@@ -17,7 +17,7 @@ export default function B2BAuthPill({ onSignUp, onLogIn }) {
           </div>
         </div>
         <span className="mt-1 text-xs font-semibold text-gray-500 border border-gray-200 rounded-full px-3 py-0.5">
-          B2B
+          Partner
         </span>
       </div>
     </div>

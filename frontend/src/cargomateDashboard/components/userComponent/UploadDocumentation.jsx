@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 import ModalShell from "./ModalShell";
 import { useRef, useState } from "react";
 import {
@@ -81,12 +82,12 @@ const handleFile = (file) => {
   ];
 
   if (!allowedTypes.includes(file.type)) {
-    alert("Only PNG, JPG and JPEG files are allowed.");
+    appAlert("Only PNG, JPG and JPEG files are allowed.");
     return;
   }
 
   if (file.size > 5 * 1024 * 1024) {
-    alert("File size should be less than 5MB.");
+    appAlert("File size should be less than 5MB.");
     return;
   }
 
@@ -131,7 +132,7 @@ const removeImage = () => {
 
 const uploadImage = async () => {
   if (!image) {
-    alert("Please select image");
+    appAlert("Please select image");
     return;
   }
 
@@ -148,11 +149,11 @@ const uploadImage = async () => {
         },
       }
     );
-    alert("Uploaded Successfully");
+    appAlert("Uploaded Successfully");
     console.log(res.data.image);
   } catch (err) {
     console.log(err);
-    alert("Upload Failed");
+    appAlert("Upload Failed");
   } finally {
     setLoading(false);
   }

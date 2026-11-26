@@ -18,4 +18,5 @@ router.post("/email-verification/confirm", require("../controllers/emailVerifica
 router.post("/create-staff", protect, adminOnly, auth.createStaff);
 router.get("/me", protect, auth.me);
 
+router.post('/logout',protect,async(req,res)=>{if(req.user.isInternalStaff){await require('../services/staffNotification').staffAlert(req,200,'Logout');req.staffAlertHandled=true;}return res.json({status:1,message:'Signed out'});});
 module.exports = router;

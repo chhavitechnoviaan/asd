@@ -1730,7 +1730,7 @@ export default function InvoicesDashboard() {
   const invoiceDisplayData = useMemo(() => invoices.map((inv) => {
     const shipment = inv.shipment || inv.shipmentId || {};
     const party    = typeof inv.party === "object" ? (inv.party?.name || inv.party?.companyName || "-") : (inv.party || "N/A");
-    const partyType = shipment.customerType || (shipment.b2bCompanyId ? "B2B" : "Individual");
+    const partyType = shipment.customerType || (shipment.b2bCompanyId ? "Partner" : "Individual");
     let country = inv.country || shipment.route?.destinationCountry || shipment.route?.originCountry || "N/A";
     if (typeof country === "object") country = country.name || "-";
 

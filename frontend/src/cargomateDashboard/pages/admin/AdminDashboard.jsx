@@ -7661,6 +7661,8 @@ const fabActions = [
   },
 ];
 
+const displayAdminLabel = (label) => ({"Vendors/ Partners": "Partners", "Add Vendor": "Add Partner", "Active Vendors": "Active Partners", "Vendor": "Partner"}[label] || label);
+
 const navItems = [
   { icon: MdDashboard, label: "Admin Dashboard", color: "text-orange-400" },
   { icon: MdPeople, label: "Users", color: "text-yellow-400" },
@@ -7894,9 +7896,11 @@ export default function AdminDashboard({ profileMode = false }) {
       });
     refreshEffectivePermissions();
     window.addEventListener("focus", refreshEffectivePermissions);
+    const permissionTimer = window.setInterval(refreshEffectivePermissions, 15000);
     return () => {
       active = false;
       window.removeEventListener("focus", refreshEffectivePermissions);
+      window.clearInterval(permissionTimer);
     };
   }, []);
   const menuModules = {
@@ -8037,14 +8041,14 @@ const adminOnlyModules = new Set([
       color: "text-violet-600",
     },
     {
-      label: "B2B Subscriptions",
+      label: "Partner Subscriptions",
       value: dashboardStats.b2bSubscriptions,
       icon: suppliers,
       bg: "bg-teal-50",
       color: "text-teal-600",
     },
     {
-      label: "B2B Plans Created",
+      label: "Partner Plans Created",
       value: dashboardStats.b2bPlans,
       icon: order,
       bg: "bg-teal-50",
@@ -8155,7 +8159,7 @@ const adminOnlyModules = new Set([
                 }`}
             >
               <Icon size={18} className={`${color} flex-shrink-0`} />
-              <span className="truncate text-[0.9rem] ">{label}</span>
+              <span className="truncate text-[0.9rem] ">{displayAdminLabel(label)}</span>
             </button>
           ))}
         </nav>
@@ -8230,7 +8234,7 @@ const adminOnlyModules = new Set([
             //     <div className="min-w-0">
             //       <p className="cm-unified-kicker">CARGOMATE ADMIN</p>
             //       <div className="flex gap-20 w-full">
-            //          <h1>{activeNav}</h1>
+            //          <h1>{displayAdminLabel(activeNav)}</h1>
             //          <div className="flex justify-end mb-3  ml-80">
             //     {may("dashboard", "add") && (
             //       <button
@@ -8249,7 +8253,7 @@ const adminOnlyModules = new Set([
             //       </div>
                  
             //       <p className="cm-unified-desc">
-            //         Manage {activeNav.toLowerCase()} securely from the CargoMate
+            //         Manage {displayAdminLabel(activeNav).toLowerCase()} securely from the CargoMate
             //         workspace
             //       </p>
             //     </div>
@@ -8267,7 +8271,7 @@ const adminOnlyModules = new Set([
     <p className="cm-unified-kicker">CARGOMATE ADMIN</p>
 
     <div className="flex flex-wrap items-center justify-between gap-4 w-full">
-      <h1>{activeNav}</h1>
+      <h1>{displayAdminLabel(activeNav)}</h1>
 
       {activeNav === "Admin Dashboard" &&
         may("dashboard", "add") && may("notices", "add") && (
@@ -8289,7 +8293,7 @@ const adminOnlyModules = new Set([
     </div>
 
     <p className="cm-unified-desc">
-      Manage {activeNav.toLowerCase()} securely from the
+      Manage {displayAdminLabel(activeNav).toLowerCase()} securely from the
       CargoMate workspace
     </p>
   </div>
@@ -8344,7 +8348,7 @@ const adminOnlyModules = new Set([
                       className="bg-white/90 backdrop-blur-md cursor-pointer rounded-2xl p-4 shadow-[0_10px_30px_rgba(0,34,89,0.05)] hover:shadow-[0_14px_35px_rgba(20,184,166,0.12)] hover:-translate-y-0.5 transition-all border border-teal-100 flex flex-col gap-2"
                     >
                       <p className="text-gray-500 text-sm font-medium leading-tight">
-                        {label}
+                        {displayAdminLabel(label)}
                       </p>
                       <div className="flex items-center justify-between">
                         <p className="text-gray-800 font-bold text-sm sm:text-base">
@@ -8471,7 +8475,7 @@ const adminOnlyModules = new Set([
                             />
                           )}
 
-                          <span className="font-medium">{label}</span>
+                          <span className="font-medium">{displayAdminLabel(label)}</span>
                         </button>
                       ))}
                   </div>
@@ -8589,7 +8593,7 @@ const adminOnlyModules = new Set([
                               {count ?? "—"}
                             </span>
                             <span className="text-xs sm:text-base  font-medium text-gray-700">
-                              {label}
+                              {displayAdminLabel(label)}
                             </span>
                           </div>
                           <FiChevronRight

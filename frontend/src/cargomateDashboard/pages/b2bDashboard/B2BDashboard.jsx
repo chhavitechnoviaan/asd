@@ -22805,7 +22805,7 @@ function Dashboard({ setMainTab }) {
             <span className="text-xl">👋</span>
           </h1>
           <p className="text-xs text-[#64748B] mt-1 font-medium">
-            Here's your B2B trade overview and key business insights.
+            Here's your Partner trade overview and key business insights.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
@@ -22896,9 +22896,9 @@ function Dashboard({ setMainTab }) {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-6">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal-950 via-teal-500 to-teal-400 text-white p-7 shadow-xl">
           <div className="absolute -right-12 -top-12 h-48 w-48 rounded-full bg-violet-400/20 blur-2xl" />
-          <span className="inline-flex rounded-full border border-yellow-300/40 bg-yellow-300/20 px-3 py-1 text-xs font-bold text-yellow-200">✦ Premium B2B Subscription</span>
+          <span className="inline-flex rounded-full border border-yellow-300/40 bg-yellow-300/20 px-3 py-1 text-xs font-bold text-yellow-200">✦ Premium Partner Subscription</span>
           <div className="mt-4 text-3xl">👑</div>
-          <h3 className="text-2xl font-black mt-2">{premiumPlan?.name || premiumPlan?.tier || "Explore our top B2B plan"}</h3>
+          <h3 className="text-2xl font-black mt-2">{premiumPlan?.name || premiumPlan?.tier || "Explore our top Partner plan"}</h3>
           <p className="mt-2 text-sm text-violet-100">Unlock advanced trade intelligence, higher limits and smarter shipment tools.</p>
           {premiumPlan && <p className="mt-4 text-3xl font-extrabold">{money(premiumPlan.price)}<span className="text-xs font-normal text-violet-200"> / {premiumPlan.billingCycle || premiumPlan.billingPeriod || "plan"}</span></p>}
           <button type="button" onClick={()=>setMainTab("UpgradePlan")} className="mt-5 rounded-xl bg-gradient-to-r from-amber-200 to-yellow-400 px-5 py-3 text-sm font-extrabold text-slate-900 shadow-lg hover:brightness-105">Explore Plans →</button>

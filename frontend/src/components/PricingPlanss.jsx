@@ -48,7 +48,7 @@ const labels = {
   shipmentCost: "Shipment Cost Analysis",
   governmentSchemes: "Government Schemes",
   countryRules: "Country Rules",
-  tradeResearch: "B2B Trade Research",
+  tradeResearch: "Partner Trade Research",
 };
 
 export { labels as planFeatureLabels };
@@ -109,7 +109,7 @@ const datasets = [
   },
   {
     audience: "b2b",
-    heading: "B2B Plans",
+    heading: "Partner Plans",
     sub: "For vendors, logistics businesses and trade partners",
     icon: Building2,
   },
@@ -179,7 +179,7 @@ export default function PricingPlans({
 
             <span className="rounded-full border border-[#2563EB] bg-teal-50 px-3 py-1 text-[10px] font-semibold text-[#2563EB]">
               {audience === "b2b"
-                ? "B2B Plan"
+                ? "Partner Plan"
                 : "User Plan"}
             </span>
           </div>

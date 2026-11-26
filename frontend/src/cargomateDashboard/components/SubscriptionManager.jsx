@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../lib/dialogs";
 // // // // // // // // // import React, { useEffect, useState } from "react";
 // // // // // // // // // import API from "../api/axios";
 // // // // // // // // // const labels = {
@@ -153,7 +154,7 @@
 // // // // // // // // //             {mode === "upgrade" ? "Subscription Plans" : "My Subscription"}
 // // // // // // // // //           </h1>
 // // // // // // // // //           <p className="text-sm text-slate-500 mt-1">
-// // // // // // // // //             {audience === "b2b" ? "B2B" : "User"} plan benefits, billing and
+// // // // // // // // //             {audience === "b2b" ? "Partner" : "User"} plan benefits, billing and
 // // // // // // // // //             monthly AI usage
 // // // // // // // // //           </p>
 // // // // // // // // //         </div> */}
@@ -571,7 +572,7 @@
 // // // // // // // //             {mode === "upgrade" ? "Subscription Plans" : "My Subscription"}
 // // // // // // // //           </h1>
 // // // // // // // //           <p className="text-sm text-slate-500 mt-1">
-// // // // // // // //             {audience === "b2b" ? "B2B" : "User"} plan benefits, billing and
+// // // // // // // //             {audience === "b2b" ? "Partner" : "User"} plan benefits, billing and
 // // // // // // // //             monthly AI usage
 // // // // // // // //           </p>
 // // // // // // // //         </div> */}
@@ -1000,7 +1001,7 @@
 // // // // // // //             {mode === "upgrade" ? "Subscription Plans" : "My Subscription"}
 // // // // // // //           </h1>
 // // // // // // //           <p className="text-sm text-slate-500 mt-1">
-// // // // // // //             {audience === "b2b" ? "B2B" : "User"} plan benefits, billing and
+// // // // // // //             {audience === "b2b" ? "Partner" : "User"} plan benefits, billing and
 // // // // // // //             monthly AI usage
 // // // // // // //           </p>
 // // // // // // //         </div> */}
@@ -1429,7 +1430,7 @@
 // // // // // //             {mode === "upgrade" ? "Subscription Plans" : "My Subscription"}
 // // // // // //           </h1>
 // // // // // //           <p className="text-sm text-slate-500 mt-1">
-// // // // // //             {audience === "b2b" ? "B2B" : "User"} plan benefits, billing and
+// // // // // //             {audience === "b2b" ? "Partner" : "User"} plan benefits, billing and
 // // // // // //             monthly AI usage
 // // // // // //           </p>
 // // // // // //         </div> */}
@@ -1875,7 +1876,7 @@
 // // // // //             {mode === "upgrade" ? "Subscription Plans" : "My Subscription"}
 // // // // //           </h1>
 // // // // //           <p className="text-sm text-slate-500 mt-1">
-// // // // //             {audience === "b2b" ? "B2B" : "User"} plan benefits, billing and
+// // // // //             {audience === "b2b" ? "Partner" : "User"} plan benefits, billing and
 // // // // //             monthly AI usage
 // // // // //           </p>
 // // // // //         </div> */}
@@ -2341,7 +2342,7 @@
 // // // //             {mode === "upgrade" ? "Subscription Plans" : "My Subscription"}
 // // // //           </h1>
 // // // //           <p className="text-sm text-slate-500 mt-1">
-// // // //             {audience === "b2b" ? "B2B" : "User"} plan benefits, billing and
+// // // //             {audience === "b2b" ? "Partner" : "User"} plan benefits, billing and
 // // // //             monthly AI usage
 // // // //           </p>
 // // // //         </div> */}
@@ -2807,7 +2808,7 @@
 // // //             {mode === "upgrade" ? "Subscription Plans" : "My Subscription"}
 // // //           </h1>
 // // //           <p className="text-sm text-slate-500 mt-1">
-// // //             {audience === "b2b" ? "B2B" : "User"} plan benefits, billing and
+// // //             {audience === "b2b" ? "Partner" : "User"} plan benefits, billing and
 // // //             monthly AI usage
 // // //           </p>
 // // //         </div> */}
@@ -3295,7 +3296,7 @@
 // //             {mode === "upgrade" ? "Subscription Plans" : "My Subscription"}
 // //           </h1>
 // //           <p className="text-sm text-slate-500 mt-1">
-// //             {audience === "b2b" ? "B2B" : "User"} plan benefits, billing and
+// //             {audience === "b2b" ? "Partner" : "User"} plan benefits, billing and
 // //             monthly AI usage
 // //           </p>
 // //         </div> */}
@@ -3889,7 +3890,7 @@
 //             {mode === "upgrade" ? "Subscription Plans" : "My Subscription"}
 //           </h1>
 //           <p className="text-sm text-slate-500 mt-1">
-//             {audience === "b2b" ? "B2B" : "User"} plan benefits, billing and
+//             {audience === "b2b" ? "Partner" : "User"} plan benefits, billing and
 //             monthly AI usage
 //           </p>
 //         </div> */}
@@ -4270,7 +4271,7 @@ const labels = {
   shipmentCost: "Shipment Cost Analysis",
   governmentSchemes: "Government Schemes",
   countryRules: "Country Rules",
-  tradeResearch: "B2B Trade Research",
+  tradeResearch: "Partner Trade Research",
 };
 const defaultLimits = {
   user: {
@@ -4417,7 +4418,7 @@ export default function SubscriptionManager({
             await API.post("/ai-subscription/verify", response);
             if (pending) { clearPendingPlan(); setPending(null); }
             await load();
-            alert("Subscription activated");
+            appAlert("Subscription activated");
           } catch (e) {
             setError(
               e.response?.data?.message || "Payment verification failed",
@@ -4487,7 +4488,7 @@ export default function SubscriptionManager({
             {mode === "upgrade" ? "Subscription Plans" : "My Subscription"}
           </h1>
           <p className="text-sm text-slate-500 mt-1">
-            {audience === "b2b" ? "B2B" : "User"} plan benefits, billing and
+            {audience === "b2b" ? "Partner" : "User"} plan benefits, billing and
             monthly AI usage
           </p>
         </div> */}
@@ -4562,7 +4563,7 @@ export default function SubscriptionManager({
         <>
           <div className="mb-20">
             <h2 className="text-2xl font-bold text-slate-900">
-              {audience === "b2b" ? "B2B Panel Plans" : "User Panel Plans"}
+              {audience === "b2b" ? "Partner Panel Plans" : "User Panel Plans"}
             </h2>
             <p className="text-sm text-slate-500">
               Only plans published by Admin for this account type

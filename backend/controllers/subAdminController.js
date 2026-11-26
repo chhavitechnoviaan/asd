@@ -24,7 +24,8 @@ exports.create = async (req,res) => {
     if(await User.exists({email:normalized})) return res.status(409).json({status:0,message:"Email already exists"});
     const user=await User.create({name:name.trim(),email:normalized,password:await bcrypt.hash(password,12),roleId:role._id,status:"active",isInternalStaff:true,sessionVersion:0,plan:"Internal Staff"});
     await recordAdminActivity({title:"Sub-admin created",message:`${name.trim()} added as internal staff (${role.name})`,actorId:req.user?._id,relatedId:user._id,type:"User"});
-    return res.status(201).json({status:1,data:safe({...user.toObject(),roleId:role})});
+    await require('../services/actionNotification').notifyAction({userId:user._id,title:'Staff account created',message:'Your staff account has been created.'});
+return res.status(201).json({status:1,data:safe({...user.toObject(),roleId:role})});
   } catch(e){return res.status(e.code||500).json({status:0,message:e.message});}
 };
 exports.update = async (req,res) => {
@@ -41,6 +42,7 @@ exports.update = async (req,res) => {
     await user.save();
     await user.populate("roleId");
     await recordAdminActivity({title:"Sub-admin updated",message:`Staff account ${user.name} was updated`,actorId:req.user?._id,relatedId:user._id,type:"User"});
-    return res.json({status:1,data:safe(user)});
+    await require('../services/actionNotification').notifyAction({userId:user._id,title:'Staff account updated',message:'Your staff account details or access have changed.'});
+return res.json({status:1,data:safe(user)});
   } catch(e){return res.status(e.code||500).json({status:0,message:e.message});}
 };

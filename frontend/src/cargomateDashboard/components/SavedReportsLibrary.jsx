@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../lib/dialogs";
 import React, { useEffect, useState } from "react";
 import { FileText, Eye, Download, Trash2, RefreshCw } from "lucide-react";
 import {
@@ -58,7 +59,7 @@ export default function SavedReportsLibrary() {
     }
   };
   const remove = async (r) => {
-    if (!window.confirm(`Delete ${r.reportName}?`)) return;
+    if (!await appConfirm(`Delete ${r.reportName}?`)) return;
     try {
       await removeSavedReport(r._id);
       setReports((v) => v.filter((x) => x._id !== r._id));

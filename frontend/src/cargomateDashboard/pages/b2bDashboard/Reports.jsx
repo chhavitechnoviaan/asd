@@ -226,7 +226,7 @@ import {
 const reportIcons = {
   "Shipment Reports": {icon: FileText, iconColor: "text-blue-500", bgColor: "bg-blue-50",},
   "Cost & Finance Reports": {icon: TrendingUp, iconColor: "text-emerald-500", bgColor: "bg-emerald-50",},
-  "Vendor Reports": {icon: Users, iconColor: "text-purple-500", bgColor: "bg-purple-50",},
+  "Partner Reports": {icon: Users, iconColor: "text-purple-500", bgColor: "bg-purple-50",},
   "Compliance Reports": {icon: Briefcase, iconColor: "text-orange-500", bgColor: "bg-orange-50",},
   "Document Reports": {icon: FileText, iconColor: "text-red-500", bgColor: "bg-red-50",},
   "Performance Reports": {icon: TrendingUp, iconColor: "text-indigo-500", bgColor: "bg-indigo-50",},

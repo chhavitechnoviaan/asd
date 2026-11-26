@@ -22,6 +22,7 @@ exports.confirm = async (req, res) => {
   try {
     const account = await verifyToken(req.body?.token);
     if (!account) return res.status(400).json({ message: "This verification link is invalid or expired" });
-    res.json({ message: "Email verified. You can now log in." });
+    await require('../services/businessNotification').business(req,{userId:account._id,title:'Email verified',message:'Your email address was successfully verified.',type:'User',admin:false});
+res.json({ message: "Email verified. You can now log in." });
   } catch (error) { res.status(500).json({ message: "Verification unavailable" }); }
 };

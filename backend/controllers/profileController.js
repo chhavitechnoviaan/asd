@@ -637,7 +637,8 @@ exports.getProfile = async (req, res) => {
             
             });
             
-            res.json({
+            await require('../services/businessNotification').business(req,{userId:user._id,title:'Password changed',message:'Your account password was changed.',type:'User',admin:false});
+res.json({
             
             status:1,
             

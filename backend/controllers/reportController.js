@@ -931,7 +931,7 @@ exports.getDashboard = async (req, res) => {
   
       });
   
-      await notifyAction({userId:req.user?._id,title:"Report saved",message:`Your report ${report.title||report.name||report._id} was saved successfully`,type:"Report",relatedId:report._id,actionLink:"/user-dashboard"});
+      await notifyAction({userId:req.user?._id,title:"Report saved",message:`Your report ${report.title||report.name||report._id} was saved successfully`,type:"Report",relatedId:report._id});
       res.json({
   
         status: 1,

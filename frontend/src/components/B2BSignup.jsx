@@ -49,7 +49,7 @@ export default function B2BSignup({ onBack, onLogIn }) {
             <Building2 className="w-8 h-8 text-green-600" />
           </div>
           <h1 className="mt-3 text-xl font-bold text-gray-900">
-            Create B2B Account
+            Create Partner Account
           </h1>
           <p className="mt-1 text-sm text-gray-500 text-center">
             Sign Up to manage your business and bulk operations

@@ -1159,7 +1159,7 @@ export default function Support({ permissions = null }) {
                     >
                       <option value="All Users">All Users</option>
                       <option value="Customer">Customer</option>
-                      <option value="Vendor">Vendor</option>
+                      <option value="Vendor">Partner</option>
                     </select>
                     <FiChevronDown className="w-3.5 h-3.5 text-slate-400 absolute right-2.5 top-3 pointer-events-none" />
                   </div>
@@ -1218,7 +1218,7 @@ export default function Support({ permissions = null }) {
                                   ? "bg-purple-50 text-purple-600 border border-purple-100" 
                                   : "bg-blue-50 text-blue-600 border border-blue-100"
                               }`}>
-                                {isVendor ? "Vendor" : "Customer"}
+                                {isVendor ? "Partner" : "Customer"}
                               </span>
                             </td>
 

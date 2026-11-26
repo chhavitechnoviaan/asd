@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../lib/dialogs";
 import { useState, useRef , useEffect } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
@@ -615,7 +616,7 @@ export default function B2BAuth() {
         captchaToken: "dummy",
       });
   
-      toast.success("B2B Signup Successful ✅");
+      toast.success("Partner Signup Successful ✅");
 
       setTimeout(() => {
         setTab("login");
@@ -631,7 +632,6 @@ export default function B2BAuth() {
   const loginHandler = async (e) => {
     e.preventDefault();
   
-    alert("B2B LOGIN HANDLER CALLED");
   
     try {
       const res = await API.post("/auth/login", {

@@ -126,7 +126,7 @@ export default function B2BUsers() {
             <Users className="w-5 h-5 text-green-600" />
           </div>
           <div>
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900">B2B Users</h2>
+            <h2 className="text-xl sm:text-2xl font-bold text-gray-900">Partner Users</h2>
             <p className="text-sm text-gray-500">Manage all business users and their access</p>
           </div>
         </div>

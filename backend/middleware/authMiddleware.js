@@ -227,6 +227,7 @@ exports.protect = async (req, res, next) => {
       res.once("finish", () => {
         const StaffActivity = require("../models/StaffActivity");
         const path = req.originalUrl.split("?")[0];
+        if (!req.staffAlertHandled) require('../services/staffNotification').staffAlert(req,res.statusCode).catch(e=>console.error('Staff alert:',e.message));
         if (!/\/(?:auth\/me|profile|public-config)(?:\/|$)/.test(path)) {
           StaffActivity.create({actor:user._id, actorName:user.name, roleName:user.roleId?.name,
             method:req.method, path, permission:req.staffPermissionName || null,

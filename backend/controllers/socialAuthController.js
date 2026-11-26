@@ -177,7 +177,8 @@ exports.login=async(req,res)=>{
         password:await bcrypt.hash(crypto.randomBytes(40).toString("hex"),12),
         companyName:role==="b2b"?(name || "Business account"):undefined,
         socialAccounts:{[provider]:socialId},emailVerified:provider==="google",verificationRequired: provider==="facebook" && emailVerification.enabled,status:"active"});
-      if (account.verificationRequired){
+      await require('../services/businessNotification').business(req,{userId:account._id,title:'Account registered',message:'Your account was created using social signup.',type:'User',admin:true,eventKey:`social-signup:${account._id}`});
+if (account.verificationRequired){
         try { await sendVerificationEmail(account,emailVerification); }
         catch(error){console.error("Social account verification mail failed",error.message);return res.status(503).json({message:"Account created but verification email could not be delivered. Please use Resend Verification."});}
       }

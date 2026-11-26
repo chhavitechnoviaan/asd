@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 // // import { saveShipmentPrefill } from "../../utils/shipmentPrefill";
 // // import CountryAutocomplete from "../../../components/CountryAutocomplete";
 
@@ -13945,7 +13946,7 @@ import CountryAutocomplete from "../../../components/CountryAutocomplete";
 
     const handleDownloadPdf = () => {
       if (!reportInfo) {
-        window.alert("Please run an incentive calculation before downloading the report.");
+        appAlert("Please run an incentive calculation before downloading the report.");
         return;
       }
 
@@ -13992,7 +13993,7 @@ import CountryAutocomplete from "../../../components/CountryAutocomplete";
       const generatedOn = report.generatedAt ? new Date(report.generatedAt).toLocaleString() : new Date().toLocaleString();
       const popup = window.open("", "_blank", "width=1000,height=750");
       if (!popup) {
-        window.alert("Please allow pop-ups to generate your PDF report.");
+        appAlert("Please allow pop-ups to generate your PDF report.");
         return;
       }
       popup.document.open();

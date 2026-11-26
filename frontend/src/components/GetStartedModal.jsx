@@ -67,7 +67,7 @@ export default function GetStartedModal({ plan, onClose }) {
 
   const handleConfirm = async () => {
     if (plan._id) {
-      await Swal.fire({icon:"info",title:"Create your account",text:`Continue with ${plan.audience === "b2b" ? "B2B" : "User"} signup to purchase ${plan.name} securely from your dashboard.`,confirmButtonColor:"#0D9488"});
+      await Swal.fire({icon:"info",title:"Create your account",text:`Continue with ${plan.audience === "b2b" ? "Partner" : "User"} signup to purchase ${plan.name} securely from your dashboard.`,confirmButtonColor:"#0D9488"});
       savePendingPlan(plan, chosenAddOns.map(a => a.title));
       window.location.assign("/signup");
       return;

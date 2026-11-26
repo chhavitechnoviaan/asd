@@ -21,6 +21,7 @@ async function withActiveSubscriptions(users) {
     const active = byUser.get(String(user._id));
     return {
       ...user,
+      createdAt: user.createdAt ?? null,
       // null explicitly means no active subscription; do not fall back to stale user.plan.
       purchasedPlan: active?.planId?.name || null,
       subscription: active ? {

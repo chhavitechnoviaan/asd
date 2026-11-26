@@ -1,3 +1,4 @@
+import { appAlert, appConfirm, appPrompt } from "../../../lib/dialogs";
 
 
 
@@ -1140,7 +1141,7 @@ export default function PendingReviews({ setPendingReview, permissions = null })
       await fetchPendingRequests(shipmentId);
     } catch (error) {
       console.log("Decision error:", error);
-      alert(
+      appAlert(
         error?.response?.data?.message ||
           `Unable to ${decision} this shipment. Please try again.`
       );
@@ -1291,7 +1292,7 @@ export default function PendingReviews({ setPendingReview, permissions = null })
                         </td>
                         <td className="px-4 py-3 whitespace-nowrap">
                           <span className={`inline-flex rounded-full px-2.5 py-1 text-[11px] font-semibold border ${String(r.createdByRole || "User").toLowerCase() === "b2b" ? "bg-violet-50 text-violet-700 border-violet-200" : String(r.createdByRole || "User").toLowerCase() === "admin" ? "bg-slate-100 text-slate-700 border-slate-200" : "bg-sky-50 text-sky-700 border-sky-200"}`}>
-                            By {String(r.createdByRole || "User").toUpperCase() === "B2B" ? "B2B" : String(r.createdByRole || "User").toUpperCase() === "ADMIN" ? "Admin" : "User"}
+                            By {String(r.createdByRole || "User").toUpperCase() === "B2B" ? "Partner" : String(r.createdByRole || "User").toUpperCase() === "ADMIN" ? "Admin" : "User"}
                           </span>
                         </td>
 

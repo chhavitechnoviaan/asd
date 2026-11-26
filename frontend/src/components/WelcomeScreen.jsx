@@ -63,7 +63,7 @@ export default function WelcomeScreen({ onSelectUser, onSelectB2B }) {
                   <Building2 className="w-5 h-5 text-green-600" />
                 </div>
                 <div>
-                  <p className="font-bold text-gray-900">B2B</p>
+                  <p className="font-bold text-gray-900">Partner</p>
                   <p className="text-xs text-gray-500 mt-0.5">
                     Manage your business, bulk operations, freight and
                     trade wholesale
@@ -74,7 +74,7 @@ export default function WelcomeScreen({ onSelectUser, onSelectB2B }) {
                 onClick={onSelectB2B}
                 className="mt-4 w-full bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-lg py-2.5 flex items-center justify-center gap-2"
               >
-                Continue as B2B
+                Continue as Partner
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>

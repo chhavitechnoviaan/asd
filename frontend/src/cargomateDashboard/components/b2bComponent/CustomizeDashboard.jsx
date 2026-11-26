@@ -9,7 +9,7 @@ const kpiItems = [
   "On-Time Delivery",
   "Avg Transit Time",
   "Cost per Shipment",
-  "Active Vendors",
+  "Active Partners",
 ];
 
 const chartItems = [
