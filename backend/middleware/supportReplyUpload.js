@@ -2,7 +2,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const crypto = require("crypto");
-const folder = path.join(__dirname, "../uploads/support-replies");
+const folder = require("../utils/storage").directory("support-replies");
 fs.mkdirSync(folder, {recursive:true});
 const types = {".pdf":"application/pdf",".doc":"application/msword",".docx":"application/vnd.openxmlformats-officedocument.wordprocessingml.document",".jpg":"image/jpeg",".jpeg":"image/jpeg",".png":"image/png"};
 module.exports = multer({

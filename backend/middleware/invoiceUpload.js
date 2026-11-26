@@ -2,7 +2,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 
-const uploadDir = "uploads/invoices";
+const uploadDir = require("../utils/storage").directory("invoices");
 
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, {

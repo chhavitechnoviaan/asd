@@ -5,6 +5,7 @@ export function mediaUrl(value) {
   if (/^https?:\/\//i.test(value)) return value;
   const configured = (import.meta.env.VITE_API_URL || "http://localhost:8000/api").replace(/\/+$/, "");
   const origin = configured.replace(/\/api$/, "");
-  const pathname = value.startsWith("/") ? value : `/${value}`;
+  const normalized = value.replace(/\\/g, "/");
+  const pathname = normalized.startsWith("/") ? normalized : `/${normalized}`;
   return `${origin}${pathname.startsWith("/api/uploads/") ? pathname : pathname.replace(/^\/uploads\//, "/uploads/")}`;
 }

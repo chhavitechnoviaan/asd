@@ -1347,7 +1347,7 @@
 // // // //   const filename = path.basename(fileUrl.split("?")[0]);
 // // // //   if (!filename) return null;
 
-// // // //   const documentsDirectory = path.resolve(__dirname, "../uploads/documents");
+// // // //   const documentsDirectory = require("../utils/storage").directory("documents");
 // // // //   const resolvedPath = path.resolve(documentsDirectory, filename);
 
 // // // //   if (!resolvedPath.startsWith(`${documentsDirectory}${path.sep}`)) {
@@ -3897,7 +3897,7 @@
 // // //   const filename = path.basename(fileUrl.split("?")[0]);
 // // //   if (!filename) return null;
 
-// // //   const documentsDirectory = path.resolve(__dirname, "../uploads/documents");
+// // //   const documentsDirectory = require("../utils/storage").directory("documents");
 // // //   const resolvedPath = path.resolve(documentsDirectory, filename);
 
 // // //   if (!resolvedPath.startsWith(`${documentsDirectory}${path.sep}`)) {
@@ -6447,7 +6447,7 @@
 // //   const filename = path.basename(fileUrl.split("?")[0]);
 // //   if (!filename) return null;
 
-// //   const documentsDirectory = path.resolve(__dirname, "../uploads/documents");
+// //   const documentsDirectory = require("../utils/storage").directory("documents");
 // //   const resolvedPath = path.resolve(documentsDirectory, filename);
 
 // //   if (!resolvedPath.startsWith(`${documentsDirectory}${path.sep}`)) {
@@ -8998,7 +8998,7 @@
 //   const filename = path.basename(fileUrl.split("?")[0]);
 //   if (!filename) return null;
 
-//   const documentsDirectory = path.resolve(__dirname, "../uploads/documents");
+//   const documentsDirectory = require("../utils/storage").directory("documents");
 //   const resolvedPath = path.resolve(documentsDirectory, filename);
 
 //   if (!resolvedPath.startsWith(`${documentsDirectory}${path.sep}`)) {
@@ -11564,7 +11564,7 @@ const getShipmentDocumentFilePath = (fileUrl) => {
   const filename = path.basename(fileUrl.split("?")[0]);
   if (!filename) return null;
 
-  const documentsDirectory = path.resolve(__dirname, "../uploads/documents");
+  const documentsDirectory = require("../utils/storage").directory("documents");
   const resolvedPath = path.resolve(documentsDirectory, filename);
 
   if (!resolvedPath.startsWith(`${documentsDirectory}${path.sep}`)) {

@@ -2018,7 +2018,7 @@
 //     if (!ticket) return res.status(404).json({message:"Ticket not found"});
 //     const reply = ticket.replies.id(req.params.replyId);
 //     if (!reply?.attachment) return res.status(404).json({message:"Attachment not found"});
-//     const file = path.join(__dirname,"../uploads/support-replies",path.basename(reply.attachment));
+//     const file = path.join(require("../utils/storage").directory("support-replies"),path.basename(reply.attachment));
 //     if (!fs.existsSync(file)) return res.status(404).json({message:"File missing"});
 //     res.type(reply.attachmentMime || "application/octet-stream");
 //     res.setHeader("Content-Disposition",`inline; filename="${String(reply.attachmentName||"attachment").replace(/["\r\n]/g,"")}"`);
@@ -3052,7 +3052,7 @@ exports.downloadReplyAttachment = async (req,res) => {
     if (!ticket) return res.status(404).json({message:"Ticket not found"});
     const reply = ticket.replies.id(req.params.replyId);
     if (!reply?.attachment) return res.status(404).json({message:"Attachment not found"});
-    const file = path.join(__dirname,"../uploads/support-replies",path.basename(reply.attachment));
+    const file = path.join(require("../utils/storage").directory("support-replies"),path.basename(reply.attachment));
     if (!fs.existsSync(file)) return res.status(404).json({message:"File missing"});
     res.type(reply.attachmentMime || "application/octet-stream");
     res.setHeader("Content-Disposition",`inline; filename="${String(reply.attachmentName||"attachment").replace(/["\r\n]/g,"")}"`);

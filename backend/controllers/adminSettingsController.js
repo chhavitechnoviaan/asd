@@ -618,16 +618,10 @@ exports.uploadBrandLogo = asyncHandler(async (req, res) => {
     (["jpeg","jpg"].includes(match[1].toLowerCase()) && bytes.subarray(0,3).toString("hex") === "ffd8ff") ||
     (match[1].toLowerCase() === "webp" && bytes.toString("ascii",0,4) === "RIFF" && bytes.toString("ascii",8,12) === "WEBP");
   if (!valid) return res.status(400).json({success:false,message:"Image data does not match the file type. Export the image as a genuine PNG, JPG or WebP and retry."});
-  const cloudinary = require("../config/cloudinary");
-  const crypto = require("crypto");
-  const result = await new Promise((resolve,reject) => {
-    const stream = cloudinary.uploader.upload_stream({folder:"asd-cargomate/branding",public_id:`${req.params.kind}-${Date.now()}-${crypto.randomBytes(5).toString("hex")}`, resource_type:"image"},
-      (err, result) => err ? reject(err) : resolve(result));
-    stream.end(bytes);
-  });
+  const result = await require('../utils/storage').saveImage('branding', bytes);
   const settings = await getOrCreateSettings();
   if (!settings.general) settings.general = {};
-  settings.general[field] = {url:result.secure_url,public_id:result.public_id};
+  settings.general[field] = {url: (process.env.PUBLIC_BACKEND_URL || "https://api.asdcargomate.com").replace(/\/$/, "") + result.url,public_id:result.name};
   await settings.save();
   return sendResponse(res, "Logo uploaded", settings.general[field]);
 });

@@ -111,7 +111,7 @@ exports.createNotice = async (req, res) => {
 
     let image = req.body.image || "";
     if (req.file) {
-      image = `/uploads/documents/${req.file.filename}`;
+      image = `/uploads/notices/${req.file.filename}`;
     }
 
     const notice = await Notice.create({
@@ -157,7 +157,7 @@ exports.updateNotice = async (req, res) => {
     if (isActive !== undefined) notice.isActive = Boolean(isActive);
 
     if (req.file) {
-      notice.image = `/uploads/documents/${req.file.filename}`;
+      notice.image = `/uploads/notices/${req.file.filename}`;
     } else if (req.body.image !== undefined) {
       notice.image = req.body.image;
     }
@@ -359,7 +359,7 @@ exports.toggleNoticeStatus = async (req, res) => {
 
 //     let image = req.body.image || "";
 //     if (req.file) {
-//       image = `/uploads/documents/${req.file.filename}`;
+//       image = `/uploads/notices/${req.file.filename}`;
 //     }
 
 //     const notice = await Notice.create({
@@ -405,7 +405,7 @@ exports.toggleNoticeStatus = async (req, res) => {
 //     if (isActive !== undefined) notice.isActive = Boolean(isActive);
 
 //     if (req.file) {
-//       notice.image = `/uploads/documents/${req.file.filename}`;
+//       notice.image = `/uploads/notices/${req.file.filename}`;
 //     } else if (req.body.image !== undefined) {
 //       notice.image = req.body.image;
 //     }

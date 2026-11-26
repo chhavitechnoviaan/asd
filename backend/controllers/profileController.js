@@ -570,7 +570,7 @@ exports.getProfile = async (req, res) => {
           (match[1]==="png" && hex.startsWith("89504e470d0a1a0a")) ||
           (match[1]==="webp" && bytes.toString("ascii",0,4)==="RIFF" && bytes.toString("ascii",8,12)==="WEBP");
         if (!valid) return res.status(400).json({status:0,message:"Invalid image format"});
-        const directory = path.join(__dirname,"..","uploads","profiles");
+        const directory = require("../utils/storage").directory("profiles");
         await fs.mkdir(directory,{recursive:true});
         const ext = match[1]==="jpeg" ? "jpg" : match[1];
         const filename = `${req.user.id}-${crypto.randomBytes(8).toString("hex")}.${ext}`;

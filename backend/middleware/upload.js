@@ -9,7 +9,7 @@ const fs = require("fs");
 
 console.log("upload 4");
 
-const uploadPath = path.join(__dirname, "../uploads/documents");
+const uploadPath = require("../utils/storage").directory("documents");
 
 if (!fs.existsSync(uploadPath)) {
   fs.mkdirSync(uploadPath, { recursive: true });

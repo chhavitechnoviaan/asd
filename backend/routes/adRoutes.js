@@ -2,11 +2,11 @@ const router = require("express").Router();
 const multer = require("multer");
 const path = require("path");
 const crypto = require("crypto");
-const cloudinary = require("../config/cloudinary");
+const storage = require("../utils/storage");
 const ctrl = require("../controllers/adController");
 const { protect, adminOnly } =
   require("../middleware/authMiddleware");
-// Ad images are uploaded directly to Cloudinary; no local disk copy is created.
+// Ad images are saved in persistent server storage.
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 10 * 1024 * 1024, files: 1 },
@@ -30,38 +30,7 @@ function uploadAdImage(req, res, next) {
 
     if (!req.file) return next();
 
-    const extension = (path.extname(req.file.originalname || "").replace(".", "") || "jpg").toLowerCase();
-    const safeExtension = ["jpg", "jpeg", "png", "webp", "gif"].includes(extension) ? extension : "jpg";
-    const publicId = `ad-${Date.now()}-${crypto.randomBytes(4).toString("hex")}`;
-
-    const stream = cloudinary.uploader.upload_stream(
-      {
-        folder: "asd/ads",
-        resource_type: "image",
-        public_id: publicId,
-        format: safeExtension,
-        overwrite: false,
-        use_filename: false,
-        unique_filename: false,
-      },
-      (cloudinaryError, result) => {
-        if (cloudinaryError) {
-          console.error("Cloudinary ad image upload failed:", cloudinaryError.message);
-          return res.status(502).json({
-            status: 0,
-            message: "Image upload to Cloudinary failed. Check Cloudinary credentials and try again.",
-          });
-        }
-
-        req.file.path = result.secure_url;
-        req.file.filename = result.public_id;
-        req.file.cloudinaryPublicId = result.public_id;
-        req.file.cloudinaryUrl = result.secure_url;
-        next();
-      }
-    );
-
-    stream.end(req.file.buffer);
+    storage.saveImage('ads', req.file.buffer).then(result => { req.file.path=(process.env.PUBLIC_BACKEND_URL || "https://api.asdcargomate.com").replace(/\/$/, "")+result.url; req.file.filename=result.name; next(); }).catch(err => { console.error('Ad image upload:',err.message); res.status(400).json({status:0,message:'Unable to save valid image on server.'}); });
   });
 }
 

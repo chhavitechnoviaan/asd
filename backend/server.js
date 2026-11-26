@@ -840,12 +840,17 @@ app.post(
 app.use(express.json({ limit: "4mb" }));
 
 // UPLOADS
-const uploadsPath = path.join(__dirname, "uploads");
-
-console.log("UPLOADS DIRECTORY:", uploadsPath);
-
-app.use("/uploads", express.static(uploadsPath));
-app.use("/api/uploads", express.static(uploadsPath));
+const storage = require('./utils/storage');
+const uploadsPath = storage.root;
+storage.seedEmailAssets();
+console.log('UPLOADS DIRECTORY:', uploadsPath);
+// Preserve legacy URL contracts; prevent executable HTML/SVG uploads from rendering inline.
+const serveUploads = express.static(uploadsPath,{dotfiles:'deny',index:false,setHeaders(res,file){res.setHeader('X-Content-Type-Options','nosniff'); if(!/\.(png|jpe?g|webp|gif)$/i.test(file)) res.setHeader('Content-Disposition','attachment'); }});
+app.use(['/uploads/support-replies','/api/uploads/support-replies'], (_req,res)=>res.sendStatus(403));
+app.use('/uploads', serveUploads);
+app.use('/api/uploads', serveUploads);
+app.get('/api/email-assets/logo.png', (_req,res)=>res.sendFile(path.join(storage.directory('logos'),'email-logo.png')));
+app.get('/api/email-assets/accreditation.png', (_req,res)=>res.sendFile(path.join(storage.directory('logos'),'accreditation.png')));
 
 // BASIC AND AUTH ROUTES
 app.use("/api/test", require("./routes/testroutes"));
